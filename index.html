@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>수행아 사랑해</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffdde1, #ffe6f0);
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* 떠다니는 하트 배경 */
+  #heart-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .floating-heart {
+    position: absolute;
+    bottom: -10%;
+    font-size: 22px;
+    opacity: 0.75;
+    animation-name: floatUp;
+    animation-timing-function: ease-in;
+    will-change: transform, opacity;
+  }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0deg);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(-115vh) translateX(var(--drift, 0px)) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #counter {
+    font-size: 14px;
+    color: #b5546f;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  /* 사랑 게이지 */
+  #gauge-wrap {
+    width: 240px;
+    height: 14px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  #gauge-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff9eb5, #ff4d6d);
+    border-radius: 10px;
+    transition: width 0.35s ease;
+  }
+
+  #message {
+    font-size: 28px;
+    font-weight: bold;
+    color: #d6336c;
+    margin-bottom: 40px;
+    min-height: 80px;
+    width: 80%;
+    max-width: 600px;
+    line-height: 1.5;
+    transition: opacity 0.2s ease;
+  }
+
+  #message.special {
+    color: #c2185b;
+    font-size: 32px;
+    text-shadow: 0 0 12px rgba(255,105,135,0.5);
+  }
+
+  button {
+    padding: 18px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background: #ff6b81;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(255, 107, 129, 0.4);
+    transition: transform 0.15s ease, background 0.2s ease;
+  }
+
+  button:hover {
+    background: #ff4d6d;
+    transform: scale(1.05);
+  }
+
+  button:active {
+    transform: scale(0.96);
+  }
+
+  .fade {
+    opacity: 0;
+  }
+</style>
+</head>
+<body>
+
+<div id="heart-layer"></div>
+
+<div class="content">
+  <div id="counter">아직 고백 전이야</div>
+  <div id="gauge-wrap"><div id="gauge-fill"></div></div>
+  <div id="message">버튼을 눌러봐 💕</div>
+  <button onclick="showMessage()">눌러보기</button>
+</div>
+
+<script>
+  const messages = [
+    "수행아 사랑해",
+    "수행이 똥깨",
+    "수행아 장미보다 예뻐",
+    "수행아 내 마음속엔 항상 너뿐이야",
+    "수행아 너는 내 세상에서 제일 소중해",
+    "수행아 보고 싶어",
+    "수행아 너 없인 못 살아",
+    "수행아 너를 만난 건 내 인생 최고의 행운이야",
+    "수행아 오늘도 사랑해, 내일은 더 사랑할게",
+    "수행아 너의 웃는 모습이 세상에서 제일 좋아",
+    "수행아 넌 나의 봄, 여름, 가을, 겨울이야",
+    "수행아 매일매일 더 사랑하게 돼",
+    "수행아 너와 함께하는 모든 순간이 선물 같아",
+    "수행아 내 눈에는 네가 제일 예뻐",
+    "수행아 평생 네 옆에 있고 싶어",
+    "수행아 네 생각만 해도 웃음이 나",
+    "수행아 넌 나의 완벽한 우연이자 필연이야",
+    "수행아 사랑한다는 말로는 부족할 만큼 사랑해",
+    "수행이 밥오"
+   
+  ];
+
+  // 게이지가 가득 찰 때(10번째 고백마다) 나오는 특별 메시지
+  const milestoneMessages = {
+    10: "수행아, 벌써 열 번째 고백이야. 백 번이고 천 번이고 계속할게",
+    20: "수행아, 스무 번째 고백! 이 정도면 진심인 거 알지?",
+    30: "수행아, 서른 번째. 오늘도 어김없이 사랑해",
+    50: "수행아, 쉰 번째 고백! 넌 이제 못 벗어나, 완전히 사랑에 빠졌거든",
+    100: "수행아, 백 번째 고백이야. 세상에서 제일 소중한 내 사람, 사랑해"
+  };
+
+  let lastIndex = -1;
+  let clickCount = 0;
+  const el = document.getElementById('message');
+  const counterEl = document.getElementById('counter');
+  const gaugeFill = document.getElementById('gauge-fill');
+
+  function showMessage() {
+    clickCount++;
+
+    // 카운터 텍스트
+    counterEl.textContent = clickCount + '번째 사랑 고백';
+
+    // 게이지: 10번마다 가득 채우고 리셋
+    const gaugeStep = ((clickCount - 1) % 10) + 1;
+    gaugeFill.style.width = (gaugeStep * 10) + '%';
+
+    const isMilestone = milestoneMessages[clickCount] !== undefined;
+
+    let text;
+    if (isMilestone) {
+      text = milestoneMessages[clickCount];
+    } else {
+      let index;
+      do {
+        index = Math.floor(Math.random() * messages.length);
+      } while (index === lastIndex && messages.length > 1);
+      lastIndex = index;
+      text = messages[index];
+    }
+
+    el.classList.add('fade');
+    setTimeout(() => {
+      el.textContent = text;
+      el.classList.toggle('special', isMilestone);
+      el.classList.remove('fade');
+      if (isMilestone) {
+        gaugeFill.style.width = '100%';
+        burstHearts(18);
+      }
+    }, 150);
+
+    burstHearts(4);
+  }
+
+  // 떠다니는 하트 배경 (자동 생성)
+  const heartLayer = document.getElementById('heart-layer');
+  const heartEmojis = ['💗', '💕', '💖', '❤️', '🌹'];
+
+  function spawnHeart() {
+    const heart = document.createElement('span');
+    heart.className = 'floating-heart';
+    heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    const left = Math.random() * 100;
+    const drift = (Math.random() * 120 - 60) + 'px';
+    const duration = 6 + Math.random() * 5;
+    const size = 16 + Math.random() * 18;
+
+    heart.style.left = left + 'vw';
+    heart.style.fontSize = size + 'px';
+    heart.style.setProperty('--drift', drift);
+    heart.style.animationDuration = duration + 's';
+
+    heartLayer.appendChild(heart);
+    setTimeout(() => heart.remove(), duration * 1000);
+  }
+
+  // 클릭 시 순간적으로 여러 개 하트를 터뜨림
+  function burstHearts(count) {
+    for (let i = 0; i < count; i++) {
+      setTimeout(spawnHeart, i * 60);
+    }
+  }
+
+  // 배경에서 은은하게 계속 하트가 떠다니도록
+  setInterval(spawnHeart, 900);
+  spawnHeart();
+</script>
+
+</body>
+</html>
