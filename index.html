@@ -6,6 +6,38 @@
 <style>
   * { box-sizing: border-box; }
 
+  :root {
+    --bg-start: #ffdde1;
+    --bg-end: #ffe6f0;
+    --counter-color: #b5546f;
+    --gauge-bg: rgba(255,255,255,0.6);
+    --gauge-fill-start: #ff9eb5;
+    --gauge-fill-end: #ff4d6d;
+    --message-color: #d6336c;
+    --message-special-color: #c2185b;
+    --button-bg: #ff6b81;
+    --button-bg-hover: #ff4d6d;
+    --button-text: #ffffff;
+    --toggle-bg: rgba(255,255,255,0.7);
+    --toggle-text: #d6336c;
+  }
+
+  html[data-theme="dark"] {
+    --bg-start: #241726;
+    --bg-end: #150d1c;
+    --counter-color: #d99cb3;
+    --gauge-bg: rgba(255,255,255,0.15);
+    --gauge-fill-start: #ff6b9d;
+    --gauge-fill-end: #d6336c;
+    --message-color: #ff8fab;
+    --message-special-color: #ff6b9d;
+    --button-bg: #d6336c;
+    --button-bg-hover: #ff4d6d;
+    --button-text: #ffffff;
+    --toggle-bg: rgba(255,255,255,0.12);
+    --toggle-text: #ff8fab;
+  }
+
   body {
     margin: 0;
     height: 100vh;
@@ -13,11 +45,35 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #ffdde1, #ffe6f0);
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
     font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
     text-align: center;
     overflow: hidden;
     position: relative;
+    transition: background 0.3s ease;
+  }
+
+  #theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    font-size: 20px;
+    font-weight: normal;
+    color: var(--toggle-text);
+    background: var(--toggle-bg);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.15s ease;
+  }
+
+  #theme-toggle:hover {
+    transform: scale(1.08);
   }
 
   /* 떠다니는 하트 배경 */
@@ -60,7 +116,7 @@
 
   #counter {
     font-size: 14px;
-    color: #b5546f;
+    color: var(--counter-color);
     margin-bottom: 10px;
     letter-spacing: 0.5px;
   }
@@ -69,7 +125,7 @@
   #gauge-wrap {
     width: 240px;
     height: 14px;
-    background: rgba(255,255,255,0.6);
+    background: var(--gauge-bg);
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 24px;
@@ -79,7 +135,7 @@
   #gauge-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #ff9eb5, #ff4d6d);
+    background: linear-gradient(90deg, var(--gauge-fill-start), var(--gauge-fill-end));
     border-radius: 10px;
     transition: width 0.35s ease;
   }
@@ -87,27 +143,27 @@
   #message {
     font-size: 28px;
     font-weight: bold;
-    color: #d6336c;
+    color: var(--message-color);
     margin-bottom: 40px;
     min-height: 80px;
     width: 80%;
     max-width: 600px;
     line-height: 1.5;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, color 0.3s ease;
   }
 
   #message.special {
-    color: #c2185b;
+    color: var(--message-special-color);
     font-size: 32px;
     text-shadow: 0 0 12px rgba(255,105,135,0.5);
   }
 
-  button {
+  button:not(#theme-toggle) {
     padding: 18px 40px;
     font-size: 20px;
     font-weight: bold;
-    color: white;
-    background: #ff6b81;
+    color: var(--button-text);
+    background: var(--button-bg);
     border: none;
     border-radius: 40px;
     cursor: pointer;
@@ -115,12 +171,12 @@
     transition: transform 0.15s ease, background 0.2s ease;
   }
 
-  button:hover {
-    background: #ff4d6d;
+  button:not(#theme-toggle):hover {
+    background: var(--button-bg-hover);
     transform: scale(1.05);
   }
 
-  button:active {
+  button:not(#theme-toggle):active {
     transform: scale(0.96);
   }
 
@@ -132,6 +188,8 @@
 <body>
 
 <div id="heart-layer"></div>
+
+<button id="theme-toggle" onclick="toggleTheme()" aria-label="다크모드 전환">🌙</button>
 
 <div class="content">
   <div id="counter">아직 고백 전이야</div>
@@ -172,6 +230,26 @@
     50: "수행아, 쉰 번째 고백! 넌 이제 못 벗어나, 완전히 사랑에 빠졌거든",
     100: "수행아, 백 번째 고백이야. 세상에서 제일 소중한 내 사람, 사랑해"
   };
+
+  // 다크모드 / 화이트모드
+  const themeToggleBtn = document.getElementById('theme-toggle');
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('theme', theme);
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  (function initTheme() {
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+  })();
 
   let lastIndex = -1;
   let clickCount = 0;
