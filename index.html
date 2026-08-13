@@ -2,19 +2,23 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>수행아 사랑해</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>나의 사주 & 오늘의 운세</title>
 <style>
   * { box-sizing: border-box; }
 
   :root {
-    --bg-start: #ffdde1;
-    --bg-end: #ffe6f0;
-    --counter-color: #b5546f;
-    --gauge-bg: rgba(255,255,255,0.6);
-    --gauge-fill-start: #ff9eb5;
-    --gauge-fill-end: #ff4d6d;
-    --message-color: #d6336c;
-    --message-special-color: #c2185b;
+    --bg-start: #ffe4ec;
+    --bg-end: #f3e6ff;
+    --accent: #b5546f;
+    --card-bg: rgba(255,255,255,0.75);
+    --card-shadow: rgba(181, 84, 111, 0.2);
+    --title-color: #d6336c;
+    --subtitle-color: #8a6b7a;
+    --select-bg: #fff9fa;
+    --select-border: #eec9d3;
+    --result-title-color: #c2185b;
+    --result-text-color: #5a3f47;
     --button-bg: #ff6b81;
     --button-bg-hover: #ff4d6d;
     --button-text: #ffffff;
@@ -24,13 +28,16 @@
 
   html[data-theme="dark"] {
     --bg-start: #241726;
-    --bg-end: #150d1c;
-    --counter-color: #d99cb3;
-    --gauge-bg: rgba(255,255,255,0.15);
-    --gauge-fill-start: #ff6b9d;
-    --gauge-fill-end: #d6336c;
-    --message-color: #ff8fab;
-    --message-special-color: #ff6b9d;
+    --bg-end: #180f22;
+    --accent: #d99cb3;
+    --card-bg: rgba(40, 26, 46, 0.75);
+    --card-shadow: rgba(0, 0, 0, 0.35);
+    --title-color: #ff8fab;
+    --subtitle-color: #c9a7b8;
+    --select-bg: #2c1c30;
+    --select-border: #4a3450;
+    --result-title-color: #ff8fab;
+    --result-text-color: #ecd9e2;
     --button-bg: #d6336c;
     --button-bg-hover: #ff4d6d;
     --button-text: #ffffff;
@@ -40,7 +47,7 @@
 
   body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,8 +55,8 @@
     background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
     font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
     text-align: center;
-    overflow: hidden;
     position: relative;
+    padding: 90px 16px 50px;
     transition: background 0.3s ease;
   }
 
@@ -96,8 +103,8 @@
     transform: scale(1.05);
   }
 
-  /* 떠다니는 하트 배경 */
-  #heart-layer {
+  /* 떠다니는 배경 */
+  #star-layer {
     position: fixed;
     inset: 0;
     pointer-events: none;
@@ -105,7 +112,7 @@
     z-index: 0;
   }
 
-  .floating-heart {
+  .floating-star {
     position: absolute;
     bottom: -10%;
     font-size: 22px;
@@ -132,126 +139,173 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    max-width: 480px;
   }
 
-  #counter {
+  h1 {
+    font-size: 26px;
+    color: var(--title-color);
+    margin: 0 0 8px;
+  }
+
+  .subtitle {
     font-size: 14px;
-    color: var(--counter-color);
-    margin-bottom: 10px;
-    letter-spacing: 0.5px;
+    color: var(--subtitle-color);
+    margin: 0 0 28px;
   }
 
-  /* 사랑 게이지 */
-  #gauge-wrap {
-    width: 240px;
-    height: 14px;
-    background: var(--gauge-bg);
+  .date-picker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+  }
+
+  .date-field {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  select {
+    padding: 10px 8px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--result-text-color);
+    background: var(--select-bg);
+    border: 1px solid var(--select-border);
     border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 24px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
   }
 
-  #gauge-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--gauge-fill-start), var(--gauge-fill-end));
-    border-radius: 10px;
-    transition: width 0.35s ease;
+  select:focus {
+    outline: none;
+    border-color: var(--button-bg);
   }
 
-  #message {
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--message-color);
-    margin-bottom: 40px;
-    min-height: 80px;
-    width: 80%;
-    max-width: 600px;
-    line-height: 1.5;
-    transition: opacity 0.2s ease, color 0.3s ease;
+  .date-field span {
+    font-size: 14px;
+    color: var(--subtitle-color);
   }
 
-  #message.special {
-    color: var(--message-special-color);
-    font-size: 32px;
-    text-shadow: 0 0 12px rgba(255,105,135,0.5);
+  .button-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 28px;
   }
 
-  button:not(#theme-toggle) {
-    padding: 18px 40px;
-    font-size: 20px;
+  button.action-btn {
+    padding: 14px 26px;
+    font-size: 16px;
     font-weight: bold;
     color: var(--button-text);
     background: var(--button-bg);
     border: none;
     border-radius: 40px;
     cursor: pointer;
-    box-shadow: 0 6px 15px rgba(255, 107, 129, 0.4);
+    box-shadow: 0 6px 15px rgba(255, 107, 129, 0.35);
     transition: transform 0.15s ease, background 0.2s ease;
   }
 
-  button:not(#theme-toggle):hover {
+  button.action-btn:hover {
     background: var(--button-bg-hover);
     transform: scale(1.05);
   }
 
-  button:not(#theme-toggle):active {
+  button.action-btn:active {
     transform: scale(0.96);
   }
 
-  .fade {
+  #result-card {
+    width: 100%;
+    background: var(--card-bg);
+    border-radius: 18px;
+    padding: 26px 24px;
+    box-shadow: 0 10px 30px var(--card-shadow);
+    backdrop-filter: blur(4px);
+    transition: opacity 0.25s ease;
+  }
+
+  #result-card.hidden-card {
+    display: none;
+  }
+
+  #result-card.fade {
     opacity: 0;
+  }
+
+  #zodiac-line {
+    font-size: 15px;
+    color: var(--subtitle-color);
+    margin-bottom: 10px;
+  }
+
+  #result-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--result-title-color);
+    margin-bottom: 14px;
+  }
+
+  #result-text {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--result-text-color);
+    white-space: pre-line;
+    text-align: left;
+  }
+
+  #result-text .fortune-row {
+    margin-bottom: 8px;
+  }
+
+  #result-text .fortune-label {
+    font-weight: bold;
+    color: var(--result-title-color);
   }
 </style>
 </head>
 <body>
 
-<div id="heart-layer"></div>
+<div id="star-layer"></div>
 
 <button id="theme-toggle" onclick="toggleTheme()" aria-label="다크모드 전환">🌙</button>
 <a id="partnership-link" href="partnership.html">제휴 문의</a>
 
 <div class="content">
-  <div id="counter">아직 고백 전이야</div>
-  <div id="gauge-wrap"><div id="gauge-fill"></div></div>
-  <div id="message">버튼을 눌러봐 💕</div>
-  <button onclick="showMessage()">눌러보기</button>
+  <h1>나의 사주 & 오늘의 운세 🔮</h1>
+  <p class="subtitle">생년월일을 선택하고 궁금한 운세를 확인해보세요</p>
+
+  <div class="date-picker">
+    <div class="date-field">
+      <select id="year"></select><span>년</span>
+    </div>
+    <div class="date-field">
+      <select id="month"></select><span>월</span>
+    </div>
+    <div class="date-field">
+      <select id="day"></select><span>일</span>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button class="action-btn" onclick="showSaju()">사주 보기</button>
+    <button class="action-btn" onclick="showToday()">오늘의 운세 보기</button>
+  </div>
+
+  <div id="result-card" class="hidden-card">
+    <div id="zodiac-line"></div>
+    <div id="result-title"></div>
+    <div id="result-text"></div>
+  </div>
 </div>
 
 <script>
-  const messages = [
-    "수행아 사랑해",
-    "수행이 똥깨",
-    "수행아 장미보다 예뻐",
-    "수행아 내 마음속엔 항상 너뿐이야",
-    "수행아 너는 내 세상에서 제일 소중해",
-    "수행아 보고 싶어",
-    "수행아 너 없인 못 살아",
-    "수행아 너를 만난 건 내 인생 최고의 행운이야",
-    "수행아 오늘도 사랑해, 내일은 더 사랑할게",
-    "수행아 너의 웃는 모습이 세상에서 제일 좋아",
-    "수행아 넌 나의 봄, 여름, 가을, 겨울이야",
-    "수행아 매일매일 더 사랑하게 돼",
-    "수행아 너와 함께하는 모든 순간이 선물 같아",
-    "수행아 내 눈에는 네가 제일 예뻐",
-    "수행아 평생 네 옆에 있고 싶어",
-    "수행아 네 생각만 해도 웃음이 나",
-    "수행아 넌 나의 완벽한 우연이자 필연이야",
-    "수행아 사랑한다는 말로는 부족할 만큼 사랑해",
-    "수행이 밥오"
-   
-  ];
-
-  // 게이지가 가득 찰 때(10번째 고백마다) 나오는 특별 메시지
-  const milestoneMessages = {
-    10: "수행아, 벌써 열 번째 고백이야. 백 번이고 천 번이고 계속할게",
-    20: "수행아, 스무 번째 고백! 이 정도면 진심인 거 알지?",
-    30: "수행아, 서른 번째. 오늘도 어김없이 사랑해",
-    50: "수행아, 쉰 번째 고백! 넌 이제 못 벗어나, 완전히 사랑에 빠졌거든",
-    100: "수행아, 백 번째 고백이야. 세상에서 제일 소중한 내 사람, 사랑해"
-  };
-
   // 다크모드 / 화이트모드
   const themeToggleBtn = document.getElementById('theme-toggle');
 
@@ -272,82 +326,262 @@
     applyTheme(saved || (prefersDark ? 'dark' : 'light'));
   })();
 
-  let lastIndex = -1;
-  let clickCount = 0;
-  const el = document.getElementById('message');
-  const counterEl = document.getElementById('counter');
-  const gaugeFill = document.getElementById('gauge-fill');
+  // 생년월일 선택 드롭다운 구성
+  const yearSelect = document.getElementById('year');
+  const monthSelect = document.getElementById('month');
+  const daySelect = document.getElementById('day');
+  const resultCard = document.getElementById('result-card');
+  const zodiacLine = document.getElementById('zodiac-line');
+  const resultTitle = document.getElementById('result-title');
+  const resultText = document.getElementById('result-text');
 
-  function showMessage() {
-    clickCount++;
+  const currentYear = new Date().getFullYear();
 
-    // 카운터 텍스트
-    counterEl.textContent = clickCount + '번째 사랑 고백';
+  function fillSelect(select, start, end, placeholder) {
+    const placeholderOption = document.createElement('option');
+    placeholderOption.value = '';
+    placeholderOption.textContent = placeholder;
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    select.appendChild(placeholderOption);
 
-    // 게이지: 10번마다 가득 채우고 리셋
-    const gaugeStep = ((clickCount - 1) % 10) + 1;
-    gaugeFill.style.width = (gaugeStep * 10) + '%';
-
-    const isMilestone = milestoneMessages[clickCount] !== undefined;
-
-    let text;
-    if (isMilestone) {
-      text = milestoneMessages[clickCount];
-    } else {
-      let index;
-      do {
-        index = Math.floor(Math.random() * messages.length);
-      } while (index === lastIndex && messages.length > 1);
-      lastIndex = index;
-      text = messages[index];
+    for (let v = start; v <= end; v++) {
+      const option = document.createElement('option');
+      option.value = v;
+      option.textContent = v;
+      select.appendChild(option);
     }
-
-    el.classList.add('fade');
-    setTimeout(() => {
-      el.textContent = text;
-      el.classList.toggle('special', isMilestone);
-      el.classList.remove('fade');
-      if (isMilestone) {
-        gaugeFill.style.width = '100%';
-        burstHearts(18);
-      }
-    }, 150);
-
-    burstHearts(4);
   }
 
-  // 떠다니는 하트 배경 (자동 생성)
-  const heartLayer = document.getElementById('heart-layer');
-  const heartEmojis = ['💗', '💕', '💖', '❤️', '🌹'];
+  fillSelect(yearSelect, currentYear - 99, currentYear, '년');
+  yearSelect.value = '';
+  fillSelect(monthSelect, 1, 12, '월');
+  fillSelect(daySelect, 1, 31, '일');
 
-  function spawnHeart() {
-    const heart = document.createElement('span');
-    heart.className = 'floating-heart';
-    heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+  function daysInMonth(year, month) {
+    return new Date(year, month, 0).getDate();
+  }
+
+  function refreshDayOptions() {
+    const year = parseInt(yearSelect.value, 10);
+    const month = parseInt(monthSelect.value, 10);
+    const maxDay = (year && month) ? daysInMonth(year, month) : 31;
+    const currentDay = parseInt(daySelect.value, 10);
+
+    daySelect.innerHTML = '';
+    fillSelect(daySelect, 1, maxDay, '일');
+
+    if (currentDay && currentDay <= maxDay) {
+      daySelect.value = currentDay;
+    }
+  }
+
+  yearSelect.addEventListener('change', refreshDayOptions);
+  monthSelect.addEventListener('change', refreshDayOptions);
+
+  // 간단한 문자열 해시 (같은 입력이면 항상 같은 결과)
+  function hashCode(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+    }
+    return hash;
+  }
+
+  function pick(arr, seed) {
+    return arr[seed % arr.length];
+  }
+
+  function getSelectedDate() {
+    const year = parseInt(yearSelect.value, 10);
+    const month = parseInt(monthSelect.value, 10);
+    const day = parseInt(daySelect.value, 10);
+    if (!year || !month || !day) return null;
+    return { year, month, day };
+  }
+
+  const zodiacAnimals = [
+    { name: '쥐', emoji: '🐭' },
+    { name: '소', emoji: '🐮' },
+    { name: '호랑이', emoji: '🐯' },
+    { name: '토끼', emoji: '🐰' },
+    { name: '용', emoji: '🐲' },
+    { name: '뱀', emoji: '🐍' },
+    { name: '말', emoji: '🐴' },
+    { name: '양', emoji: '🐑' },
+    { name: '원숭이', emoji: '🐵' },
+    { name: '닭', emoji: '🐔' },
+    { name: '개', emoji: '🐶' },
+    { name: '돼지', emoji: '🐷' }
+  ];
+
+  function getZodiac(year) {
+    const idx = ((year - 4) % 12 + 12) % 12;
+    return zodiacAnimals[idx];
+  }
+
+  const sajuMessages = [
+    "밝은 에너지로 주변 사람들에게 힘을 주는 사주예요. 타고난 리더십이 곧 빛을 발할 시기가 옵니다.",
+    "차분하고 신중한 성향이 강해서, 큰 결정 앞에서 늘 좋은 선택을 하는 사주네요.",
+    "감수성이 풍부하고 사람을 잘 챙겨서, 곁에 있는 사람들이 자연스럽게 의지하게 되는 사주예요.",
+    "한번 마음먹은 일은 끝까지 해내는 뚝심이 있어, 꾸준함이 결국 큰 성과로 이어지는 사주입니다.",
+    "호기심이 많고 새로운 것에 대한 도전을 두려워하지 않아, 다양한 경험이 인생의 자산이 되는 사주예요.",
+    "균형 감각이 뛰어나서 어떤 상황에서도 중심을 잃지 않는, 믿음직한 사주를 갖고 있어요.",
+    "직관력이 뛰어나서 중요한 순간마다 좋은 선택을 하는, 운이 스스로 따라오는 사주입니다.",
+    "다정하고 배려심이 깊어서, 인간관계에서 늘 좋은 평판을 얻는 사주예요.",
+    "창의적인 아이디어가 넘치고 표현력이 좋아서, 자신만의 색깔로 성공을 만드는 사주입니다.",
+    "책임감이 강하고 성실해서, 맡은 일은 반드시 해내는 신뢰받는 사주예요.",
+    "유연한 사고와 적응력이 뛰어나서, 어떤 환경에서도 잘 풀려나가는 사주입니다.",
+    "속은 단단하지만 겉으로는 여유로워서, 위기 속에서도 침착함을 잃지 않는 사주예요.",
+    "사람을 끌어당기는 매력이 있어서, 자연스럽게 좋은 인연이 모이는 사주입니다.",
+    "분석력과 계획성이 뛰어나서, 하나씩 차근차근 목표를 이뤄가는 사주예요.",
+    "정의감이 강하고 솔직해서, 주변에서 늘 믿고 따르는 사주를 갖고 있어요.",
+    "긍정적인 에너지가 넘쳐서, 힘든 순간에도 결국 웃으며 이겨내는 사주입니다.",
+    "섬세하고 예술적인 감각이 뛰어나서, 자신만의 개성으로 인정받는 사주예요.",
+    "결단력이 빠르고 추진력이 강해서, 기회가 왔을 때 놓치지 않는 사주입니다.",
+    "온화하고 포용력이 넓어서, 갈등 속에서도 중재자 역할을 잘 해내는 사주예요.",
+    "끈기와 근성이 남달라서, 늦게 피어도 크게 피는 대기만성형 사주입니다."
+  ];
+
+  const todayFortune = {
+    총운: [
+      "전체적으로 안정적인 흐름이 이어지는 하루예요. 평소 하던 대로만 해도 무난하게 풀립니다.",
+      "작은 행운이 여러 번 찾아오는 날이에요. 주변을 조금만 더 관찰해보세요.",
+      "생각보다 일이 술술 풀리는 하루! 자신감을 가지고 움직여보세요.",
+      "다소 예상 밖의 변수가 생길 수 있지만, 유연하게 대처하면 오히려 득이 됩니다.",
+      "차분히 계획한 대로 진행하면 좋은 결과를 얻는 하루예요.",
+      "새로운 제안이나 소식이 들어올 수 있으니 열린 마음으로 받아들여보세요.",
+      "평소보다 집중력이 좋아지는 날이라, 미뤄둔 일을 처리하기 좋아요.",
+      "사람들과의 관계에서 좋은 기운이 감도는 하루예요.",
+      "무리한 욕심보다는 여유를 갖는 게 더 좋은 흐름을 만드는 날입니다.",
+      "작은 실수에 크게 연연하지 마세요, 전체적인 흐름은 나쁘지 않습니다.",
+      "휴식이 필요한 신호가 오는 날이에요. 잠깐의 여유가 오히려 도움이 됩니다.",
+      "예상치 못한 좋은 소식이 들려올 수 있는 하루예요."
+    ],
+    애정운: [
+      "솔직한 마음을 표현하면 관계가 한층 더 가까워지는 날이에요.",
+      "상대방의 작은 배려에 마음이 따뜻해지는 순간이 찾아올 수 있어요.",
+      "괜한 오해가 생기기 쉬우니, 대화로 풀어가는 게 중요한 하루예요.",
+      "솔로라면 우연한 만남이 좋은 인연으로 이어질 수 있는 날입니다.",
+      "커플이라면 함께하는 시간이 관계를 더 단단하게 만들어줘요.",
+      "먼저 다가가는 용기가 좋은 결과로 돌아오는 하루예요.",
+      "감정 표현에 서툴러도 진심은 통하는 날이니 편하게 말해보세요.",
+      "작은 이벤트나 선물이 관계에 큰 활력을 불어넣어줄 수 있어요.",
+      "혼자만의 시간을 즐기는 것도 좋은 재충전이 되는 하루예요.",
+      "상대의 이야기를 조금 더 귀 기울여 들어보면 좋은 하루가 될 거예요.",
+      "새로운 인연의 기운이 스며드는 날이니 주변을 둘러보세요.",
+      "질투나 조바심보다는 여유로운 마음이 관계에 도움이 되는 날입니다."
+    ],
+    금전운: [
+      "계획적인 소비를 하면 여유가 생기는 하루예요.",
+      "예상치 못한 지출이 생길 수 있으니 큰 결제는 한 번 더 고민해보세요.",
+      "작은 부수입이나 좋은 소식이 들어올 가능성이 있는 날입니다.",
+      "충동구매보다는 필요한 것 위주로 소비하면 만족도가 높아져요.",
+      "투자나 큰 결정은 조금 더 신중하게 접근하는 게 좋은 하루예요.",
+      "재정 계획을 다시 점검해보기 좋은 타이밍이에요.",
+      "절약한 만큼 나중에 큰 보탬이 되는 흐름이 이어지고 있어요.",
+      "주변 사람과의 금전 거래는 명확히 하고 넘어가는 게 좋은 날입니다.",
+      "생각지 못한 곳에서 이득이 생길 수 있는 기분 좋은 하루예요.",
+      "무리한 지출보다는 저축에 집중하면 좋은 흐름이 만들어져요.",
+      "오늘은 돈보다 시간과 에너지 관리에 더 신경 쓰면 좋아요.",
+      "작은 것부터 아껴가는 습관이 좋은 결과로 이어지는 날입니다."
+    ],
+    건강운: [
+      "컨디션이 전반적으로 양호한 하루예요, 무리만 하지 않으면 좋습니다.",
+      "가벼운 스트레칭이나 산책이 컨디션을 한층 끌어올려줘요.",
+      "수면이 부족하지 않도록 신경 쓰면 하루가 훨씬 가벼워질 거예요.",
+      "소화가 더딜 수 있으니 과식은 피하는 게 좋은 날입니다.",
+      "마음의 여유가 곧 몸의 건강으로 이어지는 하루예요.",
+      "평소보다 활력이 넘치는 날이라 가벼운 운동을 시작하기 좋아요.",
+      "눈과 어깨 피로가 쌓이기 쉬우니 중간중간 휴식을 취해주세요.",
+      "따뜻한 물 한 잔이 컨디션 관리에 도움이 되는 하루예요.",
+      "감정 기복이 몸 컨디션에 영향을 줄 수 있으니 마음을 편하게 가지세요.",
+      "무리한 일정보다는 페이스 조절이 필요한 하루입니다.",
+      "가벼운 두통이나 피로감이 있을 수 있으니 충분한 휴식을 취하세요.",
+      "몸이 보내는 신호에 조금 더 귀 기울이면 좋은 하루가 될 거예요."
+    ]
+  };
+
+  function showResult(zodiacHtml, title, bodyHtml) {
+    resultCard.classList.remove('hidden-card');
+    resultCard.classList.add('fade');
+    setTimeout(() => {
+      zodiacLine.innerHTML = zodiacHtml;
+      resultTitle.textContent = title;
+      resultText.innerHTML = bodyHtml;
+      resultCard.classList.remove('fade');
+    }, 150);
+  }
+
+  function showSaju() {
+    const date = getSelectedDate();
+    if (!date) {
+      showResult('', '생년월일을 선택해주세요', '년 / 월 / 일을 모두 선택한 뒤 다시 눌러주세요 🙏');
+      return;
+    }
+
+    const zodiac = getZodiac(date.year);
+    const seed = hashCode(`${date.year}-${date.month}-${date.day}`);
+    const message = pick(sajuMessages, seed);
+
+    showResult(
+      `${zodiac.emoji} ${date.year}년생 · ${zodiac.name}띠`,
+      '나의 사주',
+      message
+    );
+  }
+
+  function showToday() {
+    const date = getSelectedDate();
+    if (!date) {
+      showResult('', '생년월일을 선택해주세요', '년 / 월 / 일을 모두 선택한 뒤 다시 눌러주세요 🙏');
+      return;
+    }
+
+    const zodiac = getZodiac(date.year);
+    const today = new Date();
+    const todayStr = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    const baseSeed = hashCode(`${date.year}-${date.month}-${date.day}-${todayStr}`);
+
+    const categories = ['총운', '애정운', '금전운', '건강운'];
+    let bodyHtml = '';
+    categories.forEach((cat, i) => {
+      const seed = baseSeed + i * 97;
+      const line = pick(todayFortune[cat], seed);
+      bodyHtml += `<div class="fortune-row"><span class="fortune-label">${cat}</span> ${line}</div>`;
+    });
+
+    showResult(
+      `${zodiac.emoji} ${date.year}년생 · ${zodiac.name}띠 · ${today.getMonth() + 1}월 ${today.getDate()}일 운세`,
+      '오늘의 운세',
+      bodyHtml
+    );
+  }
+
+  // 떠다니는 배경 (자동 생성)
+  const starLayer = document.getElementById('star-layer');
+  const starEmojis = ['🔮', '✨', '🌙', '⭐', '🌟'];
+
+  function spawnStar() {
+    const star = document.createElement('span');
+    star.className = 'floating-star';
+    star.textContent = starEmojis[Math.floor(Math.random() * starEmojis.length)];
     const left = Math.random() * 100;
     const drift = (Math.random() * 120 - 60) + 'px';
     const duration = 6 + Math.random() * 5;
     const size = 16 + Math.random() * 18;
 
-    heart.style.left = left + 'vw';
-    heart.style.fontSize = size + 'px';
-    heart.style.setProperty('--drift', drift);
-    heart.style.animationDuration = duration + 's';
+    star.style.left = left + 'vw';
+    star.style.fontSize = size + 'px';
+    star.style.setProperty('--drift', drift);
+    star.style.animationDuration = duration + 's';
 
-    heartLayer.appendChild(heart);
-    setTimeout(() => heart.remove(), duration * 1000);
+    starLayer.appendChild(star);
+    setTimeout(() => star.remove(), duration * 1000);
   }
 
-  // 클릭 시 순간적으로 여러 개 하트를 터뜨림
-  function burstHearts(count) {
-    for (let i = 0; i < count; i++) {
-      setTimeout(spawnHeart, i * 60);
-    }
-  }
-
-  // 배경에서 은은하게 계속 하트가 떠다니도록
-  setInterval(spawnHeart, 900);
-  spawnHeart();
+  setInterval(spawnStar, 900);
+  spawnStar();
 </script>
 
 </body>
