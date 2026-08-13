@@ -1,6 +1,8 @@
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ELEMENT_ICON_SRC } from './ElementBadge';
+import ShareCardWatermark from './ShareCardWatermark';
+import ShareCardFooter from './ShareCardFooter';
 
 export const ELEMENT_GRADIENT = {
   Wood: ['#1c3a24', '#4caf50'],
@@ -12,6 +14,8 @@ export const ELEMENT_GRADIENT = {
 
 export const SITE_URL = 'product-builder-lecture-cgp.pages.dev';
 
+const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
+
 const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, comebackLine }, ref) {
   const { t } = useTranslation();
   const [from, to] = ELEMENT_GRADIENT[element];
@@ -22,52 +26,62 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
       style={{
         width: 360,
         height: 640,
+        position: 'relative',
+        overflow: 'hidden',
         background: `linear-gradient(160deg, ${from}, ${to})`,
         color: '#ffffff',
-        fontFamily: "'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif",
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '36px 28px',
+        fontFamily: CARD_FONT,
         boxSizing: 'border-box',
         textAlign: 'center',
       }}
     >
-      <div style={{ fontSize: 14, letterSpacing: 2, opacity: 0.85, textTransform: 'uppercase' }}>
-        {t('app.name')}
-      </div>
+      <ShareCardWatermark element={element} />
 
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-        <img
-          src={ELEMENT_ICON_SRC[element]}
-          alt=""
-          style={{
-            width: 96,
-            height: 96,
-            borderRadius: '50%',
-            background: 'rgba(255,255,255,0.15)',
-            border: '2px solid rgba(255,255,255,0.6)',
-            objectFit: 'cover',
-          }}
-        />
-        <div style={{ fontSize: 30, fontWeight: 800 }}>{t(`elements.${element}`)}</div>
-        <div style={{ fontSize: 14, opacity: 0.85 }}>
-          {t('result.zodiacLabel')}: {zodiac}
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '36px 28px',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div style={{ fontSize: 14, letterSpacing: 2, opacity: 0.85, textTransform: 'uppercase' }}>
+          {t('app.name')}
         </div>
 
-        <p style={{ fontSize: 15, lineHeight: 1.6, margin: '10px 0 0', maxWidth: 280 }}>
-          {overallLine}
-        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+          <img
+            src={ELEMENT_ICON_SRC[element]}
+            alt=""
+            style={{
+              width: 96,
+              height: 96,
+              borderRadius: '50%',
+              background: 'rgba(255,255,255,0.15)',
+              border: '2px solid rgba(255,255,255,0.6)',
+              objectFit: 'cover',
+            }}
+          />
+          <div style={{ fontSize: 30, fontWeight: 800 }}>{t(`elements.${element}`)}</div>
+          <div style={{ fontSize: 14, opacity: 0.85 }}>
+            {t('result.zodiacLabel')}: {zodiac}
+          </div>
 
-        <p style={{ fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 280, opacity: 0.9 }}>
-          ✨ {comebackLine}
-        </p>
-      </div>
+          <p style={{ fontSize: 15, lineHeight: 1.6, margin: '10px 0 0', maxWidth: 280 }}>
+            {overallLine}
+          </p>
 
-      <div>
-        <div style={{ fontSize: 12, opacity: 0.75 }}>{t('result.shareCardFooter')}</div>
-        <div style={{ fontSize: 13, fontWeight: 700, marginTop: 4, letterSpacing: 0.5 }}>{SITE_URL}</div>
+          <p style={{ fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 280, opacity: 0.9 }}>
+            ✨ {comebackLine}
+          </p>
+        </div>
+
+        <ShareCardFooter />
       </div>
     </div>
   );

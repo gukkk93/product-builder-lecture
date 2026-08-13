@@ -109,7 +109,7 @@ export default function IdolMatch() {
         {member && idolSaju && (
           <div className="card" style={{ marginTop: 24 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <MemberAvatar name={member.name} size={48} />
+              <MemberAvatar element={idolSaju.dominantElement} size={48} />
               <div style={{ textAlign: 'left' }}>
                 <strong style={{ fontSize: 16 }}>{member.name}</strong>
                 <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
