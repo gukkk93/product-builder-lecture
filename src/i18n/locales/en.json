@@ -1,0 +1,95 @@
+{
+  "app": {
+    "name": "Ohaeng",
+    "tagline": "Korean fortune-telling, made for K-pop hearts"
+  },
+  "nav": {
+    "themeToggleLabel": "Toggle dark mode",
+    "partnership": "Partner with us"
+  },
+  "landing": {
+    "title": "Ohaeng 🔮",
+    "subtitle": "Discover your Five Element energy — the Korean fortune system behind saju — and see what today holds for you.",
+    "calendarLabel": "Calendar",
+    "calendarSolar": "Solar",
+    "calendarLunar": "Lunar",
+    "dateLabel": "Birth date",
+    "monthPlaceholder": "Month",
+    "dayPlaceholder": "Day",
+    "yearPlaceholder": "Year",
+    "timeLabel": "Birth time",
+    "timeUnknown": "I don't know my birth time",
+    "hourPlaceholder": "Time",
+    "submit": "Reveal my saju",
+    "errorIncomplete": "Please select your full birth date first.",
+    "months": [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ],
+    "hours": [
+      "11:00 PM – 12:59 AM (Rat hour)",
+      "1:00 AM – 2:59 AM (Ox hour)",
+      "3:00 AM – 4:59 AM (Tiger hour)",
+      "5:00 AM – 6:59 AM (Rabbit hour)",
+      "7:00 AM – 8:59 AM (Dragon hour)",
+      "9:00 AM – 10:59 AM (Snake hour)",
+      "11:00 AM – 12:59 PM (Horse hour)",
+      "1:00 PM – 2:59 PM (Goat hour)",
+      "3:00 PM – 4:59 PM (Monkey hour)",
+      "5:00 PM – 6:59 PM (Rooster hour)",
+      "7:00 PM – 8:59 PM (Dog hour)",
+      "9:00 PM – 10:59 PM (Pig hour)"
+    ]
+  },
+  "result": {
+    "backLink": "← Try another birthday",
+    "dominantElementLabel": "Your dominant element",
+    "zodiacLabel": "Zodiac",
+    "timeUnknownNote": "Birth time wasn't used, so the hour pillar is left out of your chart.",
+    "todayHeading": "Today's Fortune",
+    "shareButton": "Download share card",
+    "shareNative": "Share",
+    "shareCardFooter": "What's your element? Find out at Ohaeng",
+    "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
+  },
+  "categories": {
+    "overall": "Overall",
+    "love": "Love",
+    "wealth": "Wealth",
+    "health": "Health",
+    "comeback": "Comeback Luck"
+  },
+  "elements": {
+    "Wood": "Wood",
+    "Fire": "Fire",
+    "Earth": "Earth",
+    "Metal": "Metal",
+    "Water": "Water"
+  },
+  "elementBlurb": {
+    "Wood": "Growth, ambition, and fresh starts.",
+    "Fire": "Passion, charisma, and bold energy.",
+    "Earth": "Stability, loyalty, and grounded warmth.",
+    "Metal": "Discipline, precision, and quiet strength.",
+    "Water": "Intuition, adaptability, and calm depth."
+  },
+  "partnership": {
+    "title": "Partner with us",
+    "subtitle": "Tell us a bit about your idea and we'll get back to you soon.",
+    "name": "Name",
+    "company": "Company / Brand",
+    "email": "Email",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your partnership idea.",
+    "submit": "Send inquiry",
+    "sending": "Sending...",
+    "success": "Thanks — your message is in! We'll get back to you soon.",
+    "errorGeneric": "Something went wrong. Please try again in a moment.",
+    "errorNetwork": "Network error. Please try again in a moment."
+  },
+  "comingSoon": {
+    "title": "Coming soon",
+    "body": "We're still working on this page. Check back soon!",
+    "backHome": "Back to home"
+  }
+}
