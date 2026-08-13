@@ -2,13 +2,15 @@ import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ELEMENT_ICON_SRC } from './ElementBadge';
 
-const ELEMENT_GRADIENT = {
+export const ELEMENT_GRADIENT = {
   Wood: ['#1c3a24', '#4caf50'],
   Fire: ['#3a1414', '#ef4444'],
   Earth: ['#332616', '#b08d57'],
   Metal: ['#332c10', '#c9a227'],
   Water: ['#0f1f33', '#2f4d78'],
 };
+
+export const SITE_URL = 'product-builder-lecture-cgp.pages.dev';
 
 const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, comebackLine }, ref) {
   const { t } = useTranslation();
@@ -63,7 +65,10 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
         </p>
       </div>
 
-      <div style={{ fontSize: 12, opacity: 0.75 }}>{t('result.shareCardFooter')}</div>
+      <div>
+        <div style={{ fontSize: 12, opacity: 0.75 }}>{t('result.shareCardFooter')}</div>
+        <div style={{ fontSize: 13, fontWeight: 700, marginTop: 4, letterSpacing: 0.5 }}>{SITE_URL}</div>
+      </div>
     </div>
   );
 });

@@ -1,9 +1,9 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { toPng } from 'html-to-image';
 import { calculateSaju, getTodayRelation } from '../utils/saju';
 import { getFortuneLine } from '../data/fortuneTemplates';
+import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import ElementBadge from '../components/ElementBadge';
 import ShareCard from '../components/ShareCard';
 
@@ -12,8 +12,7 @@ const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'comeback'];
 export default function Result() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
-  const shareCardRef = useRef(null);
-  const [sharing, setSharing] = useState(false);
+  const { cardRef: shareCardRef, download, downloading } = useShareCardDownload();
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -58,20 +57,6 @@ export default function Result() {
     CATEGORIES.map((cat) => [cat, getFortuneLine(i18n.language, today.relation, cat, seedInput)])
   );
 
-  async function handleDownload() {
-    if (!shareCardRef.current) return;
-    setSharing(true);
-    try {
-      const dataUrl = await toPng(shareCardRef.current, { pixelRatio: 3 });
-      const link = document.createElement('a');
-      link.download = 'ohaeng-fortune.png';
-      link.href = dataUrl;
-      link.click();
-    } finally {
-      setSharing(false);
-    }
-  }
-
   return (
     <main className="page">
       <div className="page-content">
@@ -97,7 +82,7 @@ export default function Result() {
           </div>
 
           <div className="result-actions">
-            <button className="button" onClick={handleDownload} disabled={sharing}>
+            <button className="button" onClick={() => download('ohaeng-fortune.png')} disabled={downloading}>
               {t('result.shareButton')}
             </button>
             <Link to={`/idol-match?${params.toString()}`} className="button secondary">

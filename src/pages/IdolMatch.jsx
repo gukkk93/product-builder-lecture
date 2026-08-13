@@ -5,8 +5,10 @@ import { calculateSaju, getElementRelation, getTodayRelation } from '../utils/sa
 import { getFortuneLine } from '../data/fortuneTemplates';
 import { getIdolMatchCopy } from '../data/idolMatchTemplates';
 import { idolGroups, findMember } from '../data/idols';
+import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import ElementBadge from '../components/ElementBadge';
 import MemberAvatar from '../components/MemberAvatar';
+import IdolShareCard from '../components/IdolShareCard';
 
 const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'comeback'];
 
@@ -16,6 +18,7 @@ export default function IdolMatch() {
   const [groupId, setGroupId] = useState('');
   const [memberId, setMemberId] = useState('');
   const [picked, setPicked] = useState(null);
+  const { cardRef: shareCardRef, download, downloading } = useShareCardDownload();
 
   const members = groupId ? idolGroups.find((g) => g.id === groupId)?.members ?? [] : [];
 
@@ -146,6 +149,16 @@ export default function IdolMatch() {
                 </div>
                 <strong style={{ color: 'var(--accent)', fontSize: 18 }}>{compatCopy.tier}</strong>
                 <p style={{ fontSize: 15, lineHeight: 1.6 }}>{compatCopy.line}</p>
+
+                <div className="result-actions">
+                  <button
+                    className="button"
+                    onClick={() => download(`ohaeng-${member.id}-match.png`)}
+                    disabled={downloading}
+                  >
+                    {t('result.shareButton')}
+                  </button>
+                </div>
               </>
             ) : (
               <p className="time-note" style={{ marginTop: 24 }}>
@@ -158,6 +171,20 @@ export default function IdolMatch() {
           </div>
         )}
       </div>
+
+      {compatCopy && (
+        <div className="share-card-offscreen">
+          <IdolShareCard
+            ref={shareCardRef}
+            memberName={member.name}
+            groupName={idolGroups.find((g) => g.id === picked.groupId)?.name}
+            userElement={userSaju.dominantElement}
+            idolElement={idolSaju.dominantElement}
+            tier={compatCopy.tier}
+            line={compatCopy.line}
+          />
+        </div>
+      )}
     </main>
   );
 }
