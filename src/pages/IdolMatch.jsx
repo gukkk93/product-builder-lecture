@@ -1,10 +1,14 @@
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getIdolCompatibility } from '../utils/saju';
+import { calculateSaju, getElementRelation, getTodayRelation } from '../utils/saju';
+import { getFortuneLine } from '../data/fortuneTemplates';
 import { getIdolMatchCopy } from '../data/idolMatchTemplates';
 import { idolGroups, findMember } from '../data/idols';
 import ElementBadge from '../components/ElementBadge';
+import MemberAvatar from '../components/MemberAvatar';
+
+const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'comeback'];
 
 export default function IdolMatch() {
   const { t, i18n } = useTranslation();
@@ -12,6 +16,8 @@ export default function IdolMatch() {
   const [groupId, setGroupId] = useState('');
   const [memberId, setMemberId] = useState('');
   const [picked, setPicked] = useState(null);
+
+  const members = groupId ? idolGroups.find((g) => g.id === groupId)?.members ?? [] : [];
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -33,43 +39,31 @@ export default function IdolMatch() {
     }
   }, [birth]);
 
-  const members = groupId ? idolGroups.find((g) => g.id === groupId)?.members ?? [] : [];
-
-  if (!birth || !userSaju) {
-    return (
-      <main className="page">
-        <div className="page-content">
-          <div className="card">
-            <p>{t('idolMatch.needBirthday')}</p>
-            <Link to="/" className="button" style={{ marginTop: 16, display: 'inline-block' }}>
-              {t('idolMatch.goToLanding')}
-            </Link>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     if (!groupId || !memberId) return;
     setPicked({ groupId, memberId });
   }
 
-  const { group, member } = picked ? findMember(picked.groupId, picked.memberId) : {};
+  const { member } = picked ? findMember(picked.groupId, picked.memberId) : {};
+
+  const idolSaju = useMemo(() => {
+    if (!member) return null;
+    return calculateSaju({ year: member.year, month: member.month, day: member.day, hour: null, calendar: 'solar' }, false);
+  }, [member]);
+
+  const idolToday = useMemo(() => (idolSaju ? getTodayRelation(idolSaju) : null), [idolSaju]);
+  const idolSeed = member ? `${member.id}-${new Date().toDateString()}` : '';
+  const idolLines = idolToday
+    ? Object.fromEntries(CATEGORIES.map((cat) => [cat, getFortuneLine(i18n.language, idolToday.relation, cat, idolSeed)]))
+    : null;
 
   const compatibility = useMemo(() => {
-    if (!member) return null;
-    return getIdolCompatibility(userSaju, {
-      year: member.year,
-      month: member.month,
-      day: member.day,
-      hour: null,
-      calendar: 'solar',
-    });
-  }, [member, userSaju]);
+    if (!member || !userSaju || !idolSaju) return null;
+    return { relation: getElementRelation(userSaju.dominantElement, idolSaju.dominantElement) };
+  }, [member, userSaju, idolSaju]);
 
-  const copy = compatibility
+  const compatCopy = compatibility
     ? getIdolMatchCopy(i18n.language, compatibility.relation, `${birth.year}-${birth.month}-${birth.day}-${member.id}`)
     : null;
 
@@ -109,21 +103,56 @@ export default function IdolMatch() {
           </button>
         </form>
 
-        {compatibility && copy && (
+        {member && idolSaju && (
           <div className="card" style={{ marginTop: 24 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%', marginBottom: 20 }}>
-              <div>
-                <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8 }}>{t('idolMatch.yourElement')}</div>
-                <ElementBadge element={userSaju.dominantElement} size="small" />
-              </div>
-              <div>
-                <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8 }}>{member.name}</div>
-                <ElementBadge element={compatibility.idolSaju.dominantElement} size="small" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+              <MemberAvatar name={member.name} size={48} />
+              <div style={{ textAlign: 'left' }}>
+                <strong style={{ fontSize: 16 }}>{member.name}</strong>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                  {idolGroups.find((g) => g.id === picked.groupId)?.name}
+                </div>
               </div>
             </div>
 
-            <h2 style={{ fontSize: 20, margin: '0 0 8px', color: 'var(--accent)' }}>{copy.tier}</h2>
-            <p style={{ fontSize: 15, lineHeight: 1.6 }}>{copy.line}</p>
+            <ElementBadge element={idolSaju.dominantElement} />
+
+            <h2 style={{ marginTop: 24, marginBottom: 0, fontSize: 16 }}>
+              {t('idolMatch.theirFortuneHeading', { member: member.name })}
+            </h2>
+            <div className="fortune-list">
+              {CATEGORIES.map((cat) => (
+                <div className="fortune-row" key={cat}>
+                  <div className="fortune-row__label">{t(`categories.${cat}`)}</div>
+                  <div className="fortune-row__text">{idolLines[cat]}</div>
+                </div>
+              ))}
+            </div>
+
+            {compatCopy ? (
+              <>
+                <h2 style={{ marginTop: 24, marginBottom: 8, fontSize: 16 }}>
+                  {t('idolMatch.compatibilityHeading', { member: member.name })}
+                </h2>
+                <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%', marginBottom: 16 }}>
+                  <div>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8 }}>{t('idolMatch.yourElement')}</div>
+                    <ElementBadge element={userSaju.dominantElement} size="small" />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8 }}>{member.name}</div>
+                    <ElementBadge element={idolSaju.dominantElement} size="small" />
+                  </div>
+                </div>
+                <strong style={{ color: 'var(--accent)', fontSize: 18 }}>{compatCopy.tier}</strong>
+                <p style={{ fontSize: 15, lineHeight: 1.6 }}>{compatCopy.line}</p>
+              </>
+            ) : (
+              <p className="time-note" style={{ marginTop: 24 }}>
+                {t('idolMatch.needBirthdayInline', { member: member.name })}{' '}
+                <Link to="/">{t('idolMatch.goToLanding')}</Link>
+              </p>
+            )}
 
             <p className="disclaimer">{t('idolMatch.disclaimer')}</p>
           </div>

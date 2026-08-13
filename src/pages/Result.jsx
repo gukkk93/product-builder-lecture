@@ -101,7 +101,7 @@ export default function Result() {
               {t('result.shareButton')}
             </button>
             <Link to={`/idol-match?${params.toString()}`} className="button secondary">
-              {t('idolMatch.title')}
+              {t('result.idolMatchCta')}
             </Link>
           </div>
 

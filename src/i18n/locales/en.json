@@ -50,6 +50,7 @@
     "shareButton": "Download share card",
     "shareNative": "Share",
     "shareCardFooter": "What's your element? Find out at Ohaeng",
+    "idolMatchCta": "Check idol compatibility →",
     "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
   },
   "categories": {
@@ -88,18 +89,21 @@
     "errorNetwork": "Network error. Please try again in a moment."
   },
   "idolMatch": {
-    "title": "Idol Compatibility 💫",
-    "subtitle": "See how your Five Element energy lines up with your bias.",
+    "navLabel": "Idol Zone",
+    "title": "Idol Zone 💫",
+    "subtitle": "Pick your bias to see their Five Element energy, their fortune today, and — if we know your birthday — how well you two match.",
     "groupPlaceholder": "Group",
     "memberPlaceholder": "Member",
-    "submit": "Check compatibility",
-    "needBirthday": "We need your birthday first to check compatibility.",
+    "submit": "Check my bias",
+    "theirElementHeading": "{{member}}'s element",
+    "theirFortuneHeading": "{{member}}'s fortune today",
+    "compatibilityHeading": "You & {{member}}",
+    "needBirthdayInline": "Enter your birthday on the home page to also see your compatibility with {{member}}.",
     "goToLanding": "Enter my birthday",
-    "resultHeading": "You & {{member}}",
     "yourElement": "You",
     "theirElement": "Them",
     "backLink": "← Pick another idol",
-    "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate."
+    "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Member art is illustrative, not photos."
   },
   "comingSoon": {
     "title": "Coming soon",
