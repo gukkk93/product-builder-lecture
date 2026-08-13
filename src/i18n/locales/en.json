@@ -87,6 +87,20 @@
     "errorGeneric": "Something went wrong. Please try again in a moment.",
     "errorNetwork": "Network error. Please try again in a moment."
   },
+  "idolMatch": {
+    "title": "Idol Compatibility 💫",
+    "subtitle": "See how your Five Element energy lines up with your bias.",
+    "groupPlaceholder": "Group",
+    "memberPlaceholder": "Member",
+    "submit": "Check compatibility",
+    "needBirthday": "We need your birthday first to check compatibility.",
+    "goToLanding": "Enter my birthday",
+    "resultHeading": "You & {{member}}",
+    "yourElement": "You",
+    "theirElement": "Them",
+    "backLink": "← Pick another idol",
+    "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate."
+  },
   "comingSoon": {
     "title": "Coming soon",
     "body": "We're still working on this page. Check back soon!",

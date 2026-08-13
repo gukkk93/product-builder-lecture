@@ -117,3 +117,18 @@ export function getTodayRelation(saju, date = new Date()) {
     relation: getElementRelation(saju.dominantElement, todayElement),
   };
 }
+
+/**
+ * Compatibility reading between the user and an idol, based on the Five
+ * Element relationship between their dominant elements (same math as
+ * getTodayRelation, just applied to a second person instead of "today").
+ * Idol birth times generally aren't public, so idol saju is always
+ * calculated without an hour pillar.
+ */
+export function getIdolCompatibility(userSaju, idolBirth) {
+  const idolSaju = calculateSaju(idolBirth, false);
+  return {
+    idolSaju,
+    relation: getElementRelation(userSaju.dominantElement, idolSaju.dominantElement),
+  };
+}

@@ -1,13 +1,6 @@
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-
-const ELEMENT_ICON = {
-  Wood: '🌳',
-  Fire: '🔥',
-  Earth: '⛰️',
-  Metal: '⚙️',
-  Water: '💧',
-};
+import { ELEMENT_ICON_SRC } from './ElementBadge';
 
 const ELEMENT_GRADIENT = {
   Wood: ['#1c3a24', '#4caf50'],
@@ -44,21 +37,18 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-        <div
+        <img
+          src={ELEMENT_ICON_SRC[element]}
+          alt=""
           style={{
             width: 96,
             height: 96,
             borderRadius: '50%',
             background: 'rgba(255,255,255,0.15)',
             border: '2px solid rgba(255,255,255,0.6)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 46,
+            objectFit: 'cover',
           }}
-        >
-          {ELEMENT_ICON[element]}
-        </div>
+        />
         <div style={{ fontSize: 30, fontWeight: 800 }}>{t(`elements.${element}`)}</div>
         <div style={{ fontSize: 14, opacity: 0.85 }}>
           {t('result.zodiacLabel')}: {zodiac}

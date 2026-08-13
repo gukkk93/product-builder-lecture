@@ -278,9 +278,8 @@ textarea:focus {
 
 .element-badge__icon {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  object-fit: cover;
   border-radius: 50%;
   background: color-mix(in srgb, var(--badge-color) 20%, transparent);
   border: 2px solid var(--badge-color);

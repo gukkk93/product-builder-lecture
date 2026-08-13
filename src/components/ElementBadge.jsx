@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 
-const ELEMENT_ICON = {
-  Wood: '🌳',
-  Fire: '🔥',
-  Earth: '⛰️',
-  Metal: '⚙️',
-  Water: '💧',
+export const ELEMENT_ICON_SRC = {
+  Wood: '/icons/elements/wood.png',
+  Fire: '/icons/elements/fire.png',
+  Earth: '/icons/elements/earth.png',
+  Metal: '/icons/elements/metal.png',
+  Water: '/icons/elements/water.png',
 };
 
 const ELEMENT_VAR = {
@@ -27,7 +27,7 @@ export default function ElementBadge({ element, size = 'large' }) {
         '--badge-color': color,
       }}
     >
-      <span className="element-badge__icon">{ELEMENT_ICON[element]}</span>
+      <img className="element-badge__icon" src={ELEMENT_ICON_SRC[element]} alt="" />
       <div className="element-badge__text">
         <strong>{t(`elements.${element}`)}</strong>
         {size === 'large' && <p>{t(`elementBlurb.${element}`)}</p>}

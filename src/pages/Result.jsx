@@ -100,6 +100,9 @@ export default function Result() {
             <button className="button" onClick={handleDownload} disabled={sharing}>
               {t('result.shareButton')}
             </button>
+            <Link to={`/idol-match?${params.toString()}`} className="button secondary">
+              {t('idolMatch.title')}
+            </Link>
           </div>
 
           <p className="disclaimer">{t('result.disclaimer')}</p>
