@@ -15,6 +15,9 @@ export default function Layout() {
           <Link to="/idol-match" className="header-link">
             {t('idolMatch.navLabel')}
           </Link>
+          <Link to="/guide" className="header-link">
+            {t('guide.navLabel')}
+          </Link>
           <Link to="/partnership" className="header-link">
             {t('nav.partnership')}
           </Link>

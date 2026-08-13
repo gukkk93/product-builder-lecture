@@ -105,6 +105,18 @@
     "backLink": "← Pick another idol",
     "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Member art is illustrative, not photos."
   },
+  "guide": {
+    "navLabel": "Guide",
+    "title": "How Ohaeng Works",
+    "subtitle": "A quick primer if saju is new to you — no prior knowledge required.",
+    "sajuHeading": "Saju vs. horoscope: what's the difference?",
+    "sajuBody1": "Western astrology reads the sky — where the sun, moon, and planets sat the moment you were born. Saju (사주, \"four pillars\") reads the calendar instead. Your birth year, month, day, and hour each get translated into a code from an ancient Chinese and Korean dating system — one built from ten \"Heavenly Stems\" and twelve \"Earthly Branches\" cycling together, the same system that names lunar years after animals like the Tiger or the Dragon.",
+    "sajuBody2": "Stack all four — year, month, day, hour — and you get your \"eight characters\" (팔자), the full saju chart. It's not more or less legitimate than a sun sign; it's just a different, much older tradition that hasn't had its Co-Star moment in the West yet. Ohaeng is our attempt at that.",
+    "elementsHeading": "The Five Elements (오행)",
+    "elementsBody": "Every character in your chart maps to one of five elements — Wood, Fire, Earth, Metal, Water — and whichever shows up most is your dominant element. The elements aren't just labels; they interact. Each one generates the next (Wood feeds Fire, Fire leaves behind Earth, Earth yields Metal, Metal collects Water, Water nourishes Wood) and overcomes another (Wood parts Earth, Earth dams Water, Water douses Fire, Fire melts Metal, Metal chops Wood). That generating-and-overcoming cycle is the actual engine behind your daily fortune and your idol compatibility results — not a coin flip.",
+    "accuracyHeading": "This isn't a random number generator",
+    "accuracyBody": "A lot of horoscope-style apps quietly pick a result at random and dress it up as personal. Ohaeng doesn't — it runs your birthdate through lunar-javascript, an open-source calendar engine built on real historical solar-term and sexagenary-cycle data, the same math traditional manseryeok almanacs use. Two people with the same birthday will always get the same chart, and today's fortune is always the actual Five Element relationship between your chart and today's, not noise."
+  },
   "comingSoon": {
     "title": "Coming soon",
     "body": "We're still working on this page. Check back soon!",
