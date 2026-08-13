@@ -20,7 +20,9 @@
     "timeLabel": "Birth time",
     "timeUnknown": "I don't know my birth time",
     "hourPlaceholder": "Time",
-    "submit": "Reveal my saju",
+    "choiceLabel": "What do you want to see?",
+    "submitFortune": "See today's fortune",
+    "submitSaju": "See my saju",
     "errorIncomplete": "Please select your full birth date first.",
     "months": [
       "January", "February", "March", "April", "May", "June",

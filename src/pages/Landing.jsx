@@ -56,11 +56,10 @@ export default function Landing() {
     clampDay(next, year, month);
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function buildParams() {
     if (!year || !month || !day || (timeKnown && hourIndex === '')) {
       setError(t('landing.errorIncomplete'));
-      return;
+      return null;
     }
     setError('');
 
@@ -72,8 +71,16 @@ export default function Landing() {
       timeKnown: timeKnown ? '1' : '0',
     });
     if (timeKnown) params.set('h', HOUR_START[Number(hourIndex)]);
+    return params;
+  }
 
-    navigate(`/result?${params.toString()}`);
+  function goTo(destination) {
+    return (e) => {
+      e.preventDefault();
+      const params = buildParams();
+      if (!params) return;
+      navigate(`/${destination}?${params.toString()}`);
+    };
   }
 
   return (
@@ -83,7 +90,7 @@ export default function Landing() {
         <h1>{t('landing.title')}</h1>
         <p className="subtitle">{t('landing.subtitle')}</p>
 
-        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+        <form onSubmit={goTo('result')} style={{ width: '100%' }}>
           <div className="field-group">
             <label>{t('landing.calendarLabel')}</label>
             <div className="calendar-toggle">
@@ -154,9 +161,17 @@ export default function Landing() {
 
           {error && <div className="error-text">{error}</div>}
 
-          <button type="submit" className="button" style={{ width: '100%' }}>
-            {t('landing.submit')}
-          </button>
+          <div className="field-group" style={{ marginBottom: 0 }}>
+            <label>{t('landing.choiceLabel')}</label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <button type="submit" className="button" style={{ width: '100%' }}>
+                {t('landing.submitFortune')}
+              </button>
+              <button type="button" className="button secondary" style={{ width: '100%' }} onClick={goTo('saju')}>
+                {t('landing.submitSaju')}
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </main>
