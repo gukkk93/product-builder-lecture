@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LunarMonth } from 'lunar-javascript';
+import FourSymbolsBackdrop from '../components/FourSymbolsBackdrop';
 
 const HOUR_START = [23, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21];
 
@@ -77,6 +78,7 @@ export default function Landing() {
 
   return (
     <main className="page">
+      <FourSymbolsBackdrop />
       <div className="page-content">
         <h1>{t('landing.title')}</h1>
         <p className="subtitle">{t('landing.subtitle')}</p>

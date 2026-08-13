@@ -55,6 +55,14 @@ function pillarElements(gan, zhi) {
   return [GAN_ELEMENT[gan], ZHI_ELEMENT[zhi]];
 }
 
+/** Element for a single Gan (Heavenly Stem) or Zhi (Earthly Branch) character. */
+export function getGanElement(gan) {
+  return GAN_ELEMENT[gan];
+}
+export function getZhiElement(zhi) {
+  return ZHI_ELEMENT[zhi];
+}
+
 /**
  * Calculates the Four Pillars for a birth date and the resulting Five
  * Element distribution. If the birth time is unknown, the hour pillar is

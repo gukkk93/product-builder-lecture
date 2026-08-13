@@ -51,6 +51,26 @@
     "shareNative": "Share",
     "shareCardFooter": "What's your element? Find out at Ohaeng",
     "idolMatchCta": "Check idol compatibility →",
+    "sajuCta": "See my full saju →",
+    "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
+  },
+  "saju": {
+    "title": "My Saju",
+    "subtitle": "Your chart, on its own — no connection to today's date.",
+    "needBirthday": "We need your birthday first to build your chart.",
+    "goToLanding": "Enter my birthday",
+    "backLink": "← Try another birthday",
+    "pillarsHeading": "Your Four Pillars",
+    "pillars": {
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "time": "Hour"
+    },
+    "dayMasterHeading": "Your Day Master",
+    "distributionHeading": "Element Balance",
+    "personalityHeading": "Personality Profile",
+    "timeUnknownNote": "Birth time wasn't used, so the hour pillar is left out of your chart.",
     "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
   },
   "categories": {

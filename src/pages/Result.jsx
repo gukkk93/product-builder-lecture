@@ -88,6 +88,9 @@ export default function Result() {
             <Link to={`/idol-match?${params.toString()}`} className="button secondary">
               {t('result.idolMatchCta')}
             </Link>
+            <Link to={`/saju?${params.toString()}`} className="button secondary">
+              {t('result.sajuCta')}
+            </Link>
           </div>
 
           <p className="disclaimer">{t('result.disclaimer')}</p>

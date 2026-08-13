@@ -89,7 +89,17 @@ button {
   padding: 90px var(--space-4) var(--space-6);
 }
 
+/* Below this width the header nav pills wrap onto a second line — see
+   .header-actions flex-wrap — so reserve more top space to avoid overlap. */
+@media (max-width: 480px) {
+  .page {
+    padding-top: 150px;
+  }
+}
+
 .page-content {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 480px;
   display: flex;
@@ -113,6 +123,7 @@ button {
 .header-link,
 .icon-button {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   padding: var(--space-2) var(--space-4);
@@ -129,8 +140,8 @@ button {
 }
 
 .icon-button {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border-radius: 50%;
   font-size: var(--text-xl);
@@ -143,6 +154,8 @@ button {
 
 .header-actions {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: var(--space-2);
 }
 

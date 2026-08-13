@@ -71,6 +71,37 @@ should either reuse these exact assets or match their visual language:
 abstract line-art motifs (see below) for places a full illustration would
 be too busy — like a small avatar.
 
+## Brand direction: 사신도-centric, not Co-Star, not Postelle
+
+Ohaeng's visual identity is the Four Symbols (사신도) — that's the
+differentiator from both Co-Star (monochrome minimalism) and Postelle-style
+apps (generic friendly-character illustration). Concretely, that means:
+
+- The five element icons are not a one-off decoration confined to a badge
+  on the result page — they're the brand mark. They show up in the header
+  (`Layout.jsx`, next to the wordmark), as an ambient background texture on
+  hero-ish pages (`FourSymbolsBackdrop.jsx`, used on `Landing.jsx`), as
+  member avatars (`MemberAvatar.jsx` + `ElementPattern.jsx`), and as
+  watermarks on share cards (`ShareCardWatermark.jsx`).
+- When adding a new prominent screen, default to giving it *some* Four
+  Symbols presence (a watermark, a badge, an icon) rather than a plain
+  gradient-and-text layout — that plainness is the exact "in-between" tone
+  this direction is meant to move away from.
+- Don't introduce a second illustration style (e.g. cutesy mascot
+  characters) alongside the Four Symbols — pick one visual language and
+  keep extending it.
+
+## Accessibility: touch targets
+
+Primary buttons (`.button`) land close to 44px tall by design (padding +
+line-height). `.icon-button` (the theme toggle) was bumped from 40px to
+44px explicitly to meet that minimum. Header nav pills (`.header-link`)
+are intentionally left smaller (~32px) — they're secondary navigation on an
+already-tight mobile header (3 pills + logo + toggle at ~390px width), and
+widening them further to hit 44px would force wrapping or overflow. If the
+header nav grows again, that trade-off should be revisited (e.g. collapsing
+into a menu) rather than just padding everything out.
+
 ## Where this is actually applied (scope note)
 
 The tokens above are wired into the shared rules in `global.css` — `body`,
