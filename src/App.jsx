@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import Landing from './pages/Landing';
 import Result from './pages/Result';
 import Saju from './pages/Saju';
+import Compatibility from './pages/Compatibility';
 import IdolMatch from './pages/IdolMatch';
 import Partnership from './pages/Partnership';
 import Guide from './pages/Guide';
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/result" element={<Result />} />
         <Route path="/saju" element={<Saju />} />
+        <Route path="/compatibility" element={<Compatibility />} />
         <Route path="/partnership" element={<Partnership />} />
         <Route path="/guide" element={<Guide />} />
         <Route path="/idol-match" element={<IdolMatch />} />

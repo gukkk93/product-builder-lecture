@@ -1,17 +1,20 @@
-import { useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useEffect, useMemo } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju, getTodayRelation } from '../utils/saju';
 import { getFortuneLine } from '../data/fortuneTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
+import { trackPageView } from '../utils/analytics';
 import ElementBadge from '../components/ElementBadge';
 import ShareCard from '../components/ShareCard';
+import BirthDateForm from '../components/BirthDateForm';
 
 const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'comeback'];
 
 export default function Result() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const { cardRef: shareCardRef, download, downloading } = useShareCardDownload();
 
   const birth = useMemo(() => {
@@ -36,18 +39,23 @@ export default function Result() {
 
   const today = useMemo(() => (saju ? getTodayRelation(saju) : null), [saju]);
 
+  useEffect(() => {
+    if (saju) trackPageView('result');
+  }, [saju]);
+
   const seedInput = birth ? `${birth.year}-${birth.month}-${birth.day}-${new Date().toDateString()}` : '';
 
   if (!birth || !saju || !today) {
     return (
       <main className="page">
         <div className="page-content">
-          <div className="card">
-            <p>{t('landing.errorIncomplete')}</p>
-            <Link to="/" className="button" style={{ marginTop: 16, display: 'inline-block' }}>
-              {t('result.backLink')}
-            </Link>
-          </div>
+          <h1>{t('result.todayHeading')}</h1>
+          <p className="subtitle">{t('landing.subtitle')}</p>
+          <BirthDateForm
+            submitLabel={t('landing.submitFortune')}
+            analyticsContext="result"
+            onSubmit={(newParams) => navigate(`/result?${newParams.toString()}`)}
+          />
         </div>
       </main>
     );
@@ -82,7 +90,7 @@ export default function Result() {
           </div>
 
           <div className="result-actions">
-            <button className="button" onClick={() => download('ohaeng-fortune.png')} disabled={downloading}>
+            <button className="button" onClick={() => download('ohaeng-fortune.png', 'result')} disabled={downloading}>
               {t('result.shareButton')}
             </button>
             <Link to={`/idol-match?${params.toString()}`} className="button secondary">

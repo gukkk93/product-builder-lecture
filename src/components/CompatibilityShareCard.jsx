@@ -4,16 +4,15 @@ import { ELEMENT_ICON_SRC } from './ElementBadge';
 import { ELEMENT_GRADIENT } from './ShareCard';
 import ShareCardWatermark from './ShareCardWatermark';
 import ShareCardFooter from './ShareCardFooter';
-import MemberAvatar from './MemberAvatar';
 
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 
-const IdolShareCard = forwardRef(function IdolShareCard(
-  { memberName, groupName, userElement, idolElement, idolStrength, tier, line },
+const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
+  { myElement, theirElement, tier, line },
   ref
 ) {
   const { t } = useTranslation();
-  const [from, to] = ELEMENT_GRADIENT[idolElement];
+  const [from, to] = ELEMENT_GRADIENT[myElement];
 
   return (
     <div
@@ -30,7 +29,7 @@ const IdolShareCard = forwardRef(function IdolShareCard(
         textAlign: 'center',
       }}
     >
-      <ShareCardWatermark element={idolElement} />
+      <ShareCardWatermark element={theirElement} />
 
       <div
         style={{
@@ -49,34 +48,28 @@ const IdolShareCard = forwardRef(function IdolShareCard(
           {t('app.name')}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-          <MemberAvatar element={idolElement} strength={idolStrength} size={80} />
-          <div>
-            <div style={{ fontSize: 24, fontWeight: 800 }}>{memberName}</div>
-            <div style={{ fontSize: 13, opacity: 0.8 }}>{groupName}</div>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20, margin: '8px 0' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
               <img
-                src={ELEMENT_ICON_SRC[userElement]}
+                src={ELEMENT_ICON_SRC[myElement]}
                 alt=""
-                style={{ width: 56, height: 56, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.6)', objectFit: 'cover' }}
+                style={{ width: 72, height: 72, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.6)', objectFit: 'cover' }}
               />
-              <span style={{ fontSize: 11, opacity: 0.85 }}>{t('idolMatch.yourElement')}: {t(`elements.${userElement}`)}</span>
+              <span style={{ fontSize: 12, opacity: 0.85 }}>{t('idolMatch.yourElement')}: {t(`elements.${myElement}`)}</span>
             </div>
-            <div style={{ fontSize: 22, opacity: 0.7 }}>×</div>
+            <div style={{ fontSize: 24, opacity: 0.7 }}>×</div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
               <img
-                src={ELEMENT_ICON_SRC[idolElement]}
+                src={ELEMENT_ICON_SRC[theirElement]}
                 alt=""
-                style={{ width: 56, height: 56, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.6)', objectFit: 'cover' }}
+                style={{ width: 72, height: 72, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.6)', objectFit: 'cover' }}
               />
-              <span style={{ fontSize: 11, opacity: 0.85 }}>{memberName}: {t(`elements.${idolElement}`)}</span>
+              <span style={{ fontSize: 12, opacity: 0.85 }}>{t('idolMatch.theirElement')}: {t(`elements.${theirElement}`)}</span>
             </div>
           </div>
 
-          <div style={{ fontSize: 26, fontWeight: 800 }}>{tier}</div>
+          <div style={{ fontSize: 28, fontWeight: 800 }}>{tier}</div>
 
           <p style={{ fontSize: 15, lineHeight: 1.6, margin: '4px 0 0', maxWidth: 280 }}>
             {line}
@@ -89,4 +82,4 @@ const IdolShareCard = forwardRef(function IdolShareCard(
   );
 });
 
-export default IdolShareCard;
+export default CompatibilityShareCard;

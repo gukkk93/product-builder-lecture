@@ -9,7 +9,7 @@
   },
   "landing": {
     "title": "Ohaeng 🔮",
-    "subtitle": "Discover your Five Element energy — the Korean fortune system behind saju — and see what today holds for you.",
+    "subtitle": "Korean saju, made for K-pop hearts. Pick a reading to begin.",
     "calendarLabel": "Calendar",
     "calendarSolar": "Solar",
     "calendarLunar": "Lunar",
@@ -20,7 +20,6 @@
     "timeLabel": "Birth time",
     "timeUnknown": "I don't know my birth time",
     "hourPlaceholder": "Time",
-    "choiceLabel": "What do you want to see?",
     "submitFortune": "See today's fortune",
     "submitSaju": "See my saju",
     "errorIncomplete": "Please select your full birth date first.",
@@ -43,6 +42,22 @@
       "9:00 PM – 10:59 PM (Pig hour)"
     ]
   },
+  "home": {
+    "readingsLabel": "Saju Readings",
+    "idolsLabel": "K-pop Idols",
+    "howItWorksHeading": "How it works",
+    "step1": "Pick a reading",
+    "step2": "Enter your birthday",
+    "step3": "See your result",
+    "items": {
+      "fortune": { "title": "Today's Fortune", "description": "From your overall luck to your comeback luck, all in one read." },
+      "saju": { "title": "My Saju Profile", "description": "Your real personality, read through your Four Pillars." },
+      "compatibility": { "title": "Compatibility", "description": "Chemistry with anyone, read through saju." },
+      "idolMatch": { "title": "Idol Match", "description": "Your soulmate among 66 idols — who is it?" },
+      "bias": { "title": "Bias Compatibility", "description": "Already have a bias? See your saju chemistry." },
+      "groupMatch": { "title": "Group Match", "description": "Your compatibility ranking across an entire group." }
+    }
+  },
   "result": {
     "backLink": "← Try another birthday",
     "dominantElementLabel": "Your dominant element",
@@ -59,8 +74,6 @@
   "saju": {
     "title": "My Saju",
     "subtitle": "Your chart, on its own — no connection to today's date.",
-    "needBirthday": "We need your birthday first to build your chart.",
-    "goToLanding": "Enter my birthday",
     "backLink": "← Try another birthday",
     "pillarsHeading": "Your Four Pillars",
     "pillars": {
@@ -70,6 +83,14 @@
       "time": "Hour"
     },
     "dayMasterHeading": "Your Day Master",
+    "strengthLabel": {
+      "strong": "Strong Day Master",
+      "weak": "Weak Day Master"
+    },
+    "strengthBlurb": {
+      "strong": "Most of your chart supports your day master — your core traits tend to come through clearly and consistently, wherever you are.",
+      "weak": "Your day master gets less support from the rest of your chart — your core traits tend to show up more situationally, shaped by who's around you."
+    },
     "distributionHeading": "Element Balance",
     "personalityHeading": "Personality Profile",
     "timeUnknownNote": "Birth time wasn't used, so the hour pillar is left out of your chart.",
@@ -110,10 +131,28 @@
     "errorGeneric": "Something went wrong. Please try again in a moment.",
     "errorNetwork": "Network error. Please try again in a moment."
   },
+  "compatibility": {
+    "title": "Compatibility",
+    "subtitle": "See how your Five Element energy lines up with anyone — a friend, a partner, whoever you're curious about.",
+    "yourBirthdayHeading": "Your birthday",
+    "theirBirthdayHeading": "Their birthday",
+    "continueLabel": "Continue",
+    "seeResultLabel": "See our compatibility",
+    "resultHeading": "Your Compatibility",
+    "backLink": "← Start over",
+    "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
+  },
   "idolMatch": {
     "navLabel": "Idol Zone",
     "title": "Idol Zone 💫",
     "subtitle": "Pick your bias to see their Five Element energy, their fortune today, and — if we know your birthday — how well you two match.",
+    "biasTitle": "Bias Compatibility 💫",
+    "biasSubtitle": "Already have a bias? Pick them and see your saju chemistry.",
+    "groupTitle": "Group Match 🏆",
+    "groupSubtitle": "Pick a group to rank your compatibility with every member.",
+    "groupRankHeading": "Your ranking",
+    "groupNeedBirthday": "We need your birthday first to rank your compatibility with the group.",
+    "groupPickPrompt": "Pick a group above to see your ranking.",
     "groupPlaceholder": "Group",
     "memberPlaceholder": "Member",
     "submit": "Check my bias",

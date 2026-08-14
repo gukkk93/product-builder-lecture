@@ -86,6 +86,20 @@ export function calculateSaju(birth, timeKnown) {
   });
 
   const dominant = ELEMENTS.reduce((best, el) => (counts[el] > counts[best] ? el : best), ELEMENTS[0]);
+  const dayGanElement = GAN_ELEMENT[pillars.day.gan];
+
+  // 신강/신약 (day-master strength): simplified reading — look at every
+  // other character in the chart (excluding the day gan itself) and count
+  // how many "help" the day master, where helping means sharing its
+  // element or generating it. Day master is "strong" when at least half of
+  // the remaining characters help it, "weak" otherwise.
+  const otherChars = [pillars.year.gan, pillars.year.zhi, pillars.month.gan, pillars.month.zhi, pillars.day.zhi];
+  if (timeKnown) otherChars.push(pillars.time.gan, pillars.time.zhi);
+  const helpingCount = otherChars.filter((char) => {
+    const el = GAN_ELEMENT[char] ?? ZHI_ELEMENT[char];
+    return el === dayGanElement || GENERATES[el] === dayGanElement;
+  }).length;
+  const dayGanStrength = helpingCount >= otherChars.length / 2 ? 'strong' : 'weak';
 
   return {
     pillars,
@@ -93,7 +107,8 @@ export function calculateSaju(birth, timeKnown) {
     dominantElement: dominant,
     zodiac: ec.getLunar().getYearShengXiao(),
     dayGan: pillars.day.gan,
-    dayGanElement: GAN_ELEMENT[pillars.day.gan],
+    dayGanElement,
+    dayGanStrength,
   };
 }
 
@@ -127,16 +142,16 @@ export function getTodayRelation(saju, date = new Date()) {
 }
 
 /**
- * Compatibility reading between the user and an idol, based on the Five
- * Element relationship between their dominant elements (same math as
- * getTodayRelation, just applied to a second person instead of "today").
- * Idol birth times generally aren't public, so idol saju is always
- * calculated without an hour pillar.
+ * Compatibility reading between two people, based on the Five Element
+ * relationship between their dominant elements (same math as
+ * getTodayRelation, just applied to a second chart instead of "today").
+ * Used for both idol matches (birth time generally unknown/not public) and
+ * general two-person compatibility.
  */
-export function getIdolCompatibility(userSaju, idolBirth) {
-  const idolSaju = calculateSaju(idolBirth, false);
+export function getCompatibility(mySaju, otherBirth, otherTimeKnown = false) {
+  const otherSaju = calculateSaju(otherBirth, otherTimeKnown);
   return {
-    idolSaju,
-    relation: getElementRelation(userSaju.dominantElement, idolSaju.dominantElement),
+    otherSaju,
+    relation: getElementRelation(mySaju.dominantElement, otherSaju.dominantElement),
   };
 }

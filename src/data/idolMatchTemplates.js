@@ -57,6 +57,11 @@ export const idolMatchTemplates = {
   },
 };
 
+// Subjective best-to-worst ordering used for group-ranking view — not a
+// judgment about the relation itself, just a sort order for "who am I most
+// in sync with in this group".
+export const RELATION_RANK = ['same', 'otherGeneratesMe', 'iGenerateOther', 'iOvercomeOther', 'otherOvercomesMe'];
+
 function hashCode(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
