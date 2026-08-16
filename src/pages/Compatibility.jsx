@@ -19,11 +19,18 @@ function paramsToBirth(params) {
   return { year: y, month: m, day: d, hour: h, calendar, timeKnown };
 }
 
+const RELATIONSHIPS = ['friend', 'partner', 'crush', 'family', 'coworker'];
+
 export default function Compatibility() {
   const { t, i18n } = useTranslation();
   const [myBirth, setMyBirth] = useState(null);
+  const [theirName, setTheirName] = useState('');
+  const [theirRelationship, setTheirRelationship] = useState('friend');
   const [theirBirth, setTheirBirth] = useState(null);
   const { cardRef: shareCardRef, download, downloading } = useShareCardDownload();
+
+  const displayName = theirName.trim() || t('compatibility.theirElement');
+  const relationshipLabel = t(`compatibility.relationship.${theirRelationship}`);
 
   const mySaju = useMemo(() => {
     if (!myBirth) return null;
@@ -57,6 +64,8 @@ export default function Compatibility() {
 
   function reset() {
     setMyBirth(null);
+    setTheirName('');
+    setTheirRelationship('friend');
     setTheirBirth(null);
   }
 
@@ -87,6 +96,31 @@ export default function Compatibility() {
           <p className="subtitle">{t('compatibility.subtitle')}</p>
           <div className="card" style={{ textAlign: 'left' }}>
             <h2 style={{ marginTop: 0, fontSize: 16 }}>{t('compatibility.theirBirthdayHeading')}</h2>
+
+            <div className="field-group">
+              <label>{t('compatibility.theirNameLabel')}</label>
+              <input
+                type="text"
+                value={theirName}
+                onChange={(e) => setTheirName(e.target.value)}
+                placeholder={t('compatibility.theirNamePlaceholder')}
+                style={{ width: '100%' }}
+              />
+            </div>
+
+            <div className="field-group">
+              <label>{t('compatibility.relationshipLabel')}</label>
+              <select
+                value={theirRelationship}
+                onChange={(e) => setTheirRelationship(e.target.value)}
+                style={{ width: '100%' }}
+              >
+                {RELATIONSHIPS.map((rel) => (
+                  <option key={rel} value={rel}>{t(`compatibility.relationship.${rel}`)}</option>
+                ))}
+              </select>
+            </div>
+
             <BirthDateForm
               submitLabel={t('compatibility.seeResultLabel')}
               analyticsContext="compatibility-them"
@@ -106,14 +140,19 @@ export default function Compatibility() {
         </button>
 
         <div className="card">
-          <h2 style={{ marginTop: 0, marginBottom: 16, fontSize: 16 }}>{t('compatibility.resultHeading')}</h2>
+          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>
+            {t('compatibility.youAndThemHeading', { name: displayName })}
+          </h2>
+          <p style={{ marginTop: 0, marginBottom: 16, fontSize: 13, color: 'var(--text-muted)' }}>
+            {relationshipLabel}
+          </p>
           <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%', marginBottom: 16 }}>
             <div>
               <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8 }}>{t('idolMatch.yourElement')}</div>
               <ElementBadge element={mySaju.dominantElement} size="small" />
             </div>
             <div>
-              <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8 }}>{t('idolMatch.theirElement')}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8 }}>{displayName}</div>
               <ElementBadge element={compatibility.otherSaju.dominantElement} size="small" />
             </div>
           </div>
@@ -136,6 +175,8 @@ export default function Compatibility() {
           ref={shareCardRef}
           myElement={mySaju.dominantElement}
           theirElement={compatibility.otherSaju.dominantElement}
+          theirName={displayName}
+          relationshipLabel={relationshipLabel}
           tier={copy.tier}
           line={copy.line}
         />

@@ -5,6 +5,7 @@ import Result from './pages/Result';
 import Saju from './pages/Saju';
 import Compatibility from './pages/Compatibility';
 import IdolMatch from './pages/IdolMatch';
+import DramaMatch from './pages/DramaMatch';
 import Partnership from './pages/Partnership';
 import Guide from './pages/Guide';
 import ComingSoon from './pages/ComingSoon';
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/partnership" element={<Partnership />} />
         <Route path="/guide" element={<Guide />} />
         <Route path="/idol-match" element={<IdolMatch />} />
+        <Route path="/drama-match" element={<DramaMatch />} />
         <Route path="/about" element={<ComingSoon />} />
         <Route path="*" element={<ComingSoon />} />
       </Route>

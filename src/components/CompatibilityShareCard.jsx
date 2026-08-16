@@ -8,7 +8,7 @@ import ShareCardFooter from './ShareCardFooter';
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 
 const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
-  { myElement, theirElement, tier, line },
+  { myElement, theirElement, theirName, relationshipLabel, tier, line },
   ref
 ) {
   const { t } = useTranslation();
@@ -49,6 +49,13 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+          {theirName && (
+            <div>
+              <div style={{ fontSize: 20, fontWeight: 800 }}>{t('idolMatch.yourElement')} × {theirName}</div>
+              {relationshipLabel && <div style={{ fontSize: 12, opacity: 0.8 }}>{relationshipLabel}</div>}
+            </div>
+          )}
+
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
               <img
@@ -65,7 +72,7 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
                 alt=""
                 style={{ width: 72, height: 72, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.6)', objectFit: 'cover' }}
               />
-              <span style={{ fontSize: 12, opacity: 0.85 }}>{t('idolMatch.theirElement')}: {t(`elements.${theirElement}`)}</span>
+              <span style={{ fontSize: 12, opacity: 0.85 }}>{theirName || t('idolMatch.theirElement')}: {t(`elements.${theirElement}`)}</span>
             </div>
           </div>
 

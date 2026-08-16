@@ -46,12 +46,12 @@ export default function Landing() {
           analyticsKey="idol-match"
         />
         <MenuListItem
-          icon="bias"
-          title={t('home.items.bias.title')}
-          description={t('home.items.bias.description')}
-          to="/idol-match?mode=bias"
+          icon="drama"
+          title={t('home.items.drama.title')}
+          description={t('home.items.drama.description')}
+          to="/drama-match"
           status="live"
-          analyticsKey="idol-match-bias"
+          analyticsKey="drama-match"
         />
         <MenuListItem
           icon="groupMatch"

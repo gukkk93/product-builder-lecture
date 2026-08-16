@@ -53,9 +53,9 @@
       "fortune": { "title": "오늘의 운세", "description": "총운부터 컴백운까지, 오늘 하루를 한 번에." },
       "saju": { "title": "내 사주 프로필", "description": "네 기둥으로 보는 진짜 내 성격." },
       "compatibility": { "title": "궁합 보기", "description": "누구와든, 사주로 보는 케미." },
-      "idolMatch": { "title": "아이돌 매치", "description": "66명의 아이돌 중 내 소울메이트는?" },
-      "bias": { "title": "최애 궁합", "description": "이미 최애가 있다면? 사주로 보는 케미." },
-      "groupMatch": { "title": "그룹 매치", "description": "그룹 전체 멤버와의 궁합 순위." }
+      "idolMatch": { "title": "아이돌 매치", "description": "생일을 입력하면, 나와 제일 잘 맞는 아이돌을 찾아드려요." },
+      "drama": { "title": "K-드라마 매치", "description": "생일을 입력하면, 나와 제일 잘 맞는 K-드라마 배우를 찾아드려요." },
+      "groupMatch": { "title": "그룹 매치", "description": "그룹 전체 멤버와의 궁합 점수를 한눈에." }
     }
   },
   "result": {
@@ -136,35 +136,53 @@
     "subtitle": "친구든 연인이든, 궁금한 그 사람과의 오행 궁합을 확인해보세요.",
     "yourBirthdayHeading": "내 생일",
     "theirBirthdayHeading": "상대방 생일",
+    "theirNameLabel": "상대방 이름",
+    "theirNamePlaceholder": "예: 지민",
+    "relationshipLabel": "우리 관계",
+    "relationship": {
+      "friend": "친구",
+      "partner": "연인",
+      "crush": "썸",
+      "family": "가족",
+      "coworker": "동료"
+    },
     "continueLabel": "다음",
     "seeResultLabel": "궁합 결과 보기",
     "resultHeading": "우리의 궁합",
+    "youAndThemHeading": "나 & {{name}}",
     "backLink": "← 처음부터 다시",
     "disclaimer": "재미로 보는 콘텐츠예요 — 의학적·금전적·전문적 조언이 아니에요."
   },
   "idolMatch": {
     "navLabel": "아이돌존",
-    "title": "아이돌존 💫",
-    "subtitle": "최애를 골라 오행 에너지와 오늘의 운세를 확인하고, 생일을 알면 궁합까지 볼 수 있어요.",
-    "biasTitle": "최애 궁합 💫",
-    "biasSubtitle": "이미 최애가 있다면? 골라서 사주 궁합을 확인해보세요.",
+    "title": "아이돌 매치 💫",
+    "subtitle": "생일과 성별을 입력하면, 보유한 아이돌 전체 중에서 오행 궁합이 제일 좋은 아이돌을 찾아드려요.",
+    "findMatchLabel": "내 매치 찾기",
     "groupTitle": "그룹 매치 🏆",
-    "groupSubtitle": "그룹을 고르면 멤버 전체와의 궁합 순위를 보여드려요.",
+    "groupSubtitle": "그룹을 고르면 멤버 전체와의 궁합 점수를 보여드려요.",
     "groupRankHeading": "나의 궁합 순위",
     "groupNeedBirthday": "그룹과의 궁합 순위를 보려면 먼저 생일을 입력해주세요.",
     "groupPickPrompt": "위에서 그룹을 선택하면 순위를 볼 수 있어요.",
     "groupPlaceholder": "그룹",
-    "memberPlaceholder": "멤버",
-    "submit": "최애 확인하기",
-    "theirElementHeading": "{{member}}의 오행",
     "theirFortuneHeading": "{{member}}의 오늘 운세",
     "compatibilityHeading": "나 & {{member}}",
-    "needBirthdayInline": "홈 화면에서 생일을 입력하면 {{member}}와의 궁합도 볼 수 있어요.",
-    "goToLanding": "생일 입력하러 가기",
     "yourElement": "나",
     "theirElement": "상대",
-    "backLink": "← 다른 아이돌 선택",
     "disclaimer": "재미로 보는 콘텐츠예요. 생일 정보는 공개된 자료를 참고했으며 실제와 다를 수 있어요. 멤버 이미지는 일러스트이며 실제 사진이 아니에요."
+  },
+  "dramaMatch": {
+    "navLabel": "드라마 매치",
+    "title": "K-드라마 매치 🎬",
+    "subtitle": "생일과 성별을 입력하면, K-드라마 배우 100명 중에서 오행 궁합이 제일 좋은 배우를 찾아드려요.",
+    "findMatchLabel": "내 매치 찾기",
+    "actorLabel": "K-드라마 배우",
+    "disclaimer": "재미로 보는 콘텐츠예요. 생일 정보는 공개된 자료를 참고했으며 실제와 다를 수 있어요. 이미지는 일러스트이며 실제 사진이 아니에요."
+  },
+  "matchCommon": {
+    "genderLabel": "저는...",
+    "genderFemale": "여자예요",
+    "genderMale": "남자예요",
+    "scoreLabel": "궁합 점수"
   },
   "guide": {
     "navLabel": "가이드",

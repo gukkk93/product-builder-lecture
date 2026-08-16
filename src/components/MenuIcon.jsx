@@ -31,9 +31,13 @@ const ICONS = {
     // Star — a soulmate pick among many
     <path d="M12 2.5l2.7 6.4 6.9.6-5.2 4.6 1.6 6.8L12 17.3l-6 3.6 1.6-6.8-5.2-4.6 6.9-.6z" />
   ),
-  bias: (
-    // Heart — an already-chosen favorite
-    <path d="M12 20.2S3.5 15 3.5 8.9A4.4 4.4 0 0 1 12 7a4.4 4.4 0 0 1 8.5 1.9c0 6.1-8.5 11.3-8.5 11.3z" />
+  drama: (
+    // Clapperboard — the K-drama match
+    <>
+      <path d="M3 9.5l1.4-4.4a1.4 1.4 0 0 1 1.75-.92l12.9 3.9a1.4 1.4 0 0 1 .93 1.76L19.5 13" />
+      <rect x="3" y="9.5" width="17" height="10.5" rx="1.4" />
+      <path d="M5.5 9.5l2-4M9.8 9.5l2-4M14.1 9.5l2-4" />
+    </>
   ),
   groupMatch: (
     // Three people — ranking across a whole group

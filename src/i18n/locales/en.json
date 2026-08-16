@@ -53,9 +53,9 @@
       "fortune": { "title": "Today's Fortune", "description": "From your overall luck to your comeback luck, all in one read." },
       "saju": { "title": "My Saju Profile", "description": "Your real personality, read through your Four Pillars." },
       "compatibility": { "title": "Compatibility", "description": "Chemistry with anyone, read through saju." },
-      "idolMatch": { "title": "Idol Match", "description": "Your soulmate among 66 idols — who is it?" },
-      "bias": { "title": "Bias Compatibility", "description": "Already have a bias? See your saju chemistry." },
-      "groupMatch": { "title": "Group Match", "description": "Your compatibility ranking across an entire group." }
+      "idolMatch": { "title": "Idol Match", "description": "Enter your birthday — we'll find your best-matching idol." },
+      "drama": { "title": "K-Drama Match", "description": "Enter your birthday — we'll find your best-matching K-drama lead." },
+      "groupMatch": { "title": "Group Match", "description": "Your compatibility score against every member of a group." }
     }
   },
   "result": {
@@ -136,35 +136,53 @@
     "subtitle": "See how your Five Element energy lines up with anyone — a friend, a partner, whoever you're curious about.",
     "yourBirthdayHeading": "Your birthday",
     "theirBirthdayHeading": "Their birthday",
+    "theirNameLabel": "Their name",
+    "theirNamePlaceholder": "e.g. Alex",
+    "relationshipLabel": "Your relationship",
+    "relationship": {
+      "friend": "Friend",
+      "partner": "Partner",
+      "crush": "Crush",
+      "family": "Family",
+      "coworker": "Coworker"
+    },
     "continueLabel": "Continue",
     "seeResultLabel": "See our compatibility",
     "resultHeading": "Your Compatibility",
+    "youAndThemHeading": "You & {{name}}",
     "backLink": "← Start over",
     "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
   },
   "idolMatch": {
     "navLabel": "Idol Zone",
-    "title": "Idol Zone 💫",
-    "subtitle": "Pick your bias to see their Five Element energy, their fortune today, and — if we know your birthday — how well you two match.",
-    "biasTitle": "Bias Compatibility 💫",
-    "biasSubtitle": "Already have a bias? Pick them and see your saju chemistry.",
+    "title": "Idol Match 💫",
+    "subtitle": "Enter your birthday and tell us your gender — we'll scan our whole idol roster and find the one your Five Element energy matches best.",
+    "findMatchLabel": "Find my match",
     "groupTitle": "Group Match 🏆",
-    "groupSubtitle": "Pick a group to rank your compatibility with every member.",
+    "groupSubtitle": "Pick a group to score your compatibility with every member.",
     "groupRankHeading": "Your ranking",
     "groupNeedBirthday": "We need your birthday first to rank your compatibility with the group.",
     "groupPickPrompt": "Pick a group above to see your ranking.",
     "groupPlaceholder": "Group",
-    "memberPlaceholder": "Member",
-    "submit": "Check my bias",
-    "theirElementHeading": "{{member}}'s element",
     "theirFortuneHeading": "{{member}}'s fortune today",
     "compatibilityHeading": "You & {{member}}",
-    "needBirthdayInline": "Enter your birthday on the home page to also see your compatibility with {{member}}.",
-    "goToLanding": "Enter my birthday",
     "yourElement": "You",
     "theirElement": "Them",
-    "backLink": "← Pick another idol",
     "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Member art is illustrative, not photos."
+  },
+  "dramaMatch": {
+    "navLabel": "Drama Match",
+    "title": "K-Drama Match 🎬",
+    "subtitle": "Enter your birthday and tell us your gender — we'll scan 100 K-drama actors and find your best Five Element match.",
+    "findMatchLabel": "Find my match",
+    "actorLabel": "K-Drama Actor",
+    "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Portraits are illustrative, not photos."
+  },
+  "matchCommon": {
+    "genderLabel": "I am...",
+    "genderFemale": "Female",
+    "genderMale": "Male",
+    "scoreLabel": "Match Score"
   },
   "guide": {
     "navLabel": "Guide",

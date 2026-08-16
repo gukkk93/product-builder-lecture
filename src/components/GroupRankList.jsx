@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getCompatibility } from '../utils/saju';
-import { getIdolMatchCopy, RELATION_RANK } from '../data/idolMatchTemplates';
+import { getCompatibility, getCompatibilityScore } from '../utils/saju';
+import { getIdolMatchCopy } from '../data/idolMatchTemplates';
 import MemberAvatar from './MemberAvatar';
 
 /** Ranks every member of a group by compatibility with userSaju, best first. */
@@ -17,15 +17,17 @@ export default function GroupRankList({ group, userSaju }) {
           false
         );
         const copy = getIdolMatchCopy(i18n.language, compat.relation, `${member.id}-group-${group.id}`);
+        const score = getCompatibilityScore(compat.relation, `${member.id}-group-${group.id}`);
         return {
           member,
           element: compat.otherSaju.dominantElement,
           strength: compat.otherSaju.dayGanStrength,
           relation: compat.relation,
           tier: copy.tier,
+          score,
         };
       })
-      .sort((a, b) => RELATION_RANK.indexOf(a.relation) - RELATION_RANK.indexOf(b.relation));
+      .sort((a, b) => b.score - a.score);
   }, [group, userSaju, i18n.language]);
 
   return (
@@ -47,6 +49,7 @@ export default function GroupRankList({ group, userSaju }) {
             <div style={{ fontWeight: 700, fontSize: 14 }}>{row.member.name}</div>
             <div style={{ fontSize: 12, color: 'var(--accent)' }}>{row.tier}</div>
           </div>
+          <strong style={{ flexShrink: 0, fontSize: 15, color: 'var(--accent)' }}>{row.score}%</strong>
         </div>
       ))}
     </div>

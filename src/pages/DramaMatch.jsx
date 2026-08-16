@@ -4,24 +4,22 @@ import { useTranslation } from 'react-i18next';
 import { calculateSaju, getTodayRelation } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
 import { getFortuneLine } from '../data/fortuneTemplates';
-import { getIdolMatchCopy } from '../data/idolMatchTemplates';
-import { idolGroups } from '../data/idols';
+import { getDramaMatchCopy } from '../data/dramaMatchTemplates';
+import { kdramaActors } from '../data/kdramaActors';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { trackIdolMatchSubmit } from '../utils/analytics';
 import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
 import GenderSelect from '../components/GenderSelect';
 import MatchResultCard from '../components/MatchResultCard';
-import GroupRankList from '../components/GroupRankList';
 
 const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'comeback'];
 
-export default function IdolMatch() {
+/** Same "best match" mechanic as IdolMatch, run against the K-drama actor pool instead of idols. */
+export default function DramaMatch() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const mode = params.get('mode'); // undefined | 'group'
-  const [groupId, setGroupId] = useState(mode === 'group' ? params.get('group') || '' : '');
   const [gender, setGender] = useState(params.get('gender') === 'M' ? 'M' : 'F');
   const { cardRef: shareCardRef, download, downloading } = useShareCardDownload();
 
@@ -45,20 +43,10 @@ export default function IdolMatch() {
     }
   }, [birth]);
 
-  const pool = useMemo(
-    () =>
-      idolGroups.flatMap((g) =>
-        g.members.map((m) => ({ ...m, groupId: g.id, groupName: g.name, gender: g.gender }))
-      ),
-    []
-  );
-
-  const selectedGroup = mode === 'group' && groupId ? idolGroups.find((g) => g.id === groupId) : null;
-
   const best = useMemo(() => {
-    if (mode === 'group' || !userSaju) return null;
-    return findBestMatch(pool, userSaju, gender);
-  }, [mode, pool, userSaju, gender]);
+    if (!userSaju) return null;
+    return findBestMatch(kdramaActors, userSaju, gender);
+  }, [userSaju, gender]);
 
   const bestToday = useMemo(() => (best ? getTodayRelation(best.saju) : null), [best]);
   const bestSeed = best ? `${best.candidate.id}-${new Date().toDateString()}` : '';
@@ -67,90 +55,35 @@ export default function IdolMatch() {
     : null;
 
   const compatCopy = best
-    ? getIdolMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`)
+    ? getDramaMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`)
     : null;
 
   useEffect(() => {
-    if (mode === 'group') {
-      if (selectedGroup && userSaju) trackIdolMatchSubmit('group');
-    } else if (best) {
-      trackIdolMatchSubmit('soulmate');
-    }
-  }, [mode, selectedGroup, userSaju, best]);
-
-  function handleGroupModeSelect(e) {
-    const newGroupId = e.target.value;
-    setGroupId(newGroupId);
-    const newParams = new URLSearchParams(params);
-    newParams.set('mode', 'group');
-    newParams.set('group', newGroupId);
-    navigate(`/idol-match?${newParams.toString()}`, { replace: true });
-  }
-
-  if (mode === 'group') {
-    return (
-      <main className="page">
-        <div className="page-content">
-          <h1>{t('idolMatch.groupTitle')}</h1>
-          <p className="subtitle">{t('idolMatch.groupSubtitle')}</p>
-
-          <div className="field-group">
-            <select value={groupId} onChange={handleGroupModeSelect} style={{ width: '100%' }}>
-              <option value="" disabled>{t('idolMatch.groupPlaceholder')}</option>
-              {idolGroups.map((g) => (
-                <option key={g.id} value={g.id}>{g.name}</option>
-              ))}
-            </select>
-          </div>
-
-          {!birth || !userSaju ? (
-            <div className="card" style={{ textAlign: 'left' }}>
-              <p>{t('idolMatch.groupNeedBirthday')}</p>
-              <BirthDateForm
-                submitLabel={t('compatibility.continueLabel')}
-                analyticsContext="idol-match-group"
-                onSubmit={(newParams) => {
-                  newParams.set('mode', 'group');
-                  if (groupId) newParams.set('group', groupId);
-                  navigate(`/idol-match?${newParams.toString()}`);
-                }}
-              />
-            </div>
-          ) : selectedGroup ? (
-            <div className="card">
-              <h2 style={{ marginTop: 0, marginBottom: 8, fontSize: 16 }}>{t('idolMatch.groupRankHeading')}</h2>
-              <GroupRankList group={selectedGroup} userSaju={userSaju} />
-            </div>
-          ) : (
-            <p className="subtitle" style={{ marginTop: 24 }}>{t('idolMatch.groupPickPrompt')}</p>
-          )}
-        </div>
-      </main>
-    );
-  }
+    if (best) trackIdolMatchSubmit('drama');
+  }, [best]);
 
   return (
     <main className="page">
       <div className="page-content">
-        <h1>{t('idolMatch.title')}</h1>
-        <p className="subtitle">{t('idolMatch.subtitle')}</p>
+        <h1>{t('dramaMatch.title')}</h1>
+        <p className="subtitle">{t('dramaMatch.subtitle')}</p>
 
         {!birth || !userSaju ? (
           <div className="card" style={{ textAlign: 'left' }}>
             <GenderSelect value={gender} onChange={setGender} />
             <BirthDateForm
-              submitLabel={t('idolMatch.findMatchLabel')}
-              analyticsContext="idol-match"
+              submitLabel={t('dramaMatch.findMatchLabel')}
+              analyticsContext="drama-match"
               onSubmit={(newParams) => {
                 newParams.set('gender', gender);
-                navigate(`/idol-match?${newParams.toString()}`);
+                navigate(`/drama-match?${newParams.toString()}`);
               }}
             />
           </div>
         ) : best ? (
           <MatchResultCard
             name={best.candidate.name}
-            subtitle={best.candidate.groupName}
+            subtitle={t('dramaMatch.actorLabel')}
             matchElement={best.saju.dominantElement}
             matchStrength={best.saju.dayGanStrength}
             userElement={userSaju.dominantElement}
@@ -161,9 +94,9 @@ export default function IdolMatch() {
             fortuneHeading={t('idolMatch.theirFortuneHeading', { member: best.candidate.name })}
             compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
             scoreLabel={t('matchCommon.scoreLabel')}
-            onShare={() => download(`ohaeng-${best.candidate.id}-match.png`, 'idol-match')}
+            onShare={() => download(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match')}
             shareLabel={t('result.shareButton')}
-            disclaimer={t('idolMatch.disclaimer')}
+            disclaimer={t('dramaMatch.disclaimer')}
             downloading={downloading}
           />
         ) : null}
@@ -174,7 +107,7 @@ export default function IdolMatch() {
           <IdolShareCard
             ref={shareCardRef}
             memberName={best.candidate.name}
-            groupName={best.candidate.groupName}
+            groupName={t('dramaMatch.actorLabel')}
             userElement={userSaju.dominantElement}
             idolElement={best.saju.dominantElement}
             idolStrength={best.saju.dayGanStrength}

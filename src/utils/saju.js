@@ -178,3 +178,32 @@ export function getCompatibility(mySaju, otherBirth, otherTimeKnown = false) {
     relation: getElementRelation(mySaju.dominantElement, otherSaju.dominantElement),
   };
 }
+
+// Baseline score per relation, used to turn a qualitative relation into a
+// shareable number. Ordering mirrors RELATION_RANK in idolMatchTemplates.js.
+const RELATION_SCORE = {
+  same: 92,
+  otherGeneratesMe: 84,
+  iGenerateOther: 74,
+  iOvercomeOther: 62,
+  otherOvercomesMe: 48,
+};
+
+function hashCode(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+  }
+  return hash;
+}
+
+/**
+ * Turns a Five Element relation into a stable 1-99 compatibility score, with
+ * a small deterministic jitter (seeded by seedInput, e.g. a pair id) so two
+ * pairs with the same relation don't all show the exact same number.
+ */
+export function getCompatibilityScore(relation, seedInput = '') {
+  const base = RELATION_SCORE[relation] ?? 70;
+  const jitter = (hashCode(String(seedInput)) % 7) - 3; // -3..+3
+  return Math.max(1, Math.min(99, base + jitter));
+}
