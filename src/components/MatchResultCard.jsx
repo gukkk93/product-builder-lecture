@@ -1,26 +1,27 @@
 import { useTranslation } from 'react-i18next';
 import ElementBadge from './ElementBadge';
 import MemberAvatar from './MemberAvatar';
-
-const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'comeback'];
+import PillarGrid from './PillarGrid';
 
 /**
  * Shared result layout for any "best match" reading (idol match, drama
- * match): the matched person's card, their fortune today, a compatibility
- * score, and a share button. Kept generic so both features render
- * identically per the "same content" request.
+ * match): the matched person's card, their own Four Pillars saju, a
+ * compatibility score + why-this-score explanation, and a share button.
+ * Kept generic so both features render identically per the "same content"
+ * request.
  */
 export default function MatchResultCard({
   name,
   subtitle,
   matchElement,
   matchStrength,
+  matchPillars,
   userElement,
-  todayLines,
+  pillarsHeading,
   score,
   tier,
   line,
-  fortuneHeading,
+  explanation,
   compatibilityHeading,
   scoreLabel,
   onShare,
@@ -42,17 +43,10 @@ export default function MatchResultCard({
 
       <ElementBadge element={matchElement} />
 
-      {todayLines && (
+      {matchPillars && (
         <>
-          <h2 style={{ marginTop: 24, marginBottom: 0, fontSize: 16 }}>{fortuneHeading}</h2>
-          <div className="fortune-list">
-            {CATEGORIES.map((cat) => (
-              <div className="fortune-row" key={cat}>
-                <div className="fortune-row__label">{t(`categories.${cat}`)}</div>
-                <div className="fortune-row__text">{todayLines[cat]}</div>
-              </div>
-            ))}
-          </div>
+          <h2 style={{ marginTop: 24, marginBottom: 12, fontSize: 16, textAlign: 'left' }}>{pillarsHeading}</h2>
+          <PillarGrid pillars={matchPillars} />
         </>
       )}
 
@@ -73,6 +67,9 @@ export default function MatchResultCard({
 
       <strong style={{ color: 'var(--accent)', fontSize: 18 }}>{tier}</strong>
       <p style={{ fontSize: 15, lineHeight: 1.6 }}>{line}</p>
+      {explanation && (
+        <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text-muted)', fontStyle: 'italic' }}>{explanation}</p>
+      )}
 
       <div className="result-actions">
         <button className="button" onClick={onShare} disabled={downloading}>

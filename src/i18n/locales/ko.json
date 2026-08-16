@@ -83,6 +83,16 @@
       "time": "시주"
     },
     "dayMasterHeading": "일간(日干)",
+    "dayMasterExplain": "일간은 일주의 천간으로, 사주에서 '나'를 나타내는 기준이 되는 글자예요.",
+    "glossaryHint": "칸을 눌러보면 무슨 뜻인지 알려드려요.",
+    "category": {
+      "gan": "천간",
+      "zhi": "지지"
+    },
+    "yinYang": {
+      "yang": "양",
+      "yin": "음"
+    },
     "strengthLabel": {
       "strong": "신강 사주",
       "weak": "신약 사주"
@@ -164,7 +174,7 @@
     "groupNeedBirthday": "그룹과의 궁합 순위를 보려면 먼저 생일을 입력해주세요.",
     "groupPickPrompt": "위에서 그룹을 선택하면 순위를 볼 수 있어요.",
     "groupPlaceholder": "그룹",
-    "theirFortuneHeading": "{{member}}의 오늘 운세",
+    "theirPillarsHeading": "{{member}}의 사주팔자",
     "compatibilityHeading": "나 & {{member}}",
     "yourElement": "나",
     "theirElement": "상대",
@@ -182,7 +192,14 @@
     "genderLabel": "저는...",
     "genderFemale": "여자예요",
     "genderMale": "남자예요",
-    "scoreLabel": "궁합 점수"
+    "scoreLabel": "궁합 점수",
+    "explanation": {
+      "same": "{{my}} 오행과 {{other}} 오행, 같은 오행이라 이렇게 잘 통하는 거예요.",
+      "otherGeneratesMe": "{{other}} 오행이 {{my}} 오행을 생해줘요 — 그래서 상대의 기운이 나를 편하게 채워주는 거예요.",
+      "iGenerateOther": "{{my}} 오행이 {{other}} 오행을 생해요 — 그래서 내가 더 많이 챙기고 베푸는 쪽이 되는 거예요.",
+      "otherOvercomesMe": "{{other}} 오행이 {{my}} 오행을 극해요 — 그 긴장감이 오히려 이 조합을 더 매력적으로 만들어요.",
+      "iOvercomeOther": "{{my}} 오행이 {{other}} 오행을 극해요 — 그래서 내가 중심을 잡아주는 든든한 쪽이 되는 거예요."
+    }
   },
   "guide": {
     "navLabel": "가이드",

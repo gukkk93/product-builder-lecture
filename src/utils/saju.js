@@ -48,6 +48,48 @@ export function getZhiLabel(zhi, lang) {
   return lang === 'ko' ? ZHI_KO[zhi] : zhi;
 }
 
+// Hanja + Yin/Yang polarity for each Gan/Zhi, used by the PillarGrid
+// glossary (tap a pillar character to see what it means). Standard,
+// textbook associations — stems/branches alternate yang/yin in the fixed
+// order they're traditionally listed in (甲乙丙丁戊己庚辛壬癸 / 子丑寅...).
+const GAN_HANJA = {
+  Jia: '甲', Yi: '乙', Bing: '丙', Ding: '丁', Wu: '戊',
+  Ji: '己', Geng: '庚', Xin: '辛', Ren: '壬', Gui: '癸',
+};
+const ZHI_HANJA = {
+  Zi: '子', Chou: '丑', Yin: '寅', Mao: '卯', Chen: '辰', Si: '巳',
+  Wu: '午', Wei: '未', Shen: '申', You: '酉', Xu: '戌', Hai: '亥',
+};
+const GAN_YINYANG = {
+  Jia: 'yang', Yi: 'yin', Bing: 'yang', Ding: 'yin', Wu: 'yang',
+  Ji: 'yin', Geng: 'yang', Xin: 'yin', Ren: 'yang', Gui: 'yin',
+};
+const ZHI_YINYANG = {
+  Zi: 'yang', Chou: 'yin', Yin: 'yang', Mao: 'yin', Chen: 'yang', Si: 'yin',
+  Wu: 'yang', Wei: 'yin', Shen: 'yang', You: 'yin', Xu: 'yang', Hai: 'yin',
+};
+
+/** Full glossary entry for a Gan character: label, hanja, element, yin/yang. */
+export function getGanMeta(gan, lang) {
+  return {
+    category: 'gan',
+    label: getGanLabel(gan, lang),
+    hanja: GAN_HANJA[gan],
+    element: GAN_ELEMENT[gan],
+    yinYang: GAN_YINYANG[gan],
+  };
+}
+/** Full glossary entry for a Zhi character: label, hanja, element, yin/yang. */
+export function getZhiMeta(zhi, lang) {
+  return {
+    category: 'zhi',
+    label: getZhiLabel(zhi, lang),
+    hanja: ZHI_HANJA[zhi],
+    element: ZHI_ELEMENT[zhi],
+    yinYang: ZHI_YINYANG[zhi],
+  };
+}
+
 export const ELEMENTS = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
 
 // Five Element generating (sheng) cycle: key generates value.

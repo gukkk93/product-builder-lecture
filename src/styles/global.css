@@ -447,7 +447,8 @@ textarea:focus {
 .element-badge__icon {
   flex-shrink: 0;
   display: block;
-  object-fit: cover;
+  box-sizing: border-box;
+  object-fit: contain;
   border-radius: 50%;
   background: color-mix(in srgb, var(--badge-color) 20%, transparent);
   border: 2px solid var(--badge-color);
@@ -456,12 +457,14 @@ textarea:focus {
 .element-badge--large .element-badge__icon {
   width: 64px;
   height: 64px;
+  padding: 11px;
   font-size: 30px;
 }
 
 .element-badge--small .element-badge__icon {
   width: 36px;
   height: 36px;
+  padding: 6px;
   font-size: 18px;
 }
 

@@ -8,7 +8,7 @@ import ShareCardFooter from './ShareCardFooter';
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 
 const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
-  { myElement, theirElement, theirName, relationshipLabel, tier, line },
+  { myElement, theirElement, theirName, relationshipLabel, score, tier, line },
   ref
 ) {
   const { t } = useTranslation();
@@ -61,7 +61,16 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
               <img
                 src={ELEMENT_ICON_SRC[myElement]}
                 alt=""
-                style={{ width: 72, height: 72, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.6)', objectFit: 'cover' }}
+                style={{
+                  width: 72,
+                  height: 72,
+                  padding: 12,
+                  boxSizing: 'border-box',
+                  borderRadius: '50%',
+                  border: '2px solid rgba(255,255,255,0.6)',
+                  background: 'rgba(255,255,255,0.15)',
+                  objectFit: 'contain',
+                }}
               />
               <span style={{ fontSize: 12, opacity: 0.85 }}>{t('idolMatch.yourElement')}: {t(`elements.${myElement}`)}</span>
             </div>
@@ -70,12 +79,22 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
               <img
                 src={ELEMENT_ICON_SRC[theirElement]}
                 alt=""
-                style={{ width: 72, height: 72, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.6)', objectFit: 'cover' }}
+                style={{
+                  width: 72,
+                  height: 72,
+                  padding: 12,
+                  boxSizing: 'border-box',
+                  borderRadius: '50%',
+                  border: '2px solid rgba(255,255,255,0.6)',
+                  background: 'rgba(255,255,255,0.15)',
+                  objectFit: 'contain',
+                }}
               />
               <span style={{ fontSize: 12, opacity: 0.85 }}>{theirName || t('idolMatch.theirElement')}: {t(`elements.${theirElement}`)}</span>
             </div>
           </div>
 
+          {score != null && <div style={{ fontSize: 36, fontWeight: 800 }}>{score}%</div>}
           <div style={{ fontSize: 28, fontWeight: 800 }}>{tier}</div>
 
           <p style={{ fontSize: 15, lineHeight: 1.6, margin: '4px 0 0', maxWidth: 280 }}>

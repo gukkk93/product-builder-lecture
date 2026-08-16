@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getTodayRelation } from '../utils/saju';
+import { calculateSaju } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
-import { getFortuneLine } from '../data/fortuneTemplates';
 import { getIdolMatchCopy } from '../data/idolMatchTemplates';
 import { idolGroups } from '../data/idols';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
@@ -13,8 +12,6 @@ import BirthDateForm from '../components/BirthDateForm';
 import GenderSelect from '../components/GenderSelect';
 import MatchResultCard from '../components/MatchResultCard';
 import GroupRankList from '../components/GroupRankList';
-
-const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'comeback'];
 
 export default function IdolMatch() {
   const { t, i18n } = useTranslation();
@@ -60,14 +57,15 @@ export default function IdolMatch() {
     return findBestMatch(pool, userSaju, gender);
   }, [mode, pool, userSaju, gender]);
 
-  const bestToday = useMemo(() => (best ? getTodayRelation(best.saju) : null), [best]);
-  const bestSeed = best ? `${best.candidate.id}-${new Date().toDateString()}` : '';
-  const bestLines = bestToday
-    ? Object.fromEntries(CATEGORIES.map((cat) => [cat, getFortuneLine(i18n.language, bestToday.relation, cat, bestSeed)]))
-    : null;
-
   const compatCopy = best
     ? getIdolMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`)
+    : null;
+
+  const explanation = best
+    ? t(`matchCommon.explanation.${best.relation}`, {
+        my: t(`elements.${userSaju.dominantElement}`),
+        other: t(`elements.${best.saju.dominantElement}`),
+      })
     : null;
 
   useEffect(() => {
@@ -153,12 +151,13 @@ export default function IdolMatch() {
             subtitle={best.candidate.groupName}
             matchElement={best.saju.dominantElement}
             matchStrength={best.saju.dayGanStrength}
+            matchPillars={best.saju.pillars}
             userElement={userSaju.dominantElement}
-            todayLines={bestLines}
+            pillarsHeading={t('idolMatch.theirPillarsHeading', { member: best.candidate.name })}
             score={best.score}
             tier={compatCopy.tier}
             line={compatCopy.line}
-            fortuneHeading={t('idolMatch.theirFortuneHeading', { member: best.candidate.name })}
+            explanation={explanation}
             compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
             scoreLabel={t('matchCommon.scoreLabel')}
             onShare={() => download(`ohaeng-${best.candidate.id}-match.png`, 'idol-match')}

@@ -61,7 +61,16 @@ const IdolShareCard = forwardRef(function IdolShareCard(
               <img
                 src={ELEMENT_ICON_SRC[userElement]}
                 alt=""
-                style={{ width: 56, height: 56, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.6)', objectFit: 'cover' }}
+                style={{
+                  width: 56,
+                  height: 56,
+                  padding: 10,
+                  boxSizing: 'border-box',
+                  borderRadius: '50%',
+                  border: '2px solid rgba(255,255,255,0.6)',
+                  background: 'rgba(255,255,255,0.15)',
+                  objectFit: 'contain',
+                }}
               />
               <span style={{ fontSize: 11, opacity: 0.85 }}>{t('idolMatch.yourElement')}: {t(`elements.${userElement}`)}</span>
             </div>
@@ -70,7 +79,16 @@ const IdolShareCard = forwardRef(function IdolShareCard(
               <img
                 src={ELEMENT_ICON_SRC[idolElement]}
                 alt=""
-                style={{ width: 56, height: 56, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.6)', objectFit: 'cover' }}
+                style={{
+                  width: 56,
+                  height: 56,
+                  padding: 10,
+                  boxSizing: 'border-box',
+                  borderRadius: '50%',
+                  border: '2px solid rgba(255,255,255,0.6)',
+                  background: 'rgba(255,255,255,0.15)',
+                  objectFit: 'contain',
+                }}
               />
               <span style={{ fontSize: 11, opacity: 0.85 }}>{memberName}: {t(`elements.${idolElement}`)}</span>
             </div>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getCompatibility } from '../utils/saju';
+import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { getCompatibilityCopy } from '../data/compatibilityTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { trackPageView } from '../utils/analytics';
@@ -56,6 +56,17 @@ export default function Compatibility() {
         compatibility.relation,
         `${myBirth.year}-${myBirth.month}-${myBirth.day}-${theirBirth.year}-${theirBirth.month}-${theirBirth.day}`
       )
+    : null;
+
+  const explanation = compatibility
+    ? t(`matchCommon.explanation.${compatibility.relation}`, {
+        my: t(`elements.${mySaju.dominantElement}`),
+        other: t(`elements.${compatibility.otherSaju.dominantElement}`),
+      })
+    : null;
+
+  const score = compatibility && theirBirth
+    ? getCompatibilityScore(compatibility.relation, `${theirBirth.year}-${theirBirth.month}-${theirBirth.day}`)
     : null;
 
   useEffect(() => {
@@ -157,8 +168,14 @@ export default function Compatibility() {
             </div>
           </div>
 
+          <div style={{ fontSize: 34, fontWeight: 800, color: 'var(--accent)', lineHeight: 1.1 }}>{score}%</div>
+          <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>{t('matchCommon.scoreLabel')}</div>
+
           <strong style={{ color: 'var(--accent)', fontSize: 20 }}>{copy.tier}</strong>
           <p style={{ fontSize: 15, lineHeight: 1.6 }}>{copy.line}</p>
+          {explanation && (
+            <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text-muted)', fontStyle: 'italic' }}>{explanation}</p>
+          )}
 
           <div className="result-actions">
             <button className="button" onClick={() => download('ohaeng-compatibility.png', 'compatibility')} disabled={downloading}>
@@ -177,6 +194,7 @@ export default function Compatibility() {
           theirElement={compatibility.otherSaju.dominantElement}
           theirName={displayName}
           relationshipLabel={relationshipLabel}
+          score={score}
           tier={copy.tier}
           line={copy.line}
         />

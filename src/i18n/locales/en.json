@@ -83,6 +83,16 @@
       "time": "Hour"
     },
     "dayMasterHeading": "Your Day Master",
+    "dayMasterExplain": "The Day Master is the Heavenly Stem of your Day Pillar — the character that represents \"you\" in the chart.",
+    "glossaryHint": "Tap a pillar to see what it means.",
+    "category": {
+      "gan": "Heavenly Stem",
+      "zhi": "Earthly Branch"
+    },
+    "yinYang": {
+      "yang": "Yang",
+      "yin": "Yin"
+    },
     "strengthLabel": {
       "strong": "Strong Day Master",
       "weak": "Weak Day Master"
@@ -164,7 +174,7 @@
     "groupNeedBirthday": "We need your birthday first to rank your compatibility with the group.",
     "groupPickPrompt": "Pick a group above to see your ranking.",
     "groupPlaceholder": "Group",
-    "theirFortuneHeading": "{{member}}'s fortune today",
+    "theirPillarsHeading": "{{member}}'s Four Pillars",
     "compatibilityHeading": "You & {{member}}",
     "yourElement": "You",
     "theirElement": "Them",
@@ -182,7 +192,14 @@
     "genderLabel": "I am...",
     "genderFemale": "Female",
     "genderMale": "Male",
-    "scoreLabel": "Match Score"
+    "scoreLabel": "Match Score",
+    "explanation": {
+      "same": "{{my}} and {{other}} are the same element — that's the real reason you're so in sync.",
+      "otherGeneratesMe": "{{other}} generates {{my}} — their energy feeds yours, which is why it feels easy.",
+      "iGenerateOther": "{{my}} generates {{other}} — your energy feeds theirs, which is why you're the one giving more.",
+      "otherOvercomesMe": "{{other}} overcomes {{my}} — that tension is exactly what makes this pairing so compelling.",
+      "iOvercomeOther": "{{my}} overcomes {{other}} — you're the steadying, grounding influence here."
+    }
   },
   "guide": {
     "navLabel": "Guide",

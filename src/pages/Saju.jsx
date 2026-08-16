@@ -91,6 +91,7 @@ export default function Saju() {
               {t(`saju.strengthLabel.${saju.dayGanStrength}`)}
             </span>
           </div>
+          <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.dayMasterExplain')}</p>
           <p style={{ fontSize: 15, lineHeight: 1.7 }}>{dayMasterLine}</p>
           <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--text-muted)' }}>{t(`saju.strengthBlurb.${saju.dayGanStrength}`)}</p>
         </div>

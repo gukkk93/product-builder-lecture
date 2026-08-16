@@ -61,10 +61,12 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
             style={{
               width: 96,
               height: 96,
+              padding: 16,
+              boxSizing: 'border-box',
               borderRadius: '50%',
               background: 'rgba(255,255,255,0.15)',
               border: '2px solid rgba(255,255,255,0.6)',
-              objectFit: 'cover',
+              objectFit: 'contain',
             }}
           />
           <div style={{ fontSize: 30, fontWeight: 800 }}>{t(`elements.${element}`)}</div>
