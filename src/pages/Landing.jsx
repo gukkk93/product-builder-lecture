@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import FourSymbolsBackdrop from '../components/FourSymbolsBackdrop';
 import MenuListItem from '../components/MenuListItem';
 
 export default function Landing() {
@@ -7,14 +6,13 @@ export default function Landing() {
 
   return (
     <main className="page">
-      <FourSymbolsBackdrop />
       <div className="page-content">
         <h1>{t('landing.title')}</h1>
         <p className="subtitle">{t('landing.subtitle')}</p>
 
         <div className="menu-section-label"><span className="dot" />{t('home.readingsLabel')}</div>
         <MenuListItem
-          element="Fire"
+          icon="fortune"
           title={t('home.items.fortune.title')}
           description={t('home.items.fortune.description')}
           to="/result"
@@ -22,7 +20,7 @@ export default function Landing() {
           analyticsKey="fortune"
         />
         <MenuListItem
-          element="Earth"
+          icon="saju"
           title={t('home.items.saju.title')}
           description={t('home.items.saju.description')}
           to="/saju"
@@ -30,7 +28,7 @@ export default function Landing() {
           analyticsKey="saju"
         />
         <MenuListItem
-          element="Metal"
+          icon="compatibility"
           title={t('home.items.compatibility.title')}
           description={t('home.items.compatibility.description')}
           to="/compatibility"
@@ -40,7 +38,7 @@ export default function Landing() {
 
         <div className="menu-section-label"><span className="dot" />{t('home.idolsLabel')}</div>
         <MenuListItem
-          element="Wood"
+          icon="idolMatch"
           title={t('home.items.idolMatch.title')}
           description={t('home.items.idolMatch.description')}
           to="/idol-match"
@@ -48,7 +46,7 @@ export default function Landing() {
           analyticsKey="idol-match"
         />
         <MenuListItem
-          element="Water"
+          icon="bias"
           title={t('home.items.bias.title')}
           description={t('home.items.bias.description')}
           to="/idol-match?mode=bias"
@@ -56,7 +54,7 @@ export default function Landing() {
           analyticsKey="idol-match-bias"
         />
         <MenuListItem
-          element="Earth"
+          icon="groupMatch"
           title={t('home.items.groupMatch.title')}
           description={t('home.items.groupMatch.description')}
           to="/idol-match?mode=group"

@@ -25,6 +25,29 @@ const ZHI_ELEMENT = {
   Hai: 'Water', Zi: 'Water',
 };
 
+// lunar-javascript only ships 'chs' (Chinese) and 'en' locales — no Korean —
+// so for the Korean UI we translate the romanized Gan/Zhi names ourselves.
+// Note "Wu" is ambiguous between 戊 (a Gan) and 午 (a Zhi); that's fine as
+// long as callers always know which table they're looking up.
+const GAN_KO = {
+  Jia: '갑', Yi: '을', Bing: '병', Ding: '정', Wu: '무',
+  Ji: '기', Geng: '경', Xin: '신', Ren: '임', Gui: '계',
+};
+
+const ZHI_KO = {
+  Zi: '자', Chou: '축', Yin: '인', Mao: '묘', Chen: '진', Si: '사',
+  Wu: '오', Wei: '미', Shen: '신', You: '유', Xu: '술', Hai: '해',
+};
+
+/** Displays a Gan (Heavenly Stem) character, translated for Korean. */
+export function getGanLabel(gan, lang) {
+  return lang === 'ko' ? GAN_KO[gan] : gan;
+}
+/** Displays a Zhi (Earthly Branch) character, translated for Korean. */
+export function getZhiLabel(zhi, lang) {
+  return lang === 'ko' ? ZHI_KO[zhi] : zhi;
+}
+
 export const ELEMENTS = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
 
 // Five Element generating (sheng) cycle: key generates value.

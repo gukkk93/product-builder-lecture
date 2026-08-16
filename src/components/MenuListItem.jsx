@@ -1,27 +1,22 @@
 import { Link } from 'react-router-dom';
-import { ELEMENT_GRADIENT } from './ShareCard';
-import { ELEMENT_ICON_SRC } from './ElementBadge';
+import MenuIcon from './MenuIcon';
 import { trackMenuClick } from '../utils/analytics';
 
 /**
- * One row in the home screen menu. `element` picks both the Four Symbols
- * icon and the gradient ring behind it (see STYLE_GUIDE.md — gradient +
- * illustrated icon, not a flat pastel circle). `status: 'soon'` renders the
- * row dimmed and non-interactive instead of linking anywhere.
+ * One row in the home screen menu. `icon` picks a simple line-icon concept
+ * mark (see MenuIcon.jsx) — the Four Symbols animal icons are reserved for
+ * actual oheng data (badges, avatars, share cards), not decoration here.
+ * `status: 'soon'` renders the row dimmed and non-interactive instead of
+ * linking anywhere.
  */
-export default function MenuListItem({ element, title, description, to, status = 'live', analyticsKey }) {
+export default function MenuListItem({ icon, title, description, to, status = 'live', analyticsKey }) {
   const isLive = status === 'live';
-  const [gradFrom, gradTo] = ELEMENT_GRADIENT[element];
-
-  const icon = (
-    <div className="menu-item__icon-ring" style={{ background: `linear-gradient(160deg, ${gradFrom}, ${gradTo})` }}>
-      <img src={ELEMENT_ICON_SRC[element]} alt="" />
-    </div>
-  );
 
   const content = (
     <>
-      {icon}
+      <div className="menu-item__icon-ring">
+        <MenuIcon name={icon} />
+      </div>
       <div className="menu-item__text">
         <div className="menu-item__title">{title}</div>
         <div className="menu-item__desc">{description}</div>

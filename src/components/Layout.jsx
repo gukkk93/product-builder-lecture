@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
 import { ELEMENT_ICON_SRC } from './ElementBadge';
 
 export default function Layout() {
@@ -23,6 +24,7 @@ export default function Layout() {
           <Link to="/partnership" className="header-link">
             {t('nav.partnership')}
           </Link>
+          <LanguageToggle />
           <ThemeToggle />
         </div>
       </header>

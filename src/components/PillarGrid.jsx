@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { getGanElement, getZhiElement } from '../utils/saju';
+import { getGanElement, getZhiElement, getGanLabel, getZhiLabel } from '../utils/saju';
 
 const ELEMENT_VAR = {
   Wood: '--el-wood',
@@ -33,7 +33,7 @@ function Cell({ char, element }) {
 
 /** Visualizes the Four Pillars (년/월/일/시 간지) returned by calculateSaju. */
 export default function PillarGrid({ pillars }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const keys = PILLAR_ORDER.filter((key) => pillars[key]);
 
   return (
@@ -45,8 +45,8 @@ export default function PillarGrid({ pillars }) {
             <span style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600 }}>
               {t(`saju.pillars.${key}`)}
             </span>
-            <Cell char={gan} element={getGanElement(gan)} />
-            <Cell char={zhi} element={getZhiElement(zhi)} />
+            <Cell char={getGanLabel(gan, i18n.language)} element={getGanElement(gan)} />
+            <Cell char={getZhiLabel(zhi, i18n.language)} element={getZhiElement(zhi)} />
           </div>
         );
       })}

@@ -11,7 +11,7 @@ palette on `:root` and a dark override under `html[data-theme='dark']`.
 
 | Token | Role |
 |---|---|
-| `--bg` | Page background (used inside a radial gradient with `--accent`) |
+| `--bg` | Page background — flat neutral gray/near-black, no color wash. Revised in the "clean background" pass: an earlier version tinted this with `--accent` via a radial gradient, which read as busy/dated rather than premium. Backgrounds stay neutral; `--accent` is reserved for interactive/highlighted elements only. |
 | `--surface` | Card / pill background (translucent, blurs the background behind it) |
 | `--text` / `--text-muted` | Primary and secondary text |
 | `--accent` | The one brand color — buttons, links, headings, focus states |
@@ -71,25 +71,39 @@ should either reuse these exact assets or match their visual language:
 abstract line-art motifs (see below) for places a full illustration would
 be too busy — like a small avatar.
 
-## Brand direction: 사신도-centric, not Co-Star, not Postelle
+## Brand direction: 사신도 for data, clean neutral chrome everywhere else
 
-Ohaeng's visual identity is the Four Symbols (사신도) — that's the
-differentiator from both Co-Star (monochrome minimalism) and Postelle-style
-apps (generic friendly-character illustration). Concretely, that means:
+Revised in the "clean background" pass — the earlier version of this section
+said to scatter Four Symbols icons as ambient background texture on
+prominent screens (`FourSymbolsBackdrop.jsx`, a large faded icon collage
+behind Landing's content). User feedback: it read as cluttered, not premium.
+That component is deleted; the current rule is narrower:
 
-- The five element icons are not a one-off decoration confined to a badge
-  on the result page — they're the brand mark. They show up in the header
-  (`Layout.jsx`, next to the wordmark), as an ambient background texture on
-  hero-ish pages (`FourSymbolsBackdrop.jsx`, used on `Landing.jsx`), as
-  member avatars (`MemberAvatar.jsx` + `ElementPattern.jsx`), and as
-  watermarks on share cards (`ShareCardWatermark.jsx`).
-- When adding a new prominent screen, default to giving it *some* Four
-  Symbols presence (a watermark, a badge, an icon) rather than a plain
-  gradient-and-text layout — that plainness is the exact "in-between" tone
-  this direction is meant to move away from.
+- The Four Symbols icons appear **only where they represent real computed
+  oheng data** — the element badge on a result, `MemberAvatar.jsx` +
+  `ElementPattern.jsx` avatars, and share-card watermarks
+  (`ShareCardWatermark.jsx`, which stays — it's a small flourish on a
+  shareable image, not a page background).
+- They do **not** appear as decoration on plain page backgrounds, and not
+  as the icon for a generic UI element like a home-screen menu row —
+  `MenuIcon.jsx` uses simple single-color line icons for that instead (see
+  below), reserving the illustrated animal icons for moments that are
+  actually "this is your element."
+- Page backgrounds are flat and neutral (see Color, `--bg`). Don't add a
+  colored gradient or a background icon/texture to a new screen — that's
+  the exact busy, in-between tone this revision moved away from.
 - Don't introduce a second illustration style (e.g. cutesy mascot
-  characters) alongside the Four Symbols — pick one visual language and
-  keep extending it.
+  characters) alongside the Four Symbols for data — pick one visual
+  language for "this is an oheng element" and keep extending it.
+
+## Menu icons
+
+`MenuIcon.jsx` — plain single-color (`currentColor`) line icons, 24x24
+viewBox, ~1.7px stroke, no fill except the star/heart marks. Sits in a flat
+`--accent`-tinted circle (`color-mix(in srgb, var(--accent) 12%,
+transparent)`), not a gradient ring. Used for home-screen menu rows only.
+When adding a new menu row, add a new icon here rather than reusing a Four
+Symbols element icon — see Brand direction above for why.
 
 ## Accessibility: touch targets
 
