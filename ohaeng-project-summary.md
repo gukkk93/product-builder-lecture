@@ -31,7 +31,8 @@
 - `getElementRelation(myElement, otherElement)`: 오행 상생상극 관계 판정 (`same`/`otherGeneratesMe`/`iGenerateOther`/`otherOvercomesMe`/`iOvercomeOther`) — **이 앱의 모든 "오늘의 운세"·"궁합" 로직이 여기서 파생됨**
 - `getTodayRelation(saju, date)`: 내 사주 vs 오늘 날짜
 - `getCompatibility(mySaju, otherBirth, otherTimeKnown)`: 나 vs 다른 사람(아이돌이든 일반인이든) — 아이돌 궁합/일반 궁합/그룹 랭킹/베스트매치가 전부 이 하나의 함수를 재사용
-- `getCompatibilityScore(relation, seedInput)`: 관계(5종)를 1-99 궁합 점수(%)로 변환. 관계별 기준점(same=92 ~ otherOvercomesMe=48) + seed 기반 지터(±3)로 같은 관계라도 쌍마다 살짝 다른 점수가 나오게 함. 그룹 매치/베스트매치 결과에 표시되는 "궁합 점수"가 전부 이 함수 하나에서 나옴
+- `getCompatibilityScore(relation, seedInput)`: 관계(5종)를 1-99 궁합 점수(%)로 변환. 관계별 기준점(same=92 ~ otherOvercomesMe=48) + seed 기반 지터(±3)로 같은 관계라도 쌍마다 살짝 다른 점수가 나옴. 그룹 매치/베스트매치/궁합 보기에 표시되는 "궁합 점수"가 전부 이 함수 하나에서 나옴
+- `getGanMeta(gan, lang)`/`getZhiMeta(zhi, lang)`: 사주팔자 글자 하나(예: 을/해)의 전체 메타데이터를 반환 — `{ category: 'gan'|'zhi', label, hanja, element, yinYang }`. `PillarGrid`가 칸을 탭했을 때 보여주는 글로서리(용어 설명) 패널의 데이터 소스. 음양은 `GAN_YINYANG`/`ZHI_YINYANG` 매핑(십간/십이지 전통 순서 기준 양/음 교대)으로 새로 추가함
 
 ## 3-1. 베스트매치 로직 (`src/utils/bestMatch.js`)
 
@@ -44,14 +45,16 @@
 | `/` | `Landing.jsx` | **순수 메뉴 화면** (생년월일 입력 없음). "사주 리딩"(오늘의 운세/내 사주/궁합) + "K팝 아이돌"(아이돌 매치/K-드라마 매치/그룹 매치) 2개 섹션, 리스트형 메뉴 6개 항목 |
 | `/result` | `Result.jsx` | 오늘의 운세만 — 오행 배지, 띠, 5개 카테고리(총운/애정/재물/건강/컴백운), 공유카드, "궁합"/"내 사주" CTA. birth 파라미터 없으면 `BirthDateForm` 인라인 렌더 |
 | `/saju` | `Saju.jsx` | 내 사주 자체(오늘과 무관) — 네 기둥(PillarGrid, 한국어면 한글 표기), 일간+신강/신약 배지, 오행 분포 바차트, 성격 분석. birth 없으면 인라인 폼 |
-| `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 팬덤 용어 없는 별도 문구 뱅크 사용 |
+| `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 궁합 점수(%) + 왜 이 점수인지 한 줄 설명 포함. 팬덤 용어 없는 별도 문구 뱅크 사용 |
 | `/idol-match` | `IdolMatch.jsx` | **베스트매치 추천** — 생일+성별 입력 → 반대 성별 아이돌 풀(31개 그룹, 197명) 전체와 궁합 계산해서 1위를 추천. `?mode=group&group=X`는 그대로 유지(그룹 전체 멤버와의 궁합 점수 랭킹, `GroupRankList.jsx`) |
 | `/drama-match` | `DramaMatch.jsx` (신규) | 아이돌 매치와 **완전히 동일한 메커니즘**을 K-드라마 배우 100명(남 50/여 50, `kdramaActors.js`) 대상으로 실행. `findBestMatch`/`MatchResultCard`를 아이돌 매치와 공유 |
 | `/partnership` | `Partnership.jsx` | Formspree 제휴 문의 폼 |
 | `/guide` | `Guide.jsx` | 사주 vs 별자리 비교, 오행 상생상극 설명, "랜덤 아님" 신뢰 섹션 |
 | `/about`, 그 외 | `ComingSoon.jsx` | 미구현 placeholder |
 
-생년월일 입력은 `BirthDateForm.jsx` 하나로 통일 — Result/Saju/Compatibility/IdolMatch(베스트매치+group)/DramaMatch 전부 재사용. 성별 선택은 `GenderSelect.jsx`(IdolMatch/DramaMatch 공용), 매치 결과 카드는 `MatchResultCard.jsx`(아바타+오늘의 운세+궁합 점수+티어+공유버튼, 두 페이지 공용)로 분리했다.
+생년월일 입력은 `BirthDateForm.jsx` 하나로 통일 — Result/Saju/Compatibility/IdolMatch(베스트매치+group)/DramaMatch 전부 재사용. 성별 선택은 `GenderSelect.jsx`(IdolMatch/DramaMatch 공용), 매치 결과 카드는 `MatchResultCard.jsx`(아바타+**상대방의 네 기둥 사주(PillarGrid)**+궁합 점수+티어+왜 이 점수인지 설명+공유버튼, 두 페이지 공용)로 분리했다. 원래는 매칭된 상대의 "오늘의 운세"를 보여줬는데 `/result` 페이지와 내용이 겹친다는 피드백으로 **상대방 자신의 사주팔자**를 보여주는 것으로 교체함.
+
+**궁합 점수 설명(`matchCommon.explanation.*`)**: 점수/티어 아래에 "목 오행이 화 오행을 생해줘서 이런 결과가 나온 거예요" 식으로 오행 상생상극 관계를 풀어주는 한 줄이 붙는다. `t('matchCommon.explanation.'+relation, {my, other})` 형태로 IdolMatch/DramaMatch/Compatibility 세 곳에서 동일하게 사용.
 
 **옛 "최애 궁합"(bias 모드)은 제거됨** — 기존 아이돌 매치(그룹+멤버 수동 선택)와 최애 궁합이 사실상 동일한 화면이었다는 사용자 피드백에 따라, 수동 선택 UX를 없애고 위 베스트매치 추천 방식으로 통합했다.
 
@@ -79,6 +82,8 @@
 - **멤버 아바타** (`MemberAvatar.jsx` + `ElementPattern.jsx`): 실사진/AI 합성 얼굴 **절대 사용 안 함** (초상권 리스크 회피). 멤버 본인 사주의 오행+신강신약을 계산해서 그라디언트+추상 패턴 아바타 생성 — 최대 10종(오행 5 × 강약 2, 강함=진하고 실선 테두리/약함=흐리고 점선 테두리)
 - **공유카드** (`ShareCard.jsx`, `IdolShareCard.jsx`, `CompatibilityShareCard.jsx`, 전부 `ShareCardFooter.jsx`/`ShareCardWatermark.jsx` 공유): 9:16 PNG, URL 배지 포함
 - **OG 배너**: `public/og-banner.png` — 1200x630, Playwright로 HTML 직접 렌더링해서 만든 전용 이미지
+- **원형 아이콘 크롭 버그 수정**: 오행 아이콘 PNG(`public/icons/elements/*.png`)가 420×320 비율(정사각형 아님)인데 `object-fit: cover`로 원형 배지를 꽉 채우다 보니 그림 테두리가 잘려 나왔음. `ElementBadge`(`global.css` `.element-badge__icon`), `ShareCard`/`IdolShareCard`/`CompatibilityShareCard`의 원형 아이콘, `Layout.jsx` 헤더 로고까지 전부 `object-fit: contain` + 패딩으로 바꿔서 그림이 원 안에 여백을 두고 온전히 들어오게 통일함. `MemberAvatar`/`ElementPattern`(SVG 벡터 패턴)은 애초에 원 사이즈에 맞춰 그린 거라 해당 없음
+- **사주팔자 글로서리**: `PillarGrid`의 각 칸(갑/을/병/정...)이 탭 가능해짐 — 누르면 그 글자의 한자·천간/지지 구분·오행·음양을 태그로 보여주는 패널이 그리드 아래에 뜬다. 상시 표시 대신 클릭식을 택한 이유: 8칸 전부에 상시 설명을 붙이면 화면이 너무 빽빽해짐. `/saju`의 "일간(日干)" 헤딩 아래에는 짧은 정의 문구를 상시로 추가(용어가 하나뿐이라 인라인이 더 적합하다고 판단)
 
 ## 8. 다국어 (i18n)
 
