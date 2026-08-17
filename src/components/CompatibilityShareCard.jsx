@@ -29,7 +29,7 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
         textAlign: 'center',
       }}
     >
-      <ShareCardWatermark element={theirElement} />
+      <ShareCardWatermark elements={[myElement, theirElement]} />
 
       <div
         style={{

@@ -30,7 +30,7 @@ const IdolShareCard = forwardRef(function IdolShareCard(
         textAlign: 'center',
       }}
     >
-      <ShareCardWatermark element={idolElement} />
+      <ShareCardWatermark elements={[userElement, idolElement]} />
 
       <div
         style={{

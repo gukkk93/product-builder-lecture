@@ -35,7 +35,7 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
         textAlign: 'center',
       }}
     >
-      <ShareCardWatermark element={element} />
+      <ShareCardWatermark elements={[element]} />
 
       <div
         style={{

@@ -26,7 +26,7 @@ const SajuShareCard = forwardRef(function SajuShareCard({ element, strength, pro
         textAlign: 'center',
       }}
     >
-      <ShareCardWatermark element={element} />
+      <ShareCardWatermark elements={[element]} />
 
       <div
         style={{

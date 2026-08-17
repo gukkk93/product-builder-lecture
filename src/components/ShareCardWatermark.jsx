@@ -1,44 +1,50 @@
-import { ELEMENT_ICON_SRC } from './ElementBadge';
 import { ELEMENT_CHARACTER_SRC } from './ElementCharacter';
 
-// Large, low-opacity Four Symbols icon bleeding off the corner of a share
-// card — brand recognition without competing with the foreground content.
-// A second, even fainter mark in the opposite corner uses the full
-// character illustration instead, so the card reads as "part of the same
-// world" as the loading reveal / ComingSoon without turning into a second
-// visible logo. Parent must be `position: relative; overflow: hidden`.
-export default function ShareCardWatermark({ element }) {
+// Large, low-opacity character illustration(s) bleeding off the card
+// corners — ambient brand texture behind the content, using the full
+// mascot art (not just the face) since it reads fine at this scale.
+//
+// Pass a single-item array for one-person cards (Result/Saju: just "my"
+// element). Pass a two-item array for match/compatibility cards so BOTH
+// people's energy shows up in the background instead of only one side.
+// Parent must be `position: relative; overflow: hidden`.
+export default function ShareCardWatermark({ elements }) {
+  const [first, second] = elements;
+
   return (
     <>
       <img
-        src={ELEMENT_ICON_SRC[element]}
+        src={ELEMENT_CHARACTER_SRC[first]}
         alt=""
         aria-hidden="true"
         style={{
           position: 'absolute',
-          width: 440,
-          height: 440,
-          right: -140,
-          bottom: -120,
-          opacity: 0.14,
-          pointerEvents: 'none',
-        }}
-      />
-      <img
-        src={ELEMENT_CHARACTER_SRC[element]}
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          width: 260,
-          height: 260,
-          left: -80,
-          top: -70,
-          opacity: 0.08,
+          width: second ? 320 : 400,
+          height: second ? 320 : 400,
+          right: second ? -100 : -120,
+          bottom: second ? -90 : -110,
+          opacity: 0.13,
           pointerEvents: 'none',
           objectFit: 'contain',
         }}
       />
+      {second && (
+        <img
+          src={ELEMENT_CHARACTER_SRC[second]}
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            width: 320,
+            height: 320,
+            left: -100,
+            top: -90,
+            opacity: 0.13,
+            pointerEvents: 'none',
+            objectFit: 'contain',
+          }}
+        />
+      )}
     </>
   );
 }
