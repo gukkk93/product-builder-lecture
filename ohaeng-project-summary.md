@@ -46,13 +46,15 @@
 | `/result` | `Result.jsx` | 오늘의 운세만 — 오행 배지, 띠, 5개 카테고리(총운/애정/재물/건강/컴백운), 공유카드, "궁합"/"내 사주" CTA. birth 파라미터 없으면 `BirthDateForm` 인라인 렌더 |
 | `/saju` | `Saju.jsx` | 내 사주 자체(오늘과 무관) — 네 기둥(PillarGrid, 한국어면 한글 표기), 일간+신강/신약 배지, 오행 분포 바차트, 성격 분석, **공유카드**(`SajuShareCard.jsx`, 신규). birth 없으면 인라인 폼 |
 | `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 궁합 점수(%) + 왜 이 점수인지 한 줄 설명 포함. 팬덤 용어 없는 별도 문구 뱅크 사용 |
-| `/idol-match` | `IdolMatch.jsx` | **베스트매치 추천** — 생일+성별 입력 → 반대 성별 아이돌 풀(31개 그룹, 197명) 전체와 궁합 계산해서 1위를 추천. `?mode=group&group=X`는 그룹 전체 멤버 궁합 점수 랭킹(`GroupRankList.jsx`) — **각 멤버 행을 탭하면**(`?member=Y` 추가) 그 멤버 한 명과의 전체 궁합 상세(사주팔자+점수+설명+공유카드)로 드릴다운, "← 순위로 돌아가기"로 복귀. 예전에 있다가 없어졌던 "아이돌 선택해서 궁합 보기" 플로우를 그룹 랭킹의 드릴다운으로 복원함 |
+| `/idol-match` | `IdolMatch.jsx` | **베스트매치 추천** — 생일+성별 입력 → 반대 성별 아이돌 풀(31개 그룹, 197명) 전체와 궁합 계산해서 1위를 추천. `?mode=group&group=X&member=Y`는 **그룹 선택 → 멤버 선택(드롭다운 2개, `.select-row`)** → 그 멤버 한 명과의 전체 궁합 상세(사주팔자+점수+설명+공유카드). 한때 자동 랭킹 리스트(`GroupRankList.jsx`, 멤버 전원 점수순 나열 + 탭해서 드릴다운)로 만들었었는데, "예전처럼 멤버를 직접 선택하는 방식으로 바꿔달라"는 피드백으로 **드롭다운 선택 방식으로 재변경** — `GroupRankList.jsx`는 삭제함 |
 | `/drama-match` | `DramaMatch.jsx` (신규) | 아이돌 매치와 **완전히 동일한 메커니즘**을 K-드라마 배우 100명(남 50/여 50, `kdramaActors.js`) 대상으로 실행. `findBestMatch`/`MatchResultCard`를 아이돌 매치와 공유 |
 | `/contact` | `Contact.jsx` (구 `Partnership.jsx`) | Formspree 문의 폼 — **제휴 문의 전용에서 일반 문의로 범위 확장**. 이름/이메일/문의유형(일반 피드백·버그 제보·제휴 제안·기타)/회사(선택)/내용. 옛 `/partnership` 경로는 `<Navigate>`로 `/contact`에 301성 리다이렉트 |
 | `/guide` | `Guide.jsx` | 사주 vs 별자리 비교, 오행 상생상극, "랜덤 아님" 신뢰 섹션 + **궁합 점수 계산법·신강/신약·그룹매치/드라마매치 설명** 3개 섹션 추가 (기능이 늘어날 때마다 여기가 안 따라가고 있다는 피드백으로 보강) |
 | `/about`, 그 외 | `ComingSoon.jsx` | 미구현 placeholder |
 
-헤더 우측 상단의 "Idol Zone" 링크는 제거됨(Guide/Partner with us/언어토글/다크모드토글만 남음) — 사용자 요청.
+헤더 우측 상단의 "Idol Zone" 링크는 제거됨(Guide/Contact us/언어토글/다크모드토글만 남음) — 사용자 요청.
+
+**아이돌 멤버 이름 한국어 표시**: `idols.js`의 197명 전원에 `nameKo` 필드 추가(예: `bts-jimin` → `지민`, 외국인 멤버는 한국 매체 표준 표기, 예: `svt-the8`(徐明浩) → `디에잇`, `gidle-yuqi`(宋雨琦) → `우기`). `getMemberName(member, lang)` 헬퍼로 한국어 모드에서만 `nameKo`를 쓰고 없으면 영문 `name`으로 폴백. 아이돌 매치/그룹 매치/공유카드 등 멤버 이름이 나오는 모든 곳에 적용. 이름 검증은 웹 검색 리서치 에이전트로 진행(NamuWiki/Naver/한국어 위키 기준, 스테이지네임 vs 실명 표기 컨벤션이 멤버마다 달라 개별 확인). K-드라마 배우(`kdramaActors.js`)는 이번 범위에서 제외 — 요청 시 후속 작업.
 
 생년월일 입력은 `BirthDateForm.jsx` 하나로 통일 — Result/Saju/Compatibility/IdolMatch(베스트매치+group)/DramaMatch 전부 재사용. 성별 선택은 `GenderSelect.jsx`(IdolMatch/DramaMatch 공용), 매치 결과 카드는 `MatchResultCard.jsx`(아바타+**상대방의 네 기둥 사주(PillarGrid)**+궁합 점수+티어+왜 이 점수인지 설명+공유버튼, 두 페이지 공용)로 분리했다. 원래는 매칭된 상대의 "오늘의 운세"를 보여줬는데 `/result` 페이지와 내용이 겹친다는 피드백으로 **상대방 자신의 사주팔자**를 보여주는 것으로 교체함.
 

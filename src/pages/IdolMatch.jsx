@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
 import { getIdolMatchCopy } from '../data/idolMatchTemplates';
-import { idolGroups } from '../data/idols';
+import { idolGroups, getMemberName } from '../data/idols';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
 import { trackIdolMatchSubmit } from '../utils/analytics';
@@ -12,7 +12,6 @@ import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
 import GenderSelect from '../components/GenderSelect';
 import MatchResultCard from '../components/MatchResultCard';
-import GroupRankList from '../components/GroupRankList';
 
 export default function IdolMatch() {
   const { t, i18n } = useTranslation();
@@ -94,6 +93,8 @@ export default function IdolMatch() {
     return findBestMatch(pool, userSaju, gender);
   }, [mode, pool, userSaju, gender]);
 
+  const bestName = best ? getMemberName(best.candidate, i18n.language) : '';
+
   const compatCopy = best
     ? getIdolMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`)
     : null;
@@ -124,9 +125,9 @@ export default function IdolMatch() {
     navigate(`/idol-match?${newParams.toString()}`, { replace: true });
   }
 
-  function selectGroupMember(memberId) {
+  function handleGroupMemberSelect(e) {
     const newParams = new URLSearchParams(params);
-    newParams.set('member', memberId);
+    newParams.set('member', e.target.value);
     navigate(`/idol-match?${newParams.toString()}`);
   }
 
@@ -137,29 +138,31 @@ export default function IdolMatch() {
   }
 
   if (mode === 'group') {
+    const memberName = selectedMember ? getMemberName(selectedMember, i18n.language) : '';
+
     if (selectedMember && memberSaju && memberCompat) {
       return (
         <main className="page">
           <div className="page-content">
             <button type="button" className="back-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }} onClick={clearGroupMember}>
-              {t('idolMatch.groupBackToRanking')}
+              {t('idolMatch.groupBack')}
             </button>
 
             <h1>{t('idolMatch.groupTitle')}</h1>
 
             <MatchResultCard
-              name={selectedMember.name}
+              name={memberName}
               subtitle={selectedGroup.name}
               matchElement={memberSaju.dominantElement}
               matchStrength={memberSaju.dayGanStrength}
               matchPillars={memberSaju.pillars}
               userElement={userSaju.dominantElement}
-              pillarsHeading={t('idolMatch.theirPillarsHeading', { member: selectedMember.name })}
+              pillarsHeading={t('idolMatch.theirPillarsHeading', { member: memberName })}
               score={memberScore}
               tier={memberCopy.tier}
               line={memberCopy.line}
               explanation={memberExplanation}
-              compatibilityHeading={t('idolMatch.compatibilityHeading', { member: selectedMember.name })}
+              compatibilityHeading={t('idolMatch.compatibilityHeading', { member: memberName })}
               scoreLabel={t('matchCommon.scoreLabel')}
               onShare={() =>
                 download(`ohaeng-${selectedMember.id}-group-match.png`, 'group-match', {
@@ -176,7 +179,7 @@ export default function IdolMatch() {
           <div className="share-card-offscreen">
             <IdolShareCard
               ref={shareCardRef}
-              memberName={selectedMember.name}
+              memberName={memberName}
               groupName={selectedGroup.name}
               userElement={userSaju.dominantElement}
               idolElement={memberSaju.dominantElement}
@@ -197,12 +200,20 @@ export default function IdolMatch() {
           <p className="subtitle">{t('idolMatch.groupSubtitle')}</p>
 
           <div className="field-group">
-            <select value={groupId} onChange={handleGroupModeSelect} style={{ width: '100%' }}>
-              <option value="" disabled>{t('idolMatch.groupPlaceholder')}</option>
-              {idolGroups.map((g) => (
-                <option key={g.id} value={g.id}>{g.name}</option>
-              ))}
-            </select>
+            <div className="select-row">
+              <select value={groupId} onChange={handleGroupModeSelect}>
+                <option value="" disabled>{t('idolMatch.groupPlaceholder')}</option>
+                {idolGroups.map((g) => (
+                  <option key={g.id} value={g.id}>{g.name}</option>
+                ))}
+              </select>
+              <select value={selectedMemberId || ''} onChange={handleGroupMemberSelect} disabled={!selectedGroup}>
+                <option value="" disabled>{t('idolMatch.memberPlaceholder')}</option>
+                {(selectedGroup?.members ?? []).map((m) => (
+                  <option key={m.id} value={m.id}>{getMemberName(m, i18n.language)}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {!birth || !userSaju ? (
@@ -214,17 +225,10 @@ export default function IdolMatch() {
                 onSubmit={(newParams) => {
                   newParams.set('mode', 'group');
                   if (groupId) newParams.set('group', groupId);
+                  if (selectedMemberId) newParams.set('member', selectedMemberId);
                   navigate(`/idol-match?${newParams.toString()}`);
                 }}
               />
-            </div>
-          ) : selectedGroup ? (
-            <div className="card">
-              <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('idolMatch.groupRankHeading')}</h2>
-              <p style={{ marginTop: 0, marginBottom: 12, fontSize: 12, color: 'var(--text-muted)' }}>
-                {t('idolMatch.groupTapHint')}
-              </p>
-              <GroupRankList group={selectedGroup} userSaju={userSaju} onSelectMember={selectGroupMember} />
             </div>
           ) : (
             <p className="subtitle" style={{ marginTop: 24 }}>{t('idolMatch.groupPickPrompt')}</p>
@@ -254,18 +258,18 @@ export default function IdolMatch() {
           </div>
         ) : best ? (
           <MatchResultCard
-            name={best.candidate.name}
+            name={bestName}
             subtitle={best.candidate.groupName}
             matchElement={best.saju.dominantElement}
             matchStrength={best.saju.dayGanStrength}
             matchPillars={best.saju.pillars}
             userElement={userSaju.dominantElement}
-            pillarsHeading={t('idolMatch.theirPillarsHeading', { member: best.candidate.name })}
+            pillarsHeading={t('idolMatch.theirPillarsHeading', { member: bestName })}
             score={best.score}
             tier={compatCopy.tier}
             line={compatCopy.line}
             explanation={explanation}
-            compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
+            compatibilityHeading={t('idolMatch.compatibilityHeading', { member: bestName })}
             scoreLabel={t('matchCommon.scoreLabel')}
             onShare={() =>
               download(`ohaeng-${best.candidate.id}-match.png`, 'idol-match', {
@@ -284,7 +288,7 @@ export default function IdolMatch() {
         <div className="share-card-offscreen">
           <IdolShareCard
             ref={shareCardRef}
-            memberName={best.candidate.name}
+            memberName={bestName}
             groupName={best.candidate.groupName}
             userElement={userSaju.dominantElement}
             idolElement={best.saju.dominantElement}
