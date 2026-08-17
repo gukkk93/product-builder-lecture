@@ -15,7 +15,7 @@ export default function Result() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const { cardRef: shareCardRef, download, downloading } = useShareCardDownload();
+  const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -90,8 +90,12 @@ export default function Result() {
           </div>
 
           <div className="result-actions">
-            <button className="button" onClick={() => download('ohaeng-fortune.png', 'result')} disabled={downloading}>
-              {t('result.shareButton')}
+            <button
+              className="button"
+              onClick={() => download('ohaeng-fortune.png', 'result', `${t('app.name')} — ${t('app.tagline')}`)}
+              disabled={downloading}
+            >
+              {t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
             </button>
             <Link to={`/idol-match?${params.toString()}`} className="button secondary">
               {t('result.idolMatchCta')}

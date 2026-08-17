@@ -18,7 +18,7 @@ export default function DramaMatch() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const [gender, setGender] = useState(params.get('gender') === 'M' ? 'M' : 'F');
-  const { cardRef: shareCardRef, download, downloading } = useShareCardDownload();
+  const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -93,8 +93,10 @@ export default function DramaMatch() {
             explanation={explanation}
             compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
             scoreLabel={t('matchCommon.scoreLabel')}
-            onShare={() => download(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match')}
-            shareLabel={t('result.shareButton')}
+            onShare={() =>
+              download(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match', `${t('app.name')} — ${t('app.tagline')}`)
+            }
+            shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
             disclaimer={t('dramaMatch.disclaimer')}
             downloading={downloading}
           />

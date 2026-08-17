@@ -27,7 +27,7 @@ export default function Compatibility() {
   const [theirName, setTheirName] = useState('');
   const [theirRelationship, setTheirRelationship] = useState('friend');
   const [theirBirth, setTheirBirth] = useState(null);
-  const { cardRef: shareCardRef, download, downloading } = useShareCardDownload();
+  const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
 
   const displayName = theirName.trim() || t('compatibility.theirElement');
   const relationshipLabel = t(`compatibility.relationship.${theirRelationship}`);
@@ -178,8 +178,12 @@ export default function Compatibility() {
           )}
 
           <div className="result-actions">
-            <button className="button" onClick={() => download('ohaeng-compatibility.png', 'compatibility')} disabled={downloading}>
-              {t('result.shareButton')}
+            <button
+              className="button"
+              onClick={() => download('ohaeng-compatibility.png', 'compatibility', `${t('app.name')} — ${t('app.tagline')}`)}
+              disabled={downloading}
+            >
+              {t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
             </button>
           </div>
 
