@@ -22,10 +22,11 @@
 //   - Kep1er: reduced to 6 members after several 2024-2026 departures.
 //   - fromis_9: reduced to 5 members after 2025 departures (Saerom, Jisun,
 //     Seoyeon).
-// A few newer/less-documented members (RIIZE's Sohee/Anton, GOT7's Jay B,
-// Kep1er's Hikaru/Dayeon, NMIXX's Bae/Jiwoo/Kyujin) come from a single
-// reliable source rather than 2+ cross-checked sources — flagged here for
-// a future accuracy pass rather than left undocumented.
+// RIIZE's Sohee/Anton, GOT7's Jay B, Kep1er's Hikaru/Dayeon, and NMIXX's
+// Bae/Jiwoo/Kyujin were originally sourced from a single site; a follow-up
+// pass re-verified all 8 against 2+ independent sources (KProfiles plus at
+// least one of NamuWiki/Generasia/Kpopping/dbkpop/Kbizoom) with no
+// discrepancies found.
 export const idolGroups = [
   {
     id: 'bts',

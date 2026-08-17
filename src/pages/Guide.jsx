@@ -28,9 +28,24 @@ export default function Guide() {
           </div>
         </div>
 
-        <div className="card" style={{ textAlign: 'left' }}>
+        <div className="card" style={{ textAlign: 'left', marginBottom: 16 }}>
           <h2 style={{ marginTop: 0, fontSize: 18 }}>{t('guide.accuracyHeading')}</h2>
           <p style={{ fontSize: 15, lineHeight: 1.7 }}>{t('guide.accuracyBody')}</p>
+        </div>
+
+        <div className="card" style={{ textAlign: 'left', marginBottom: 16 }}>
+          <h2 style={{ marginTop: 0, fontSize: 18 }}>{t('guide.scoreHeading')}</h2>
+          <p style={{ fontSize: 15, lineHeight: 1.7 }}>{t('guide.scoreBody')}</p>
+        </div>
+
+        <div className="card" style={{ textAlign: 'left', marginBottom: 16 }}>
+          <h2 style={{ marginTop: 0, fontSize: 18 }}>{t('guide.strengthHeading')}</h2>
+          <p style={{ fontSize: 15, lineHeight: 1.7 }}>{t('guide.strengthBody')}</p>
+        </div>
+
+        <div className="card" style={{ textAlign: 'left' }}>
+          <h2 style={{ marginTop: 0, fontSize: 18 }}>{t('guide.featuresHeading')}</h2>
+          <p style={{ fontSize: 15, lineHeight: 1.7 }}>{t('guide.featuresBody')}</p>
         </div>
       </div>
     </main>

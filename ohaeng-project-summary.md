@@ -49,7 +49,7 @@
 | `/idol-match` | `IdolMatch.jsx` | **베스트매치 추천** — 생일+성별 입력 → 반대 성별 아이돌 풀(31개 그룹, 197명) 전체와 궁합 계산해서 1위를 추천. `?mode=group&group=X`는 그대로 유지(그룹 전체 멤버와의 궁합 점수 랭킹, `GroupRankList.jsx`) |
 | `/drama-match` | `DramaMatch.jsx` (신규) | 아이돌 매치와 **완전히 동일한 메커니즘**을 K-드라마 배우 100명(남 50/여 50, `kdramaActors.js`) 대상으로 실행. `findBestMatch`/`MatchResultCard`를 아이돌 매치와 공유 |
 | `/partnership` | `Partnership.jsx` | Formspree 제휴 문의 폼 |
-| `/guide` | `Guide.jsx` | 사주 vs 별자리 비교, 오행 상생상극 설명, "랜덤 아님" 신뢰 섹션 |
+| `/guide` | `Guide.jsx` | 사주 vs 별자리 비교, 오행 상생상극, "랜덤 아님" 신뢰 섹션 + **궁합 점수 계산법·신강/신약·그룹매치/드라마매치 설명** 3개 섹션 추가 (기능이 늘어날 때마다 여기가 안 따라가고 있다는 피드백으로 보강) |
 | `/about`, 그 외 | `ComingSoon.jsx` | 미구현 placeholder |
 
 생년월일 입력은 `BirthDateForm.jsx` 하나로 통일 — Result/Saju/Compatibility/IdolMatch(베스트매치+group)/DramaMatch 전부 재사용. 성별 선택은 `GenderSelect.jsx`(IdolMatch/DramaMatch 공용), 매치 결과 카드는 `MatchResultCard.jsx`(아바타+**상대방의 네 기둥 사주(PillarGrid)**+궁합 점수+티어+왜 이 점수인지 설명+공유버튼, 두 페이지 공용)로 분리했다. 원래는 매칭된 상대의 "오늘의 운세"를 보여줬는데 `/result` 페이지와 내용이 겹친다는 피드백으로 **상대방 자신의 사주팔자**를 보여주는 것으로 교체함.
@@ -70,7 +70,7 @@
 ## 6. 아이돌/배우 데이터
 
 - **`src/data/idols.js`**: **31개 그룹, 197명** (남 16개 그룹/여 15개 그룹). 기존 10개(BTS, BLACKPINK, NewJeans, SEVENTEEN, Stray Kids, TWICE, EXO(활동 중인 6명만), TXT, aespa, ATEEZ)에 21개 그룹 추가: ENHYPEN, THE BOYZ, ZEROBASEONE, RIIZE, NCT DREAM, NCT 127, MONSTA X, GOT7, TREASURE, BOYNEXTDOOR(남), IVE, LE SSERAFIM, ITZY, (G)I-DLE, Red Velvet, MAMAMOO, Kep1er, STAYC, fromis_9, NMIXX, VIVIZ(여). 그룹마다 `gender: 'M'|'F'` 필드 추가(베스트매치 성별 필터링용)
-- 생일은 **웹 검색으로 개별 교차검증**해서 넣음 (신뢰도 HIGH만 채택). EXO는 첸백시 제외(SM 계약 분쟁), NewJeans는 다니엘 제외(ADOR 소송으로 지위 불확실), ENHYPEN은 희승 제외(2026-03 탈퇴), THE BOYZ는 뉴 제외(2026-08 탈퇴) — 코드 주석에 사유 명시. RIIZE 소희/안톤, GOT7 제이비, Kep1er 히카루/다연, NMIXX 배/지우/규진은 단일 소스 기반이라 코드 주석에 "정확도 재검증 필요"로 별도 표시해둠
+- 생일은 **웹 검색으로 개별 교차검증**해서 넣음 (신뢰도 HIGH만 채택). EXO는 첸백시 제외(SM 계약 분쟁), NewJeans는 다니엘 제외(ADOR 소송으로 지위 불확실), ENHYPEN은 희승 제외(2026-03 탈퇴), THE BOYZ는 뉴 제외(2026-08 탈퇴) — 코드 주석에 사유 명시. 한때 단일 소스라 재검증 필요로 표시해뒀던 RIIZE 소희/안톤, GOT7 제이비, Kep1er 히카루/다연, NMIXX 배/지우/규진 8명은 2차 검증 완료 — KProfiles + NamuWiki/Generasia/Kpopping/dbkpop/Kbizoom 중 1개 이상 교차확인, 전부 기존 값과 일치
 - **`src/data/kdramaActors.js`** (신규): K-드라마 배우 100명(남 50/여 50), Wikipedia/Wikidata 기준 교차검증. `findBestMatch`에서 아이돌 풀과 동일한 방식으로 사용
 
 ## 7. 디자인 시스템
@@ -83,6 +83,8 @@
 - **공유카드** (`ShareCard.jsx`, `IdolShareCard.jsx`, `CompatibilityShareCard.jsx`, 전부 `ShareCardFooter.jsx`/`ShareCardWatermark.jsx` 공유): 9:16 PNG, URL 배지 포함
 - **OG 배너**: `public/og-banner.png` — 1200x630, Playwright로 HTML 직접 렌더링해서 만든 전용 이미지
 - **원형 아이콘 크롭 버그 수정**: 오행 아이콘 PNG(`public/icons/elements/*.png`)가 420×320 비율(정사각형 아님)인데 `object-fit: cover`로 원형 배지를 꽉 채우다 보니 그림 테두리가 잘려 나왔음. `ElementBadge`(`global.css` `.element-badge__icon`), `ShareCard`/`IdolShareCard`/`CompatibilityShareCard`의 원형 아이콘, `Layout.jsx` 헤더 로고까지 전부 `object-fit: contain` + 패딩으로 바꿔서 그림이 원 안에 여백을 두고 온전히 들어오게 통일함. `MemberAvatar`/`ElementPattern`(SVG 벡터 패턴)은 애초에 원 사이즈에 맞춰 그린 거라 해당 없음
+- **아이콘 자체가 삐뚤었던 문제도 별도로 수정**: 위 크롭 버그를 고친 뒤에도 원 안 아이콘이 살짝 비뚤어 보였는데, 알고 보니 PNG 원본 안에서 실제 그려진 원형 그림 자체가 캔버스 중앙이 아니라 최대 21px씩 좌우/상하로 치우쳐 있었음. Python(PIL)로 5개 PNG를 실제 그림 기준으로 재크롭해서 정중앙에 오도록 고침
+- **공유카드 점수 강조**: `CompatibilityShareCard`/`IdolShareCard` 둘 다 궁합 점수를 54~64px(카드별로 다름, 내용량에 따라 조정)로 압도적으로 키우고 티어명은 17~18px로 낮춤 — 소셜 공유 시 스크롤을 멈추게 하는 건 결국 숫자라는 판단. `IdolShareCard`엔 원래 점수가 아예 없었는데(온스크린 결과 카드에만 있었음) 이번에 추가함. 긴 문구가 카드 하단 푸터와 겹치지 않도록 두 카드 모두 본문 문단에 `-webkit-line-clamp`(idol/drama 5줄, compatibility 5줄)로 안전장치를 걸어둠
 - **사주팔자 글로서리**: `PillarGrid`의 각 칸(갑/을/병/정...)이 탭 가능해짐 — 누르면 그 글자의 한자·천간/지지 구분·오행·음양을 태그로 보여주는 패널이 그리드 아래에 뜬다. 상시 표시 대신 클릭식을 택한 이유: 8칸 전부에 상시 설명을 붙이면 화면이 너무 빽빽해짐. `/saju`의 "일간(日干)" 헤딩 아래에는 짧은 정의 문구를 상시로 추가(용어가 하나뿐이라 인라인이 더 적합하다고 판단)
 
 ## 8. 다국어 (i18n)
@@ -91,11 +93,11 @@
 - `LanguageToggle.jsx`: 헤더의 EN/KO 버튼, 다크모드처럼 localStorage(`language` 키)에 저장돼 재방문시 유지
 - 사주 네 기둥 표기도 언어에 맞게 전환됨 (한국어면 갑을병정 한글, 영어면 Jia/Yi 로마자) — `getGanLabel`/`getZhiLabel` 참고
 
-## 9. 애널리틱스 (`src/utils/analytics.js`) — **스텁, 미활성**
+## 9. 애널리틱스 (`src/utils/analytics.js` + `main.jsx`) — **코드는 완성, 실제 키만 없음**
 
-- PostHog 실제 프로젝트 키가 없어서 `window.posthog`가 없으면 전부 no-op
-- 이벤트 호출부는 다 심어둠: `home_menu_click`, `birth_form_submit`(페이지별 context 포함), `share_card_download`, `idol_match_submit`(모드별), `page_view`
-- **활성화하려면**: 실제 PostHog 프로젝트 만들고 `main.jsx`에 `posthog.init(key, {api_host})` 한 줄만 추가하면 됨
+- `posthog-js` 설치했고 `main.jsx`에서 `import.meta.env.VITE_POSTHOG_KEY`가 있으면 `posthog.init()` 실행 + `window.posthog`에 할당. 키가 없으면 아무것도 안 하고, `analytics.js`의 모든 `track()` 호출은 계속 no-op으로 안전하게 동작
+- 이벤트 호출부는 다 심어둠: `home_menu_click`, `birth_form_submit`(페이지별 context 포함), `share_card_download`, `idol_match_submit`(모드별: soulmate/group/drama), `page_view`
+- **활성화하려면 (내가 못 하는 부분)**: [posthog.com](https://posthog.com)에서 무료 프로젝트 생성 → Project Settings에서 API 키 복사 → 로컬은 `.env.example`을 `.env.local`로 복사해서 `VITE_POSTHOG_KEY=`에 붙여넣기, 배포는 Cloudflare Pages 프로젝트 설정의 환경 변수에 동일한 이름으로 등록. 그 순간부터 별도 코드 수정 없이 바로 수집 시작됨
 
 ## 10. 배포/설정
 
@@ -109,9 +111,8 @@
 - **리텐션**: 생년월일 localStorage 저장 → 재방문시 자동 채움 — 미착수
 - **수익화**: 유료 구독/Stripe 연동 — **실제 Stripe 계정/API 키 필요**, 여기서 막힘
 - **주간 운세 캘린더**, **로그인/히스토리** — 미착수 (PRD상 우선순위 낮음)
-- **PostHog 실제 연동** — 프로젝트 키 필요, 위 8번 참고
+- **PostHog 실제 키 발급/입력** — 코드는 다 준비됐고 `VITE_POSTHOG_KEY` 한 줄만 있으면 됨, 위 9번 참고
 - 신강/신약을 사주 성격 문구(`sajuProfileTemplates.js`)에도 반영하는 건 스코프 아웃함 (오행 5종만으로 충분하다고 판단)
-- idols.js 상단 주석에 표시해둔 단일 소스 생일들(RIIZE 소희/안톤, GOT7 제이비, Kep1er 히카루/다연, NMIXX 배/지우/규진) 2차 교차검증 — 미착수
 
 ## 12. 개발 시 주의사항 / 이미 겪은 버그
 

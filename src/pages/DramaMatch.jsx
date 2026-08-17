@@ -110,6 +110,7 @@ export default function DramaMatch() {
             userElement={userSaju.dominantElement}
             idolElement={best.saju.dominantElement}
             idolStrength={best.saju.dayGanStrength}
+            score={best.score}
             tier={compatCopy.tier}
             line={compatCopy.line}
           />

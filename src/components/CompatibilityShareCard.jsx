@@ -94,10 +94,28 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
             </div>
           </div>
 
-          {score != null && <div style={{ fontSize: 36, fontWeight: 800 }}>{score}%</div>}
-          <div style={{ fontSize: 28, fontWeight: 800 }}>{tier}</div>
+          {score != null && (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
+              <div style={{ fontSize: 64, fontWeight: 800, lineHeight: 1 }}>{score}%</div>
+              <div style={{ fontSize: 12, letterSpacing: 1.5, opacity: 0.8, textTransform: 'uppercase', marginTop: 4 }}>
+                {t('matchCommon.scoreLabel')}
+              </div>
+            </div>
+          )}
+          <div style={{ fontSize: 18, fontWeight: 700, opacity: 0.95 }}>{tier}</div>
 
-          <p style={{ fontSize: 15, lineHeight: 1.6, margin: '4px 0 0', maxWidth: 280 }}>
+          <p
+            style={{
+              fontSize: 15,
+              lineHeight: 1.6,
+              margin: '4px 0 0',
+              maxWidth: 280,
+              display: '-webkit-box',
+              WebkitLineClamp: 5,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}
+          >
             {line}
           </p>
         </div>
