@@ -51,8 +51,8 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
           {theirName && (
             <div>
-              <div style={{ fontSize: 20, fontWeight: 800 }}>{t('idolMatch.yourElement')} × {theirName}</div>
-              {relationshipLabel && <div style={{ fontSize: 12, opacity: 0.8 }}>{relationshipLabel}</div>}
+              <div style={{ fontSize: 20, fontWeight: 800, wordBreak: 'keep-all' }}>{t('idolMatch.yourElement')} × {theirName}</div>
+              {relationshipLabel && <div style={{ fontSize: 12, opacity: 0.8, wordBreak: 'keep-all' }}>{relationshipLabel}</div>}
             </div>
           )}
 
@@ -72,7 +72,7 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
                   objectFit: 'contain',
                 }}
               />
-              <span style={{ fontSize: 12, opacity: 0.85 }}>{t('idolMatch.yourElement')}: {t(`elements.${myElement}`)}</span>
+              <span style={{ fontSize: 12, opacity: 0.85, wordBreak: 'keep-all' }}>{t('idolMatch.yourElement')}: {t(`elements.${myElement}`)}</span>
             </div>
             <div style={{ fontSize: 24, opacity: 0.7 }}>×</div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
@@ -90,7 +90,7 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
                   objectFit: 'contain',
                 }}
               />
-              <span style={{ fontSize: 12, opacity: 0.85 }}>{theirName || t('idolMatch.theirElement')}: {t(`elements.${theirElement}`)}</span>
+              <span style={{ fontSize: 12, opacity: 0.85, wordBreak: 'keep-all' }}>{theirName || t('idolMatch.theirElement')}: {t(`elements.${theirElement}`)}</span>
             </div>
           </div>
 
@@ -102,7 +102,7 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
               </div>
             </div>
           )}
-          <div style={{ fontSize: 18, fontWeight: 700, opacity: 0.95 }}>{tier}</div>
+          <div style={{ fontSize: 18, fontWeight: 700, opacity: 0.95, wordBreak: 'keep-all' }}>{tier}</div>
 
           <p
             style={{
@@ -114,6 +114,7 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
               WebkitLineClamp: 5,
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
+              wordBreak: 'keep-all',
             }}
           >
             {line}

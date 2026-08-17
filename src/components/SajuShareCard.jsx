@@ -61,13 +61,13 @@ const SajuShareCard = forwardRef(function SajuShareCard({ element, strength, pro
             }}
           />
           <div>
-            <div style={{ fontSize: 28, fontWeight: 800 }}>{t(`elements.${element}`)}</div>
-            <div style={{ fontSize: 12, letterSpacing: 1.5, opacity: 0.85, textTransform: 'uppercase', marginTop: 4 }}>
+            <div style={{ fontSize: 28, fontWeight: 800, wordBreak: 'keep-all' }}>{t(`elements.${element}`)}</div>
+            <div style={{ fontSize: 12, letterSpacing: 1.5, opacity: 0.85, textTransform: 'uppercase', marginTop: 4, wordBreak: 'keep-all' }}>
               {t(`saju.strengthLabel.${strength}`)}
             </div>
           </div>
 
-          <div style={{ fontSize: 21, fontWeight: 800, marginTop: 6 }}>{profileTitle}</div>
+          <div style={{ fontSize: 21, fontWeight: 800, marginTop: 6, wordBreak: 'keep-all' }}>{profileTitle}</div>
 
           <p
             style={{
@@ -79,6 +79,7 @@ const SajuShareCard = forwardRef(function SajuShareCard({ element, strength, pro
               WebkitLineClamp: 6,
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
+              wordBreak: 'keep-all',
             }}
           >
             {profileLine}

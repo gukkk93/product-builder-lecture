@@ -52,8 +52,8 @@ const IdolShareCard = forwardRef(function IdolShareCard(
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
           <MemberAvatar element={idolElement} strength={idolStrength} size={60} />
           <div>
-            <div style={{ fontSize: 21, fontWeight: 800 }}>{memberName}</div>
-            <div style={{ fontSize: 12, opacity: 0.8 }}>{groupName}</div>
+            <div style={{ fontSize: 21, fontWeight: 800, wordBreak: 'keep-all' }}>{memberName}</div>
+            <div style={{ fontSize: 12, opacity: 0.8, wordBreak: 'keep-all' }}>{groupName}</div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, margin: '4px 0' }}>
@@ -72,7 +72,7 @@ const IdolShareCard = forwardRef(function IdolShareCard(
                   objectFit: 'contain',
                 }}
               />
-              <span style={{ fontSize: 10, opacity: 0.85 }}>{t('idolMatch.yourElement')}: {t(`elements.${userElement}`)}</span>
+              <span style={{ fontSize: 10, opacity: 0.85, wordBreak: 'keep-all' }}>{t('idolMatch.yourElement')}: {t(`elements.${userElement}`)}</span>
             </div>
             <div style={{ fontSize: 20, opacity: 0.7 }}>×</div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
@@ -90,7 +90,7 @@ const IdolShareCard = forwardRef(function IdolShareCard(
                   objectFit: 'contain',
                 }}
               />
-              <span style={{ fontSize: 10, opacity: 0.85 }}>{memberName}: {t(`elements.${idolElement}`)}</span>
+              <span style={{ fontSize: 10, opacity: 0.85, wordBreak: 'keep-all' }}>{memberName}: {t(`elements.${idolElement}`)}</span>
             </div>
           </div>
 
@@ -102,7 +102,7 @@ const IdolShareCard = forwardRef(function IdolShareCard(
               </div>
             </div>
           )}
-          <div style={{ fontSize: 17, fontWeight: 700, opacity: 0.95 }}>{tier}</div>
+          <div style={{ fontSize: 17, fontWeight: 700, opacity: 0.95, wordBreak: 'keep-all' }}>{tier}</div>
 
           <p
             style={{
@@ -114,6 +114,7 @@ const IdolShareCard = forwardRef(function IdolShareCard(
               WebkitLineClamp: 5,
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
+              wordBreak: 'keep-all',
             }}
           >
             {line}

@@ -69,16 +69,16 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
               objectFit: 'contain',
             }}
           />
-          <div style={{ fontSize: 30, fontWeight: 800 }}>{t(`elements.${element}`)}</div>
-          <div style={{ fontSize: 14, opacity: 0.85 }}>
+          <div style={{ fontSize: 30, fontWeight: 800, wordBreak: 'keep-all' }}>{t(`elements.${element}`)}</div>
+          <div style={{ fontSize: 14, opacity: 0.85, wordBreak: 'keep-all' }}>
             {t('result.zodiacLabel')}: {zodiac}
           </div>
 
-          <p style={{ fontSize: 15, lineHeight: 1.6, margin: '10px 0 0', maxWidth: 280 }}>
+          <p style={{ fontSize: 15, lineHeight: 1.6, margin: '10px 0 0', maxWidth: 280, wordBreak: 'keep-all' }}>
             {overallLine}
           </p>
 
-          <p style={{ fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 280, opacity: 0.9 }}>
+          <p style={{ fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 280, opacity: 0.9, wordBreak: 'keep-all' }}>
             ✨ {comebackLine}
           </p>
         </div>

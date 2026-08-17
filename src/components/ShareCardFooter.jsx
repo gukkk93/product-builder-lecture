@@ -9,7 +9,7 @@ export default function ShareCardFooter() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-      <div style={{ fontSize: 12, opacity: 0.75 }}>{t('result.shareCardFooter')}</div>
+      <div style={{ fontSize: 12, opacity: 0.75, wordBreak: 'keep-all' }}>{t('result.shareCardFooter')}</div>
       <div
         style={{
           fontSize: 13,
