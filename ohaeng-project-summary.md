@@ -52,6 +52,8 @@
 | `/guide` | `Guide.jsx` | 사주 vs 별자리 비교, 오행 상생상극, "랜덤 아님" 신뢰 섹션 + **궁합 점수 계산법·신강/신약·그룹매치/드라마매치 설명** 3개 섹션 추가 (기능이 늘어날 때마다 여기가 안 따라가고 있다는 피드백으로 보강) |
 | `/about`, 그 외 | `ComingSoon.jsx` | 미구현 placeholder |
 
+헤더 우측 상단의 "Idol Zone" 링크는 제거됨(Guide/Partner with us/언어토글/다크모드토글만 남음) — 사용자 요청.
+
 생년월일 입력은 `BirthDateForm.jsx` 하나로 통일 — Result/Saju/Compatibility/IdolMatch(베스트매치+group)/DramaMatch 전부 재사용. 성별 선택은 `GenderSelect.jsx`(IdolMatch/DramaMatch 공용), 매치 결과 카드는 `MatchResultCard.jsx`(아바타+**상대방의 네 기둥 사주(PillarGrid)**+궁합 점수+티어+왜 이 점수인지 설명+공유버튼, 두 페이지 공용)로 분리했다. 원래는 매칭된 상대의 "오늘의 운세"를 보여줬는데 `/result` 페이지와 내용이 겹친다는 피드백으로 **상대방 자신의 사주팔자**를 보여주는 것으로 교체함.
 
 **궁합 점수 설명(`matchCommon.explanation.*`)**: 점수/티어 아래에 "목 오행이 화 오행을 생해줘서 이런 결과가 나온 거예요" 식으로 오행 상생상극 관계를 풀어주는 한 줄이 붙는다. `t('matchCommon.explanation.'+relation, {my, other})` 형태로 IdolMatch/DramaMatch/Compatibility 세 곳에서 동일하게 사용.
@@ -86,6 +88,13 @@
 - **아이콘 자체가 삐뚤었던 문제도 별도로 수정**: 위 크롭 버그를 고친 뒤에도 원 안 아이콘이 살짝 비뚤어 보였는데, 알고 보니 PNG 원본 안에서 실제 그려진 원형 그림 자체가 캔버스 중앙이 아니라 최대 21px씩 좌우/상하로 치우쳐 있었음. Python(PIL)로 5개 PNG를 실제 그림 기준으로 재크롭해서 정중앙에 오도록 고침
 - **공유카드 점수 강조**: `CompatibilityShareCard`/`IdolShareCard` 둘 다 궁합 점수를 54~64px(카드별로 다름, 내용량에 따라 조정)로 압도적으로 키우고 티어명은 17~18px로 낮춤 — 소셜 공유 시 스크롤을 멈추게 하는 건 결국 숫자라는 판단. `IdolShareCard`엔 원래 점수가 아예 없었는데(온스크린 결과 카드에만 있었음) 이번에 추가함. 긴 문구가 카드 하단 푸터와 겹치지 않도록 두 카드 모두 본문 문단에 `-webkit-line-clamp`(idol/drama 5줄, compatibility 5줄)로 안전장치를 걸어둠
 - **사주팔자 글로서리**: `PillarGrid`의 각 칸(갑/을/병/정...)이 탭 가능해짐 — 누르면 그 글자의 한자·천간/지지 구분·오행·음양을 태그로 보여주는 패널이 그리드 아래에 뜬다. 상시 표시 대신 클릭식을 택한 이유: 8칸 전부에 상시 설명을 붙이면 화면이 너무 빽빽해짐. `/saju`의 "일간(日干)" 헤딩 아래에는 짧은 정의 문구를 상시로 추가(용어가 하나뿐이라 인라인이 더 적합하다고 판단)
+
+## 7-1. 공유 방식 (`src/hooks/useShareCardDownload.js`)
+
+- 공유카드를 PNG로 렌더링한 뒤 `navigator.canShare({ files })`로 파일 공유 지원 여부를 확인 — **지원되면**(iOS Safari, Android Chrome) `navigator.share({ files, text })`로 OS 공유시트를 띄움(인스타그램/카카오톡/왓츠앱/메시지 등 설치된 앱이 자동 나열, 앱별 버튼을 따로 안 만들어도 됨). **지원 안 되면**(대부분 데스크탑) 기존 `<a download>` 방식으로 폴백
+- 버튼 라벨도 자동 전환: 공유시트 지원 시 "Share"/"공유하기", 아니면 "Download share card"/"공유카드 다운로드" (`result.shareNative` i18n 키, 원래 있었는데 안 쓰이던 걸 재활용)
+- Result/Compatibility/IdolMatch/DramaMatch 4곳 전부 적용. 공유시트 취소(`AbortError`)는 다운로드로 재폴백하지 않고 조용히 종료
+- 헤드리스 브라우저엔 Web Share API가 없어서, `navigator.share`/`canShare`를 Playwright로 모킹해서 실제 호출 여부·파일 내용을 검증함 (실기기 공유시트 UI 자체는 직접 확인 필요)
 
 ## 8. 다국어 (i18n)
 
