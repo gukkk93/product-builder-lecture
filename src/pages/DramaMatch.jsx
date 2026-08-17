@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { calculateSaju } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
 import { getDramaMatchCopy } from '../data/dramaMatchTemplates';
-import { kdramaActors } from '../data/kdramaActors';
+import { kdramaActors, getActorName } from '../data/kdramaActors';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
 import { trackIdolMatchSubmit } from '../utils/analytics';
@@ -66,6 +66,8 @@ export default function DramaMatch() {
       ]
     : null;
 
+  const actorName = best ? getActorName(best.candidate, i18n.language) : '';
+
   useEffect(() => {
     if (best) trackIdolMatchSubmit('drama');
   }, [best]);
@@ -103,18 +105,18 @@ export default function DramaMatch() {
         <p className="subtitle">{t('dramaMatch.subtitle')}</p>
 
         <MatchResultCard
-          name={best.candidate.name}
+          name={actorName}
           subtitle={t('dramaMatch.actorLabel')}
           matchElement={best.saju.dominantElement}
           matchStrength={best.saju.dayGanStrength}
           matchPillars={best.saju.pillars}
           userElement={userSaju.dominantElement}
-          pillarsHeading={t('idolMatch.theirPillarsHeading', { member: best.candidate.name })}
+          pillarsHeading={t('idolMatch.theirPillarsHeading', { member: actorName })}
           score={best.score}
           tier={compatCopy.tier}
           line={compatCopy.line}
           insightSections={insightSections}
-          compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
+          compatibilityHeading={t('idolMatch.compatibilityHeading', { member: actorName })}
           scoreLabel={t('matchCommon.scoreLabel')}
           onShare={() =>
             download(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match', {
@@ -131,7 +133,7 @@ export default function DramaMatch() {
       <div className="share-card-offscreen">
         <IdolShareCard
           ref={shareCardRef}
-          memberName={best.candidate.name}
+          memberName={actorName}
           groupName={t('dramaMatch.actorLabel')}
           userElement={userSaju.dominantElement}
           idolElement={best.saju.dominantElement}
