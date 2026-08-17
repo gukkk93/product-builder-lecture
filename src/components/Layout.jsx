@@ -31,8 +31,8 @@ export default function Layout() {
           <Link to="/guide" className="header-link">
             {t('guide.navLabel')}
           </Link>
-          <Link to="/partnership" className="header-link">
-            {t('nav.partnership')}
+          <Link to="/contact" className="header-link">
+            {t('nav.contact')}
           </Link>
           <LanguageToggle />
           <ThemeToggle />

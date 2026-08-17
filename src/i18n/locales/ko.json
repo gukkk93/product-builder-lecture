@@ -5,7 +5,7 @@
   },
   "nav": {
     "themeToggleLabel": "다크 모드 전환",
-    "partnership": "제휴 문의"
+    "contact": "문의하기"
   },
   "landing": {
     "title": "Ohaeng 🔮",
@@ -129,15 +129,22 @@
     "Metal": "절제와 정교함, 조용한 강단.",
     "Water": "직관과 유연함, 잔잔한 깊이."
   },
-  "partnership": {
-    "title": "제휴 문의",
-    "subtitle": "제휴 아이디어를 간단히 남겨주시면 빠르게 답변드릴게요.",
+  "contact": {
+    "title": "문의하기",
+    "subtitle": "피드백이든, 버그 제보든, 제휴 제안이든 편하게 남겨주세요 — 다 읽어봅니다.",
     "name": "이름",
-    "company": "회사 / 브랜드",
     "email": "이메일",
+    "topicLabel": "어떤 문의인가요?",
+    "topic": {
+      "general": "일반 피드백",
+      "bug": "버그 제보",
+      "partnership": "제휴 제안",
+      "other": "기타"
+    },
+    "company": "회사 / 브랜드 (해당 시)",
     "message": "문의 내용",
-    "messagePlaceholder": "제휴 아이디어를 자유롭게 남겨주세요.",
-    "submit": "문의 보내기",
+    "messagePlaceholder": "하고 싶은 말을 자유롭게 남겨주세요.",
+    "submit": "메시지 보내기",
     "sending": "전송 중...",
     "success": "문의가 잘 접수됐어요! 빠르게 답변드릴게요.",
     "errorGeneric": "문제가 발생했어요. 잠시 후 다시 시도해주세요.",

@@ -39,12 +39,14 @@ export function useShareCardDownload() {
 
       if (supportsShare && navigator.canShare({ files: [file] })) {
         try {
-          // Some share targets drop the separate `url` field once `files`
-          // is also set, so the link is folded into `text` too — that way
-          // whoever receives it always has something to tap through and
-          // try for themselves, not just the image.
+          // The link is folded into `text` rather than also passed as a
+          // separate `url`, since some share targets (KakaoTalk included)
+          // render each field as its own outgoing message/preview when
+          // both are set alongside `files` — sending file + url + text
+          // shows up as two separate link previews. Just text keeps it to
+          // one image + one link.
           const combinedText = url ? [text, url].filter(Boolean).join('\n') : text;
-          await navigator.share({ files: [file], text: combinedText, url });
+          await navigator.share({ files: [file], text: combinedText });
           trackShareDownload(analyticsContext);
           return;
         } catch (err) {

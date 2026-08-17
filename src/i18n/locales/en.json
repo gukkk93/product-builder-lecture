@@ -5,7 +5,7 @@
   },
   "nav": {
     "themeToggleLabel": "Toggle dark mode",
-    "partnership": "Partner with us"
+    "contact": "Contact us"
   },
   "landing": {
     "title": "Ohaeng 🔮",
@@ -129,15 +129,22 @@
     "Metal": "Discipline, precision, and quiet strength.",
     "Water": "Intuition, adaptability, and calm depth."
   },
-  "partnership": {
-    "title": "Partner with us",
-    "subtitle": "Tell us a bit about your idea and we'll get back to you soon.",
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Got feedback, found a bug, or have a partnership idea? Tell us — we read everything.",
     "name": "Name",
-    "company": "Company / Brand",
     "email": "Email",
+    "topicLabel": "What's this about?",
+    "topic": {
+      "general": "General feedback",
+      "bug": "Report a bug",
+      "partnership": "Partnership idea",
+      "other": "Something else"
+    },
+    "company": "Company / Brand (if applicable)",
     "message": "Message",
-    "messagePlaceholder": "Tell us about your partnership idea.",
-    "submit": "Send inquiry",
+    "messagePlaceholder": "Tell us what's on your mind.",
+    "submit": "Send message",
     "sending": "Sending...",
     "success": "Thanks — your message is in! We'll get back to you soon.",
     "errorGeneric": "Something went wrong. Please try again in a moment.",

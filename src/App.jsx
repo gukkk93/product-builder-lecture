@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Landing from './pages/Landing';
 import Result from './pages/Result';
@@ -6,7 +6,7 @@ import Saju from './pages/Saju';
 import Compatibility from './pages/Compatibility';
 import IdolMatch from './pages/IdolMatch';
 import DramaMatch from './pages/DramaMatch';
-import Partnership from './pages/Partnership';
+import Contact from './pages/Contact';
 import Guide from './pages/Guide';
 import ComingSoon from './pages/ComingSoon';
 
@@ -18,7 +18,8 @@ export default function App() {
         <Route path="/result" element={<Result />} />
         <Route path="/saju" element={<Saju />} />
         <Route path="/compatibility" element={<Compatibility />} />
-        <Route path="/partnership" element={<Partnership />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/partnership" element={<Navigate to="/contact" replace />} />
         <Route path="/guide" element={<Guide />} />
         <Route path="/idol-match" element={<IdolMatch />} />
         <Route path="/drama-match" element={<DramaMatch />} />

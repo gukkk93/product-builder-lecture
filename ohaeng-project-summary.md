@@ -48,7 +48,7 @@
 | `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 궁합 점수(%) + 왜 이 점수인지 한 줄 설명 포함. 팬덤 용어 없는 별도 문구 뱅크 사용 |
 | `/idol-match` | `IdolMatch.jsx` | **베스트매치 추천** — 생일+성별 입력 → 반대 성별 아이돌 풀(31개 그룹, 197명) 전체와 궁합 계산해서 1위를 추천. `?mode=group&group=X`는 그룹 전체 멤버 궁합 점수 랭킹(`GroupRankList.jsx`) — **각 멤버 행을 탭하면**(`?member=Y` 추가) 그 멤버 한 명과의 전체 궁합 상세(사주팔자+점수+설명+공유카드)로 드릴다운, "← 순위로 돌아가기"로 복귀. 예전에 있다가 없어졌던 "아이돌 선택해서 궁합 보기" 플로우를 그룹 랭킹의 드릴다운으로 복원함 |
 | `/drama-match` | `DramaMatch.jsx` (신규) | 아이돌 매치와 **완전히 동일한 메커니즘**을 K-드라마 배우 100명(남 50/여 50, `kdramaActors.js`) 대상으로 실행. `findBestMatch`/`MatchResultCard`를 아이돌 매치와 공유 |
-| `/partnership` | `Partnership.jsx` | Formspree 제휴 문의 폼 |
+| `/contact` | `Contact.jsx` (구 `Partnership.jsx`) | Formspree 문의 폼 — **제휴 문의 전용에서 일반 문의로 범위 확장**. 이름/이메일/문의유형(일반 피드백·버그 제보·제휴 제안·기타)/회사(선택)/내용. 옛 `/partnership` 경로는 `<Navigate>`로 `/contact`에 301성 리다이렉트 |
 | `/guide` | `Guide.jsx` | 사주 vs 별자리 비교, 오행 상생상극, "랜덤 아님" 신뢰 섹션 + **궁합 점수 계산법·신강/신약·그룹매치/드라마매치 설명** 3개 섹션 추가 (기능이 늘어날 때마다 여기가 안 따라가고 있다는 피드백으로 보강) |
 | `/about`, 그 외 | `ComingSoon.jsx` | 미구현 placeholder |
 
@@ -81,11 +81,11 @@
 
 - **`STYLE_GUIDE.md`** (레포 루트): 색상/타이포/스페이싱 토큰, 아이콘 규칙 문서화. **"클린 배경" 방향으로 리비전됨** (아래 참고)
 - **배경**: 무채색 중립 톤 (`--bg` 라이트 `#fafafa`/다크 `#121214`). 예전엔 보라색 radial-gradient + 배경 전체에 흐린 사신도 아이콘 콜라주(`FourSymbolsBackdrop.jsx`)가 있었는데, 사용자 피드백으로 **완전 제거**함
-- **사신도 아이콘** (`public/icons/elements/{wood,fire,earth,metal,water}.png`, 청룡/주작/황룡/백호/현무): 이제 **실제 오행 데이터를 나타낼 때만** 사용 — 오행 배지, 멤버 아바타, 공유카드 워터마크. 페이지 배경 장식이나 메뉴 아이콘으로는 더 이상 안 씀
+- **사신도 아이콘** (`src/assets/icons/elements/{wood,fire,earth,metal,water}.png`, 청룡/주작/황룡/백호/현무 — `public/`에서 이동, 아래 캐시 문제 참고): 이제 **실제 오행 데이터를 나타낼 때만** 사용 — 오행 배지, 멤버 아바타, 공유카드 워터마크. 페이지 배경 장식이나 메뉴 아이콘으로는 더 이상 안 씀
 - **메뉴 아이콘** (`MenuIcon.jsx`): 홈 메뉴 6개 항목용 심플 단색 라인 아이콘(해/막대그래프/벤다이어그램/별/하트/사람) — 사신도 동물 아이콘 재사용 대신 항목 의미에 맞게 새로 그림
 - **멤버 아바타** (`MemberAvatar.jsx` + `ElementPattern.jsx`): 실사진/AI 합성 얼굴 **절대 사용 안 함** (초상권 리스크 회피). 멤버 본인 사주의 오행+신강신약을 계산해서 그라디언트+추상 패턴 아바타 생성 — 최대 10종(오행 5 × 강약 2, 강함=진하고 실선 테두리/약함=흐리고 점선 테두리)
 - **공유카드** (`ShareCard.jsx`, `IdolShareCard.jsx`, `CompatibilityShareCard.jsx`, 전부 `ShareCardFooter.jsx`/`ShareCardWatermark.jsx` 공유): 9:16 PNG, URL 배지 포함
-- **OG 배너**: `public/og-banner.png` — 1200x630, Playwright로 HTML 직접 렌더링해서 만든 전용 이미지
+- **OG 배너**: `public/og-banner.png` — 1200x630, Playwright로 HTML 직접 렌더링해서 만든 전용 이미지. **한 번 리디자인됨** — 원래 배너가 초기 보라색 그라디언트 브랜딩 그대로라 지금의 클린 무채색 디자인과 안 맞고, 링크 공유 시 미리보기가 옛날 사이트처럼 보인다는 피드백으로 재제작. 현재 버전은 무채색+연보라 워시 배경에 재중심 정렬된 오행 아이콘 5개 + "Saju Readings/Idol Match/Compatibility" 기능 pill 3개로 지금 기능 범위를 반영. `index.html`의 title/description/OG/Twitter 메타도 "Saju & Today's Fortune"(초기 범위) → "Saju, Idol Match & Compatibility"(현재 범위)로 함께 갱신
 - **원형 아이콘 크롭 버그 수정**: 오행 아이콘 PNG(`public/icons/elements/*.png`)가 420×320 비율(정사각형 아님)인데 `object-fit: cover`로 원형 배지를 꽉 채우다 보니 그림 테두리가 잘려 나왔음. `ElementBadge`(`global.css` `.element-badge__icon`), `ShareCard`/`IdolShareCard`/`CompatibilityShareCard`의 원형 아이콘, `Layout.jsx` 헤더 로고까지 전부 `object-fit: contain` + 패딩으로 바꿔서 그림이 원 안에 여백을 두고 온전히 들어오게 통일함. `MemberAvatar`/`ElementPattern`(SVG 벡터 패턴)은 애초에 원 사이즈에 맞춰 그린 거라 해당 없음
 - **아이콘 자체가 삐뚤었던 문제도 별도로 수정**: 위 크롭 버그를 고친 뒤에도 원 안 아이콘이 살짝 비뚤어 보였는데, 알고 보니 PNG 원본 안에서 실제 그려진 원형 그림 자체가 캔버스 중앙이 아니라 최대 21px씩 좌우/상하로 치우쳐 있었음. Python(PIL)로 5개 PNG를 실제 그림 기준으로 재크롭해서 정중앙에 오도록 고침
 - **아이콘 캐시 무효화 문제 수정**: 위 두 수정을 이미 배포했는데도 사용자가 여전히 예전(잘리고 삐뚤어진) 아이콘을 본다고 보고함 — 원인은 오행 아이콘이 `public/icons/elements/wood.png`처럼 **파일명이 고정된 채로 내용만 바뀌는 방식**이라, 파일 내용이 바뀌어도 URL이 그대로라 브라우저/CDN이 예전 바이트를 계속 캐시해서 보여줬을 가능성이 높음. `src/assets/icons/elements/`로 옮기고 `import`로 불러오도록 바꿔서, 이제 Vite가 빌드 시 파일 내용 해시를 포함한 파일명(`wood-BOoaprF3.png` 등)을 만들어냄 — 앞으로 이 아이콘을 다시 수정해도 파일명이 자동으로 바뀌어 캐시 문제가 재발하지 않음
@@ -96,8 +96,10 @@
 
 - 공유카드를 PNG로 렌더링한 뒤 `navigator.canShare({ files })`로 파일 공유 지원 여부를 확인 — **지원되면**(iOS Safari, Android Chrome) `navigator.share({ files, text })`로 OS 공유시트를 띄움(인스타그램/카카오톡/왓츠앱/메시지 등 설치된 앱이 자동 나열, 앱별 버튼을 따로 안 만들어도 됨). **지원 안 되면**(대부분 데스크탑) 기존 `<a download>` 방식으로 폴백
 - 버튼 라벨도 자동 전환: 공유시트 지원 시 "Share"/"공유하기", 아니면 "Download share card"/"공유카드 다운로드" (`result.shareNative` i18n 키, 원래 있었는데 안 쓰이던 걸 재활용)
-- Result/Compatibility/IdolMatch/DramaMatch 4곳 전부 적용. 공유시트 취소(`AbortError`)는 다운로드로 재폴백하지 않고 조용히 종료
+- Result/Saju/Compatibility/IdolMatch(베스트매치+그룹 드릴다운)/DramaMatch 전부 적용. 공유시트 취소(`AbortError`)는 다운로드로 재폴백하지 않고 조용히 종료
 - 헤드리스 브라우저엔 Web Share API가 없어서, `navigator.share`/`canShare`를 Playwright로 모킹해서 실제 호출 여부·파일 내용을 검증함 (실기기 공유시트 UI 자체는 직접 확인 필요)
+- **중복 링크 버그 수정**: `navigator.share({ files, text, url })`처럼 `url`을 별도 필드로도 같이 보냈더니, 카카오톡 등 일부 공유 대상이 `text`에 이미 포함된 링크(안전장치로 넣어둔 것)와 별도 `url` 필드를 각각 별개의 링크 미리보기로 처리해서 사진 하나에 링크가 2개 붙어 나가는 문제가 있었음 — 사용자가 직접 발견해서 알려줌. `url` 필드를 빼고 `text`에만 링크를 넣도록 고쳐서 사진 1개 + 링크 1개로 정리됨
+- **(백엔드 관련 Q&A)** 사용자가 "공유했을 때 내가 실제로 받은 결과 내용으로 링크 미리보기가 뜨게 하려면 백엔드가 필요한가" 질문 — 답은 "네, 최소한 서버/엣지 로직은 필요함". 지금은 정적 SPA라 모든 경로가 같은 `index.html`을 서빙하고 OG 메타태그도 고정이라, 카카오톡 등 크롤러가 링크를 미리볼 때 결과별로 다른 이미지/텍스트를 보여줄 수 없음. 결과별 동적 OG 미리보기를 원하면 Cloudflare Pages Functions(별도 상시 서버 없이 붙일 수 있는 엣지 함수) 같은 걸로 요청 경로별 메타태그/이미지를 그때그때 생성해야 함 — 아직 미구현, 요청 시 진행
 
 ## 8. 다국어 (i18n)
 
@@ -125,6 +127,7 @@
 - **주간 운세 캘린더**, **로그인/히스토리** — 미착수 (PRD상 우선순위 낮음)
 - **PostHog 실제 키 발급/입력** — 코드는 다 준비됐고 `VITE_POSTHOG_KEY` 한 줄만 있으면 됨, 위 9번 참고
 - 신강/신약을 사주 성격 문구(`sajuProfileTemplates.js`)에도 반영하는 건 스코프 아웃함 (오행 5종만으로 충분하다고 판단)
+- **결과별 동적 OG 미리보기** — 지금은 사이트 전체가 고정 OG 이미지/텍스트 하나만 씀. "내가 받은 결과 그대로" 링크 미리보기에 반영하려면 Cloudflare Pages Functions로 요청 경로별 메타태그/이미지를 동적 생성해야 함 — 미착수, 필요성/우선순위 판단 후 진행
 
 ## 12. 개발 시 주의사항 / 이미 겪은 버그
 
