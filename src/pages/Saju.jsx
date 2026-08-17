@@ -3,16 +3,20 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju } from '../utils/saju';
 import { getSajuProfile, getDayMasterLine } from '../data/sajuProfileTemplates';
+import { useShareCardDownload } from '../hooks/useShareCardDownload';
+import { buildShareUrl } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
 import ElementBadge from '../components/ElementBadge';
 import PillarGrid from '../components/PillarGrid';
 import ElementDistribution from '../components/ElementDistribution';
 import BirthDateForm from '../components/BirthDateForm';
+import SajuShareCard from '../components/SajuShareCard';
 
 export default function Saju() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const navigate = useNavigate();
+  const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -107,8 +111,31 @@ export default function Saju() {
           {profile.paragraphs.map((p) => (
             <p key={p.slice(0, 20)} style={{ fontSize: 15, lineHeight: 1.7 }}>{p}</p>
           ))}
+
+          <div className="result-actions">
+            <button
+              className="button"
+              onClick={() =>
+                download('ohaeng-saju.png', 'saju', { text: t('saju.shareCaption'), url: buildShareUrl('/saju') })
+              }
+              disabled={downloading}
+            >
+              {t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+            </button>
+          </div>
+
           <p className="disclaimer">{t('saju.disclaimer')}</p>
         </div>
+      </div>
+
+      <div className="share-card-offscreen">
+        <SajuShareCard
+          ref={shareCardRef}
+          element={saju.dominantElement}
+          strength={saju.dayGanStrength}
+          profileTitle={profile.title}
+          profileLine={profile.paragraphs[0]}
+        />
       </div>
     </main>
   );

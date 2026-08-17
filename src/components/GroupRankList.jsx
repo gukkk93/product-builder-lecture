@@ -4,8 +4,12 @@ import { getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { getIdolMatchCopy } from '../data/idolMatchTemplates';
 import MemberAvatar from './MemberAvatar';
 
-/** Ranks every member of a group by compatibility with userSaju, best first. */
-export default function GroupRankList({ group, userSaju }) {
+/**
+ * Ranks every member of a group by compatibility with userSaju, best
+ * first. Each row is tappable (onSelectMember) to drill into the full
+ * compatibility detail for that one member.
+ */
+export default function GroupRankList({ group, userSaju, onSelectMember }) {
   const { i18n } = useTranslation();
 
   const ranked = useMemo(() => {
@@ -33,14 +37,25 @@ export default function GroupRankList({ group, userSaju }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
       {ranked.map((row, i) => (
-        <div
+        <button
           key={row.member.id}
+          type="button"
+          onClick={() => onSelectMember?.(row.member.id)}
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: 12,
             padding: '10px 0',
             borderTop: i === 0 ? 'none' : '1px solid var(--border)',
+            borderLeft: 'none',
+            borderRight: 'none',
+            borderBottom: 'none',
+            background: 'none',
+            width: '100%',
+            textAlign: 'left',
+            cursor: onSelectMember ? 'pointer' : 'default',
+            font: 'inherit',
+            color: 'inherit',
           }}
         >
           <strong style={{ width: 20, flexShrink: 0, color: 'var(--text-muted)', fontSize: 13 }}>{i + 1}</strong>
@@ -50,7 +65,7 @@ export default function GroupRankList({ group, userSaju }) {
             <div style={{ fontSize: 12, color: 'var(--accent)' }}>{row.tier}</div>
           </div>
           <strong style={{ flexShrink: 0, fontSize: 15, color: 'var(--accent)' }}>{row.score}%</strong>
-        </div>
+        </button>
       ))}
     </div>
   );

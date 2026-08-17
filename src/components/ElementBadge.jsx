@@ -1,11 +1,19 @@
 import { useTranslation } from 'react-i18next';
+import woodIcon from '../assets/icons/elements/wood.png';
+import fireIcon from '../assets/icons/elements/fire.png';
+import earthIcon from '../assets/icons/elements/earth.png';
+import metalIcon from '../assets/icons/elements/metal.png';
+import waterIcon from '../assets/icons/elements/water.png';
 
+// Imported (not referenced from public/) so Vite fingerprints the filename
+// by content hash — otherwise editing these PNGs in place wouldn't bust
+// browser/CDN caches, since the URL never changes.
 export const ELEMENT_ICON_SRC = {
-  Wood: '/icons/elements/wood.png',
-  Fire: '/icons/elements/fire.png',
-  Earth: '/icons/elements/earth.png',
-  Metal: '/icons/elements/metal.png',
-  Water: '/icons/elements/water.png',
+  Wood: woodIcon,
+  Fire: fireIcon,
+  Earth: earthIcon,
+  Metal: metalIcon,
+  Water: waterIcon,
 };
 
 const ELEMENT_VAR = {

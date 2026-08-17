@@ -105,6 +105,7 @@
     "distributionHeading": "Element Balance",
     "personalityHeading": "Personality Profile",
     "timeUnknownNote": "Birth time wasn't used, so the hour pillar is left out of your chart.",
+    "shareCaption": "I just got my Ohaeng saju profile — see yours:",
     "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
   },
   "categories": {
@@ -172,8 +173,10 @@
     "groupTitle": "Group Match 🏆",
     "groupSubtitle": "Pick a group to score your compatibility with every member.",
     "groupRankHeading": "Your ranking",
+    "groupTapHint": "Tap a member to see your full compatibility with them.",
     "groupNeedBirthday": "We need your birthday first to rank your compatibility with the group.",
     "groupPickPrompt": "Pick a group above to see your ranking.",
+    "groupBackToRanking": "← Back to ranking",
     "groupPlaceholder": "Group",
     "theirPillarsHeading": "{{member}}'s Four Pillars",
     "compatibilityHeading": "You & {{member}}",

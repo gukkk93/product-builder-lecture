@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju } from '../utils/saju';
+import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
 import { getIdolMatchCopy } from '../data/idolMatchTemplates';
 import { idolGroups } from '../data/idols';
@@ -52,6 +52,42 @@ export default function IdolMatch() {
   );
 
   const selectedGroup = mode === 'group' && groupId ? idolGroups.find((g) => g.id === groupId) : null;
+  const selectedMemberId = mode === 'group' ? params.get('member') : null;
+  const selectedMember = selectedGroup && selectedMemberId
+    ? selectedGroup.members.find((m) => m.id === selectedMemberId)
+    : null;
+
+  const memberSaju = useMemo(() => {
+    if (!selectedMember) return null;
+    return calculateSaju(
+      { year: selectedMember.year, month: selectedMember.month, day: selectedMember.day, hour: null, calendar: 'solar' },
+      false
+    );
+  }, [selectedMember]);
+
+  const memberCompat = useMemo(() => {
+    if (!selectedMember || !userSaju) return null;
+    return getCompatibility(
+      userSaju,
+      { year: selectedMember.year, month: selectedMember.month, day: selectedMember.day, hour: null, calendar: 'solar' },
+      false
+    );
+  }, [selectedMember, userSaju]);
+
+  const memberScore = memberCompat
+    ? getCompatibilityScore(memberCompat.relation, `${selectedMember.id}-group-${selectedGroup.id}`)
+    : null;
+
+  const memberCopy = memberCompat
+    ? getIdolMatchCopy(i18n.language, memberCompat.relation, `${birth.year}-${birth.month}-${birth.day}-${selectedMember.id}`)
+    : null;
+
+  const memberExplanation = memberCompat
+    ? t(`matchCommon.explanation.${memberCompat.relation}`, {
+        my: t(`elements.${userSaju.dominantElement}`),
+        other: t(`elements.${memberCompat.otherSaju.dominantElement}`),
+      })
+    : null;
 
   const best = useMemo(() => {
     if (mode === 'group' || !userSaju) return null;
@@ -71,11 +107,12 @@ export default function IdolMatch() {
 
   useEffect(() => {
     if (mode === 'group') {
-      if (selectedGroup && userSaju) trackIdolMatchSubmit('group');
+      if (selectedMember && memberCompat) trackIdolMatchSubmit('group-member');
+      else if (selectedGroup && userSaju) trackIdolMatchSubmit('group');
     } else if (best) {
       trackIdolMatchSubmit('soulmate');
     }
-  }, [mode, selectedGroup, userSaju, best]);
+  }, [mode, selectedGroup, selectedMember, memberCompat, userSaju, best]);
 
   function handleGroupModeSelect(e) {
     const newGroupId = e.target.value;
@@ -83,10 +120,76 @@ export default function IdolMatch() {
     const newParams = new URLSearchParams(params);
     newParams.set('mode', 'group');
     newParams.set('group', newGroupId);
+    newParams.delete('member');
     navigate(`/idol-match?${newParams.toString()}`, { replace: true });
   }
 
+  function selectGroupMember(memberId) {
+    const newParams = new URLSearchParams(params);
+    newParams.set('member', memberId);
+    navigate(`/idol-match?${newParams.toString()}`);
+  }
+
+  function clearGroupMember() {
+    const newParams = new URLSearchParams(params);
+    newParams.delete('member');
+    navigate(`/idol-match?${newParams.toString()}`);
+  }
+
   if (mode === 'group') {
+    if (selectedMember && memberSaju && memberCompat) {
+      return (
+        <main className="page">
+          <div className="page-content">
+            <button type="button" className="back-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }} onClick={clearGroupMember}>
+              {t('idolMatch.groupBackToRanking')}
+            </button>
+
+            <h1>{t('idolMatch.groupTitle')}</h1>
+
+            <MatchResultCard
+              name={selectedMember.name}
+              subtitle={selectedGroup.name}
+              matchElement={memberSaju.dominantElement}
+              matchStrength={memberSaju.dayGanStrength}
+              matchPillars={memberSaju.pillars}
+              userElement={userSaju.dominantElement}
+              pillarsHeading={t('idolMatch.theirPillarsHeading', { member: selectedMember.name })}
+              score={memberScore}
+              tier={memberCopy.tier}
+              line={memberCopy.line}
+              explanation={memberExplanation}
+              compatibilityHeading={t('idolMatch.compatibilityHeading', { member: selectedMember.name })}
+              scoreLabel={t('matchCommon.scoreLabel')}
+              onShare={() =>
+                download(`ohaeng-${selectedMember.id}-group-match.png`, 'group-match', {
+                  text: t('idolMatch.shareCaption'),
+                  url: buildShareUrl('/idol-match'),
+                })
+              }
+              shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+              disclaimer={t('idolMatch.disclaimer')}
+              downloading={downloading}
+            />
+          </div>
+
+          <div className="share-card-offscreen">
+            <IdolShareCard
+              ref={shareCardRef}
+              memberName={selectedMember.name}
+              groupName={selectedGroup.name}
+              userElement={userSaju.dominantElement}
+              idolElement={memberSaju.dominantElement}
+              idolStrength={memberSaju.dayGanStrength}
+              score={memberScore}
+              tier={memberCopy.tier}
+              line={memberCopy.line}
+            />
+          </div>
+        </main>
+      );
+    }
+
     return (
       <main className="page">
         <div className="page-content">
@@ -117,8 +220,11 @@ export default function IdolMatch() {
             </div>
           ) : selectedGroup ? (
             <div className="card">
-              <h2 style={{ marginTop: 0, marginBottom: 8, fontSize: 16 }}>{t('idolMatch.groupRankHeading')}</h2>
-              <GroupRankList group={selectedGroup} userSaju={userSaju} />
+              <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('idolMatch.groupRankHeading')}</h2>
+              <p style={{ marginTop: 0, marginBottom: 12, fontSize: 12, color: 'var(--text-muted)' }}>
+                {t('idolMatch.groupTapHint')}
+              </p>
+              <GroupRankList group={selectedGroup} userSaju={userSaju} onSelectMember={selectGroupMember} />
             </div>
           ) : (
             <p className="subtitle" style={{ marginTop: 24 }}>{t('idolMatch.groupPickPrompt')}</p>
