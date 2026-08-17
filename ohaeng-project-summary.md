@@ -98,7 +98,7 @@
 
 - **`src/data/idols.js`**: **31개 그룹, 197명** (남 16개 그룹/여 15개 그룹). 기존 10개(BTS, BLACKPINK, NewJeans, SEVENTEEN, Stray Kids, TWICE, EXO(활동 중인 6명만), TXT, aespa, ATEEZ)에 21개 그룹 추가: ENHYPEN, THE BOYZ, ZEROBASEONE, RIIZE, NCT DREAM, NCT 127, MONSTA X, GOT7, TREASURE, BOYNEXTDOOR(남), IVE, LE SSERAFIM, ITZY, (G)I-DLE, Red Velvet, MAMAMOO, Kep1er, STAYC, fromis_9, NMIXX, VIVIZ(여). 그룹마다 `gender: 'M'|'F'` 필드 추가(베스트매치 성별 필터링용)
 - 생일은 **웹 검색으로 개별 교차검증**해서 넣음 (신뢰도 HIGH만 채택). EXO는 첸백시 제외(SM 계약 분쟁), NewJeans는 다니엘 제외(ADOR 소송으로 지위 불확실), ENHYPEN은 희승 제외(2026-03 탈퇴), THE BOYZ는 뉴 제외(2026-08 탈퇴) — 코드 주석에 사유 명시. 한때 단일 소스라 재검증 필요로 표시해뒀던 RIIZE 소희/안톤, GOT7 제이비, Kep1er 히카루/다연, NMIXX 배/지우/규진 8명은 2차 검증 완료 — KProfiles + NamuWiki/Generasia/Kpopping/dbkpop/Kbizoom 중 1개 이상 교차확인, 전부 기존 값과 일치
-- **`src/data/kdramaActors.js`** (신규): K-드라마 배우 100명(남 50/여 50), Wikipedia/Wikidata 기준 교차검증. `findBestMatch`에서 아이돌 풀과 동일한 방식으로 사용
+- **`src/data/kdramaActors.js`**: K-드라마 배우 100명(남 50/여 50), Wikipedia/Wikidata 기준 교차검증. `findBestMatch`에서 아이돌 풀과 동일한 방식으로 사용. **배우 한국어 이름(`nameKo`) 100명 전원 추가 + `getActorName(actor, lang)` 헬퍼** — `idols.js`의 `getMemberName`과 동일 패턴(ko 모드에서 `nameKo` 우선, 없으면 영문 `name` 폴백). 전부 널리 알려진 배우라 표기가 명확해서 별도 리서치 에이전트 없이 직접 채워 넣음(아이돌 작업 때는 해외 출신 멤버의 한글 표기가 실제로 애매한 경우가 있었던 것과 다름). `DramaMatch.jsx`가 언어와 상관없이 항상 영문 `best.candidate.name`을 쓰고 있던 버그(한국어 모드에서도 배우 이름이 영어로 나옴)를 같이 고쳐서 결과 카드/필러 헤딩/궁합 헤딩/공유카드 네 군데 전부 `getActorName`으로 교체함
 
 ## 7. 디자인 시스템
 
@@ -113,6 +113,7 @@
 - **아이콘 자체가 삐뚤었던 문제도 별도로 수정**: 위 크롭 버그를 고친 뒤에도 원 안 아이콘이 살짝 비뚤어 보였는데, 알고 보니 PNG 원본 안에서 실제 그려진 원형 그림 자체가 캔버스 중앙이 아니라 최대 21px씩 좌우/상하로 치우쳐 있었음. Python(PIL)로 5개 PNG를 실제 그림 기준으로 재크롭해서 정중앙에 오도록 고침
 - **아이콘 캐시 무효화 문제 수정**: 위 두 수정을 이미 배포했는데도 사용자가 여전히 예전(잘리고 삐뚤어진) 아이콘을 본다고 보고함 — 원인은 오행 아이콘이 `public/icons/elements/wood.png`처럼 **파일명이 고정된 채로 내용만 바뀌는 방식**이라, 파일 내용이 바뀌어도 URL이 그대로라 브라우저/CDN이 예전 바이트를 계속 캐시해서 보여줬을 가능성이 높음. `src/assets/icons/elements/`로 옮기고 `import`로 불러오도록 바꿔서, 이제 Vite가 빌드 시 파일 내용 해시를 포함한 파일명(`wood-BOoaprF3.png` 등)을 만들어냄 — 앞으로 이 아이콘을 다시 수정해도 파일명이 자동으로 바뀌어 캐시 문제가 재발하지 않음
 - **공유카드 점수 강조**: `CompatibilityShareCard`/`IdolShareCard` 둘 다 궁합 점수를 54~64px(카드별로 다름, 내용량에 따라 조정)로 압도적으로 키우고 티어명은 17~18px로 낮춤 — 소셜 공유 시 스크롤을 멈추게 하는 건 결국 숫자라는 판단. `IdolShareCard`엔 원래 점수가 아예 없었는데(온스크린 결과 카드에만 있었음) 이번에 추가함. 긴 문구가 카드 하단 푸터와 겹치지 않도록 두 카드 모두 본문 문단에 `-webkit-line-clamp`(idol/drama 5줄, compatibility 5줄)로 안전장치를 걸어둠
+- **공유카드 한글 줄바꿈 버그 수정**: 네 공유카드(`ShareCard`/`SajuShareCard`/`IdolShareCard`/`CompatibilityShareCard`) + `ShareCardFooter`의 한글 텍스트 요소 전부에 `wordBreak: 'keep-all'`이 빠져있어서, 기본 아무 글자에서나 끊는 word-break 동작 때문에 긴 제목/문단이 줄바꿈될 때 "사람"이 "사"/"람"으로 쪼개지는 등 단어 중간에서 잘리는 문제가 있었음(특히 `sajuProfileTemplates.js`의 한국어 title처럼 카드 너비에 딱 안 맞는 짧은 제목에서 두드러짐). 오행 5종 전부 실제로 렌더링해서 확인함
 - **사주팔자 글로서리**: `PillarGrid`의 각 칸(갑/을/병/정...)이 탭 가능해짐 — 누르면 그 글자의 한자·천간/지지 구분·오행·음양을 태그로 보여주는 패널이 그리드 아래에 뜬다. 상시 표시 대신 클릭식을 택한 이유: 8칸 전부에 상시 설명을 붙이면 화면이 너무 빽빽해짐. `/saju`의 "일간(日干)" 헤딩 아래에는 짧은 정의 문구를 상시로 추가(용어가 하나뿐이라 인라인이 더 적합하다고 판단)
 
 ## 7-2. 오행 캐릭터 (`src/assets/characters/`, `ElementCharacter.jsx`, `LoadingReveal.jsx`)
