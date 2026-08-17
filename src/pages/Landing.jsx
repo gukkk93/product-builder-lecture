@@ -36,6 +36,32 @@ export default function Landing() {
           analyticsKey="compatibility"
         />
 
+        <div className="menu-section-label"><span className="dot" />{t('home.idolsLabel')}</div>
+        <MenuListItem
+          icon="groupMatch"
+          title={t('home.items.groupMatch.title')}
+          description={t('home.items.groupMatch.description')}
+          to="/idol-match?mode=group"
+          status="live"
+          analyticsKey="idol-match-group"
+        />
+        <MenuListItem
+          icon="idolMatch"
+          title={t('home.items.idolMatch.title')}
+          description={t('home.items.idolMatch.description')}
+          to="/idol-match"
+          status="live"
+          analyticsKey="idol-match"
+        />
+        <MenuListItem
+          icon="drama"
+          title={t('home.items.drama.title')}
+          description={t('home.items.drama.description')}
+          to="/drama-match"
+          status="live"
+          analyticsKey="drama-match"
+        />
+
         <div className="menu-section-label"><span className="dot" />{t('home.romanceLabel')}</div>
         <MenuListItem
           icon="reunion"
@@ -68,32 +94,6 @@ export default function Landing() {
           to="/compatibility?relationship=some"
           status="live"
           analyticsKey="compatibility-some"
-        />
-
-        <div className="menu-section-label"><span className="dot" />{t('home.idolsLabel')}</div>
-        <MenuListItem
-          icon="groupMatch"
-          title={t('home.items.groupMatch.title')}
-          description={t('home.items.groupMatch.description')}
-          to="/idol-match?mode=group"
-          status="live"
-          analyticsKey="idol-match-group"
-        />
-        <MenuListItem
-          icon="idolMatch"
-          title={t('home.items.idolMatch.title')}
-          description={t('home.items.idolMatch.description')}
-          to="/idol-match"
-          status="live"
-          analyticsKey="idol-match"
-        />
-        <MenuListItem
-          icon="drama"
-          title={t('home.items.drama.title')}
-          description={t('home.items.drama.description')}
-          to="/drama-match"
-          status="live"
-          analyticsKey="drama-match"
         />
 
         <div className="how-it-works">

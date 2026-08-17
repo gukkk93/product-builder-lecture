@@ -60,7 +60,7 @@
       "some": { "title": "썸궁합", "description": "우리 썸, 어디로 가고 있을까?" },
       "idolMatch": { "title": "아이돌 매치", "description": "생일을 입력하면, 나와 제일 잘 맞는 아이돌을 찾아드려요." },
       "drama": { "title": "K-드라마 매치", "description": "생일을 입력하면, 나와 제일 잘 맞는 K-드라마 배우를 찾아드려요." },
-      "groupMatch": { "title": "그룹 매치", "description": "그룹 전체 멤버와의 궁합 점수를 한눈에." }
+      "groupMatch": { "title": "최애 매치", "description": "내 최애와의 궁합 점수." }
     }
   },
   "result": {
@@ -202,7 +202,7 @@
     "title": "아이돌 매치 💫",
     "subtitle": "생일과 성별을 입력하면, 보유한 아이돌 전체 중에서 오행 궁합이 제일 좋은 아이돌을 찾아드려요.",
     "findMatchLabel": "내 매치 찾기",
-    "groupTitle": "그룹 매치 🏆",
+    "groupTitle": "최애 매치 🏆",
     "groupSubtitle": "그룹을 고르고 멤버를 선택하면, 그 멤버와의 전체 궁합을 보여드려요.",
     "groupNeedBirthday": "궁합을 확인하려면 먼저 생일을 입력해주세요.",
     "groupPickPrompt": "위에서 그룹과 멤버를 선택하면 궁합을 볼 수 있어요.",
