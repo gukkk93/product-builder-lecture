@@ -75,19 +75,19 @@
 - **`romanceTemplates.js`** (신규): situation(재회/짝사랑/속마음 3종) × 관계(5종) × 5개 문구 = **150개**(en/ko 합산). `compatibilityTemplates.js`처럼 팬덤 용어 없음, situation별로 문체만 다르게(재회=아직 못 놓는 이유+희망적 클로징, 짝사랑=가볍고 설레는 톤, 속마음=상대 시점으로 서술). 재회 전용 공통 클로징 라인은 `romanceClosing`으로 따로 관리(관계별 25개 문구에 안 넣고 렌더링 시 뒤에 붙임 — 유지보수 편하게). `getRomanceCopy(lang, situation, relation, seed)` / `getRomanceClosing(lang, situation)`
 - 한국어는 **직역이 아니라 자연스러운 로컬라이즈** — 최애/스밍/컴백/덕질 같은 팬덤 표현 사용
 
-## 5-1. 인사이트 섹션 확장 작업 (진행 중 — 1단계만 완료)
+## 5-1. 인사이트 섹션 확장 작업 (진행 중 — 1~2단계 완료)
 
-사용자가 5단계 계획을 제시하고 "1단계부터 시작하면 될 것 같아"라고 스코프를 명시적으로 좁혀서, **1단계만** 진행함. 나머지 단계는 미착수 상태로 아래 "아직 안 한 것"에 별도 정리.
+사용자가 5단계 계획을 제시하고 "1단계부터 시작하면 될 것 같아"라고 스코프를 명시적으로 좁혀서 시작했고, 1단계 완료 후 "2단계 ㄱㄱ" 지시로 2단계까지 이어서 진행함. 3~5단계는 미착수 상태로 아래 "아직 안 한 것"에 별도 정리.
 
 - **1단계 완료**: `matchCommon.explanation.*`(관계 5종, 궁합 점수 아래에 붙는 설명 문구)를 한 줄 요약에서 **3~4문장 문단**으로 확장(en/ko). 코드 변경 없이 문구만 확장한 것이라 `MatchResultCard.jsx`/`Compatibility.jsx`/`Romance.jsx` 등 소비하는 쪽은 그대로 재사용
 - **`src/data/sajuStrengthTemplates.js`** (신규, 아직 어디에도 연결 안 됨): 두 사람의 신강/신약(`saju.dayGanStrength`)을 비교하는 보너스 인사이트용 문구 뱅크. 새 계산 로직 없이 기존 `calculateSaju()` 결과값만 조합 — `strong-strong`/`strong-weak`/`weak-strong`/`weak-weak` 4개 조합 × en/ko, `getSajuStrengthInsight(lang, myStrength, theirStrength)`로 조회. 오행 관계 문구와 달리 5줄 로테이션이 아니라 조합당 고정 문단 1개
-- **버그 발견 및 수정**: 이번 QA 중 `Compatibility.jsx`가 상대 이름을 안 넣었을 때 폴백으로 `t('compatibility.theirElement')`를 호출하는데, 이 키가 `compatibility` 네임스페이스엔 없고 `idolMatch` 네임스페이스에만 있었던 복붙 버그를 발견 — 화면에 "You & compatibility.theirElement"처럼 raw 키가 그대로 노출되고 있었음. `compatibility.theirElement`를 en/ko 양쪽에 추가해서 수정("Them"/"상대")
+- **버그 발견 및 수정**: 1단계 QA 중 `Compatibility.jsx`가 상대 이름을 안 넣었을 때 폴백으로 `t('compatibility.theirElement')`를 호출하는데, 이 키가 `compatibility` 네임스페이스엔 없고 `idolMatch` 네임스페이스에만 있었던 복붙 버그를 발견 — 화면에 "You & compatibility.theirElement"처럼 raw 키가 그대로 노출되고 있었음. `compatibility.theirElement`를 en/ko 양쪽에 추가해서 수정("Them"/"상대")
+- **2단계 완료**: `compatibilityTemplates.js`/`idolMatchTemplates.js`/`dramaMatchTemplates.js`/`romanceTemplates.js` 네 파일 전체에 `goodFit`("잘 맞는 부분")/`watchFor`("관계에서 챙길 점") 2개 문단 뱅크를 관계 5종 × 5개 변형(en/ko)으로 추가. 기존 `line`과 같은 시드 인덱스(`hashCode(seedInput) % 5`)로 뽑아서 세 문단이 한 사람이 쓴 것처럼 일관되게 읽히도록 함. `romanceTemplates.js`는 상황(재회/짝사랑/속마음) × 관계 5종이라 볼륨이 제일 컸고, goodFit/watchFor 문구도 상황에 맞게 프레이밍을 다르게 씀(재회="재회했을 때 잘 맞을 부분/재회 전에 점검할 점", 짝사랑="이 마음이 잘 통할 부분/주의할 점", 속마음="상대가 나를 좋게 보는 지점/신경 쓰면 좋을 점"). `getCompatibilityCopy`/`getIdolMatchCopy`/`getDramaMatchCopy`/`getRomanceCopy` 네 getter 모두 `{ tier, line, goodFit, watchFor }`를 반환하도록 확장. **아직 어떤 페이지에도 연결 안 함** — 4~5단계(`InsightSection.jsx` + 결과 화면 wiring)에서 실제로 쓰일 예정
 
-**남은 단계(2~5단계, 미착수 — 사용자가 명시적으로 다음 지시할 때 진행)**:
-- 2단계: `idolMatchTemplates.js`/`dramaMatchTemplates.js`/`compatibilityTemplates.js`/`romanceTemplates.js` 각각에 "잘 맞는 부분"/"관계에서 챙길 점" 2개 문단 × 관계 5종 × 5개 변형(en/ko) 추가. 사용자 권장 순서: Compatibility 파일부터 시작 → 나머지는 그 패턴 복제
+**남은 단계(3~5단계, 미착수 — 사용자가 명시적으로 다음 지시할 때 진행)**:
 - 3단계: `sajuProfileTemplates.js`에 연애 스타일/재물 성향/커리어 적성/건강 기질 4개 도메인 섹션 추가(기존 dominantElement+dayGanStrength 데이터만 사용, 오행 5 × 강약 2 × en/ko)
 - 4단계: `InsightSection.jsx` 컴포넌트 — 번호 배지+제목+본문 카드, 배열을 `.map()`으로 렌더링(`.slice()` 아직 안 씀 — 나중에 앞쪽 1~2개만 무료 노출하고 뒤를 잠그는 페이월 게이팅을 슬라이스만으로 붙일 수 있게 지금부터 배열 구조로 짜두는 게 핵심). ElementCharacter가 말풍선 형태로 섹션 목록을 소개하는 용도로도 사용 예정
-- 5단계: `MatchResultCard.jsx`(아이돌/드라마 매치 공용)/`Compatibility.jsx`/`Romance.jsx`/`Saju.jsx`의 현재 한 줄짜리 `explanation` 슬롯을 `InsightSection` 여러 개로 교체
+- 5단계: `MatchResultCard.jsx`(아이돌/드라마 매치 공용)/`Compatibility.jsx`/`Romance.jsx`/`Saju.jsx`의 현재 한 줄짜리 `explanation` 슬롯을 `InsightSection` 여러 개(explanation → goodFit → watchFor 순서 등)로 교체 — 2단계에서 만든 goodFit/watchFor 데이터가 여기서 처음 실제로 쓰이게 됨
 - **향후 스코프 대비 배치 지침**: 각 페이지의 섹션 배열은 흥미로운 것 먼저, 구체적 조언은 뒤로 두는 순서로 배치할 것 — 나중에 앞쪽 1~2개만 무료로 남기고 뒤를 잠글 가능성이 높기 때문에, 순서를 미리 그렇게 잡아두면 나중에 재배치 없이 슬라이스만 하면 됨
 - **완료 기준(전체 5단계 기준, 아직 미달)**: 궁합/아이돌매치/드라마매치/로맨스/내 사주 결과 화면에 인사이트 섹션이 여러 개 순서대로 노출되고, 잠금 UI·결제 버튼·"+N가지 더" 배지는 전부 없이 콘텐츠만 다 열려있는 상태
 
