@@ -166,6 +166,7 @@
     "theirBirthdayHeading": "Their birthday",
     "theirNameLabel": "Their name",
     "theirNamePlaceholder": "e.g. Alex",
+    "theirElement": "Them",
     "relationshipLabel": "Your relationship",
     "relationship": {
       "friend": "Friend",
@@ -235,11 +236,11 @@
     "genderMale": "Male",
     "scoreLabel": "Match Score",
     "explanation": {
-      "same": "{{my}} and {{other}} are the same element — that's the real reason you're so in sync.",
-      "otherGeneratesMe": "{{other}} generates {{my}} — their energy feeds yours, which is why it feels easy.",
-      "iGenerateOther": "{{my}} generates {{other}} — your energy feeds theirs, which is why you're the one giving more.",
-      "otherOvercomesMe": "{{other}} overcomes {{my}} — that tension is exactly what makes this pairing so compelling.",
-      "iOvercomeOther": "{{my}} overcomes {{other}} — you're the steadying, grounding influence here."
+      "same": "{{my}} and {{other}} are the exact same element — that's the real reason you two feel so in sync. There's no need to translate yourselves for each other; you're already speaking the same language, emotionally and otherwise. The risk with this kind of match is that you can reinforce each other's blind spots as easily as your strengths, since neither of you naturally pulls in a different direction. Still, the comfort here is real, and comfort like this is rarer than people think.",
+      "otherGeneratesMe": "{{other}} generates {{my}} in the Five Element cycle, which means their energy feeds yours rather than draining it. You'll likely notice this as a kind of ease — things feel lighter, more supported, less like work, when they're around. That said, it's worth staying aware of how much you're leaning on that support versus building your own; the risk of a generating relationship is quietly outsourcing your steadiness to someone else. Used well, though, this is one of the more sustainable pairings there is.",
+      "iGenerateOther": "{{my}} generates {{other}} here, which means your energy is the one doing the feeding — you give, and they receive, more often than the reverse. This tends to bring out your most generous, most attentive self, and that's not a bad thing in small doses. The catch is that generating relationships can quietly tip into one-sided if you're not paying attention, so it's worth checking in on whether the effort is actually reciprocated, not just appreciated. When it's balanced, though, this is exactly the kind of pairing where your care genuinely makes a difference.",
+      "otherOvercomesMe": "{{other}} overcomes {{my}} in the Five Element cycle, and that's the real source of the tension you're probably feeling — not a bad sign necessarily, just a real one. Overcoming relationships tend to push you rather than soothe you, which is exactly why they're memorable: something about this connection asks more of you than the easy ones do. The upside is that this kind of friction, handled with a little patience, tends to teach you more about yourself than a comfortable match ever would. The downside is it takes real work to keep it from tipping into actual conflict — so go in with your eyes open, not just your curiosity.",
+      "iOvercomeOther": "{{my}} overcomes {{other}} here, which puts you in the steadier, more grounding role in this pairing, whether or not either of you has named it that way. People in this position often become the one who keeps things from spiraling — the calm in the room, even when it's not asked for. That can be a genuinely good instinct, but it's worth watching that it doesn't tip into control, since 'grounding' and 'taking over' can look similar from the inside. Used with a light hand, though, this steadiness is exactly what makes this pairing work."
     }
   },
   "guide": {
