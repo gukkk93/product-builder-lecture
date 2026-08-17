@@ -11,6 +11,8 @@ import PillarGrid from '../components/PillarGrid';
 import ElementDistribution from '../components/ElementDistribution';
 import BirthDateForm from '../components/BirthDateForm';
 import SajuShareCard from '../components/SajuShareCard';
+import LoadingReveal from '../components/LoadingReveal';
+import ElementCharacter from '../components/ElementCharacter';
 
 export default function Saju() {
   const { t, i18n } = useTranslation();
@@ -62,6 +64,7 @@ export default function Saju() {
   const dayMasterLine = getDayMasterLine(i18n.language, saju.dayGanElement);
 
   return (
+    <LoadingReveal element={saju.dominantElement}>
     <main className="page">
       <div className="page-content">
         <Link to="/" className="back-link">{t('saju.backLink')}</Link>
@@ -70,6 +73,10 @@ export default function Saju() {
         <p className="subtitle">{t('saju.subtitle')}</p>
 
         <div className="card" style={{ marginBottom: 16 }}>
+          <ElementCharacter element={saju.dominantElement} size={100} />
+          <p style={{ margin: '8px 0 16px', fontSize: 13, color: 'var(--text-muted)' }}>
+            {t('saju.characterIntro', { element: t(`elements.${saju.dominantElement}`) })}
+          </p>
           <ElementBadge element={saju.dominantElement} />
           {!birth.timeKnown && <div className="time-note">{t('saju.timeUnknownNote')}</div>}
 
@@ -138,5 +145,6 @@ export default function Saju() {
         />
       </div>
     </main>
+    </LoadingReveal>
   );
 }

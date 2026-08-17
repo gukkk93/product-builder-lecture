@@ -9,6 +9,7 @@ import { trackPageView } from '../utils/analytics';
 import ElementBadge from '../components/ElementBadge';
 import BirthDateForm from '../components/BirthDateForm';
 import CompatibilityShareCard from '../components/CompatibilityShareCard';
+import LoadingReveal from '../components/LoadingReveal';
 
 function paramsToBirth(params) {
   const y = Number(params.get('y'));
@@ -154,6 +155,7 @@ export default function Compatibility() {
   }
 
   return (
+    <LoadingReveal element={mySaju.dominantElement}>
     <main className="page">
       <div className="page-content">
         <button type="button" className="back-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }} onClick={reset}>
@@ -219,5 +221,6 @@ export default function Compatibility() {
         />
       </div>
     </main>
+    </LoadingReveal>
   );
 }

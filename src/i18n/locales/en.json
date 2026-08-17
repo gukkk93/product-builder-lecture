@@ -7,6 +7,9 @@
     "themeToggleLabel": "Toggle dark mode",
     "contact": "Contact us"
   },
+  "loading": {
+    "analyzing": "{{element}} energy is reading your saju..."
+  },
   "landing": {
     "title": "Ohaeng 🔮",
     "subtitle": "Korean saju, made for K-pop hearts. Pick a reading to begin.",
@@ -81,6 +84,7 @@
     "title": "My Saju",
     "subtitle": "Your chart, on its own — no connection to today's date.",
     "backLink": "← Try another birthday",
+    "characterIntro": "This is your {{element}} energy",
     "pillarsHeading": "Your Four Pillars",
     "pillars": {
       "year": "Year",

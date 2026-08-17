@@ -9,6 +9,7 @@ import { trackPageView } from '../utils/analytics';
 import ElementBadge from '../components/ElementBadge';
 import ShareCard from '../components/ShareCard';
 import BirthDateForm from '../components/BirthDateForm';
+import LoadingReveal from '../components/LoadingReveal';
 
 const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'comeback'];
 
@@ -67,6 +68,7 @@ export default function Result() {
   );
 
   return (
+    <LoadingReveal element={saju.dominantElement}>
     <main className="page">
       <div className="page-content">
         <Link to="/" className="back-link">{t('result.backLink')}</Link>
@@ -122,5 +124,6 @@ export default function Result() {
         />
       </div>
     </main>
+    </LoadingReveal>
   );
 }

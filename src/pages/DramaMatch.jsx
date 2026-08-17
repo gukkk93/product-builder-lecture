@@ -12,6 +12,7 @@ import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
 import GenderSelect from '../components/GenderSelect';
 import MatchResultCard from '../components/MatchResultCard';
+import LoadingReveal from '../components/LoadingReveal';
 
 /** Same "best match" mechanic as IdolMatch, run against the K-drama actor pool instead of idols. */
 export default function DramaMatch() {
@@ -61,13 +62,13 @@ export default function DramaMatch() {
     if (best) trackIdolMatchSubmit('drama');
   }, [best]);
 
-  return (
-    <main className="page">
-      <div className="page-content">
-        <h1>{t('dramaMatch.title')}</h1>
-        <p className="subtitle">{t('dramaMatch.subtitle')}</p>
+  if (!birth || !userSaju) {
+    return (
+      <main className="page">
+        <div className="page-content">
+          <h1>{t('dramaMatch.title')}</h1>
+          <p className="subtitle">{t('dramaMatch.subtitle')}</p>
 
-        {!birth || !userSaju ? (
           <div className="card" style={{ textAlign: 'left' }}>
             <GenderSelect value={gender} onChange={setGender} />
             <BirthDateForm
@@ -79,49 +80,60 @@ export default function DramaMatch() {
               }}
             />
           </div>
-        ) : best ? (
-          <MatchResultCard
-            name={best.candidate.name}
-            subtitle={t('dramaMatch.actorLabel')}
-            matchElement={best.saju.dominantElement}
-            matchStrength={best.saju.dayGanStrength}
-            matchPillars={best.saju.pillars}
-            userElement={userSaju.dominantElement}
-            pillarsHeading={t('idolMatch.theirPillarsHeading', { member: best.candidate.name })}
-            score={best.score}
-            tier={compatCopy.tier}
-            line={compatCopy.line}
-            explanation={explanation}
-            compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
-            scoreLabel={t('matchCommon.scoreLabel')}
-            onShare={() =>
-              download(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match', {
-                text: t('dramaMatch.shareCaption'),
-                url: buildShareUrl('/drama-match'),
-              })
-            }
-            shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
-            disclaimer={t('dramaMatch.disclaimer')}
-            downloading={downloading}
-          />
-        ) : null}
+        </div>
+      </main>
+    );
+  }
+
+  if (!best) return null;
+
+  return (
+    <LoadingReveal element={userSaju.dominantElement}>
+    <main className="page">
+      <div className="page-content">
+        <h1>{t('dramaMatch.title')}</h1>
+        <p className="subtitle">{t('dramaMatch.subtitle')}</p>
+
+        <MatchResultCard
+          name={best.candidate.name}
+          subtitle={t('dramaMatch.actorLabel')}
+          matchElement={best.saju.dominantElement}
+          matchStrength={best.saju.dayGanStrength}
+          matchPillars={best.saju.pillars}
+          userElement={userSaju.dominantElement}
+          pillarsHeading={t('idolMatch.theirPillarsHeading', { member: best.candidate.name })}
+          score={best.score}
+          tier={compatCopy.tier}
+          line={compatCopy.line}
+          explanation={explanation}
+          compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
+          scoreLabel={t('matchCommon.scoreLabel')}
+          onShare={() =>
+            download(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match', {
+              text: t('dramaMatch.shareCaption'),
+              url: buildShareUrl('/drama-match'),
+            })
+          }
+          shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+          disclaimer={t('dramaMatch.disclaimer')}
+          downloading={downloading}
+        />
       </div>
 
-      {best && (
-        <div className="share-card-offscreen">
-          <IdolShareCard
-            ref={shareCardRef}
-            memberName={best.candidate.name}
-            groupName={t('dramaMatch.actorLabel')}
-            userElement={userSaju.dominantElement}
-            idolElement={best.saju.dominantElement}
-            idolStrength={best.saju.dayGanStrength}
-            score={best.score}
-            tier={compatCopy.tier}
-            line={compatCopy.line}
-          />
-        </div>
-      )}
+      <div className="share-card-offscreen">
+        <IdolShareCard
+          ref={shareCardRef}
+          memberName={best.candidate.name}
+          groupName={t('dramaMatch.actorLabel')}
+          userElement={userSaju.dominantElement}
+          idolElement={best.saju.dominantElement}
+          idolStrength={best.saju.dayGanStrength}
+          score={best.score}
+          tier={compatCopy.tier}
+          line={compatCopy.line}
+        />
+      </div>
     </main>
+    </LoadingReveal>
   );
 }

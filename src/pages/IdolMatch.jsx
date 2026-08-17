@@ -12,6 +12,7 @@ import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
 import GenderSelect from '../components/GenderSelect';
 import MatchResultCard from '../components/MatchResultCard';
+import LoadingReveal from '../components/LoadingReveal';
 
 export default function IdolMatch() {
   const { t, i18n } = useTranslation();
@@ -142,6 +143,7 @@ export default function IdolMatch() {
 
     if (selectedMember && memberSaju && memberCompat) {
       return (
+        <LoadingReveal element={userSaju.dominantElement}>
         <main className="page">
           <div className="page-content">
             <button type="button" className="back-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }} onClick={clearGroupMember}>
@@ -190,6 +192,7 @@ export default function IdolMatch() {
             />
           </div>
         </main>
+        </LoadingReveal>
       );
     }
 
@@ -238,13 +241,13 @@ export default function IdolMatch() {
     );
   }
 
-  return (
-    <main className="page">
-      <div className="page-content">
-        <h1>{t('idolMatch.title')}</h1>
-        <p className="subtitle">{t('idolMatch.subtitle')}</p>
+  if (!birth || !userSaju) {
+    return (
+      <main className="page">
+        <div className="page-content">
+          <h1>{t('idolMatch.title')}</h1>
+          <p className="subtitle">{t('idolMatch.subtitle')}</p>
 
-        {!birth || !userSaju ? (
           <div className="card" style={{ textAlign: 'left' }}>
             <GenderSelect value={gender} onChange={setGender} />
             <BirthDateForm
@@ -256,49 +259,60 @@ export default function IdolMatch() {
               }}
             />
           </div>
-        ) : best ? (
-          <MatchResultCard
-            name={bestName}
-            subtitle={best.candidate.groupName}
-            matchElement={best.saju.dominantElement}
-            matchStrength={best.saju.dayGanStrength}
-            matchPillars={best.saju.pillars}
-            userElement={userSaju.dominantElement}
-            pillarsHeading={t('idolMatch.theirPillarsHeading', { member: bestName })}
-            score={best.score}
-            tier={compatCopy.tier}
-            line={compatCopy.line}
-            explanation={explanation}
-            compatibilityHeading={t('idolMatch.compatibilityHeading', { member: bestName })}
-            scoreLabel={t('matchCommon.scoreLabel')}
-            onShare={() =>
-              download(`ohaeng-${best.candidate.id}-match.png`, 'idol-match', {
-                text: t('idolMatch.shareCaption'),
-                url: buildShareUrl('/idol-match'),
-              })
-            }
-            shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
-            disclaimer={t('idolMatch.disclaimer')}
-            downloading={downloading}
-          />
-        ) : null}
+        </div>
+      </main>
+    );
+  }
+
+  if (!best) return null;
+
+  return (
+    <LoadingReveal element={userSaju.dominantElement}>
+    <main className="page">
+      <div className="page-content">
+        <h1>{t('idolMatch.title')}</h1>
+        <p className="subtitle">{t('idolMatch.subtitle')}</p>
+
+        <MatchResultCard
+          name={bestName}
+          subtitle={best.candidate.groupName}
+          matchElement={best.saju.dominantElement}
+          matchStrength={best.saju.dayGanStrength}
+          matchPillars={best.saju.pillars}
+          userElement={userSaju.dominantElement}
+          pillarsHeading={t('idolMatch.theirPillarsHeading', { member: bestName })}
+          score={best.score}
+          tier={compatCopy.tier}
+          line={compatCopy.line}
+          explanation={explanation}
+          compatibilityHeading={t('idolMatch.compatibilityHeading', { member: bestName })}
+          scoreLabel={t('matchCommon.scoreLabel')}
+          onShare={() =>
+            download(`ohaeng-${best.candidate.id}-match.png`, 'idol-match', {
+              text: t('idolMatch.shareCaption'),
+              url: buildShareUrl('/idol-match'),
+            })
+          }
+          shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+          disclaimer={t('idolMatch.disclaimer')}
+          downloading={downloading}
+        />
       </div>
 
-      {best && (
-        <div className="share-card-offscreen">
-          <IdolShareCard
-            ref={shareCardRef}
-            memberName={bestName}
-            groupName={best.candidate.groupName}
-            userElement={userSaju.dominantElement}
-            idolElement={best.saju.dominantElement}
-            idolStrength={best.saju.dayGanStrength}
-            score={best.score}
-            tier={compatCopy.tier}
-            line={compatCopy.line}
-          />
-        </div>
-      )}
+      <div className="share-card-offscreen">
+        <IdolShareCard
+          ref={shareCardRef}
+          memberName={bestName}
+          groupName={best.candidate.groupName}
+          userElement={userSaju.dominantElement}
+          idolElement={best.saju.dominantElement}
+          idolStrength={best.saju.dayGanStrength}
+          score={best.score}
+          tier={compatCopy.tier}
+          line={compatCopy.line}
+        />
+      </div>
     </main>
+    </LoadingReveal>
   );
 }

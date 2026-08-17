@@ -7,6 +7,9 @@
     "themeToggleLabel": "다크 모드 전환",
     "contact": "문의하기"
   },
+  "loading": {
+    "analyzing": "{{element}} 기운이 당신의 사주를 분석하고 있어요..."
+  },
   "landing": {
     "title": "Ohaeng 🔮",
     "subtitle": "케이팝 덕후를 위한 한국 사주. 원하는 운세를 골라보세요.",
@@ -81,6 +84,7 @@
     "title": "내 사주",
     "subtitle": "오늘 날짜와는 무관한, 오직 나만의 사주예요.",
     "backLink": "← 다른 생일로 보기",
+    "characterIntro": "이게 당신의 {{element}} 기운이에요",
     "pillarsHeading": "나의 사주팔자",
     "pillars": {
       "year": "년주",
