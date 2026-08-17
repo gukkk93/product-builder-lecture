@@ -104,7 +104,7 @@
 
 - **`STYLE_GUIDE.md`** (레포 루트): 색상/타이포/스페이싱 토큰, 아이콘 규칙 문서화. **"클린 배경" 방향으로 리비전됨** (아래 참고)
 - **배경**: 무채색 중립 톤 (`--bg` 라이트 `#fafafa`/다크 `#121214`). 예전엔 보라색 radial-gradient + 배경 전체에 흐린 사신도 아이콘 콜라주(`FourSymbolsBackdrop.jsx`)가 있었는데, 사용자 피드백으로 **완전 제거**함
-- **사신도 아이콘** (`src/assets/icons/elements/{wood,fire,earth,metal,water}.png`, 청룡/주작/황룡/백호/현무 — `public/`에서 이동, 아래 캐시 문제 참고): 이제 **실제 오행 데이터를 나타낼 때만** 사용 — 오행 배지, 멤버 아바타, 공유카드 워터마크. 페이지 배경 장식이나 메뉴 아이콘으로는 더 이상 안 씀
+- **오행 아이콘** (`src/assets/icons/elements/{wood,fire,earth,metal,water}.png` — `public/`에서 이동, 아래 캐시 문제 참고): 이제 **실제 오행 데이터를 나타낼 때만** 사용 — 오행 배지, 공유카드, 헤더 로고. 페이지 배경 장식이나 메뉴 아이콘으로는 더 이상 안 씀. **원래는 청룡/주작/황룡/백호/현무 사신도 그림이었는데, 오행 캐릭터(7-2 참고) 도입 후 그 캐릭터 얼굴만 크롭한 이미지로 전면 교체함** — `src/assets/characters/*.png`(캐릭터 전신)에서 알파 채널 bbox 기준으로 실제 그림 영역을 찾고 위쪽 60%를 얼굴로 간주해 정사각형으로 크롭하는 Python(PIL) 스크립트로 생성, 같은 파일명 그대로 덮어써서 `ElementBadge`/공유카드 3종/헤더 로고 등 소비하는 쪽 6곳은 코드 수정 없이 자동 반영됨(전부 `import` 기반이라 Vite가 내용 해시로 캐시버스팅도 자동 처리)
 - **메뉴 아이콘** (`MenuIcon.jsx`): 홈 메뉴 6개 항목용 심플 단색 라인 아이콘(해/막대그래프/벤다이어그램/별/하트/사람) — 사신도 동물 아이콘 재사용 대신 항목 의미에 맞게 새로 그림
 - **멤버 아바타** (`MemberAvatar.jsx` + `ElementPattern.jsx`): 실사진/AI 합성 얼굴 **절대 사용 안 함** (초상권 리스크 회피). 멤버 본인 사주의 오행+신강신약을 계산해서 그라디언트+추상 패턴 아바타 생성 — 최대 10종(오행 5 × 강약 2, 강함=진하고 실선 테두리/약함=흐리고 점선 테두리)
 - **공유카드** (`ShareCard.jsx`, `IdolShareCard.jsx`, `CompatibilityShareCard.jsx`, 전부 `ShareCardFooter.jsx`/`ShareCardWatermark.jsx` 공유): 9:16 PNG, URL 배지 포함
@@ -123,7 +123,7 @@
 - **`LoadingReveal.jsx`**: 사주 계산은 `lunar-javascript`로 클라이언트에서 즉시 끝나서(서버 호출 없음) 실제 "로딩 시간"이 없음 — 그래서 연출용 최소 표시 시간(1.5초, `REVEAL_MS` 상수)을 의도적으로 넣어서 결과가 계산된 순간 캐릭터+"OO 기운이 당신의 사주를 분석하고 있어요"를 잠깐 보여준 뒤 실제 결과로 전환. `<LoadingReveal element={saju.dominantElement}>{실제 결과 JSX}</LoadingReveal>` 형태로 결과 렌더링 부분만 감싸는 방식이라 각 페이지의 계산 로직은 안 건드림. birth 없이 들어오면(폼만 보여줘야 할 때) 이 컴포넌트를 아예 거치지 않음. 적용된 곳: Result/Saju/Compatibility/Romance/IdolMatch(베스트매치+최애매치 멤버상세)/DramaMatch — 총 7개 결과 분기
 - `/saju`엔 로딩 리빌과 별개로 **상시 노출되는 캐릭터 소개 섹션**을 최상단 카드에 추가(ElementBadge 위, "이게 당신의 {{원소}} 기운이에요" 문구)
 - `ComingSoon.jsx`의 🚧 이모지를 오행 캐릭터로 교체 — 유저의 원소를 모르는 컨텍스트라 렌더링마다 5개 중 랜덤 선택
-- `ShareCardWatermark.jsx`에 기존 오행 아이콘 워터마크(우하단, 440px, 14% 불투명도)와 별개로 캐릭터 워터마크를 반대쪽 모서리(좌상단, 260px, 8% 불투명도)에 아주 은은하게 추가
+- **`ShareCardWatermark.jsx` 개편**(아이콘 얼굴 크롭 작업과 같이 진행): 기존엔 오행 아이콘(우하단, 440px, 14%)+캐릭터(좌상단, 260px, 8%) 두 종류를 같이 깔았는데, 아이콘이 이제 캐릭터 얼굴 크롭이라 둘이 중복되는 느낌이라 **아이콘 워터마크는 없애고 캐릭터 전신 하나로 통일**함. `element` 단일 prop 대신 `elements` 배열을 받아서, 1명이면 기존처럼 우하단에 크게(400px, 13%) 한 명만, **2명이면 우하단(320px)+좌상단(320px) 양쪽 코너에 각자 다른 캐릭터**가 뜨도록 바꿈 — 궁합류 카드(궁합/아이돌매치/드라마매치)에서 나랑 상대 오행이 다를 때 예전엔 상대 쪽만 배경에 나오던 문제를 고침. 호출부 4곳(`CompatibilityShareCard`는 `[myElement, theirElement]`, `IdolShareCard`는 `[userElement, idolElement]`, `SajuShareCard`/`ShareCard`는 `[element]` 한 개짜리 배열)도 같이 수정. 서로 다른 오행 두 캐릭터가 양쪽 모서리에 겹침 없이 뜨는지 Playwright로 실제 확인(같은 오행이 나오지 않게 생일을 직접 계산해서 테스트)
 
 ## 7-1. 공유 방식 (`src/hooks/useShareCardDownload.js`)
 
