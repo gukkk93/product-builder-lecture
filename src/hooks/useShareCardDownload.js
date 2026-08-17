@@ -30,7 +30,7 @@ export function useShareCardDownload() {
   const [downloading, setDownloading] = useState(false);
   const canShareFiles = useMemo(() => supportsShare, []);
 
-  async function download(filename, analyticsContext, shareText) {
+  async function download(filename, analyticsContext, { text, url } = {}) {
     if (!cardRef.current) return;
     setDownloading(true);
     try {
@@ -39,7 +39,12 @@ export function useShareCardDownload() {
 
       if (supportsShare && navigator.canShare({ files: [file] })) {
         try {
-          await navigator.share({ files: [file], text: shareText });
+          // Some share targets drop the separate `url` field once `files`
+          // is also set, so the link is folded into `text` too — that way
+          // whoever receives it always has something to tap through and
+          // try for themselves, not just the image.
+          const combinedText = url ? [text, url].filter(Boolean).join('\n') : text;
+          await navigator.share({ files: [file], text: combinedText, url });
           trackShareDownload(analyticsContext);
           return;
         } catch (err) {

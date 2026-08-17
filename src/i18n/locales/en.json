@@ -67,6 +67,7 @@
     "shareButton": "Download share card",
     "shareNative": "Share",
     "shareCardFooter": "What's your element? Find out at Ohaeng",
+    "shareCaption": "I just got my Ohaeng fortune — see yours:",
     "idolMatchCta": "Check idol compatibility →",
     "sajuCta": "See my full saju →",
     "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
@@ -161,6 +162,7 @@
     "resultHeading": "Your Compatibility",
     "youAndThemHeading": "You & {{name}}",
     "backLink": "← Start over",
+    "shareCaption": "Check out our Ohaeng compatibility — see yours:",
     "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
   },
   "idolMatch": {
@@ -177,6 +179,7 @@
     "compatibilityHeading": "You & {{member}}",
     "yourElement": "You",
     "theirElement": "Them",
+    "shareCaption": "Ohaeng just found my idol match — find yours:",
     "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Member art is illustrative, not photos."
   },
   "dramaMatch": {
@@ -185,6 +188,7 @@
     "subtitle": "Enter your birthday and tell us your gender — we'll scan 100 K-drama actors and find your best Five Element match.",
     "findMatchLabel": "Find my match",
     "actorLabel": "K-Drama Actor",
+    "shareCaption": "Ohaeng just found my K-drama match — find yours:",
     "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Portraits are illustrative, not photos."
   },
   "matchCommon": {

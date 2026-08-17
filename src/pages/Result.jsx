@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { calculateSaju, getTodayRelation } from '../utils/saju';
 import { getFortuneLine } from '../data/fortuneTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
+import { buildShareUrl } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
 import ElementBadge from '../components/ElementBadge';
 import ShareCard from '../components/ShareCard';
@@ -92,7 +93,9 @@ export default function Result() {
           <div className="result-actions">
             <button
               className="button"
-              onClick={() => download('ohaeng-fortune.png', 'result', `${t('app.name')} — ${t('app.tagline')}`)}
+              onClick={() =>
+                download('ohaeng-fortune.png', 'result', { text: t('result.shareCaption'), url: buildShareUrl('/result') })
+              }
               disabled={downloading}
             >
               {t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}

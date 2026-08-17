@@ -67,6 +67,7 @@
     "shareButton": "공유카드 다운로드",
     "shareNative": "공유하기",
     "shareCardFooter": "당신의 오행은? Ohaeng에서 확인해보세요",
+    "shareCaption": "Ohaeng에서 오늘의 운세 확인했어요 — 당신도 확인해보세요:",
     "idolMatchCta": "아이돌 궁합 보기 →",
     "sajuCta": "내 사주 자세히 보기 →",
     "disclaimer": "재미로 보는 콘텐츠예요 — 의학적·금전적·전문적 조언이 아니에요."
@@ -161,6 +162,7 @@
     "resultHeading": "우리의 궁합",
     "youAndThemHeading": "나 & {{name}}",
     "backLink": "← 처음부터 다시",
+    "shareCaption": "Ohaeng에서 우리 궁합 확인했어요 — 당신의 궁합도 확인해보세요:",
     "disclaimer": "재미로 보는 콘텐츠예요 — 의학적·금전적·전문적 조언이 아니에요."
   },
   "idolMatch": {
@@ -177,6 +179,7 @@
     "compatibilityHeading": "나 & {{member}}",
     "yourElement": "나",
     "theirElement": "상대",
+    "shareCaption": "Ohaeng에서 내 아이돌 베스트매치 찾았어요 — 당신의 매치도 찾아보세요:",
     "disclaimer": "재미로 보는 콘텐츠예요. 생일 정보는 공개된 자료를 참고했으며 실제와 다를 수 있어요. 멤버 이미지는 일러스트이며 실제 사진이 아니에요."
   },
   "dramaMatch": {
@@ -185,6 +188,7 @@
     "subtitle": "생일과 성별을 입력하면, K-드라마 배우 100명 중에서 오행 궁합이 제일 좋은 배우를 찾아드려요.",
     "findMatchLabel": "내 매치 찾기",
     "actorLabel": "K-드라마 배우",
+    "shareCaption": "Ohaeng에서 내 K-드라마 베스트매치 찾았어요 — 당신의 매치도 찾아보세요:",
     "disclaimer": "재미로 보는 콘텐츠예요. 생일 정보는 공개된 자료를 참고했으며 실제와 다를 수 있어요. 이미지는 일러스트이며 실제 사진이 아니에요."
   },
   "matchCommon": {

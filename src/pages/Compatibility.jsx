@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { getCompatibilityCopy } from '../data/compatibilityTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
+import { buildShareUrl } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
 import ElementBadge from '../components/ElementBadge';
 import BirthDateForm from '../components/BirthDateForm';
@@ -180,7 +181,12 @@ export default function Compatibility() {
           <div className="result-actions">
             <button
               className="button"
-              onClick={() => download('ohaeng-compatibility.png', 'compatibility', `${t('app.name')} — ${t('app.tagline')}`)}
+              onClick={() =>
+                download('ohaeng-compatibility.png', 'compatibility', {
+                  text: t('compatibility.shareCaption'),
+                  url: buildShareUrl('/compatibility'),
+                })
+              }
               disabled={downloading}
             >
               {t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}

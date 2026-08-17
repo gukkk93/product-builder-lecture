@@ -6,6 +6,7 @@ import { findBestMatch } from '../utils/bestMatch';
 import { getDramaMatchCopy } from '../data/dramaMatchTemplates';
 import { kdramaActors } from '../data/kdramaActors';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
+import { buildShareUrl } from '../utils/shareUrl';
 import { trackIdolMatchSubmit } from '../utils/analytics';
 import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
@@ -94,7 +95,10 @@ export default function DramaMatch() {
             compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
             scoreLabel={t('matchCommon.scoreLabel')}
             onShare={() =>
-              download(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match', `${t('app.name')} — ${t('app.tagline')}`)
+              download(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match', {
+                text: t('dramaMatch.shareCaption'),
+                url: buildShareUrl('/drama-match'),
+              })
             }
             shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
             disclaimer={t('dramaMatch.disclaimer')}

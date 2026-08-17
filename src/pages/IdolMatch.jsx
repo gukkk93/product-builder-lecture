@@ -6,6 +6,7 @@ import { findBestMatch } from '../utils/bestMatch';
 import { getIdolMatchCopy } from '../data/idolMatchTemplates';
 import { idolGroups } from '../data/idols';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
+import { buildShareUrl } from '../utils/shareUrl';
 import { trackIdolMatchSubmit } from '../utils/analytics';
 import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
@@ -161,7 +162,10 @@ export default function IdolMatch() {
             compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
             scoreLabel={t('matchCommon.scoreLabel')}
             onShare={() =>
-              download(`ohaeng-${best.candidate.id}-match.png`, 'idol-match', `${t('app.name')} — ${t('app.tagline')}`)
+              download(`ohaeng-${best.candidate.id}-match.png`, 'idol-match', {
+                text: t('idolMatch.shareCaption'),
+                url: buildShareUrl('/idol-match'),
+              })
             }
             shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
             disclaimer={t('idolMatch.disclaimer')}
