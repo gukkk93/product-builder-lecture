@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju } from '../utils/saju';
-import { getSajuProfile, getDayMasterLine } from '../data/sajuProfileTemplates';
+import { getSajuProfile, getDayMasterLine, getDomainInsight } from '../data/sajuProfileTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
@@ -13,6 +13,9 @@ import BirthDateForm from '../components/BirthDateForm';
 import SajuShareCard from '../components/SajuShareCard';
 import LoadingReveal from '../components/LoadingReveal';
 import ElementCharacter from '../components/ElementCharacter';
+import InsightSection from '../components/InsightSection';
+
+const DOMAINS = ['romanceStyle', 'wealthStyle', 'careerStyle', 'healthStyle'];
 
 export default function Saju() {
   const { t, i18n } = useTranslation();
@@ -62,6 +65,9 @@ export default function Saju() {
 
   const profile = getSajuProfile(i18n.language, saju.dominantElement);
   const dayMasterLine = getDayMasterLine(i18n.language, saju.dayGanElement);
+  const domainSections = DOMAINS.map((domain) =>
+    getDomainInsight(i18n.language, domain, saju.dominantElement, saju.dayGanStrength)
+  );
 
   return (
     <LoadingReveal element={saju.dominantElement}>
@@ -132,6 +138,15 @@ export default function Saju() {
           </div>
 
           <p className="disclaimer">{t('saju.disclaimer')}</p>
+        </div>
+
+        <div className="card" style={{ marginTop: 16, textAlign: 'left' }}>
+          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.domainHeading')}</h2>
+          <InsightSection
+            element={saju.dominantElement}
+            intro={t('saju.domainIntro', { element: t(`elements.${saju.dominantElement}`) })}
+            sections={domainSections}
+          />
         </div>
       </div>
 

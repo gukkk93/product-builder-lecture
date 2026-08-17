@@ -113,6 +113,8 @@
     },
     "distributionHeading": "Element Balance",
     "personalityHeading": "Personality Profile",
+    "domainHeading": "More About You",
+    "domainIntro": "Here's what {{element}} energy usually means for a few more parts of life",
     "timeUnknownNote": "Birth time wasn't used, so the hour pillar is left out of your chart.",
     "shareCaption": "I just got my Ohaeng saju profile — see yours:",
     "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
@@ -241,6 +243,11 @@
       "iGenerateOther": "{{my}} generates {{other}} here, which means your energy is the one doing the feeding — you give, and they receive, more often than the reverse. This tends to bring out your most generous, most attentive self, and that's not a bad thing in small doses. The catch is that generating relationships can quietly tip into one-sided if you're not paying attention, so it's worth checking in on whether the effort is actually reciprocated, not just appreciated. When it's balanced, though, this is exactly the kind of pairing where your care genuinely makes a difference.",
       "otherOvercomesMe": "{{other}} overcomes {{my}} in the Five Element cycle, and that's the real source of the tension you're probably feeling — not a bad sign necessarily, just a real one. Overcoming relationships tend to push you rather than soothe you, which is exactly why they're memorable: something about this connection asks more of you than the easy ones do. The upside is that this kind of friction, handled with a little patience, tends to teach you more about yourself than a comfortable match ever would. The downside is it takes real work to keep it from tipping into actual conflict — so go in with your eyes open, not just your curiosity.",
       "iOvercomeOther": "{{my}} overcomes {{other}} here, which puts you in the steadier, more grounding role in this pairing, whether or not either of you has named it that way. People in this position often become the one who keeps things from spiraling — the calm in the room, even when it's not asked for. That can be a genuinely good instinct, but it's worth watching that it doesn't tip into control, since 'grounding' and 'taking over' can look similar from the inside. Used with a light hand, though, this steadiness is exactly what makes this pairing work."
+    },
+    "insightTitles": {
+      "explanation": "Why This Score",
+      "goodFit": "What Works Well",
+      "watchFor": "What To Watch For"
     }
   },
   "guide": {

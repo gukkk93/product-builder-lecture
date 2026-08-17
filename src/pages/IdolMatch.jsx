@@ -89,6 +89,14 @@ export default function IdolMatch() {
       })
     : null;
 
+  const memberInsightSections = memberCompat && memberCopy
+    ? [
+        { title: t('matchCommon.insightTitles.explanation'), text: memberExplanation },
+        { title: t('matchCommon.insightTitles.goodFit'), text: memberCopy.goodFit },
+        { title: t('matchCommon.insightTitles.watchFor'), text: memberCopy.watchFor },
+      ]
+    : null;
+
   const best = useMemo(() => {
     if (mode === 'group' || !userSaju) return null;
     return findBestMatch(pool, userSaju, gender);
@@ -105,6 +113,14 @@ export default function IdolMatch() {
         my: t(`elements.${userSaju.dominantElement}`),
         other: t(`elements.${best.saju.dominantElement}`),
       })
+    : null;
+
+  const insightSections = best && compatCopy
+    ? [
+        { title: t('matchCommon.insightTitles.explanation'), text: explanation },
+        { title: t('matchCommon.insightTitles.goodFit'), text: compatCopy.goodFit },
+        { title: t('matchCommon.insightTitles.watchFor'), text: compatCopy.watchFor },
+      ]
     : null;
 
   useEffect(() => {
@@ -163,7 +179,7 @@ export default function IdolMatch() {
               score={memberScore}
               tier={memberCopy.tier}
               line={memberCopy.line}
-              explanation={memberExplanation}
+              insightSections={memberInsightSections}
               compatibilityHeading={t('idolMatch.compatibilityHeading', { member: memberName })}
               scoreLabel={t('matchCommon.scoreLabel')}
               onShare={() =>
@@ -284,7 +300,7 @@ export default function IdolMatch() {
           score={best.score}
           tier={compatCopy.tier}
           line={compatCopy.line}
-          explanation={explanation}
+          insightSections={insightSections}
           compatibilityHeading={t('idolMatch.compatibilityHeading', { member: bestName })}
           scoreLabel={t('matchCommon.scoreLabel')}
           onShare={() =>

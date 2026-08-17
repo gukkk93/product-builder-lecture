@@ -10,6 +10,7 @@ import ElementBadge from '../components/ElementBadge';
 import BirthDateForm from '../components/BirthDateForm';
 import CompatibilityShareCard from '../components/CompatibilityShareCard';
 import LoadingReveal from '../components/LoadingReveal';
+import InsightSection from '../components/InsightSection';
 
 function paramsToBirth(params) {
   const y = Number(params.get('y'));
@@ -72,6 +73,14 @@ export default function Compatibility() {
         my: t(`elements.${mySaju.dominantElement}`),
         other: t(`elements.${compatibility.otherSaju.dominantElement}`),
       })
+    : null;
+
+  const insightSections = compatibility && copy
+    ? [
+        { title: t('matchCommon.insightTitles.explanation'), text: explanation },
+        { title: t('matchCommon.insightTitles.goodFit'), text: copy.goodFit },
+        { title: t('matchCommon.insightTitles.watchFor'), text: copy.watchFor },
+      ]
     : null;
 
   const score = compatibility && theirBirth
@@ -185,9 +194,7 @@ export default function Compatibility() {
 
           <strong style={{ color: 'var(--accent)', fontSize: 20 }}>{copy.tier}</strong>
           <p style={{ fontSize: 15, lineHeight: 1.6 }}>{copy.line}</p>
-          {explanation && (
-            <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text-muted)', fontStyle: 'italic' }}>{explanation}</p>
-          )}
+          {insightSections && <InsightSection sections={insightSections} />}
 
           <div className="result-actions">
             <button

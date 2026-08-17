@@ -58,6 +58,14 @@ export default function DramaMatch() {
       })
     : null;
 
+  const insightSections = best && compatCopy
+    ? [
+        { title: t('matchCommon.insightTitles.explanation'), text: explanation },
+        { title: t('matchCommon.insightTitles.goodFit'), text: compatCopy.goodFit },
+        { title: t('matchCommon.insightTitles.watchFor'), text: compatCopy.watchFor },
+      ]
+    : null;
+
   useEffect(() => {
     if (best) trackIdolMatchSubmit('drama');
   }, [best]);
@@ -105,7 +113,7 @@ export default function DramaMatch() {
           score={best.score}
           tier={compatCopy.tier}
           line={compatCopy.line}
-          explanation={explanation}
+          insightSections={insightSections}
           compatibilityHeading={t('idolMatch.compatibilityHeading', { member: best.candidate.name })}
           scoreLabel={t('matchCommon.scoreLabel')}
           onShare={() =>

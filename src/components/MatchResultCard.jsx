@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import ElementBadge from './ElementBadge';
 import MemberAvatar from './MemberAvatar';
 import PillarGrid from './PillarGrid';
+import InsightSection from './InsightSection';
 
 /**
  * Shared result layout for any "best match" reading (idol match, drama
@@ -21,7 +22,7 @@ export default function MatchResultCard({
   score,
   tier,
   line,
-  explanation,
+  insightSections,
   compatibilityHeading,
   scoreLabel,
   onShare,
@@ -67,9 +68,7 @@ export default function MatchResultCard({
 
       <strong style={{ color: 'var(--accent)', fontSize: 18 }}>{tier}</strong>
       <p style={{ fontSize: 15, lineHeight: 1.6 }}>{line}</p>
-      {explanation && (
-        <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text-muted)', fontStyle: 'italic' }}>{explanation}</p>
-      )}
+      {insightSections && <InsightSection sections={insightSections} />}
 
       <div className="result-actions">
         <button className="button" onClick={onShare} disabled={downloading}>
