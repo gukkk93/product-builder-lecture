@@ -44,7 +44,8 @@
   },
   "home": {
     "readingsLabel": "사주 리딩",
-    "idolsLabel": "K팝 아이돌",
+    "romanceLabel": "연애",
+    "idolsLabel": "K팝 & K-드라마",
     "howItWorksHeading": "이용 방법",
     "step1": "리딩 선택하기",
     "step2": "생년월일 입력하기",
@@ -53,6 +54,10 @@
       "fortune": { "title": "오늘의 운세", "description": "총운부터 컴백운까지, 오늘 하루를 한 번에." },
       "saju": { "title": "내 사주 프로필", "description": "네 기둥으로 보는 진짜 내 성격." },
       "compatibility": { "title": "궁합 보기", "description": "누구와든, 사주로 보는 케미." },
+      "reunion": { "title": "재회사주", "description": "다시 만날 수 있을까?" },
+      "crush": { "title": "짝사랑사주", "description": "이 마음, 통할까?" },
+      "theirFeelings": { "title": "속마음사주", "description": "그 사람은 나를 어떻게 생각할까?" },
+      "some": { "title": "썸궁합", "description": "우리 썸, 어디로 가고 있을까?" },
       "idolMatch": { "title": "아이돌 매치", "description": "생일을 입력하면, 나와 제일 잘 맞는 아이돌을 찾아드려요." },
       "drama": { "title": "K-드라마 매치", "description": "생일을 입력하면, 나와 제일 잘 맞는 K-드라마 배우를 찾아드려요." },
       "groupMatch": { "title": "그룹 매치", "description": "그룹 전체 멤버와의 궁합 점수를 한눈에." }
@@ -161,7 +166,7 @@
     "relationship": {
       "friend": "친구",
       "partner": "연인",
-      "crush": "썸",
+      "some": "썸",
       "family": "가족",
       "coworker": "동료"
     },
@@ -172,6 +177,26 @@
     "backLink": "← 처음부터 다시",
     "shareCaption": "Ohaeng에서 우리 궁합 확인했어요 — 당신의 궁합도 확인해보세요:",
     "disclaimer": "재미로 보는 콘텐츠예요 — 의학적·금전적·전문적 조언이 아니에요."
+  },
+  "romance": {
+    "reunion": {
+      "title": "재회사주 🔁",
+      "subtitle": "다시 만날 수 있을까요? 두 사람의 생일을 입력하면 확인할 수 있어요.",
+      "badge": "재회사주",
+      "shareCaption": "Ohaeng에서 재회사주 확인했어요 — 당신도 확인해보세요:"
+    },
+    "crush": {
+      "title": "짝사랑사주 💓",
+      "subtitle": "이 마음, 통할까요? 두 사람의 생일을 입력하면 확인할 수 있어요.",
+      "badge": "짝사랑사주",
+      "shareCaption": "Ohaeng에서 짝사랑사주 확인했어요 — 당신도 확인해보세요:"
+    },
+    "theirFeelings": {
+      "title": "속마음사주 👀",
+      "subtitle": "그 사람은 나를 어떻게 생각할까요? 두 사람의 생일을 입력하면 확인할 수 있어요.",
+      "badge": "속마음사주",
+      "shareCaption": "Ohaeng에서 속마음사주 확인했어요 — 당신도 확인해보세요:"
+    }
   },
   "idolMatch": {
     "title": "아이돌 매치 💫",

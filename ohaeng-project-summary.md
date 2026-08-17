@@ -42,10 +42,11 @@
 
 | 라우트 | 파일 | 내용 |
 |---|---|---|
-| `/` | `Landing.jsx` | **순수 메뉴 화면** (생년월일 입력 없음). "사주 리딩"(오늘의 운세/내 사주/궁합) + "K팝 아이돌"(아이돌 매치/K-드라마 매치/그룹 매치) 2개 섹션, 리스트형 메뉴 6개 항목 |
+| `/` | `Landing.jsx` | **순수 메뉴 화면** (생년월일 입력 없음). "사주 리딩"(오늘의 운세/내 사주/궁합) + "연애"(재회사주/짝사랑사주/속마음사주/썸궁합) + "K팝 & K-드라마"(그룹 매치/아이돌 매치/K-드라마 매치, 이 순서) 3개 섹션 |
 | `/result` | `Result.jsx` | 오늘의 운세만 — 오행 배지, 띠, 5개 카테고리(총운/애정/재물/건강/컴백운), 공유카드, "궁합"/"내 사주" CTA. birth 파라미터 없으면 `BirthDateForm` 인라인 렌더 |
 | `/saju` | `Saju.jsx` | 내 사주 자체(오늘과 무관) — 네 기둥(PillarGrid, 한국어면 한글 표기), 일간+신강/신약 배지, 오행 분포 바차트, 성격 분석, **공유카드**(`SajuShareCard.jsx`, 신규). birth 없으면 인라인 폼 |
-| `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 궁합 점수(%) + 왜 이 점수인지 한 줄 설명 포함. 팬덤 용어 없는 별도 문구 뱅크 사용 |
+| `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 궁합 점수(%) + 왜 이 점수인지 한 줄 설명 포함. 팬덤 용어 없는 별도 문구 뱅크 사용. `?relationship=some`으로 진입하면 관계 선택 스텝을 건너뛰고 "썸"(구 `crush` 키, `some`으로 개명)으로 바로 시작 — Landing의 "썸궁합" 메뉴가 이 경로로 링크됨 |
+| `/romance` | `Romance.jsx` (신규) | **연애 상황별 궁합** — `?situation=reunion\|crush\|theirFeelings`. `Compatibility.jsx`와 거의 동일한 구조(내 생일 → 상대 이름+생일, 관계 선택 스텝은 없음 — situation 자체가 관계를 암시)지만 `getCompatibility`/`getCompatibilityScore`는 그대로 재사용하고 콘텐츠만 `romanceTemplates.js`(상황별 전용 문구뱅크)에서 가져옴. `reunion`은 결과에 공통 클로징 라인("다시 만나든 아니든, 지금부터가 중요해요")이 한 줄 추가됨(온스크린 결과에만 표시, 공유카드 이미지에는 공간 제약으로 미포함). 공유카드는 `CompatibilityShareCard.jsx` 재사용(헤딩만 situation 라벨로 교체) |
 | `/idol-match` | `IdolMatch.jsx` | **베스트매치 추천** — 생일+성별 입력 → 반대 성별 아이돌 풀(31개 그룹, 197명) 전체와 궁합 계산해서 1위를 추천. `?mode=group&group=X&member=Y`는 **그룹 선택 → 멤버 선택(드롭다운 2개, `.select-row`)** → 그 멤버 한 명과의 전체 궁합 상세(사주팔자+점수+설명+공유카드). 한때 자동 랭킹 리스트(`GroupRankList.jsx`, 멤버 전원 점수순 나열 + 탭해서 드릴다운)로 만들었었는데, "예전처럼 멤버를 직접 선택하는 방식으로 바꿔달라"는 피드백으로 **드롭다운 선택 방식으로 재변경** — `GroupRankList.jsx`는 삭제함 |
 | `/drama-match` | `DramaMatch.jsx` (신규) | 아이돌 매치와 **완전히 동일한 메커니즘**을 K-드라마 배우 100명(남 50/여 50, `kdramaActors.js`) 대상으로 실행. `findBestMatch`/`MatchResultCard`를 아이돌 매치와 공유 |
 | `/contact` | `Contact.jsx` (구 `Partnership.jsx`) | Formspree 문의 폼 — **제휴 문의 전용에서 일반 문의로 범위 확장**. 이름/이메일/문의유형(일반 피드백·버그 제보·제휴 제안·기타)/회사(선택)/내용. 옛 `/partnership` 경로는 `<Navigate>`로 `/contact`에 301성 리다이렉트 |
@@ -71,6 +72,7 @@
 - **`compatibilityTemplates.js`**: idolMatch와 같은 구조지만 **팬덤 용어 없음** (친구/연인 관계에도 자연스럽게), 25개 × en/ko
 - **`dramaMatchTemplates.js`** (신규): idolMatch와 같은 5관계 구조지만 K-드라마 시청 어휘로 리라이트(정주행/본방사수/필모 등), 25개 × en/ko
 - **`sajuProfileTemplates.js`**: dominant element별 성격 프로필(제목+2문단) + day master별 "진짜 나" 텍스트, en/ko 각각
+- **`romanceTemplates.js`** (신규): situation(재회/짝사랑/속마음 3종) × 관계(5종) × 5개 문구 = **150개**(en/ko 합산). `compatibilityTemplates.js`처럼 팬덤 용어 없음, situation별로 문체만 다르게(재회=아직 못 놓는 이유+희망적 클로징, 짝사랑=가볍고 설레는 톤, 속마음=상대 시점으로 서술). 재회 전용 공통 클로징 라인은 `romanceClosing`으로 따로 관리(관계별 25개 문구에 안 넣고 렌더링 시 뒤에 붙임 — 유지보수 편하게). `getRomanceCopy(lang, situation, relation, seed)` / `getRomanceClosing(lang, situation)`
 - 한국어는 **직역이 아니라 자연스러운 로컬라이즈** — 최애/스밍/컴백/덕질 같은 팬덤 표현 사용
 
 ## 6. 아이돌/배우 데이터
@@ -130,6 +132,8 @@
 - **PostHog 실제 키 발급/입력** — 코드는 다 준비됐고 `VITE_POSTHOG_KEY` 한 줄만 있으면 됨, 위 9번 참고
 - 신강/신약을 사주 성격 문구(`sajuProfileTemplates.js`)에도 반영하는 건 스코프 아웃함 (오행 5종만으로 충분하다고 판단)
 - **결과별 동적 OG 미리보기** — 지금은 사이트 전체가 고정 OG 이미지/텍스트 하나만 씀. "내가 받은 결과 그대로" 링크 미리보기에 반영하려면 Cloudflare Pages Functions로 요청 경로별 메타태그/이미지를 동적 생성해야 함 — 미착수, 필요성/우선순위 판단 후 진행
+- K-드라마 배우 한국어 이름 (`kdramaActors.js`) — 아이돌은 완료, 배우는 아직
+- **`src/assets/characters/`**: earth/fire/metal/water/wood.png 5개, git에 커밋 안 된 상태로 존재. 이번 세션에서 만든 게 아니고 코드에서 참조되는 곳도 없음 — 사용자가 "나중에 시킬 일이 있으니 그대로 두라"고 명시적으로 요청함. **삭제하거나 손대지 말 것**, 어떤 용도인지는 다음 지시를 기다릴 것
 
 ## 12. 개발 시 주의사항 / 이미 겪은 버그
 

@@ -36,7 +36,49 @@ export default function Landing() {
           analyticsKey="compatibility"
         />
 
+        <div className="menu-section-label"><span className="dot" />{t('home.romanceLabel')}</div>
+        <MenuListItem
+          icon="reunion"
+          title={t('home.items.reunion.title')}
+          description={t('home.items.reunion.description')}
+          to="/romance?situation=reunion"
+          status="live"
+          analyticsKey="romance-reunion"
+        />
+        <MenuListItem
+          icon="crush"
+          title={t('home.items.crush.title')}
+          description={t('home.items.crush.description')}
+          to="/romance?situation=crush"
+          status="live"
+          analyticsKey="romance-crush"
+        />
+        <MenuListItem
+          icon="theirFeelings"
+          title={t('home.items.theirFeelings.title')}
+          description={t('home.items.theirFeelings.description')}
+          to="/romance?situation=theirFeelings"
+          status="live"
+          analyticsKey="romance-theirFeelings"
+        />
+        <MenuListItem
+          icon="some"
+          title={t('home.items.some.title')}
+          description={t('home.items.some.description')}
+          to="/compatibility?relationship=some"
+          status="live"
+          analyticsKey="compatibility-some"
+        />
+
         <div className="menu-section-label"><span className="dot" />{t('home.idolsLabel')}</div>
+        <MenuListItem
+          icon="groupMatch"
+          title={t('home.items.groupMatch.title')}
+          description={t('home.items.groupMatch.description')}
+          to="/idol-match?mode=group"
+          status="live"
+          analyticsKey="idol-match-group"
+        />
         <MenuListItem
           icon="idolMatch"
           title={t('home.items.idolMatch.title')}
@@ -52,14 +94,6 @@ export default function Landing() {
           to="/drama-match"
           status="live"
           analyticsKey="drama-match"
-        />
-        <MenuListItem
-          icon="groupMatch"
-          title={t('home.items.groupMatch.title')}
-          description={t('home.items.groupMatch.description')}
-          to="/idol-match?mode=group"
-          status="live"
-          analyticsKey="idol-match-group"
         />
 
         <div className="how-it-works">

@@ -44,7 +44,8 @@
   },
   "home": {
     "readingsLabel": "Saju Readings",
-    "idolsLabel": "K-pop Idols",
+    "romanceLabel": "Romance",
+    "idolsLabel": "K-Pop & K-Drama",
     "howItWorksHeading": "How it works",
     "step1": "Pick a reading",
     "step2": "Enter your birthday",
@@ -53,6 +54,10 @@
       "fortune": { "title": "Today's Fortune", "description": "From your overall luck to your comeback luck, all in one read." },
       "saju": { "title": "My Saju Profile", "description": "Your real personality, read through your Four Pillars." },
       "compatibility": { "title": "Compatibility", "description": "Chemistry with anyone, read through saju." },
+      "reunion": { "title": "Reunion Reading", "description": "Could you find your way back to each other?" },
+      "crush": { "title": "Crush Reading", "description": "Could this feeling actually go somewhere?" },
+      "theirFeelings": { "title": "Their True Feelings", "description": "What do they really think of you?" },
+      "some": { "title": "Crush Compatibility", "description": "Where is this spark between you two headed?" },
       "idolMatch": { "title": "Idol Match", "description": "Enter your birthday — we'll find your best-matching idol." },
       "drama": { "title": "K-Drama Match", "description": "Enter your birthday — we'll find your best-matching K-drama lead." },
       "groupMatch": { "title": "Group Match", "description": "Your compatibility score against every member of a group." }
@@ -161,7 +166,7 @@
     "relationship": {
       "friend": "Friend",
       "partner": "Partner",
-      "crush": "Crush",
+      "some": "Crush",
       "family": "Family",
       "coworker": "Coworker"
     },
@@ -172,6 +177,26 @@
     "backLink": "← Start over",
     "shareCaption": "Check out our Ohaeng compatibility — see yours:",
     "disclaimer": "For entertainment purposes only — not medical, financial, or professional advice."
+  },
+  "romance": {
+    "reunion": {
+      "title": "Reunion Reading 🔁",
+      "subtitle": "Wondering if you two could find your way back to each other? Enter both birthdays to find out.",
+      "badge": "Reunion Reading",
+      "shareCaption": "I just got my Ohaeng reunion reading — try yours:"
+    },
+    "crush": {
+      "title": "Crush Reading 💓",
+      "subtitle": "Wondering if this feeling could go somewhere? Enter both birthdays to find out.",
+      "badge": "Crush Reading",
+      "shareCaption": "I just got my Ohaeng crush reading — try yours:"
+    },
+    "theirFeelings": {
+      "title": "Their True Feelings 👀",
+      "subtitle": "Curious what they really think of you? Enter both birthdays to find out.",
+      "badge": "Their True Feelings",
+      "shareCaption": "I just got my Ohaeng reading on their true feelings — try yours:"
+    }
   },
   "idolMatch": {
     "title": "Idol Match 💫",

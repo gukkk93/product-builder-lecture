@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
-import { getCompatibilityCopy } from '../data/compatibilityTemplates';
+import { getRomanceCopy, getRomanceClosing } from '../data/romanceTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
@@ -20,25 +20,25 @@ function paramsToBirth(params) {
   return { year: y, month: m, day: d, hour: h, calendar, timeKnown };
 }
 
-const RELATIONSHIPS = ['friend', 'partner', 'some', 'family', 'coworker'];
+const SITUATIONS = ['reunion', 'crush', 'theirFeelings'];
 
-export default function Compatibility() {
+/**
+ * Same mechanic as Compatibility.jsx (getCompatibility/getCompatibilityScore
+ * reused as-is), just with a `situation` instead of a picked relationship
+ * type — the situation itself implies the relationship, so that step is
+ * skipped. Content comes from romanceTemplates.js instead of
+ * compatibilityTemplates.js.
+ */
+export default function Romance() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
-  // A menu entry (e.g. "썸궁합") can pass ?relationship=some to skip the
-  // relationship-picker step entirely, since the entry point already
-  // implies the relationship.
-  const presetRelationship = RELATIONSHIPS.includes(params.get('relationship'))
-    ? params.get('relationship')
-    : null;
+  const situation = SITUATIONS.includes(params.get('situation')) ? params.get('situation') : 'reunion';
   const [myBirth, setMyBirth] = useState(null);
   const [theirName, setTheirName] = useState('');
-  const [theirRelationship, setTheirRelationship] = useState(presetRelationship || 'friend');
   const [theirBirth, setTheirBirth] = useState(null);
   const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
 
   const displayName = theirName.trim() || t('compatibility.theirElement');
-  const relationshipLabel = t(`compatibility.relationship.${theirRelationship}`);
 
   const mySaju = useMemo(() => {
     if (!myBirth) return null;
@@ -59,12 +59,15 @@ export default function Compatibility() {
   }, [mySaju, theirBirth]);
 
   const copy = compatibility
-    ? getCompatibilityCopy(
+    ? getRomanceCopy(
         i18n.language,
+        situation,
         compatibility.relation,
         `${myBirth.year}-${myBirth.month}-${myBirth.day}-${theirBirth.year}-${theirBirth.month}-${theirBirth.day}`
       )
     : null;
+
+  const closing = getRomanceClosing(i18n.language, situation);
 
   const explanation = compatibility
     ? t(`matchCommon.explanation.${compatibility.relation}`, {
@@ -78,13 +81,12 @@ export default function Compatibility() {
     : null;
 
   useEffect(() => {
-    if (compatibility) trackPageView('compatibility');
-  }, [compatibility]);
+    if (compatibility) trackPageView(`romance-${situation}`);
+  }, [compatibility, situation]);
 
   function reset() {
     setMyBirth(null);
     setTheirName('');
-    setTheirRelationship(presetRelationship || 'friend');
     setTheirBirth(null);
   }
 
@@ -92,14 +94,14 @@ export default function Compatibility() {
     return (
       <main className="page">
         <div className="page-content">
-          <h1>{t('compatibility.title')}</h1>
-          <p className="subtitle">{t('compatibility.subtitle')}</p>
+          <h1>{t(`romance.${situation}.title`)}</h1>
+          <p className="subtitle">{t(`romance.${situation}.subtitle`)}</p>
           <div className="card" style={{ textAlign: 'left', marginBottom: 16 }}>
             <h2 style={{ marginTop: 0, fontSize: 16 }}>{t('compatibility.yourBirthdayHeading')}</h2>
             <BirthDateForm
               submitLabel={t('compatibility.continueLabel')}
-              analyticsContext="compatibility-me"
-              onSubmit={(params) => setMyBirth(paramsToBirth(params))}
+              analyticsContext={`romance-${situation}-me`}
+              onSubmit={(p) => setMyBirth(paramsToBirth(p))}
             />
           </div>
         </div>
@@ -111,8 +113,8 @@ export default function Compatibility() {
     return (
       <main className="page">
         <div className="page-content">
-          <h1>{t('compatibility.title')}</h1>
-          <p className="subtitle">{t('compatibility.subtitle')}</p>
+          <h1>{t(`romance.${situation}.title`)}</h1>
+          <p className="subtitle">{t(`romance.${situation}.subtitle`)}</p>
           <div className="card" style={{ textAlign: 'left' }}>
             <h2 style={{ marginTop: 0, fontSize: 16 }}>{t('compatibility.theirBirthdayHeading')}</h2>
 
@@ -127,25 +129,10 @@ export default function Compatibility() {
               />
             </div>
 
-            {!presetRelationship && (
-              <div className="field-group">
-                <label>{t('compatibility.relationshipLabel')}</label>
-                <select
-                  value={theirRelationship}
-                  onChange={(e) => setTheirRelationship(e.target.value)}
-                  style={{ width: '100%' }}
-                >
-                  {RELATIONSHIPS.map((rel) => (
-                    <option key={rel} value={rel}>{t(`compatibility.relationship.${rel}`)}</option>
-                  ))}
-                </select>
-              </div>
-            )}
-
             <BirthDateForm
               submitLabel={t('compatibility.seeResultLabel')}
-              analyticsContext="compatibility-them"
-              onSubmit={(params) => setTheirBirth(paramsToBirth(params))}
+              analyticsContext={`romance-${situation}-them`}
+              onSubmit={(p) => setTheirBirth(paramsToBirth(p))}
             />
           </div>
         </div>
@@ -165,7 +152,7 @@ export default function Compatibility() {
             {t('compatibility.youAndThemHeading', { name: displayName })}
           </h2>
           <p style={{ marginTop: 0, marginBottom: 16, fontSize: 13, color: 'var(--text-muted)' }}>
-            {relationshipLabel}
+            {t(`romance.${situation}.badge`)}
           </p>
           <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%', marginBottom: 16 }}>
             <div>
@@ -183,6 +170,9 @@ export default function Compatibility() {
 
           <strong style={{ color: 'var(--accent)', fontSize: 20 }}>{copy.tier}</strong>
           <p style={{ fontSize: 15, lineHeight: 1.6 }}>{copy.line}</p>
+          {closing && (
+            <p style={{ fontSize: 15, lineHeight: 1.6, fontWeight: 700, color: 'var(--accent)' }}>{closing}</p>
+          )}
           {explanation && (
             <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text-muted)', fontStyle: 'italic' }}>{explanation}</p>
           )}
@@ -191,9 +181,9 @@ export default function Compatibility() {
             <button
               className="button"
               onClick={() =>
-                download('ohaeng-compatibility.png', 'compatibility', {
-                  text: t('compatibility.shareCaption'),
-                  url: buildShareUrl('/compatibility'),
+                download(`ohaeng-romance-${situation}.png`, `romance-${situation}`, {
+                  text: t(`romance.${situation}.shareCaption`),
+                  url: buildShareUrl(`/romance?situation=${situation}`),
                 })
               }
               disabled={downloading}
@@ -212,7 +202,7 @@ export default function Compatibility() {
           myElement={mySaju.dominantElement}
           theirElement={compatibility.otherSaju.dominantElement}
           theirName={displayName}
-          relationshipLabel={relationshipLabel}
+          relationshipLabel={t(`romance.${situation}.badge`)}
           score={score}
           tier={copy.tier}
           line={copy.line}

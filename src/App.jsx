@@ -4,6 +4,7 @@ import Landing from './pages/Landing';
 import Result from './pages/Result';
 import Saju from './pages/Saju';
 import Compatibility from './pages/Compatibility';
+import Romance from './pages/Romance';
 import IdolMatch from './pages/IdolMatch';
 import DramaMatch from './pages/DramaMatch';
 import Contact from './pages/Contact';
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/result" element={<Result />} />
         <Route path="/saju" element={<Saju />} />
         <Route path="/compatibility" element={<Compatibility />} />
+        <Route path="/romance" element={<Romance />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/partnership" element={<Navigate to="/contact" replace />} />
         <Route path="/guide" element={<Guide />} />

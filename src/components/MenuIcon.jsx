@@ -48,6 +48,30 @@ const ICONS = {
       <path d="M14.8 13.2c2.6-.3 4.7 1.9 4.7 5.3" />
     </>
   ),
+  reunion: (
+    // Two curved arrows forming a loop — coming back around
+    <>
+      <path d="M4 12a8 8 0 0 1 13.5-5.8" />
+      <path d="M20 12a8 8 0 0 1-13.5 5.8" />
+      <path d="M17 2.7v4.1h-4.1" />
+      <path d="M7 21.3v-4.1h4.1" />
+    </>
+  ),
+  crush: (
+    // Heart — a feeling not yet spoken
+    <path d="M12 20.2S3.5 15 3.5 8.9A4.4 4.4 0 0 1 12 7a4.4 4.4 0 0 1 8.5 1.9c0 6.1-8.5 11.3-8.5 11.3z" />
+  ),
+  theirFeelings: (
+    // Eye — reading what someone else feels
+    <>
+      <path d="M2 12s3.6-6.3 10-6.3S22 12 22 12s-3.6 6.3-10 6.3S2 12 2 12z" />
+      <circle cx="12" cy="12" r="2.6" />
+    </>
+  ),
+  some: (
+    // Spark — early, ambiguous romantic tension
+    <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+  ),
 };
 
 export default function MenuIcon({ name, size = 22 }) {
