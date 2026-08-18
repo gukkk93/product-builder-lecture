@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import ElementBadge from './ElementBadge';
-import MemberAvatar from './MemberAvatar';
 import PillarGrid from './PillarGrid';
 import InsightSection from './InsightSection';
 
@@ -15,7 +14,6 @@ export default function MatchResultCard({
   name,
   subtitle,
   matchElement,
-  matchStrength,
   matchPillars,
   userElement,
   pillarsHeading,
@@ -34,12 +32,9 @@ export default function MatchResultCard({
 
   return (
     <div className="card" style={{ marginTop: 24 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-        <MemberAvatar element={matchElement} strength={matchStrength} size={48} />
-        <div style={{ textAlign: 'left' }}>
-          <strong style={{ fontSize: 16 }}>{name}</strong>
-          {subtitle && <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{subtitle}</div>}
-        </div>
+      <div style={{ textAlign: 'left', marginBottom: 16 }}>
+        <strong style={{ fontSize: 21 }}>{name}</strong>
+        {subtitle && <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{subtitle}</div>}
       </div>
 
       <ElementBadge element={matchElement} />
