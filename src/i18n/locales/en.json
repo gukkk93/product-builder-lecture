@@ -16,6 +16,8 @@
     "calendarLabel": "Calendar",
     "calendarSolar": "Solar",
     "calendarLunar": "Lunar",
+    "nameLabel": "Your name (optional)",
+    "namePlaceholder": "e.g. Alex",
     "dateLabel": "Birth date",
     "monthPlaceholder": "Month",
     "dayPlaceholder": "Day",
@@ -72,6 +74,7 @@
     "zodiacLabel": "Zodiac",
     "timeUnknownNote": "Birth time wasn't used, so the hour pillar is left out of your chart.",
     "todayHeading": "Today's Fortune",
+    "todayHeadingWithName": "{{name}}'s Today's Fortune",
     "shareButton": "Download share card",
     "shareNative": "Share",
     "shareCardFooter": "What's your element? Find out at Ohaeng",
@@ -82,6 +85,7 @@
   },
   "saju": {
     "title": "My Saju",
+    "titleWithName": "{{name}}'s Saju",
     "subtitle": "Your chart, on its own — no connection to today's date.",
     "backLink": "← Try another birthday",
     "characterIntro": "This is your {{element}} energy",
@@ -248,6 +252,10 @@
       "explanation": "Why This Score",
       "goodFit": "What Works Well",
       "watchFor": "What To Watch For"
+    },
+    "genderShort": {
+      "F": "Female",
+      "M": "Male"
     }
   },
   "guide": {

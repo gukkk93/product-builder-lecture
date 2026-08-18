@@ -13,21 +13,31 @@ function buildMeta({ pathname, lang, element, name, score, tier }) {
   const elementLabel = element ? locale.elements[element] : null;
 
   if (pathname === '/saju') {
-    const title = tier
+    const title = name
+      ? lang === 'ko'
+        ? `${name}님의 사주: ${elementLabel} — ${appName}`
+        : `${name}'s Saju: ${elementLabel} — ${appName}`
+      : tier
       ? `${tier} — ${appName}`
       : lang === 'ko'
       ? `내 사주: ${elementLabel} — ${appName}`
       : `My Saju: ${elementLabel} — ${appName}`;
     const description =
-      lang === 'ko'
+      tier ||
+      (lang === 'ko'
         ? `${elementLabel} 기운을 가진 사람의 사주 프로필을 확인해보세요.`
-        : `See what a ${elementLabel}-dominant saju chart looks like.`;
+        : `See what a ${elementLabel}-dominant saju chart looks like.`);
     return { title, description };
   }
 
   if (pathname === '/result') {
-    const title =
-      lang === 'ko' ? `오늘의 오행 운세: ${elementLabel} — ${appName}` : `Today's Ohaeng fortune: ${elementLabel} — ${appName}`;
+    const title = name
+      ? lang === 'ko'
+        ? `${name}님의 오늘의 운세: ${elementLabel} — ${appName}`
+        : `${name}'s Fortune Today: ${elementLabel} — ${appName}`
+      : lang === 'ko'
+      ? `오늘의 오행 운세: ${elementLabel} — ${appName}`
+      : `Today's Ohaeng fortune: ${elementLabel} — ${appName}`;
     const description =
       lang === 'ko' ? `${elementLabel} 기운으로 보는 오늘의 운세를 확인해보세요.` : `See today's fortune through ${elementLabel} energy.`;
     return { title, description };

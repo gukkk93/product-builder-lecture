@@ -41,6 +41,11 @@ export default function Result() {
 
   const today = useMemo(() => (saju ? getTodayRelation(saju) : null), [saju]);
 
+  // Personalization only (see BirthDateForm's collectProfile) — neither
+  // value feeds into the saju calculation above.
+  const name = params.get('name') || '';
+  const gender = params.get('gender') || '';
+
   useEffect(() => {
     if (saju) trackPageView('result');
   }, [saju]);
@@ -56,6 +61,7 @@ export default function Result() {
           <BirthDateForm
             submitLabel={t('landing.submitFortune')}
             analyticsContext="result"
+            collectProfile
             onSubmit={(newParams) => navigate(`/result?${newParams.toString()}`)}
           />
         </div>
@@ -79,10 +85,13 @@ export default function Result() {
           </div>
           <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>
             {t('result.zodiacLabel')}: {saju.zodiac}
+            {gender && ` · ${t(`matchCommon.genderShort.${gender}`)}`}
           </div>
           {!birth.timeKnown && <div className="time-note">{t('result.timeUnknownNote')}</div>}
 
-          <h2 style={{ marginTop: 24, marginBottom: 0, fontSize: 18 }}>{t('result.todayHeading')}</h2>
+          <h2 style={{ marginTop: 24, marginBottom: 0, fontSize: 18 }}>
+            {name ? t('result.todayHeadingWithName', { name }) : t('result.todayHeading')}
+          </h2>
           <div className="fortune-list">
             {CATEGORIES.map((cat) => (
               <div className="fortune-row" key={cat}>
@@ -98,7 +107,7 @@ export default function Result() {
               onClick={() =>
                 download('ohaeng-fortune.png', 'result', {
                   text: t('result.shareCaption'),
-                  url: buildShareUrl('/result', { element: saju.dominantElement }),
+                  url: buildShareUrl('/result', { element: saju.dominantElement, name }),
                 })
               }
               disabled={downloading}

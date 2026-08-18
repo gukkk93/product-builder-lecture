@@ -16,6 +16,8 @@
     "calendarLabel": "달력 기준",
     "calendarSolar": "양력",
     "calendarLunar": "음력",
+    "nameLabel": "이름 (선택)",
+    "namePlaceholder": "예: 지민",
     "dateLabel": "생년월일",
     "monthPlaceholder": "월",
     "dayPlaceholder": "일",
@@ -72,6 +74,7 @@
     "zodiacLabel": "띠",
     "timeUnknownNote": "태어난 시간을 입력하지 않아 시주는 제외됐어요.",
     "todayHeading": "오늘의 운세",
+    "todayHeadingWithName": "{{name}}님의 오늘의 운세",
     "shareButton": "공유카드 다운로드",
     "shareNative": "공유하기",
     "shareCardFooter": "당신의 오행은? Ohaeng에서 확인해보세요",
@@ -82,6 +85,7 @@
   },
   "saju": {
     "title": "내 사주",
+    "titleWithName": "{{name}}님의 사주",
     "subtitle": "오늘 날짜와는 무관한, 오직 나만의 사주예요.",
     "backLink": "← 다른 생일로 보기",
     "characterIntro": "이게 당신의 {{element}} 기운이에요",
@@ -248,6 +252,10 @@
       "explanation": "이 점수가 나온 이유",
       "goodFit": "잘 맞는 부분",
       "watchFor": "관계에서 챙길 점"
+    },
+    "genderShort": {
+      "F": "여자",
+      "M": "남자"
     }
   },
   "guide": {

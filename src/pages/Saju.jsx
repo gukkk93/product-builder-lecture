@@ -47,6 +47,11 @@ export default function Saju() {
     if (saju) trackPageView('saju');
   }, [saju]);
 
+  // Personalization only (see BirthDateForm's collectProfile) — neither
+  // value feeds into the saju calculation above.
+  const name = params.get('name') || '';
+  const gender = params.get('gender') || '';
+
   if (!birth || !saju) {
     return (
       <main className="page">
@@ -56,6 +61,7 @@ export default function Saju() {
           <BirthDateForm
             submitLabel={t('landing.submitSaju')}
             analyticsContext="saju"
+            collectProfile
             onSubmit={(newParams) => navigate(`/saju?${newParams.toString()}`)}
           />
         </div>
@@ -75,7 +81,7 @@ export default function Saju() {
       <div className="page-content">
         <Link to="/" className="back-link">{t('saju.backLink')}</Link>
 
-        <h1>{t('saju.title')}</h1>
+        <h1>{name ? t('saju.titleWithName', { name }) : t('saju.title')}</h1>
         <p className="subtitle">{t('saju.subtitle')}</p>
 
         <div className="card" style={{ marginBottom: 16 }}>
@@ -84,6 +90,11 @@ export default function Saju() {
             {t('saju.characterIntro', { element: t(`elements.${saju.dominantElement}`) })}
           </p>
           <ElementBadge element={saju.dominantElement} />
+          {gender && (
+            <div style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>
+              {t(`matchCommon.genderShort.${gender}`)}
+            </div>
+          )}
           {!birth.timeKnown && <div className="time-note">{t('saju.timeUnknownNote')}</div>}
 
           <h2 style={{ marginTop: 24, marginBottom: 12, fontSize: 16, textAlign: 'left' }}>
@@ -131,7 +142,7 @@ export default function Saju() {
               onClick={() =>
                 download('ohaeng-saju.png', 'saju', {
                   text: t('saju.shareCaption'),
-                  url: buildShareUrl('/saju', { element: saju.dominantElement, tier: profile.title }),
+                  url: buildShareUrl('/saju', { element: saju.dominantElement, tier: profile.title, name }),
                 })
               }
               disabled={downloading}

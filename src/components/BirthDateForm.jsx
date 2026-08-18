@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LunarMonth } from 'lunar-javascript';
 import { trackBirthFormSubmit } from '../utils/analytics';
+import GenderSelect from './GenderSelect';
 
 const HOUR_START = [23, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21];
 
@@ -26,9 +27,15 @@ function daysInLunarMonth(year, month) {
  * @param {(params: URLSearchParams) => void} onSubmit
  * @param {string} submitLabel
  * @param {string} [analyticsContext] - which page this form instance lives on, for the birth_form_submit event
+ * @param {boolean} [collectProfile] - Result/Saju only: adds an optional name
+ *   field + "I am..." gender picker above the birth date, purely for
+ *   personalizing that page's own heading/share text — neither value feeds
+ *   into any saju calculation, so leaving them blank changes nothing.
  */
-export default function BirthDateForm({ onSubmit, submitLabel, analyticsContext }) {
+export default function BirthDateForm({ onSubmit, submitLabel, analyticsContext, collectProfile }) {
   const { t } = useTranslation();
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
 
   const currentYear = new Date().getFullYear();
   const years = useMemo(
@@ -79,6 +86,10 @@ export default function BirthDateForm({ onSubmit, submitLabel, analyticsContext 
       timeKnown: timeKnown ? '1' : '0',
     });
     if (timeKnown) params.set('h', HOUR_START[Number(hourIndex)]);
+    if (collectProfile) {
+      if (name.trim()) params.set('name', name.trim());
+      if (gender) params.set('gender', gender);
+    }
     return params;
   }
 
@@ -92,6 +103,22 @@ export default function BirthDateForm({ onSubmit, submitLabel, analyticsContext 
 
   return (
     <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+      {collectProfile && (
+        <>
+          <div className="field-group">
+            <label>{t('landing.nameLabel')}</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t('landing.namePlaceholder')}
+              style={{ width: '100%' }}
+            />
+          </div>
+          <GenderSelect value={gender} onChange={setGender} />
+        </>
+      )}
+
       <div className="field-group">
         <label>{t('landing.calendarLabel')}</label>
         <div className="calendar-toggle">
