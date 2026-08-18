@@ -1,13 +1,16 @@
-// Lightweight analytics wrapper. No PostHog project is wired up yet (that
-// needs a real project key + a decision on self-host vs. PostHog Cloud —
-// see ohaeng-project-summary.md, it's an explicit blocker). Once one
-// exists, initialize PostHog in main.jsx
-// (posthog.init(YOUR_KEY, { api_host: YOUR_HOST })) and every call below
-// starts reporting automatically — nothing else here needs to change.
+// Lightweight analytics wrapper around PostHog. If VITE_POSTHOG_KEY isn't
+// set (see .env.example), main.jsx never assigns window.posthog and every
+// call below is a safe no-op.
 export function track(event, props = {}) {
-  if (typeof window !== 'undefined' && window.posthog?.capture) {
-    window.posthog.capture(event, props);
+  if (typeof window === 'undefined') return;
+  if (!window.posthog?.capture) {
+    // eslint-disable-next-line no-console
+    console.warn('[analytics] track() called but window.posthog is not ready — event dropped:', event, props);
+    return;
   }
+  // eslint-disable-next-line no-console
+  console.log('[analytics] capture:', event, props);
+  window.posthog.capture(event, props);
 }
 
 export function trackPageView(page) {
