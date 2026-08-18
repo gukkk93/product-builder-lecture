@@ -185,11 +185,12 @@
 - `LanguageToggle.jsx`: 헤더의 EN/KO 버튼, 다크모드처럼 localStorage(`language` 키)에 저장돼 재방문시 유지
 - 사주 네 기둥 표기도 언어에 맞게 전환됨 (한국어면 갑을병정 한글, 영어면 Jia/Yi 로마자) — `getGanLabel`/`getZhiLabel` 참고
 
-## 9. 애널리틱스 (`src/utils/analytics.js` + `main.jsx`) — **코드는 완성, 실제 키만 없음**
+## 9. 애널리틱스 (`src/utils/analytics.js` + `main.jsx`) — **실제 키 등록·배포 완료, 정상 작동 중**
 
-- `posthog-js` 설치했고 `main.jsx`에서 `import.meta.env.VITE_POSTHOG_KEY`가 있으면 `posthog.init()` 실행 + `window.posthog`에 할당. 키가 없으면 아무것도 안 하고, `analytics.js`의 모든 `track()` 호출은 계속 no-op으로 안전하게 동작
+- `posthog-js` 설치, `main.jsx`에서 `import.meta.env.VITE_POSTHOG_KEY`가 있으면 `posthog.init()` 실행 + `window.posthog`에 할당. 키가 없으면 아무것도 안 하고, `analytics.js`의 모든 `track()` 호출은 계속 no-op으로 안전하게 동작
 - 이벤트 호출부는 다 심어둠: `home_menu_click`, `birth_form_submit`(페이지별 context 포함), `share_card_download`, `idol_match_submit`(모드별: soulmate/group/drama), `page_view`
-- **활성화하려면 (내가 못 하는 부분)**: [posthog.com](https://posthog.com)에서 무료 프로젝트 생성 → Project Settings에서 API 키 복사 → 로컬은 `.env.example`을 `.env.local`로 복사해서 `VITE_POSTHOG_KEY=`에 붙여넣기, 배포는 Cloudflare Pages 프로젝트 설정의 환경 변수에 동일한 이름으로 등록. 그 순간부터 별도 코드 수정 없이 바로 수집 시작됨
+- **실제 키 발급·등록 완료**: 로컬 `.env.local`(gitignore의 `*.local` 패턴에 자동으로 걸림)과 Cloudflare Pages 환경변수 둘 다 등록됨. 환경변수는 다음 빌드부터 반영되므로, 등록 직후 빈 커밋으로 재배포해서 반영시킴. 재배포 후 `window.posthog.config.token`이 실제 키와 일치하는 것까지 배포본에서 직접 확인함
+- **디버깅 이력**: "오토캡처는 잡히는데 커스텀 이벤트(`page_view` 등)가 PostHog Activity에 안 보인다"는 리포트를 받아서 조사함. `window.posthog.capture`를 앱 부팅 전에 가로채서 실제 호출 여부·이벤트명·파라미터를 로깅하는 방식으로 로컬/실배포(getohaeng.com) 둘 다 확인 — **`track()`은 매번 정확한 이벤트명·파라미터로 정상 호출됨**(코드 문제 아님). 다만 이 세션의 Playwright 환경 자체가 PostHog SDK의 `navigator.webdriver` 봇 감지에 걸려서 오토캡처·커스텀 이벤트 둘 다 실제 네트워크 전송이 0건이라, "실제 도착 여부"까지는 이 환경에서 검증 불가 — 유력한 원인은 PostHog Activity 뷰의 이벤트 필터/탭 설정, 또는 SDK의 배치 전송 타이밍(짧은 테스트 세션에서 아직 flush 안 됐을 가능성). `analytics.js`의 `track()`에 `console.log('[analytics] capture: ...')`를 상시 추가해뒀으니, 실제 브라우저 devtools 콘솔에서 이벤트 발생 시점에 로그가 찍히는지 + 동시에 Network 탭에서 `i.posthog.com`으로 실제 요청이 나가는지 직접 대조해보면 코드 쪽 문제인지 PostHog 대시보드 쪽 문제인지 바로 갈릴 것
 
 ## 10. 배포/설정
 
@@ -203,9 +204,9 @@
 - **리텐션**: 생년월일 localStorage 저장 → 재방문시 자동 채움 — 미착수
 - **수익화**: 유료 구독/Stripe 연동 — **실제 Stripe 계정/API 키 필요**, 여기서 막힘
 - **주간 운세 캘린더**, **로그인/히스토리** — 미착수 (PRD상 우선순위 낮음)
-- **PostHog 실제 키 발급/입력** — 코드는 다 준비됐고 `VITE_POSTHOG_KEY` 한 줄만 있으면 됨, 위 9번 참고
+- **PostHog 실제 키 — 완료**(위 9번 참고). 오토캡처는 확인됐고, 커스텀 이벤트가 대시보드에 실제로 도착하는지는 사용자가 직접 브라우저에서 확인 필요(코드는 검증 완료)
 - 신강/신약을 사주 성격 문구(`sajuProfileTemplates.js`)에도 반영하는 건 스코프 아웃함 (오행 5종만으로 충분하다고 판단)
-- **결과별 동적 OG 미리보기 — 완료**(7-3 참고). production 배포 후 실기기/실제 카톡·디스코드 미리보기 확인만 남음
+- **결과별 동적 OG 미리보기 — 완료**(7-3 참고). production 배포 후 실기기/실제 카톡·디스코드 미리보기까지 사용자가 직접 확인 완료
 
 ## 12. 개발 시 주의사항 / 이미 겪은 버그
 
