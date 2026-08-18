@@ -72,6 +72,7 @@
     "backLink": "← 다른 생일로 보기",
     "dominantElementLabel": "나의 주 오행",
     "zodiacLabel": "띠",
+    "zodiacExplain": "태어난 해 기준",
     "timeUnknownNote": "태어난 시간을 입력하지 않아 시주는 제외됐어요.",
     "todayHeading": "오늘의 운세",
     "todayHeadingWithName": "{{name}}님의 오늘의 운세",

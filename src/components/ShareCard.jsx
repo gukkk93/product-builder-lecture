@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ELEMENT_ICON_SRC } from './ElementBadge';
+import { getZodiacLabel } from '../utils/saju';
 import ShareCardWatermark from './ShareCardWatermark';
 import ShareCardFooter from './ShareCardFooter';
 
@@ -17,7 +18,7 @@ export const SITE_URL = 'getohaeng.com';
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 
 const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, comebackLine }, ref) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [from, to] = ELEMENT_GRADIENT[element];
 
   return (
@@ -71,7 +72,7 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
           />
           <div style={{ fontSize: 30, fontWeight: 800, wordBreak: 'keep-all' }}>{t(`elements.${element}`)}</div>
           <div style={{ fontSize: 14, opacity: 0.85, wordBreak: 'keep-all' }}>
-            {t('result.zodiacLabel')}: {zodiac}
+            {t('result.zodiacLabel')}: {getZodiacLabel(zodiac, i18n.language)}
           </div>
 
           <p style={{ fontSize: 15, lineHeight: 1.6, margin: '10px 0 0', maxWidth: 280, wordBreak: 'keep-all' }}>

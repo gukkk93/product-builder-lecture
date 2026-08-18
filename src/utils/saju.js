@@ -48,6 +48,22 @@ export function getZhiLabel(zhi, lang) {
   return lang === 'ko' ? ZHI_KO[zhi] : zhi;
 }
 
+// lunar-javascript's English locale doesn't cover getYearShengXiao() either
+// (same gap as Gan/Zhi above) — it always returns the English zodiac name
+// regardless of I18n.setLanguage(), so Korean needs its own table. Keys
+// verified against the library's actual output (Solar.getLunar().
+// getYearShengXiao() under I18n 'en'), not guessed — e.g. it's "Goat", not
+// "Sheep".
+const ZODIAC_KO = {
+  Rat: '쥐', Ox: '소', Tiger: '호랑이', Rabbit: '토끼', Dragon: '용', Snake: '뱀',
+  Horse: '말', Goat: '양', Monkey: '원숭이', Rooster: '닭', Dog: '개', Pig: '돼지',
+};
+
+/** Displays a zodiac animal name, translated for Korean. */
+export function getZodiacLabel(zodiac, lang) {
+  return lang === 'ko' ? ZODIAC_KO[zodiac] : zodiac;
+}
+
 // Hanja + Yin/Yang polarity for each Gan/Zhi, used by the PillarGrid
 // glossary (tap a pillar character to see what it means). Standard,
 // textbook associations — stems/branches alternate yang/yin in the fixed

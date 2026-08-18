@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getTodayRelation } from '../utils/saju';
+import { calculateSaju, getTodayRelation, getZodiacLabel } from '../utils/saju';
 import { getFortuneLine } from '../data/fortuneTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
@@ -84,9 +84,10 @@ export default function Result() {
             <ElementBadge element={saju.dominantElement} />
           </div>
           <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>
-            {t('result.zodiacLabel')}: {saju.zodiac}
+            {t('result.zodiacLabel')}: {getZodiacLabel(saju.zodiac, i18n.language)}
             {gender && ` · ${t(`matchCommon.genderShort.${gender}`)}`}
           </div>
+          <p style={{ margin: '2px 0 0', fontSize: 11, color: 'var(--text-muted)' }}>{t('result.zodiacExplain')}</p>
           {!birth.timeKnown && <div className="time-note">{t('result.timeUnknownNote')}</div>}
 
           <h2 style={{ marginTop: 24, marginBottom: 0, fontSize: 18 }}>

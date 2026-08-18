@@ -72,6 +72,7 @@
     "backLink": "← Try another birthday",
     "dominantElementLabel": "Your dominant element",
     "zodiacLabel": "Zodiac",
+    "zodiacExplain": "Based on your birth year, not your birth month",
     "timeUnknownNote": "Birth time wasn't used, so the hour pillar is left out of your chart.",
     "todayHeading": "Today's Fortune",
     "todayHeadingWithName": "{{name}}'s Today's Fortune",
