@@ -33,9 +33,19 @@
 - `getTodayRelation(saju, date)`: 내 사주 vs 오늘 날짜
 - `getCompatibility(mySaju, otherBirth, otherTimeKnown)`: 나 vs 다른 사람(아이돌이든 일반인이든) — 아이돌 궁합/일반 궁합/그룹 랭킹/베스트매치가 전부 이 하나의 함수를 재사용
 - `getCompatibilityScore(relation, seedInput)`: 관계(5종)를 1-99 궁합 점수(%)로 변환. 관계별 기준점(same=92 ~ otherOvercomesMe=48) + seed 기반 지터(±3)로 같은 관계라도 쌍마다 살짝 다른 점수가 나옴. 그룹 매치/베스트매치/궁합 보기에 표시되는 "궁합 점수"가 전부 이 함수 하나에서 나옴
-- `getGanMeta(gan, lang)`/`getZhiMeta(zhi, lang)`: 사주팔자 글자 하나(예: 을/해)의 전체 메타데이터를 반환 — `{ category: 'gan'|'zhi', label, hanja, element, yinYang }`. `PillarGrid`가 칸을 탭했을 때 보여주는 글로서리(용어 설명) 패널의 데이터 소스. 음양은 `GAN_YINYANG`/`ZHI_YINYANG` 매핑(십간/십이지 전통 순서 기준 양/음 교대)으로 새로 추가함
+- `getGanMeta(gan, lang, { dayGan, isDayPillar })`/`getZhiMeta(zhi, lang, { dayGan })`: 사주팔자 글자 하나(예: 을/해)의 전체 메타데이터를 반환 — `{ category: 'gan'|'zhi', label, hanja, element, yinYang }`, `dayGan`을 넘기면 십성/십이운성까지 추가로 포함. `PillarGrid`가 칸을 탭했을 때 보여주는 글로서리(용어 설명) 패널의 데이터 소스. 음양은 `GAN_YINYANG`/`ZHI_YINYANG` 매핑(십간/십이지 전통 순서 기준 양/음 교대)으로 새로 추가함
 
-## 3-1. 베스트매치 로직 (`src/utils/bestMatch.js`)
+## 3-1. 십성·십이운성·대운 (`src/utils/saju.js`, 신규)
+
+세 가지 다 "정확한 계산"이 핵심 신뢰 포인트라는 지침에 따라, UI 붙이기 전에 계산 로직부터 별도로 검증하는 데 집중함. 콘텐츠 문구(성격 설명 등)는 이번 스코프에서 제외 — 라벨(한자+한글/영문)만 포함.
+
+- **십성(十星) — `getTenGod(dayGan, otherGan)`/`getTenGodsForZhi(dayGan, zhi)`/`getTenGodMeta(tenGod, lang)`**: 기존 `getElementRelation` + 천간 음양 일치 여부로 직접 판정(관계 5종 × 음양 같음/다름 2종 = 10종). **lunar-javascript 자체의 `SHI_SHEN` 참조 테이블과 100개 천간 쌍 전부 대조해서 0건 불일치 확인 후 채택**. 단, 라이브러리 자체의 `EightChar.getXxxShiShenZhi()`(지지 지장간 십성) 메서드는 실제 버그가 있어서 **일부러 안 씀** — 이 메서드들은 영문 일간("Ji")과 라이브러리의 `ZHI_HIDE_GAN` 테이블에서 나온 미번역 한자 지장간("癸")을 그대로 이어붙여 딕셔너리 키를 만드는데, `I18n.setLanguage('en')`을 켜도 `ZHI_HIDE_GAN`의 값(키가 아니라 값)은 한자로 남아있어서 항상 `null`을 반환함(이 앱은 항상 영문 I18n을 켜두므로 100% 재현되는 버그). 지장간(`ZHI_HIDE_GAN`, 12지지 표) 자체는 라이브러리 원본 데이터와 대조 검증 후 이 파일 안에 직접 하드코딩
+- **십이운성(十二運星) — `getTwelveStage(gan, zhi)`/`getTwelveStageMeta(stage, lang)`**: 천간별 장생(長生) 시작 지지 고정표 + 양간 순행/음간 역행 규칙으로 직접 판정. 위 지장간 버그와는 무관한 별개의 계산 경로라 라이브러리의 `EightChar.getYearDiShi()` 등과 대조 검증(54개 생년월일 × 4기둥 = 216건, 0건 불일치)한 뒤 독자 구현으로 채택. "임관(臨官)"으로도 불리는 4번째 단계는 사용자 요청대로 한국 명리학 관행에 더 가까운 **"건록(建祿)"**으로 라벨링
+- **대운(大運) — `getDaeun(birth, timeKnown, gender, count)`**: 위 둘과 달리 **재구현하지 않고 lunar-javascript 내장 기능(`EightChar.getYun(gender, sect).getDaYun(n)`)을 그대로 씀** — 대운 시작 나이는 생일과 가장 가까운 절기 사이 정확한 일수 계산이 필요해서 직접 구현 시 오차 리스크가 크다고 판단. 라이브러리 자체의 메인테이너 테스트 스위트(`Yun.test.js`)를 그대로 재현해서 전부 통과 확인 + 성별·생년월일 조합 6개를 필드 단위로 추가 대조. 성별 파라미터가 방향(순행/역행)에 실제로 영향을 주므로, 프로필 개인화용으로 만들어둔 선택적 성별 필드가 비어있으면 대운표 대신 안내 문구를 보여줌(성별을 억지로 추측하지 않음)
+- **UI 반영**: `PillarGrid`의 글로서리 패널에 일간 대비 십성(일주 자체는 "일간(日干)" 배지로 별도 표시)과, 지지의 경우 지장간 십성 전부 + 십이운성을 추가 표시. `DaeunTable.jsx`(신규) — `/saju`에 나이·간지·연도를 가로 스크롤 카드로 보여주는 대운표
+- **검증 방식**: 웹 접속이 안 되는 환경이라 외부 만세력 사이트와의 수동 대조 대신, 라이브러리 자체의 검증된 참조 데이터(위 세 항목 각각)와 전수/샘플 대조하는 방식으로 검증함 — 서로 다른 생년월일 3개(남/여 섞어서)를 브라우저에서 직접 입력해 화면에 뜨는 값이 스크립트로 독립 계산한 값과 정확히 일치하는지도 확인(라이트/다크, en/ko)
+
+## 3-2. 베스트매치 로직 (`src/utils/bestMatch.js`)
 
 - `findBestMatch(pool, userSaju, myGender)`: `pool`(사람 목록, 각 항목에 `gender: 'M'|'F'` 필요) 중 내 성별의 **반대 성별**만 걸러서 전원과의 궁합을 계산하고, `getCompatibilityScore`가 가장 높은 1명을 반환. 아이돌 매치(`IdolMatch.jsx`)와 K-드라마 매치(`DramaMatch.jsx`)가 이 함수 하나를 공유 — 사용자가 "둘이 사실상 같은 기능"이라고 지적해서 통합함
 
@@ -45,7 +55,7 @@
 |---|---|---|
 | `/` | `Landing.jsx` | **순수 메뉴 화면** (생년월일 입력 없음). 섹션 순서: "사주 리딩"(오늘의 운세/내 사주/궁합) → "K팝 & K-드라마"(**최애 매치**/아이돌 매치/K-드라마 매치, 이 순서) → "연애"(재회사주/짝사랑사주/속마음사주/썸궁합). "그룹 매치"는 "최애 매치"로 개명(제목+설명 문구, 목적지 페이지 헤딩까지) — "그룹 전체 랭킹"보다 "내 최애와의 궁합"으로 읽히도록 |
 | `/result` | `Result.jsx` | 오늘의 운세만 — 오행 배지, 띠, 5개 카테고리(총운/애정/재물/건강/컴백운), 공유카드, "궁합"/"내 사주" CTA. birth 파라미터 없으면 `BirthDateForm`(이름+성별 선택 필드 포함, 아래 참고) 인라인 렌더 |
-| `/saju` | `Saju.jsx` | 내 사주 자체(오늘과 무관) — 네 기둥(PillarGrid, 한국어면 한글 표기), 일간+신강/신약 배지, 오행 분포 바차트, 성격 분석, **공유카드**(`SajuShareCard.jsx`). birth 없으면 이름+성별 선택 필드 포함 인라인 폼 |
+| `/saju` | `Saju.jsx` | 내 사주 자체(오늘과 무관) — 네 기둥(PillarGrid, 한국어면 한글 표기, 십성·십이운성 글로서리 포함), 일간+신강/신약 배지, **대운표**(성별 입력 시), 오행 분포 바차트, 성격 분석, **공유카드**(`SajuShareCard.jsx`). birth 없으면 이름+성별 선택 필드 포함 인라인 폼 |
 | `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 궁합 점수(%) + 왜 이 점수인지 한 줄 설명 포함. 팬덤 용어 없는 별도 문구 뱅크 사용. `?relationship=some`으로 진입하면 관계 선택 스텝을 건너뛰고 "썸"(구 `crush` 키, `some`으로 개명)으로 바로 시작 — Landing의 "썸궁합" 메뉴가 이 경로로 링크됨 |
 | `/romance` | `Romance.jsx` (신규) | **연애 상황별 궁합** — `?situation=reunion\|crush\|theirFeelings`. `Compatibility.jsx`와 거의 동일한 구조(내 생일 → 상대 이름+생일, 관계 선택 스텝은 없음 — situation 자체가 관계를 암시)지만 `getCompatibility`/`getCompatibilityScore`는 그대로 재사용하고 콘텐츠만 `romanceTemplates.js`(상황별 전용 문구뱅크)에서 가져옴. `reunion`은 결과에 공통 클로징 라인("다시 만나든 아니든, 지금부터가 중요해요")이 한 줄 추가됨(온스크린 결과에만 표시, 공유카드 이미지에는 공간 제약으로 미포함). 공유카드는 `CompatibilityShareCard.jsx` 재사용(헤딩만 situation 라벨로 교체) |
 | `/idol-match` | `IdolMatch.jsx` | **베스트매치 추천** — 생일+성별 입력 → 반대 성별 아이돌 풀(31개 그룹, 197명) 전체와 궁합 계산해서 1위를 추천. `?mode=group&group=X&member=Y`는 **그룹 선택 → 멤버 선택(드롭다운 2개, `.select-row`)** → 그 멤버 한 명과의 전체 궁합 상세(사주팔자+점수+설명+공유카드). 한때 자동 랭킹 리스트(`GroupRankList.jsx`, 멤버 전원 점수순 나열 + 탭해서 드릴다운)로 만들었었는데, "예전처럼 멤버를 직접 선택하는 방식으로 바꿔달라"는 피드백으로 **드롭다운 선택 방식으로 재변경** — `GroupRankList.jsx`는 삭제함 |
@@ -60,7 +70,7 @@
 
 생년월일 입력은 `BirthDateForm.jsx` 하나로 통일 — Result/Saju/Compatibility/IdolMatch(베스트매치+group)/DramaMatch 전부 재사용. 성별 선택은 `GenderSelect.jsx`(IdolMatch/DramaMatch에서 매치 풀 필터링용으로 공용), 매치 결과 카드는 `MatchResultCard.jsx`(아바타+**상대방의 네 기둥 사주(PillarGrid)**+궁합 점수+티어+왜 이 점수인지 설명+공유버튼, 두 페이지 공용)로 분리했다. 원래는 매칭된 상대의 "오늘의 운세"를 보여줬는데 `/result` 페이지와 내용이 겹친다는 피드백으로 **상대방 자신의 사주팔자**를 보여주는 것으로 교체함.
 
-**`/result`·`/saju`에 이름/성별 필드 추가**: `BirthDateForm`에 `collectProfile` prop 추가 — true일 때만 생년월일 위에 이름 입력(선택)과 `GenderSelect` 재사용 성별 선택(선택)이 뜸, Result/Saju에서만 켜져 있고 나머지 페이지는 그대로. **순수 화면 개인화용**(계산 로직에 전혀 안 들어감) — 사용자에게 "성별에 따라 운세 내용도 달라지게" vs "화면 개인화만" 둘 중 하나를 직접 확인받고 후자로 결정함(전자는 fortuneTemplates.js/sajuProfileTemplates.js에 성별 축을 새로 추가해야 하는 훨씬 큰 작업이라 스코프 아웃). 이름이 있으면 "OO님의 오늘의 운세"/"OO님의 사주"로 헤딩이 바뀌고 공유 캡션·동적 OG 미리보기(7-3)에도 반영됨, 성별은 띠/오행 배지 옆에 작은 배지로만 표시. 둘 다 안 넣으면 기존과 완전히 동일하게 동작.
+**`/result`·`/saju`에 이름/성별 필드 추가**: `BirthDateForm`에 `collectProfile` prop 추가 — true일 때만 생년월일 위에 이름 입력(선택)과 `GenderSelect` 재사용 성별 선택(선택)이 뜸, Result/Saju에서만 켜져 있고 나머지 페이지는 그대로. 처음 추가할 당시엔 **순수 화면 개인화용**(계산 로직에 전혀 안 들어감)으로 스코프를 정했었음 — "성별에 따라 운세 내용도 달라지게" vs "화면 개인화만" 둘 중 사용자가 후자로 확인해줬기 때문(전자는 fortuneTemplates.js/sajuProfileTemplates.js에 성별 축을 새로 추가해야 하는 훨씬 큰 작업이라 스코프 아웃). 이름이 있으면 "OO님의 오늘의 운세"/"OO님의 사주"로 헤딩이 바뀌고 공유 캡션·동적 OG 미리보기(7-3)에도 반영됨. **이후 대운(3-1 참고) 추가로 `/saju`의 성별 필드는 순수 장식을 넘어 실제 계산(대운 순행/역행 방향)에 쓰이게 됨** — 성별 없으면 대운표 대신 안내 문구만 표시, 추측 안 함. 둘 다 안 넣으면 기존과 완전히 동일하게 동작.
 
 **궁합 점수 설명(`matchCommon.explanation.*`)**: 점수/티어 아래에 "목 오행이 화 오행을 생해줘서 이런 결과가 나온 거예요" 식으로 오행 상생상극 관계를 풀어주는 한 줄이 붙는다. `t('matchCommon.explanation.'+relation, {my, other})` 형태로 IdolMatch/DramaMatch/Compatibility 세 곳에서 동일하게 사용.
 
