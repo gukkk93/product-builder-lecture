@@ -9,6 +9,8 @@ import IdolMatch from './pages/IdolMatch';
 import DramaMatch from './pages/DramaMatch';
 import Contact from './pages/Contact';
 import Guide from './pages/Guide';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
 import ComingSoon from './pages/ComingSoon';
 
 export default function App() {
@@ -23,6 +25,8 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/partnership" element={<Navigate to="/contact" replace />} />
         <Route path="/guide" element={<Guide />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/idol-match" element={<IdolMatch />} />
         <Route path="/drama-match" element={<DramaMatch />} />
         <Route path="/about" element={<ComingSoon />} />

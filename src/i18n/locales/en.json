@@ -7,6 +7,11 @@
     "themeToggleLabel": "Toggle dark mode",
     "contact": "Contact us"
   },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "copyright": "© {{year}} Ohaeng. All rights reserved."
+  },
   "loading": {
     "analyzing": "{{element}} energy is reading your saju..."
   },
@@ -283,6 +288,34 @@
     "strengthBody": "Your Day Master is the Heavenly Stem of your Day Pillar — the character that represents \"you\" specifically, separate from your overall dominant element. Ohaeng checks how much support that character gets from the rest of your chart: if at least half the other characters share or generate its element, you're a \"strong\" Day Master; otherwise, you're \"weak.\" Strong doesn't mean better and weak doesn't mean worse — it's a read on whether your core traits show up consistently everywhere you go (strong) or shift more with who's around you (weak). You'll see this reflected on every avatar in the app too: a solid ring means a strong Day Master, a dashed ring means a weak one.",
     "featuresHeading": "Group Match & Drama Match",
     "featuresBody": "Idol Match and Drama Match both work the same way: enter your birthday and gender, and Ohaeng scans the full roster — every idol group, or all 100 K-drama actors — filtered to the opposite gender, and surfaces whoever scores highest against your chart. Group Match works a little differently: pick one group, and instead of a single best match, you get every member ranked by score, so you can see exactly where your bias lands next to the rest of the lineup."
+  },
+  "privacy": {
+    "navLabel": "Privacy Policy",
+    "title": "Privacy Policy",
+    "subtitle": "Last updated: August 18, 2026",
+    "birthDataHeading": "Your birthday, name, and gender",
+    "birthDataBody": "Ohaeng is a static site with no backend database. When you enter your birthday — and optionally your name or gender — to get a reading, that information is used entirely inside your own browser to calculate your saju chart. It's never uploaded to or stored on any server we control.",
+    "partnerDataHeading": "Compatibility & Romance readings",
+    "partnerDataBody": "The same applies to the other person's name and birthday you enter for a Compatibility or Romance reading — it's processed in your browser to work out your compatibility and is never stored on a server.",
+    "shareImageHeading": "Shared link preview images",
+    "shareImageBody": "When you share a result link, we generate a preview image — showing things like a name and a compatibility score, but never a raw birthdate — so the link looks right when pasted into apps like KakaoTalk or Discord. These images are generated on the fly from the link itself and may be cached on Cloudflare's edge network so repeat views load quickly.",
+    "analyticsHeading": "Analytics",
+    "analyticsBody": "We use PostHog to collect anonymous usage analytics — which pages get visited, which buttons get clicked, and similar patterns — so we can understand how people use Ohaeng and improve it. This data isn't linked to your birthday, name, or the contents of any reading you enter.",
+    "storageHeading": "Cookies & local storage",
+    "storageBody": "Ohaeng doesn't use tracking cookies. We use your browser's local storage only to remember your theme (light/dark) and language preference, and — if you've filled out your own birthday once — to pre-fill it for you the next time you open a reading, so you don't have to type it in again. All of this stays on your device and is never sent to a server.",
+    "contactHeading": "Questions?",
+    "contactBody": "If you have any questions about this policy, reach out through our Contact page."
+  },
+  "terms": {
+    "navLabel": "Terms of Use",
+    "title": "Terms of Use",
+    "subtitle": "Last updated: August 18, 2026",
+    "entertainmentHeading": "Entertainment purposes only",
+    "entertainmentBody": "Ohaeng's saju readings, compatibility scores, and idol matches are provided for entertainment purposes only. They're not medical, financial, legal, or professional advice of any kind, and shouldn't be used as the basis for real-life decisions.",
+    "aboutHeading": "About the service",
+    "aboutBody": "Ohaeng is a saju (Korean four pillars) and Five Element fortune-telling web app, offered as-is for personal, non-commercial enjoyment. By using the site, you agree to use it for its intended entertainment purpose.",
+    "contactHeading": "Questions?",
+    "contactBody": "If you have any questions about these terms, reach out through our Contact page."
   },
   "comingSoon": {
     "title": "Coming soon",

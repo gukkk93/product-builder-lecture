@@ -2,6 +2,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ThemeToggle from './ThemeToggle';
 import LanguageToggle from './LanguageToggle';
+import Footer from './Footer';
 import { ELEMENT_ICON_SRC } from './ElementBadge';
 
 export default function Layout() {
@@ -39,6 +40,7 @@ export default function Layout() {
         </div>
       </header>
       <Outlet />
+      <Footer />
     </>
   );
 }

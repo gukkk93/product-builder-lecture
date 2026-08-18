@@ -202,6 +202,16 @@ theme/language 토글과 동일한 localStorage 패턴(`ThemeToggle.jsx`/`Langua
 - **적용 현황**: `remember` 켜짐 — Result(+`collectProfile`)/Saju(+`collectProfile`)/DramaMatch/IdolMatch(베스트매치+그룹모드 2곳)/Compatibility의 "내 생일" 단계/Romance의 "내 생일" 단계, 총 7곳. `remember` **의도적으로 안 켬** — Compatibility·Romance의 "상대방 생일" 단계 2곳(상대 생일은 매번 새로 입력받아야 하므로 저장 대상에서 명시적으로 제외)
 - **검증**: Playwright로 (1) `/result`에서 이름+성별+생일 입력 후 제출 → localStorage에 저장 확인 (2) `/saju`·`/idol-match`·`/drama-match`·`/compatibility`(내 생일 단계)·`/romance`(내 생일 단계)를 각각 새로 열었을 때 드롭다운이 전부 미리 채워지는지 확인 (3) Compatibility/Romance의 "상대방 생일" 단계는 "내 생일" 제출 후에도 계속 빈 채로 남는지 확인 (4) localStorage가 아예 없는 새 브라우저 컨텍스트에서는 기존과 동일하게 빈 폼으로 뜨는지 확인 — 전부 통과, 콘솔 에러 0건
 
+## 9-2. Privacy Policy / Terms of Use + 전역 푸터 (`Privacy.jsx`, `Terms.jsx`, `Footer.jsx`)
+
+- **라우트**: `/privacy`, `/terms` 신규 — `Guide.jsx`와 동일한 카드 나열 패턴(제목+부제 → 카드별 소제목+본문). 각 페이지 마지막 카드에 `/contact`로 가는 버튼 포함
+- **전역 푸터**: `Footer.jsx` 신규 — Privacy Policy/Terms of Use 링크 + `© {{year}} Ohaeng. All rights reserved.`(연도는 `new Date().getFullYear()`로 항상 최신). `Layout.jsx`의 `<Outlet />` 뒤에 렌더링해서 모든 페이지에 공통 적용
+- **sticky-footer 레이아웃**: 기존엔 전역 푸터가 아예 없었고 `.page`가 `min-height: 100vh`라 내용이 짧은 페이지(`/about` 등)에서 푸터를 그냥 붙이면 뷰포트 하단이 아니라 카드 바로 아래(화면 중간)에 붕 떠버림. `#root`를 `display:flex; flex-direction:column; min-height:100%`로, `.page`는 `min-height:100vh` 대신 `flex: 1 0 auto`로 바꿔서 — 내용이 짧으면 푸터가 뷰포트 맨 아래에 붙고, 내용이 길면 그 아래로 자연스럽게 밀려나는 표준 sticky-footer 플렉스 패턴으로 교체
+- **Privacy 내용(사실 기준)**: (1) 생년월일/이름/성별은 정적 SPA 구조상 브라우저 안에서만 계산되고 서버에 저장 안 됨 (2) 궁합/로맨스의 상대방 이름/생일도 동일 (3) 공유 링크의 동적 OG 미리보기 이미지(이름/점수 포함, 생년월일 원본 미포함, 7-3 참고)는 Cloudflare 엣지에 캐싱될 수 있음 (4) PostHog로 익명 이용 분석(방문 페이지·클릭) 수집 — `analytics.js`(9번 참고)가 실제로 보내는 파라미터를 직접 확인해서 생년월일 등 개인 식별 정보가 전혀 안 들어간다는 것 검증 후 서술 (5) 로컬 저장소는 테마/언어 설정과, "내 생일 기억하기"(9-1 참고) 기능이 저장하는 생년월일(+선택적 이름/성별)에만 쓰이고 전부 기기 안에만 남음
+- **Terms 내용**: 오락 목적(entertainment purposes only) 면책 문구, 서비스 소개, Contact 링크
+- **i18n**: `footer.*`(3개 키), `privacy.*`(12개 키), `terms.*`(8개 키) en/ko 완전 병렬 추가. "최종 수정일"은 작성 시점 날짜를 정적 텍스트로 박아둠(코드로 자동 계산 안 함) — 내용이 실제로 바뀔 때 수동으로 갱신하면 됨
+- **검증**: Playwright로 `/privacy`·`/terms` 라이트/다크·en/ko 렌더링, 푸터 링크 텍스트·저작권 문구가 언어별로 정확히 바뀌는지, 짧은 페이지(`/about`)에서 푸터가 뷰포트 하단에 붙는지, 긴 페이지(`/`)에서 레이아웃 깨짐 없는지까지 스크린샷으로 확인. 콘솔 에러 0건
+
 ## 10. 배포/설정
 
 - Cloudflare Pages 빌드: Framework preset None, Build command `npm run build`, Output directory `dist`
