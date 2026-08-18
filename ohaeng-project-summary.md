@@ -44,8 +44,8 @@
 | 라우트 | 파일 | 내용 |
 |---|---|---|
 | `/` | `Landing.jsx` | **순수 메뉴 화면** (생년월일 입력 없음). 섹션 순서: "사주 리딩"(오늘의 운세/내 사주/궁합) → "K팝 & K-드라마"(**최애 매치**/아이돌 매치/K-드라마 매치, 이 순서) → "연애"(재회사주/짝사랑사주/속마음사주/썸궁합). "그룹 매치"는 "최애 매치"로 개명(제목+설명 문구, 목적지 페이지 헤딩까지) — "그룹 전체 랭킹"보다 "내 최애와의 궁합"으로 읽히도록 |
-| `/result` | `Result.jsx` | 오늘의 운세만 — 오행 배지, 띠, 5개 카테고리(총운/애정/재물/건강/컴백운), 공유카드, "궁합"/"내 사주" CTA. birth 파라미터 없으면 `BirthDateForm` 인라인 렌더 |
-| `/saju` | `Saju.jsx` | 내 사주 자체(오늘과 무관) — 네 기둥(PillarGrid, 한국어면 한글 표기), 일간+신강/신약 배지, 오행 분포 바차트, 성격 분석, **공유카드**(`SajuShareCard.jsx`, 신규). birth 없으면 인라인 폼 |
+| `/result` | `Result.jsx` | 오늘의 운세만 — 오행 배지, 띠, 5개 카테고리(총운/애정/재물/건강/컴백운), 공유카드, "궁합"/"내 사주" CTA. birth 파라미터 없으면 `BirthDateForm`(이름+성별 선택 필드 포함, 아래 참고) 인라인 렌더 |
+| `/saju` | `Saju.jsx` | 내 사주 자체(오늘과 무관) — 네 기둥(PillarGrid, 한국어면 한글 표기), 일간+신강/신약 배지, 오행 분포 바차트, 성격 분석, **공유카드**(`SajuShareCard.jsx`). birth 없으면 이름+성별 선택 필드 포함 인라인 폼 |
 | `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 궁합 점수(%) + 왜 이 점수인지 한 줄 설명 포함. 팬덤 용어 없는 별도 문구 뱅크 사용. `?relationship=some`으로 진입하면 관계 선택 스텝을 건너뛰고 "썸"(구 `crush` 키, `some`으로 개명)으로 바로 시작 — Landing의 "썸궁합" 메뉴가 이 경로로 링크됨 |
 | `/romance` | `Romance.jsx` (신규) | **연애 상황별 궁합** — `?situation=reunion\|crush\|theirFeelings`. `Compatibility.jsx`와 거의 동일한 구조(내 생일 → 상대 이름+생일, 관계 선택 스텝은 없음 — situation 자체가 관계를 암시)지만 `getCompatibility`/`getCompatibilityScore`는 그대로 재사용하고 콘텐츠만 `romanceTemplates.js`(상황별 전용 문구뱅크)에서 가져옴. `reunion`은 결과에 공통 클로징 라인("다시 만나든 아니든, 지금부터가 중요해요")이 한 줄 추가됨(온스크린 결과에만 표시, 공유카드 이미지에는 공간 제약으로 미포함). 공유카드는 `CompatibilityShareCard.jsx` 재사용(헤딩만 situation 라벨로 교체) |
 | `/idol-match` | `IdolMatch.jsx` | **베스트매치 추천** — 생일+성별 입력 → 반대 성별 아이돌 풀(31개 그룹, 197명) 전체와 궁합 계산해서 1위를 추천. `?mode=group&group=X&member=Y`는 **그룹 선택 → 멤버 선택(드롭다운 2개, `.select-row`)** → 그 멤버 한 명과의 전체 궁합 상세(사주팔자+점수+설명+공유카드). 한때 자동 랭킹 리스트(`GroupRankList.jsx`, 멤버 전원 점수순 나열 + 탭해서 드릴다운)로 만들었었는데, "예전처럼 멤버를 직접 선택하는 방식으로 바꿔달라"는 피드백으로 **드롭다운 선택 방식으로 재변경** — `GroupRankList.jsx`는 삭제함 |
@@ -58,7 +58,9 @@
 
 **아이돌 멤버 이름 한국어 표시**: `idols.js`의 197명 전원에 `nameKo` 필드 추가(예: `bts-jimin` → `지민`, 외국인 멤버는 한국 매체 표준 표기, 예: `svt-the8`(徐明浩) → `디에잇`, `gidle-yuqi`(宋雨琦) → `우기`). `getMemberName(member, lang)` 헬퍼로 한국어 모드에서만 `nameKo`를 쓰고 없으면 영문 `name`으로 폴백. 아이돌 매치/그룹 매치/공유카드 등 멤버 이름이 나오는 모든 곳에 적용. 이름 검증은 웹 검색 리서치 에이전트로 진행(NamuWiki/Naver/한국어 위키 기준, 스테이지네임 vs 실명 표기 컨벤션이 멤버마다 달라 개별 확인). K-드라마 배우(`kdramaActors.js`)는 이번 범위에서 제외 — 요청 시 후속 작업.
 
-생년월일 입력은 `BirthDateForm.jsx` 하나로 통일 — Result/Saju/Compatibility/IdolMatch(베스트매치+group)/DramaMatch 전부 재사용. 성별 선택은 `GenderSelect.jsx`(IdolMatch/DramaMatch 공용), 매치 결과 카드는 `MatchResultCard.jsx`(아바타+**상대방의 네 기둥 사주(PillarGrid)**+궁합 점수+티어+왜 이 점수인지 설명+공유버튼, 두 페이지 공용)로 분리했다. 원래는 매칭된 상대의 "오늘의 운세"를 보여줬는데 `/result` 페이지와 내용이 겹친다는 피드백으로 **상대방 자신의 사주팔자**를 보여주는 것으로 교체함.
+생년월일 입력은 `BirthDateForm.jsx` 하나로 통일 — Result/Saju/Compatibility/IdolMatch(베스트매치+group)/DramaMatch 전부 재사용. 성별 선택은 `GenderSelect.jsx`(IdolMatch/DramaMatch에서 매치 풀 필터링용으로 공용), 매치 결과 카드는 `MatchResultCard.jsx`(아바타+**상대방의 네 기둥 사주(PillarGrid)**+궁합 점수+티어+왜 이 점수인지 설명+공유버튼, 두 페이지 공용)로 분리했다. 원래는 매칭된 상대의 "오늘의 운세"를 보여줬는데 `/result` 페이지와 내용이 겹친다는 피드백으로 **상대방 자신의 사주팔자**를 보여주는 것으로 교체함.
+
+**`/result`·`/saju`에 이름/성별 필드 추가**: `BirthDateForm`에 `collectProfile` prop 추가 — true일 때만 생년월일 위에 이름 입력(선택)과 `GenderSelect` 재사용 성별 선택(선택)이 뜸, Result/Saju에서만 켜져 있고 나머지 페이지는 그대로. **순수 화면 개인화용**(계산 로직에 전혀 안 들어감) — 사용자에게 "성별에 따라 운세 내용도 달라지게" vs "화면 개인화만" 둘 중 하나를 직접 확인받고 후자로 결정함(전자는 fortuneTemplates.js/sajuProfileTemplates.js에 성별 축을 새로 추가해야 하는 훨씬 큰 작업이라 스코프 아웃). 이름이 있으면 "OO님의 오늘의 운세"/"OO님의 사주"로 헤딩이 바뀌고 공유 캡션·동적 OG 미리보기(7-3)에도 반영됨, 성별은 띠/오행 배지 옆에 작은 배지로만 표시. 둘 다 안 넣으면 기존과 완전히 동일하게 동작.
 
 **궁합 점수 설명(`matchCommon.explanation.*`)**: 점수/티어 아래에 "목 오행이 화 오행을 생해줘서 이런 결과가 나온 거예요" 식으로 오행 상생상극 관계를 풀어주는 한 줄이 붙는다. `t('matchCommon.explanation.'+relation, {my, other})` 형태로 IdolMatch/DramaMatch/Compatibility 세 곳에서 동일하게 사용.
 
