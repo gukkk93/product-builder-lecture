@@ -3,27 +3,27 @@ import { toPng } from 'html-to-image';
 import { trackShareDownload } from '../utils/analytics';
 
 // Feature-detected once per session: iOS Safari and Android Chrome support
-// navigator.share() with files, which opens the OS share sheet (Instagram,
-// KakaoTalk, Messages, WhatsApp, etc. all show up automatically — no need
-// to hand-build a button per app). Desktop browsers mostly don't, so they
-// fall back to a plain download. This only checks that the API shape
-// exists; the actual file is checked via canShare({ files }) at share time,
-// since some browsers support navigator.share but not file sharing.
-const supportsShare =
-  typeof navigator !== 'undefined' &&
-  typeof navigator.share === 'function' &&
-  typeof navigator.canShare === 'function';
-
-async function dataUrlToFile(dataUrl, filename) {
-  const res = await fetch(dataUrl);
-  const blob = await res.blob();
-  return new File([blob], filename, { type: 'image/png' });
-}
+// navigator.share(), which opens the OS share sheet (Instagram, KakaoTalk,
+// Messages, WhatsApp, etc. all show up automatically — no need to
+// hand-build a button per app). Desktop browsers mostly don't, so they
+// fall back to a plain PNG download. Kept the name `canShareFiles` even
+// though native share is link-only now (see below) — it still means "can
+// use the native share sheet" for the button-label branch pages use it for.
+const supportsShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
 
 /**
- * Renders an off-screen share card (via cardRef) to a PNG, then either
- * opens the native OS share sheet (mobile, when file sharing is supported)
- * or falls back to a plain download link (desktop / unsupported browsers).
+ * Opens the native OS share sheet with a link-only share (mobile, when
+ * supported) or falls back to rendering the off-screen share card (via
+ * cardRef) to a PNG and downloading it (desktop / unsupported browsers).
+ *
+ * The native-share path no longer attaches the rendered PNG as a file:
+ * `url` now carries the full result state as query params, so Cloudflare's
+ * OG-preview middleware (functions/_middleware.js + og-image.png.js) can
+ * render a matching dynamic preview image itself for whatever surface the
+ * link lands in (KakaoTalk, iMessage, Discord, ...) — a static file
+ * attached here would just be a second, unrelated image alongside that
+ * preview. Skipping the file also means the PNG never needs to be rendered
+ * at all in the common (share-sheet-supported) case.
  */
 export function useShareCardDownload() {
   const cardRef = useRef(null);
@@ -31,22 +31,13 @@ export function useShareCardDownload() {
   const canShareFiles = useMemo(() => supportsShare, []);
 
   async function download(filename, analyticsContext, { text, url } = {}) {
-    if (!cardRef.current) return;
     setDownloading(true);
     try {
-      const dataUrl = await toPng(cardRef.current, { pixelRatio: 3 });
-      const file = await dataUrlToFile(dataUrl, filename);
+      const combinedText = url ? [text, url].filter(Boolean).join('\n') : text;
 
-      if (supportsShare && navigator.canShare({ files: [file] })) {
+      if (supportsShare) {
         try {
-          // The link is folded into `text` rather than also passed as a
-          // separate `url`, since some share targets (KakaoTalk included)
-          // render each field as its own outgoing message/preview when
-          // both are set alongside `files` — sending file + url + text
-          // shows up as two separate link previews. Just text keeps it to
-          // one image + one link.
-          const combinedText = url ? [text, url].filter(Boolean).join('\n') : text;
-          await navigator.share({ files: [file], text: combinedText });
+          await navigator.share({ text: combinedText });
           trackShareDownload(analyticsContext);
           return;
         } catch (err) {
@@ -57,6 +48,8 @@ export function useShareCardDownload() {
         }
       }
 
+      if (!cardRef.current) return;
+      const dataUrl = await toPng(cardRef.current, { pixelRatio: 3 });
       const link = document.createElement('a');
       link.download = filename;
       link.href = dataUrl;

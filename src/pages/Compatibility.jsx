@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { getCompatibilityCopy } from '../data/compatibilityTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
-import { buildShareUrl } from '../utils/shareUrl';
+import { buildShareUrl, birthParams } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
 import ElementBadge from '../components/ElementBadge';
 import BirthDateForm from '../components/BirthDateForm';
@@ -12,14 +12,22 @@ import CompatibilityShareCard from '../components/CompatibilityShareCard';
 import LoadingReveal from '../components/LoadingReveal';
 import InsightSection from '../components/InsightSection';
 
-function paramsToBirth(params) {
-  const y = Number(params.get('y'));
-  const m = Number(params.get('m'));
-  const d = Number(params.get('d'));
-  const timeKnown = params.get('timeKnown') === '1';
-  const h = timeKnown ? Number(params.get('h')) : null;
-  const calendar = params.get('cal') === 'lunar' ? 'lunar' : 'solar';
+function paramsToBirth(params, prefix = '') {
+  const y = Number(params.get(`${prefix}y`));
+  const m = Number(params.get(`${prefix}m`));
+  const d = Number(params.get(`${prefix}d`));
+  const timeKnown = params.get(`${prefix}timeKnown`) === '1';
+  const h = timeKnown ? Number(params.get(`${prefix}h`)) : null;
+  const calendar = params.get(`${prefix}cal`) === 'lunar' ? 'lunar' : 'solar';
   return { year: y, month: m, day: d, hour: h, calendar, timeKnown };
+}
+
+/** null unless year/month/day are all present — lets a shared link (which
+ * carries both birthdates in the URL) reproduce the result on load, while
+ * a plain visit to /compatibility still starts at the empty birth-entry form. */
+function birthFromParamsIfComplete(params, prefix = '') {
+  const birth = paramsToBirth(params, prefix);
+  return birth.year && birth.month && birth.day ? birth : null;
 }
 
 const RELATIONSHIPS = ['friend', 'partner', 'some', 'family', 'coworker'];
@@ -33,10 +41,17 @@ export default function Compatibility() {
   const presetRelationship = RELATIONSHIPS.includes(params.get('relationship'))
     ? params.get('relationship')
     : null;
-  const [myBirth, setMyBirth] = useState(null);
-  const [theirName, setTheirName] = useState('');
-  const [theirRelationship, setTheirRelationship] = useState(presetRelationship || 'friend');
-  const [theirBirth, setTheirBirth] = useState(null);
+  // A shared link carries both birthdates (plus their name/relationship) in
+  // the URL so the result reproduces on load — see buildShareUrl's
+  // extraParams usage below. A plain visit has none of these and falls
+  // through to null, same as before.
+  const [myBirth, setMyBirth] = useState(() => birthFromParamsIfComplete(params));
+  const [theirName, setTheirName] = useState(() => params.get('tname') || '');
+  const [theirRelationship, setTheirRelationship] = useState(() => {
+    const shared = params.get('relationship');
+    return RELATIONSHIPS.includes(shared) ? shared : presetRelationship || 'friend';
+  });
+  const [theirBirth, setTheirBirth] = useState(() => birthFromParamsIfComplete(params, 't'));
   const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
 
   const displayName = theirName.trim() || t('compatibility.theirElement');
@@ -202,7 +217,16 @@ export default function Compatibility() {
               onClick={() =>
                 download('ohaeng-compatibility.png', 'compatibility', {
                   text: t('compatibility.shareCaption'),
-                  url: buildShareUrl('/compatibility'),
+                  url: buildShareUrl('/compatibility', {
+                    ...birthParams(myBirth),
+                    ...birthParams(theirBirth, 't'),
+                    tname: theirName,
+                    relationship: theirRelationship,
+                    element: mySaju.dominantElement,
+                    score,
+                    name: displayName,
+                    tier: copy.tier,
+                  }),
                 })
               }
               disabled={downloading}

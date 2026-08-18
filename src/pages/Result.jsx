@@ -96,7 +96,10 @@ export default function Result() {
             <button
               className="button"
               onClick={() =>
-                download('ohaeng-fortune.png', 'result', { text: t('result.shareCaption'), url: buildShareUrl('/result') })
+                download('ohaeng-fortune.png', 'result', {
+                  text: t('result.shareCaption'),
+                  url: buildShareUrl('/result', { element: saju.dominantElement }),
+                })
               }
               disabled={downloading}
             >

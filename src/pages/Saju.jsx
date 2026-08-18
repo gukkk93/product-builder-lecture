@@ -129,7 +129,10 @@ export default function Saju() {
             <button
               className="button"
               onClick={() =>
-                download('ohaeng-saju.png', 'saju', { text: t('saju.shareCaption'), url: buildShareUrl('/saju') })
+                download('ohaeng-saju.png', 'saju', {
+                  text: t('saju.shareCaption'),
+                  url: buildShareUrl('/saju', { element: saju.dominantElement, tier: profile.title }),
+                })
               }
               disabled={downloading}
             >

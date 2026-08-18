@@ -121,7 +121,12 @@ export default function DramaMatch() {
           onShare={() =>
             download(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match', {
               text: t('dramaMatch.shareCaption'),
-              url: buildShareUrl('/drama-match'),
+              url: buildShareUrl('/drama-match', {
+                element: best.saju.dominantElement,
+                score: best.score,
+                name: actorName,
+                tier: compatCopy.tier,
+              }),
             })
           }
           shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}

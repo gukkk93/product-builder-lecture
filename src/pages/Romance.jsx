@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { getRomanceCopy, getRomanceClosing } from '../data/romanceTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
-import { buildShareUrl } from '../utils/shareUrl';
+import { buildShareUrl, birthParams } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
 import ElementBadge from '../components/ElementBadge';
 import BirthDateForm from '../components/BirthDateForm';
@@ -12,14 +12,21 @@ import CompatibilityShareCard from '../components/CompatibilityShareCard';
 import LoadingReveal from '../components/LoadingReveal';
 import InsightSection from '../components/InsightSection';
 
-function paramsToBirth(params) {
-  const y = Number(params.get('y'));
-  const m = Number(params.get('m'));
-  const d = Number(params.get('d'));
-  const timeKnown = params.get('timeKnown') === '1';
-  const h = timeKnown ? Number(params.get('h')) : null;
-  const calendar = params.get('cal') === 'lunar' ? 'lunar' : 'solar';
+function paramsToBirth(params, prefix = '') {
+  const y = Number(params.get(`${prefix}y`));
+  const m = Number(params.get(`${prefix}m`));
+  const d = Number(params.get(`${prefix}d`));
+  const timeKnown = params.get(`${prefix}timeKnown`) === '1';
+  const h = timeKnown ? Number(params.get(`${prefix}h`)) : null;
+  const calendar = params.get(`${prefix}cal`) === 'lunar' ? 'lunar' : 'solar';
   return { year: y, month: m, day: d, hour: h, calendar, timeKnown };
+}
+
+/** null unless year/month/day are all present — see Compatibility.jsx's
+ * identical helper for why. */
+function birthFromParamsIfComplete(params, prefix = '') {
+  const birth = paramsToBirth(params, prefix);
+  return birth.year && birth.month && birth.day ? birth : null;
 }
 
 const SITUATIONS = ['reunion', 'crush', 'theirFeelings'];
@@ -35,9 +42,9 @@ export default function Romance() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const situation = SITUATIONS.includes(params.get('situation')) ? params.get('situation') : 'reunion';
-  const [myBirth, setMyBirth] = useState(null);
-  const [theirName, setTheirName] = useState('');
-  const [theirBirth, setTheirBirth] = useState(null);
+  const [myBirth, setMyBirth] = useState(() => birthFromParamsIfComplete(params));
+  const [theirName, setTheirName] = useState(() => params.get('tname') || '');
+  const [theirBirth, setTheirBirth] = useState(() => birthFromParamsIfComplete(params, 't'));
   const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
 
   const displayName = theirName.trim() || t('compatibility.theirElement');
@@ -192,7 +199,15 @@ export default function Romance() {
               onClick={() =>
                 download(`ohaeng-romance-${situation}.png`, `romance-${situation}`, {
                   text: t(`romance.${situation}.shareCaption`),
-                  url: buildShareUrl(`/romance?situation=${situation}`),
+                  url: buildShareUrl(`/romance?situation=${situation}`, {
+                    ...birthParams(myBirth),
+                    ...birthParams(theirBirth, 't'),
+                    tname: theirName,
+                    element: mySaju.dominantElement,
+                    score,
+                    name: displayName,
+                    tier: copy.tier,
+                  }),
                 })
               }
               disabled={downloading}

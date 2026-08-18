@@ -185,7 +185,12 @@ export default function IdolMatch() {
               onShare={() =>
                 download(`ohaeng-${selectedMember.id}-group-match.png`, 'group-match', {
                   text: t('idolMatch.shareCaption'),
-                  url: buildShareUrl('/idol-match'),
+                  url: buildShareUrl('/idol-match', {
+                    element: memberSaju.dominantElement,
+                    score: memberScore,
+                    name: memberName,
+                    tier: memberCopy.tier,
+                  }),
                 })
               }
               shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
@@ -306,7 +311,12 @@ export default function IdolMatch() {
           onShare={() =>
             download(`ohaeng-${best.candidate.id}-match.png`, 'idol-match', {
               text: t('idolMatch.shareCaption'),
-              url: buildShareUrl('/idol-match'),
+              url: buildShareUrl('/idol-match', {
+                element: best.saju.dominantElement,
+                score: best.score,
+                name: bestName,
+                tier: compatCopy.tier,
+              }),
             })
           }
           shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
