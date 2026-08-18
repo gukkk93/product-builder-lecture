@@ -118,6 +118,7 @@ export default function Romance() {
             <BirthDateForm
               submitLabel={t('compatibility.continueLabel')}
               analyticsContext={`romance-${situation}-me`}
+              remember
               onSubmit={(p) => setMyBirth(paramsToBirth(p))}
             />
           </div>

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LunarMonth } from 'lunar-javascript';
 import { trackBirthFormSubmit } from '../utils/analytics';
+import { loadBirthMemory, saveBirthMemory } from '../utils/birthMemory';
 import GenderSelect from './GenderSelect';
 
 const HOUR_START = [23, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21];
@@ -31,11 +32,16 @@ function daysInLunarMonth(year, month) {
  *   field + "I am..." gender picker above the birth date, purely for
  *   personalizing that page's own heading/share text — neither value feeds
  *   into any saju calculation, so leaving them blank changes nothing.
+ * @param {boolean} [remember] - pre-fills from and saves to localStorage
+ *   (see utils/birthMemory) on submit. Only pass this for a "my birthday"
+ *   form — never for Compatibility/Romance's "their birthday" step, which
+ *   should always start blank.
  */
-export default function BirthDateForm({ onSubmit, submitLabel, analyticsContext, collectProfile }) {
+export default function BirthDateForm({ onSubmit, submitLabel, analyticsContext, collectProfile, remember }) {
   const { t } = useTranslation();
-  const [name, setName] = useState('');
-  const [gender, setGender] = useState('');
+  const remembered = remember ? loadBirthMemory() : null;
+  const [name, setName] = useState(remembered?.name || '');
+  const [gender, setGender] = useState(remembered?.gender || '');
 
   const currentYear = new Date().getFullYear();
   const years = useMemo(
@@ -43,12 +49,12 @@ export default function BirthDateForm({ onSubmit, submitLabel, analyticsContext,
     [currentYear]
   );
 
-  const [calendar, setCalendar] = useState('solar');
-  const [year, setYear] = useState('');
-  const [month, setMonth] = useState('');
-  const [day, setDay] = useState('');
-  const [timeKnown, setTimeKnown] = useState(true);
-  const [hourIndex, setHourIndex] = useState('');
+  const [calendar, setCalendar] = useState(remembered?.calendar || 'solar');
+  const [year, setYear] = useState(remembered?.year || '');
+  const [month, setMonth] = useState(remembered?.month || '');
+  const [day, setDay] = useState(remembered?.day || '');
+  const [timeKnown, setTimeKnown] = useState(remembered?.timeKnown ?? true);
+  const [hourIndex, setHourIndex] = useState(remembered?.hourIndex ?? '');
   const [error, setError] = useState('');
 
   function computeMaxDay(cal, y, m) {
@@ -98,6 +104,18 @@ export default function BirthDateForm({ onSubmit, submitLabel, analyticsContext,
     const params = buildParams();
     if (!params) return;
     trackBirthFormSubmit(analyticsContext);
+    if (remember) {
+      const fields = { calendar, year, month, day, timeKnown, hourIndex };
+      // Only overwrite name/gender when this form actually collects them —
+      // otherwise a "my birthday" form without collectProfile (IdolMatch,
+      // DramaMatch) would blank out a name/gender saved earlier from
+      // Result/Saju.
+      if (collectProfile) {
+        fields.name = name.trim();
+        fields.gender = gender;
+      }
+      saveBirthMemory(fields);
+    }
     onSubmit(params);
   }
 

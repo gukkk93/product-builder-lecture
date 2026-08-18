@@ -84,6 +84,7 @@ export default function DramaMatch() {
             <BirthDateForm
               submitLabel={t('dramaMatch.findMatchLabel')}
               analyticsContext="drama-match"
+              remember
               onSubmit={(newParams) => {
                 newParams.set('gender', gender);
                 navigate(`/drama-match?${newParams.toString()}`);

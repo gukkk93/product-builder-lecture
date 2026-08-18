@@ -124,6 +124,7 @@ export default function Compatibility() {
             <BirthDateForm
               submitLabel={t('compatibility.continueLabel')}
               analyticsContext="compatibility-me"
+              remember
               onSubmit={(params) => setMyBirth(paramsToBirth(params))}
             />
           </div>

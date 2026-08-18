@@ -63,6 +63,7 @@ export default function Saju() {
             submitLabel={t('landing.submitSaju')}
             analyticsContext="saju"
             collectProfile
+            remember
             onSubmit={(newParams) => navigate(`/saju?${newParams.toString()}`)}
           />
         </div>

@@ -62,6 +62,7 @@ export default function Result() {
             submitLabel={t('landing.submitFortune')}
             analyticsContext="result"
             collectProfile
+            remember
             onSubmit={(newParams) => navigate(`/result?${newParams.toString()}`)}
           />
         </div>

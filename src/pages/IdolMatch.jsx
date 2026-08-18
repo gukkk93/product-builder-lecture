@@ -246,6 +246,7 @@ export default function IdolMatch() {
               <BirthDateForm
                 submitLabel={t('compatibility.continueLabel')}
                 analyticsContext="idol-match-group"
+                remember
                 onSubmit={(newParams) => {
                   newParams.set('mode', 'group');
                   if (groupId) newParams.set('group', groupId);
@@ -274,6 +275,7 @@ export default function IdolMatch() {
             <BirthDateForm
               submitLabel={t('idolMatch.findMatchLabel')}
               analyticsContext="idol-match"
+              remember
               onSubmit={(newParams) => {
                 newParams.set('gender', gender);
                 navigate(`/idol-match?${newParams.toString()}`);

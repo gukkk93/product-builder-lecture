@@ -10,7 +10,7 @@
 - **컨셉**: K-pop 팬덤(영어권 + 한국어권 모두)을 타겟으로 한 한국 사주(四柱)/오행(五行) + 오늘의 운세 웹앱
 - **차별점**: 서양 별자리 운세(Co-Star 등, 이미 포화된 시장) 대비 한국 고유 오행 이론 + K-pop 팬덤 콘텐츠(아이돌 궁합, "컴백운" 카테고리)로 차별화
 - **레포**: [gukkk93/product-builder-lecture](https://github.com/gukkk93/product-builder-lecture) (main 브랜치)
-- **배포**: https://product-builder-lecture-cgp.pages.dev/ (Cloudflare Pages, main에 push하면 자동 빌드·배포)
+- **배포**: https://getohaeng.com/ (Cloudflare Pages, main에 push하면 자동 빌드·배포. 원래 `product-builder-lecture-cgp.pages.dev`였다가 커스텀 도메인으로 마이그레이션함 — `ShareCard.jsx`의 `SITE_URL`, `functions/og-image.png.js`의 `siteLabel`, `index.html`의 OG/Twitter 메타 전부 새 도메인으로 교체 완료)
 
 ---
 
@@ -190,7 +190,17 @@
 - `posthog-js` 설치, `main.jsx`에서 `import.meta.env.VITE_POSTHOG_KEY`가 있으면 `posthog.init()` 실행 + `window.posthog`에 할당. 키가 없으면 아무것도 안 하고, `analytics.js`의 모든 `track()` 호출은 계속 no-op으로 안전하게 동작
 - 이벤트 호출부는 다 심어둠: `home_menu_click`, `birth_form_submit`(페이지별 context 포함), `share_card_download`, `idol_match_submit`(모드별: soulmate/group/drama), `page_view`
 - **실제 키 발급·등록 완료**: 로컬 `.env.local`(gitignore의 `*.local` 패턴에 자동으로 걸림)과 Cloudflare Pages 환경변수 둘 다 등록됨. 환경변수는 다음 빌드부터 반영되므로, 등록 직후 빈 커밋으로 재배포해서 반영시킴. 재배포 후 `window.posthog.config.token`이 실제 키와 일치하는 것까지 배포본에서 직접 확인함
-- **디버깅 이력**: "오토캡처는 잡히는데 커스텀 이벤트(`page_view` 등)가 PostHog Activity에 안 보인다"는 리포트를 받아서 조사함. `window.posthog.capture`를 앱 부팅 전에 가로채서 실제 호출 여부·이벤트명·파라미터를 로깅하는 방식으로 로컬/실배포(getohaeng.com) 둘 다 확인 — **`track()`은 매번 정확한 이벤트명·파라미터로 정상 호출됨**(코드 문제 아님). 다만 이 세션의 Playwright 환경 자체가 PostHog SDK의 `navigator.webdriver` 봇 감지에 걸려서 오토캡처·커스텀 이벤트 둘 다 실제 네트워크 전송이 0건이라, "실제 도착 여부"까지는 이 환경에서 검증 불가 — 유력한 원인은 PostHog Activity 뷰의 이벤트 필터/탭 설정, 또는 SDK의 배치 전송 타이밍(짧은 테스트 세션에서 아직 flush 안 됐을 가능성). `analytics.js`의 `track()`에 `console.log('[analytics] capture: ...')`를 상시 추가해뒀으니, 실제 브라우저 devtools 콘솔에서 이벤트 발생 시점에 로그가 찍히는지 + 동시에 Network 탭에서 `i.posthog.com`으로 실제 요청이 나가는지 직접 대조해보면 코드 쪽 문제인지 PostHog 대시보드 쪽 문제인지 바로 갈릴 것
+- **디버깅 이력 — 해결 완료**: "오토캡처는 잡히는데 커스텀 이벤트(`page_view` 등)가 PostHog Activity에 안 보인다"는 리포트를 받아서 조사함. `window.posthog.capture`를 앱 부팅 전에 가로채서 실제 호출 여부·이벤트명·파라미터를 로깅하는 방식으로 로컬/실배포(getohaeng.com) 둘 다 확인 — **`track()`은 매번 정확한 이벤트명·파라미터로 정상 호출됨**(코드 문제 아님). 이 세션의 Playwright 환경 자체가 PostHog SDK의 `navigator.webdriver` 봇 감지에 걸려서 오토캡처·커스텀 이벤트 둘 다 실제 네트워크 전송이 0건이라, "실제 도착 여부"는 이 환경에서 검증 불가했음. `analytics.js`의 `track()`에 `console.log('[analytics] capture: ...')`를 상시 추가해서 실제 브라우저에서 직접 확인하도록 안내함
+  - 후속으로 "콘솔 로그가 강력 새로고침 후에도 전혀 안 찍힌다"는 리포트를 받아 배포 자체를 의심 → Cloudflare 대시보드/API 접근이 안 되는 환경(`wrangler whoami` 미인증)이라 간접적이지만 확정적인 방법으로 검증: `git fetch`로 콘솔로그 커밋이 `origin/main`의 조상인지 확인(push 성공 확인) → 로컬에서 같은 커밋으로 빌드해서 나온 번들 파일명(`index-CaHN91-B.js`)이 실제 getohaeng.com이 로딩하는 스크립트 태그와 정확히 일치하는지 확인 → 그 번들을 실제로 다운로드해서 `"[analytics] capture"` 문자열이 포함돼있는지 grep으로 확인, 3단계 전부 통과해서 **코드는 확실히 프로덕션에 배포돼 있음**을 결론. 사용자가 이후 실제 devtools에서 로그/이벤트 도착을 직접 확인하고 "완료됐어" 확인함
+
+## 9-1. 리텐션 — 생년월일 기억하기 (`src/utils/birthMemory.js`, `BirthDateForm.jsx`)
+
+theme/language 토글과 동일한 localStorage 패턴(`ThemeToggle.jsx`/`LanguageToggle.jsx`의 flat get/set)을 생년월일처럼 여러 필드로 된 값에 맞게 확장한 버전.
+
+- **`birthMemory.js`**: `loadBirthMemory()`/`saveBirthMemory(fields)` — 단일 키 `'birthDate'`에 JSON으로 저장, `localStorage` 예외(프라이빗 브라우징/용량초과)는 try/catch로 흡수하고 조용히 무시(기억 기능은 있으면 좋은 것이지 실패해도 폼 제출 자체를 막으면 안 됨). `saveBirthMemory`는 **덮어쓰기가 아니라 병합**(`{ ...existing, ...fields }`) — 이름/성별 필드가 없는 폼(IdolMatch/DramaMatch)이 나중에 저장해도 앞서 Result/Saju에서 저장해둔 이름/성별이 안 날아가게 하기 위함
+- **`BirthDateForm.jsx`**: 신규 `remember` boolean prop(옵트인, 기본 꺼짐) — true면 마운트 시 저장된 값으로 모든 `useState` 초기값을 채우고(자동 제출은 안 함, 유저가 확인 후 눌러야 제출됨), 제출 시 `saveBirthMemory` 호출. `collectProfile`(이름/성별 입력 UI 유무)과는 별개 축이라서 두 prop을 각자 필요한 곳에 독립적으로 켬 — "내 생일" 폼인지 "상대 생일" 폼인지를 암묵적으로 추론하지 않고 8개 호출부마다 명시적으로 `remember`를 넣거나 뺐음
+- **적용 현황**: `remember` 켜짐 — Result(+`collectProfile`)/Saju(+`collectProfile`)/DramaMatch/IdolMatch(베스트매치+그룹모드 2곳)/Compatibility의 "내 생일" 단계/Romance의 "내 생일" 단계, 총 7곳. `remember` **의도적으로 안 켬** — Compatibility·Romance의 "상대방 생일" 단계 2곳(상대 생일은 매번 새로 입력받아야 하므로 저장 대상에서 명시적으로 제외)
+- **검증**: Playwright로 (1) `/result`에서 이름+성별+생일 입력 후 제출 → localStorage에 저장 확인 (2) `/saju`·`/idol-match`·`/drama-match`·`/compatibility`(내 생일 단계)·`/romance`(내 생일 단계)를 각각 새로 열었을 때 드롭다운이 전부 미리 채워지는지 확인 (3) Compatibility/Romance의 "상대방 생일" 단계는 "내 생일" 제출 후에도 계속 빈 채로 남는지 확인 (4) localStorage가 아예 없는 새 브라우저 컨텍스트에서는 기존과 동일하게 빈 폼으로 뜨는지 확인 — 전부 통과, 콘솔 에러 0건
 
 ## 10. 배포/설정
 
@@ -201,7 +211,7 @@
 ## 11. 아직 안 한 것
 
 - **스페인어**: 구조는 en/ko와 동일하게 확장하면 되지만 미착수
-- **리텐션**: 생년월일 localStorage 저장 → 재방문시 자동 채움 — 미착수
+- **리텐션 — 완료**(9-1 참고). 생년월일(+선택 입력했다면 이름/성별)을 localStorage에 저장해 "내 생일" 폼에 재방문시 자동 채움, 상대방 생일 폼은 저장 대상에서 제외
 - **수익화**: 유료 구독/Stripe 연동 — **실제 Stripe 계정/API 키 필요**, 여기서 막힘
 - **주간 운세 캘린더**, **로그인/히스토리** — 미착수 (PRD상 우선순위 낮음)
 - **PostHog 실제 키 — 완료**(위 9번 참고). 오토캡처는 확인됐고, 커스텀 이벤트가 대시보드에 실제로 도착하는지는 사용자가 직접 브라우저에서 확인 필요(코드는 검증 완료)
