@@ -49,6 +49,18 @@
 
 - `findBestMatch(pool, userSaju, myGender)`: `pool`(사람 목록, 각 항목에 `gender: 'M'|'F'` 필요) 중 내 성별의 **반대 성별**만 걸러서 전원과의 궁합을 계산하고, `getCompatibilityScore`가 가장 높은 1명을 반환. 아이돌 매치(`IdolMatch.jsx`)와 K-드라마 매치(`DramaMatch.jsx`)가 이 함수 하나를 공유 — 사용자가 "둘이 사실상 같은 기능"이라고 지적해서 통합함
 
+## 3-3. `/saju` 도메인 섹션 근거 재설계 (`sajuProfileTemplates.js`)
+
+원래 4개 도메인(romanceStyle/wealthStyle/careerStyle/healthStyle, 5-1의 3단계에서 만듦)이 전부 `dominantElement`+`dayGanStrength` 딱 두 값만 근거로 삼다 보니, 도메인 이름만 다르고 내용은 사실상 같은 메시지가 반복되는 문제가 있었음(사용자가 직접 발견). **각 도메인이 사주 데이터 중 서로 다른 요소를 근거로 쓰도록 재설계**함 — 3-1에서 만든 십성 계산을 재사용:
+
+- **연애 스타일**: 일지(배우자궁 — 전통적으로 배우자 인연을 보는 자리)의 십성 5대 분류. 성별/신강신약 필요 없이 항상 계산 가능
+- **재물 성향**: 일간 제외 나머지 7글자 중 재성(財星) 개수 → 없음/보통/많음 3단계
+- **커리어 적성**: 같은 방식으로 관성(官星) 개수 → 없음/보통/많음 3단계
+- **건강 기질**: `dominantElement`가 아니라 **가장 약한(개수 최소) 오행**을 오행-장기 대응론으로 안내 — 원래 "제일 강한 기운"을 보여주던 것에서 "가장 챙겨야 할 부위"로 관점 전환
+- 새 `saju.js` 헬퍼: `getTenGodCategoryCounts(saju)`(글자 위치당 십성 1표 — 지지는 지장간 중 본기 하나만 카운트해서 중복 방지), `getDayBranchTenGodCategory(saju)`, `getWeakestElement(saju)`
+- `getDomainInsight(lang, domain, element, strength)` → `getDomainInsight(lang, domain, saju)`로 시그니처 변경, 도메인별로 필요한 값을 내부에서 알아서 계산. `Saju.jsx` 호출부도 맞춰 수정
+- **검증**: 서로 다른 생년월일 5개 × en/ko로 브라우저에 직접 입력해서 렌더링된 4개 섹션 텍스트가 (a) 서로 겹치지 않고 (b) 스크립트로 독립 계산한 값(재성/관성 개수·티어, 배우자궁 십성, 최약 오행)과 필드 단위로 정확히 일치하는지 확인. 검증 도중 테스트 스크립트 자체의 시(時) 드롭다운 인덱스 오프바이원 버그를 발견해서 바로잡음(앱 코드 버그 아님) — 재확인 후 5개 날짜 전부 일치
+
 ## 4. 라우트/페이지 구조
 
 | 라우트 | 파일 | 내용 |
@@ -94,7 +106,7 @@
 
 - **1단계**: `matchCommon.explanation.*`(관계 5종, 궁합 점수 아래에 붙는 설명 문구)를 한 줄 요약에서 **3~4문장 문단**으로 확장(en/ko). `src/data/sajuStrengthTemplates.js` 신규(신강/신약 조합 4개 × en/ko, `getSajuStrengthInsight` — **아직 어디에도 연결 안 됨**, Step 1~5 어디서도 안 씀, 향후 보너스 콘텐츠용으로 대기 중). `Compatibility.jsx`가 `compatibility` 네임스페이스에 없던 `theirElement` 키(`idolMatch`에만 있던 복붙 버그)를 호출하던 것도 이때 발견해 수정
 - **2단계**: `compatibilityTemplates.js`/`idolMatchTemplates.js`/`dramaMatchTemplates.js`/`romanceTemplates.js` 네 파일 전체에 `goodFit`("잘 맞는 부분")/`watchFor`("관계에서 챙길 점") 2개 문단 뱅크를 관계 5종 × 5개 변형(en/ko) 추가. 기존 `line`과 같은 시드 인덱스로 뽑아서 세 문단이 일관되게 읽히도록 함. `getCompatibilityCopy`/`getIdolMatchCopy`/`getDramaMatchCopy`/`getRomanceCopy` 모두 `{ tier, line, goodFit, watchFor }` 반환
-- **3단계**: `sajuProfileTemplates.js`에 `romanceStyle`/`wealthStyle`/`careerStyle`/`healthStyle` 4개 도메인 섹션 추가 — 오행 5 × 강약 2 × en/ko, `getDomainInsight(lang, domain, element, strength)` 신규 getter가 `{ title, text }` 반환
+- **3단계**: `sajuProfileTemplates.js`에 `romanceStyle`/`wealthStyle`/`careerStyle`/`healthStyle` 4개 도메인 섹션 추가 — 처음엔 오행 5 × 강약 2 × en/ko로 시작했지만, 내용이 서로 겹친다는 피드백으로 **3-3에서 도메인별로 다른 근거를 쓰도록 재설계됨**(십성/배우자궁/최약오행 기반) — 최신 구조는 3-3 참고
 - **4단계**: `src/components/InsightSection.jsx` 신규 — `sections`(`{ title, text }` 배열)를 번호 배지+제목+본문 카드로 `.map()` 렌더링(`.slice()`는 의도적으로 안 씀 — 나중에 페이월 게이팅을 슬라이스만으로 붙일 수 있게). `element`+`intro` prop을 주면 `ElementCharacter`가 말풍선(`.insight-bubble`, `global.css`에 꼬리만 별도 CSS 클래스, 나머지는 인라인 스타일)으로 섹션 목록을 소개
 - **5단계(최종) 완료**: `InsightSection`을 실제 결과 화면에 연결
   - `MatchResultCard.jsx`(아이돌/드라마 매치 공용): `explanation` prop을 `insightSections` 배열 prop으로 교체
