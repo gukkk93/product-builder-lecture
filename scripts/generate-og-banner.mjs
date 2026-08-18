@@ -2,6 +2,12 @@
 // with Playwright and screenshots it. Run this again whenever the banner
 // copy or character art changes:
 //   node scripts/generate-og-banner.mjs
+//
+// IMPORTANT: after regenerating, also bump the ?v=N cache-busting query on
+// the og:image/twitter:image URLs in index.html. This file's URL never
+// changes, so without a version bump, platforms that already cached it
+// (KakaoTalk in particular) can keep showing the old image indefinitely
+// even after this script updates the bytes on disk/deploy.
 import fs from 'node:fs';
 import path from 'node:path';
 import { chromium } from 'playwright';
