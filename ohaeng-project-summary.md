@@ -21,6 +21,7 @@
 - **`html-to-image`**: 결과를 9:16 PNG 공유카드로 렌더링
 - **`pretendard`** (npm, self-host, dynamic subset): 브랜드 폰트, 영문+한글 지원
 - 별도 UI 프레임워크(Tailwind 등) 없음 — 순수 CSS + CSS 커스텀 프로퍼티(디자인 토큰)
+- **`functions/`(Cloudflare Pages Functions) + `workers-og`(devDependency 아님, dependency) + `wrangler`(devDependency)**: 동적 OG 미리보기 이미지 생성용 — 7-3 참고. Vite 빌드 파이프라인과는 별개로, Cloudflare Pages가 `functions/` 디렉토리를 자동 감지해서 배포함(별도 대시보드 설정 불필요)
 
 ## 3. 사주 계산 로직 (`src/utils/saju.js`)
 
@@ -129,12 +130,28 @@
 
 ## 7-1. 공유 방식 (`src/hooks/useShareCardDownload.js`)
 
-- 공유카드를 PNG로 렌더링한 뒤 `navigator.canShare({ files })`로 파일 공유 지원 여부를 확인 — **지원되면**(iOS Safari, Android Chrome) `navigator.share({ files, text })`로 OS 공유시트를 띄움(인스타그램/카카오톡/왓츠앱/메시지 등 설치된 앱이 자동 나열, 앱별 버튼을 따로 안 만들어도 됨). **지원 안 되면**(대부분 데스크탑) 기존 `<a download>` 방식으로 폴백
+- **지원되면**(iOS Safari, Android Chrome) `navigator.share({ text })`로 OS 공유시트를 띄움(인스타그램/카카오톡/왓츠앱/메시지 등 설치된 앱이 자동 나열). **지원 안 되면**(대부분 데스크탑) 공유카드를 PNG로 렌더링해서 `<a download>` 방식으로 폴백
 - 버튼 라벨도 자동 전환: 공유시트 지원 시 "Share"/"공유하기", 아니면 "Download share card"/"공유카드 다운로드" (`result.shareNative` i18n 키, 원래 있었는데 안 쓰이던 걸 재활용)
-- Result/Saju/Compatibility/IdolMatch(베스트매치+그룹 드릴다운)/DramaMatch 전부 적용. 공유시트 취소(`AbortError`)는 다운로드로 재폴백하지 않고 조용히 종료
-- 헤드리스 브라우저엔 Web Share API가 없어서, `navigator.share`/`canShare`를 Playwright로 모킹해서 실제 호출 여부·파일 내용을 검증함 (실기기 공유시트 UI 자체는 직접 확인 필요)
+- Result/Saju/Compatibility/Romance/IdolMatch(베스트매치+그룹 드릴다운)/DramaMatch 전부 적용. 공유시트 취소(`AbortError`)는 다운로드로 재폴백하지 않고 조용히 종료
+- 헤드리스 브라우저엔 Web Share API가 없어서, `navigator.share`를 Playwright로 모킹해서 실제 호출 여부·전달된 텍스트를 검증함 (실기기 공유시트 UI 자체는 직접 확인 필요)
 - **중복 링크 버그 수정**: `navigator.share({ files, text, url })`처럼 `url`을 별도 필드로도 같이 보냈더니, 카카오톡 등 일부 공유 대상이 `text`에 이미 포함된 링크(안전장치로 넣어둔 것)와 별도 `url` 필드를 각각 별개의 링크 미리보기로 처리해서 사진 하나에 링크가 2개 붙어 나가는 문제가 있었음 — 사용자가 직접 발견해서 알려줌. `url` 필드를 빼고 `text`에만 링크를 넣도록 고쳐서 사진 1개 + 링크 1개로 정리됨
-- **(백엔드 관련 Q&A)** 사용자가 "공유했을 때 내가 실제로 받은 결과 내용으로 링크 미리보기가 뜨게 하려면 백엔드가 필요한가" 질문 — 답은 "네, 최소한 서버/엣지 로직은 필요함". 지금은 정적 SPA라 모든 경로가 같은 `index.html`을 서빙하고 OG 메타태그도 고정이라, 카카오톡 등 크롤러가 링크를 미리볼 때 결과별로 다른 이미지/텍스트를 보여줄 수 없음. 결과별 동적 OG 미리보기를 원하면 Cloudflare Pages Functions(별도 상시 서버 없이 붙일 수 있는 엣지 함수) 같은 걸로 요청 경로별 메타태그/이미지를 그때그때 생성해야 함 — 아직 미구현, 요청 시 진행
+- **`files` 완전히 제거됨(7-3 참고)**: 이제 링크 자체가 결과를 재현하고, 동적 OG 이미지(7-3)가 미리보기를 담당하므로 공유시트에 PNG 파일을 따로 첨부할 필요가 없어짐 — 공유 가능한 브라우저(대부분의 모바일)에서는 이제 `toPng()` 렌더링 자체를 아예 안 함(링크만 보내면 되니까). 데스크탑 다운로드 폴백은 그대로 PNG 렌더링을 씀
+
+## 7-3. 동적 OG 미리보기 (Cloudflare Pages Functions)
+
+7-1의 백엔드 Q&A(정적 SPA라 결과별 미리보기가 불가능하다는 답)를 실제로 구현함 — Cloudflare Pages Functions로 별도 상시 서버 없이 요청 경로별 메타태그/이미지를 그때그때 생성.
+
+- **`src/utils/shareUrl.js`**: `buildShareUrl(path, extraParams)`로 시그니처 변경. 기본적으로 현재 페이지의 `window.location.search`를 그대로 가져오고(Result/Saju/IdolMatch/DramaMatch는 이미 URL 기반이라 이걸로 재현 파라미터가 다 채워짐), `extraParams`를 병합함(주소창엔 없지만 페이지가 계산해서 알고 있는 값들 — 궁합/로맨스의 상대방 정보, OG 이미지용 element/score/name/tier). `lang`은 항상 자동 포함(localStorage `language` 키 기준). 새 `birthParams(birth, prefix)` 헬퍼로 생년월일 하나를 `{y,m,d,h,cal,timeKnown}` 파라미터 세트로 변환(두 번째 사람은 `t` 프리픽스: `ty/tm/td/th/tcal/ttimeKnown`)
+- **`Compatibility.jsx`/`Romance.jsx`가 URL 기반이 아니었던 문제**: 두 페이지 다 내 생일/상대 생일/이름/관계를 순수 React state로만 관리해서, 공유 링크에 아무 재현 정보가 안 들어가고 있었음(다른 4개 페이지는 이미 URL 기반이라 문제없었음). `paramsToBirth`가 prefix 인자를 받도록 바꾸고, `useState`를 URL 파라미터가 있으면 그걸로, 없으면 기존처럼 `null`/빈 값으로 lazy-init하도록 변경 — **평소 사용 흐름은 그대로**(주소창에 계속 값이 안 남음), 공유 버튼 클릭 시 `buildShareUrl`의 `extraParams`로 재현에 필요한 모든 값을 링크에 실어 보냄. 이 링크를 직접 열면(공유받은 사람이 클릭) `useState`의 lazy-init이 URL을 읽어서 폼 입력 없이 바로 같은 결과가 재현됨
+- **`functions/og-image.png.js`**: `workers-og` 패키지(`@vercel/og`의 Cloudflare Workers 포팅) 사용, `element/score/name/tier/lang` 쿼리파라미터로 1200×630 PNG를 `ShareCard.jsx`와 같은 톤(오행 그라디언트 + 캐릭터 + 점수)으로 렌더링. `score`가 있으면 궁합/매치 레이아웃(점수 크게), 없으면 `/result`·`/saju`용 오행 단독 레이아웃으로 분기
+  - **캐릭터 이미지**: `functions/_lib/characters.js`에 5종 base64 data URI로 내장(자체 정적 자원을 Workers 런타임 안에서 fetch하는 게 불안정하다는 문제 회피). `scripts/generate-og-characters.mjs`로 재생성 가능(캐릭터 아트가 바뀌면 다시 실행)
+  - **폰트**: 풀 한글 폰트를 함수에 내장하는 대신, `workers-og`가 제공하는 `loadGoogleFont({family, weight, text})`로 매 요청마다 실제 쓰이는 글자만 Google Fonts API(`css2?...&text=`)에서 서브셋으로 받아옴 — 이 방식의 공식 권장 패턴. 'Noto Sans KR' 사용
+  - **`workers-og@0.0.27` 버그 발견 및 우회**: `loadGoogleFont`가 `text` 파라미터를 `encodeURIComponent` 없이 그대로 URL에 이어붙이는 버그가 있어서, 한글(비-ASCII) 서브셋 요청이 전부 조용히 실패하고 모든 한글 글자가 tofu(□)로 렌더링됐음 — 실제로 로컬 테스트에서 발견함. 해결: 호출부에서 `text`를 미리 `encodeURIComponent()`로 인코딩해서 넘기면, 버그 있는 내부 코드가 그 값을 그대로(이미 인코딩된 채로) URL에 붙이게 되어 결과적으로 올바른 요청이 나감 — 패키지 코드 수정 없이 호출 방식만으로 우회
+  - **`text-transform: uppercase` 함정**: 앱 이름 라벨에 CSS `text-transform:uppercase`를 썼더니, satori는 실제로 화면에 그려지는(변환된 대문자) 글리프가 필요한데 서브셋 요청은 원본(소문자 섞인) 문자열로 나가서 대문자 글리프가 빠져 있었음 — "Ohaeng"이 "O□□□□□"로 깨짐. CSS 트랜스폼 대신 JS에서 미리 `.toUpperCase()` 해서 그 변환된 문자열 자체를 서브셋 요청과 렌더링 양쪽에 씀
+  - `Cache-Control: public, max-age=31536000, immutable` — 쿼리파라미터가 결과를 완전히 결정하므로 안전하게 장기 캐싱, 같은 결과 재요청/재크롤링 시 Cloudflare 엣지 캐시에서 바로 응답
+- **`functions/_middleware.js`**: `HTMLRewriter` 기반. `/result`, `/saju`, `/compatibility`, `/idol-match`, `/drama-match`, `/romance` 6개 경로 + 쿼리파라미터가 실제로 있을 때만 개입(파라미터 없는 일반 방문은 그대로 통과, 다른 모든 경로도 그대로 통과). `title`/`og:title`/`og:description`/`og:url`/`og:image`/`twitter:title`/`twitter:description`/`twitter:image`를 요청 파라미터 기반 텍스트 + `/og-image.png?(같은 파라미터 그대로 전달)`로 교체. 페이지 종류별 문구 생성(`buildMeta`)은 `/saju`(캐릭터+오행 타이틀), `/result`(오행+오늘의 운세), 나머지 4개 궁합류(이름+점수+티어) 세 갈래로 분기, `lang` 파라미터로 한/영 텍스트 전환
+- **로컬 검증**: `npm run pages:dev`(신규 스크립트: `vite build && wrangler pages dev dist`)로 실제 Cloudflare Workers 런타임을 로컬에서 재현해서 확인 — 오행 5종 전부(en/ko, score 있음/없음 레이아웃 둘 다) 이미지 렌더링, 미들웨어의 메타태그 교체(파라미터 있음/없음 양쪽), `navigator.share` 모킹으로 6개 페이지 전부의 공유 링크가 정확한 파라미터를 담고 `files` 없이 나가는지, 궁합 공유 링크를 직접 열었을 때 생일 재입력 없이 동일한 점수/티어가 그대로 재현되는지까지 전부 Playwright로 확인. (참고: `wrangler pages dev`로 서빙할 때 데스크탑 다운로드 폴백의 `toPng()`가 멈추는 현상을 발견했는데, `npm run dev`(순수 Vite)로는 정상 동작해서 wrangler 로컬 서빙 환경 특유의 문제로 판단 — 실제 배포본(Cloudflare 엣지)에는 해당 안 되는 로컬 전용 이슈로 보임, 실기기 재확인 권장)
+- **미착수**: production 배포 후 실제 카카오톡/디스코드 등에서 미리보기가 뜨는지는 배포·실기기 확인 필요(로컬 wrangler 검증까지만 완료)
 
 ## 8. 다국어 (i18n)
 
@@ -162,8 +179,7 @@
 - **주간 운세 캘린더**, **로그인/히스토리** — 미착수 (PRD상 우선순위 낮음)
 - **PostHog 실제 키 발급/입력** — 코드는 다 준비됐고 `VITE_POSTHOG_KEY` 한 줄만 있으면 됨, 위 9번 참고
 - 신강/신약을 사주 성격 문구(`sajuProfileTemplates.js`)에도 반영하는 건 스코프 아웃함 (오행 5종만으로 충분하다고 판단)
-- **결과별 동적 OG 미리보기** — 지금은 사이트 전체가 고정 OG 이미지/텍스트 하나만 씀. "내가 받은 결과 그대로" 링크 미리보기에 반영하려면 Cloudflare Pages Functions로 요청 경로별 메타태그/이미지를 동적 생성해야 함 — 미착수, 필요성/우선순위 판단 후 진행
-- K-드라마 배우 한국어 이름 (`kdramaActors.js`) — 아이돌은 완료, 배우는 아직
+- **결과별 동적 OG 미리보기 — 완료**(7-3 참고). production 배포 후 실기기/실제 카톡·디스코드 미리보기 확인만 남음
 
 ## 12. 개발 시 주의사항 / 이미 겪은 버그
 
