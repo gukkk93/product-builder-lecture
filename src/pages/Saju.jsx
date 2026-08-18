@@ -72,9 +72,7 @@ export default function Saju() {
 
   const profile = getSajuProfile(i18n.language, saju.dominantElement);
   const dayMasterLine = getDayMasterLine(i18n.language, saju.dayGanElement);
-  const domainSections = DOMAINS.map((domain) =>
-    getDomainInsight(i18n.language, domain, saju.dominantElement, saju.dayGanStrength)
-  );
+  const domainSections = DOMAINS.map((domain) => getDomainInsight(i18n.language, domain, saju));
   // Major Luck Cycles need gender for direction (forward/backward) — unlike
   // name, this one isn't just cosmetic, so we only compute it when the
   // optional gender field was actually filled in.

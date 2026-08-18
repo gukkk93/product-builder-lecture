@@ -378,6 +378,56 @@ export function getTenGodsForZhi(dayGan, zhi) {
   return ZHI_HIDE_GAN[zhi].map((hiddenGan) => getTenGod(dayGan, hiddenGan));
 }
 
+/**
+ * Counts how many of a chart's non-day-gan characters fall into each Ten
+ * God category (비겁/식상/재성/관성/인성) — used for "how much of this
+ * energy does the chart actually have" readings (see
+ * sajuProfileTemplates.js's wealthStyle/careerStyle, which read the
+ * wealth/officer counts respectively). Each Gan position counts once;
+ * each Zhi position also counts once, via its primary/dominant hidden
+ * stem (index 0 of getTenGodsForZhi) rather than all of them, so every
+ * character position contributes exactly one vote regardless of how many
+ * stems a Zhi happens to hide.
+ */
+export function getTenGodCategoryCounts(saju) {
+  const { pillars, dayGan } = saju;
+  const counts = { companion: 0, output: 0, wealth: 0, officer: 0, resource: 0 };
+  const gans = [pillars.year.gan, pillars.month.gan];
+  const zhis = [pillars.year.zhi, pillars.month.zhi, pillars.day.zhi];
+  if (pillars.time) {
+    gans.push(pillars.time.gan);
+    zhis.push(pillars.time.zhi);
+  }
+  gans.forEach((gan) => {
+    counts[getTenGodMeta(getTenGod(dayGan, gan), 'en').category] += 1;
+  });
+  zhis.forEach((zhi) => {
+    counts[getTenGodMeta(getTenGodsForZhi(dayGan, zhi)[0], 'en').category] += 1;
+  });
+  return counts;
+}
+
+/**
+ * Ten God category (비겁/식상/재성/관성/인성) of the Day Branch (일지) —
+ * traditionally called the "spouse palace" (배우자궁), the chart position
+ * most associated with how someone experiences a romantic partner. Uses
+ * the Zhi's primary hidden stem, same convention as getTenGodCategoryCounts.
+ */
+export function getDayBranchTenGodCategory(saju) {
+  const primary = getTenGodsForZhi(saju.dayGan, saju.pillars.day.zhi)[0];
+  return getTenGodMeta(primary, 'en').category;
+}
+
+/**
+ * The Five Element with the lowest count in a chart (ties broken by
+ * ELEMENTS order) — used for organ-correspondence health readings, since
+ * the traditionally "missing" element is the one worth paying attention
+ * to, not the dominant one.
+ */
+export function getWeakestElement(saju) {
+  return ELEMENTS.reduce((min, el) => (saju.elementCounts[el] < saju.elementCounts[min] ? el : min), ELEMENTS[0]);
+}
+
 // ============================================================================
 // Twelve Life Stages (십이운성/十二運星)
 // ============================================================================
