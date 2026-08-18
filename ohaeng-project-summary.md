@@ -29,6 +29,7 @@
   - `dayGanStrength`: `'strong' | 'weak'` (신강/신약) — 일간이 나머지 글자들의 도움을 얼마나 받는지로 판정
 - `getGanElement`/`getZhiElement`: 천간·지지 → 오행 매핑
 - `getGanLabel(gan, lang)`/`getZhiLabel(zhi, lang)`: `lang==='ko'`면 한글(갑을병정...), 아니면 로마자 그대로. **lunar-javascript엔 한국어 로케일이 없어서** 직접 매핑 테이블(`GAN_KO`/`ZHI_KO`)을 만들어 넣음
+- **`getZodiacLabel(zodiac, lang)`**: 같은 이유로 `saju.zodiac`(`getYearShengXiao()`)도 한국어 로케일이 없어서 `I18n.setLanguage('ko')`를 걸어도 항상 영문("Horse" 등)만 나오던 버그를 같은 패턴(`ZODIAC_KO` 12개 매핑)으로 수정 — 라이브러리가 실제로 반환하는 정확한 영문 스트링(Goat 등, 짐작 아님)을 콘솔로 직접 찍어서 키를 맞춤. `Result.jsx`/`ShareCard.jsx`에서 `saju.zodiac`/`{zodiac}`을 직접 렌더링하던 곳 전부 교체
 - `getElementRelation(myElement, otherElement)`: 오행 상생상극 관계 판정 (`same`/`otherGeneratesMe`/`iGenerateOther`/`otherOvercomesMe`/`iOvercomeOther`) — **이 앱의 모든 "오늘의 운세"·"궁합" 로직이 여기서 파생됨**
 - `getTodayRelation(saju, date)`: 내 사주 vs 오늘 날짜
 - `getCompatibility(mySaju, otherBirth, otherTimeKnown)`: 나 vs 다른 사람(아이돌이든 일반인이든) — 아이돌 궁합/일반 궁합/그룹 랭킹/베스트매치가 전부 이 하나의 함수를 재사용
@@ -68,7 +69,7 @@
 | `/` | `Landing.jsx` | **순수 메뉴 화면** (생년월일 입력 없음). 섹션 순서: "사주 리딩"(오늘의 운세/내 사주/궁합) → "K팝 & K-드라마"(**최애 매치**/아이돌 매치/K-드라마 매치, 이 순서) → "연애"(재회사주/짝사랑사주/속마음사주/썸궁합). "그룹 매치"는 "최애 매치"로 개명(제목+설명 문구, 목적지 페이지 헤딩까지) — "그룹 전체 랭킹"보다 "내 최애와의 궁합"으로 읽히도록 |
 | `/result` | `Result.jsx` | 오늘의 운세만 — 오행 배지, 띠, 5개 카테고리(총운/애정/재물/건강/컴백운), 공유카드, "궁합"/"내 사주" CTA. birth 파라미터 없으면 `BirthDateForm`(이름+성별 선택 필드 포함, 아래 참고) 인라인 렌더 |
 | `/saju` | `Saju.jsx` | 내 사주 자체(오늘과 무관) — 네 기둥(PillarGrid, 한국어면 한글 표기, 십성·십이운성 글로서리 포함), 일간+신강/신약 배지, **대운표**(성별 입력 시), 오행 분포 바차트, 성격 분석, **공유카드**(`SajuShareCard.jsx`). birth 없으면 이름+성별 선택 필드 포함 인라인 폼 |
-| `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 궁합 점수(%) + 왜 이 점수인지 한 줄 설명 포함. 팬덤 용어 없는 별도 문구 뱅크 사용. `?relationship=some`으로 진입하면 관계 선택 스텝을 건너뛰고 "썸"(구 `crush` 키, `some`으로 개명)으로 바로 시작 — Landing의 "썸궁합" 메뉴가 이 경로로 링크됨 |
+| `/compatibility` | `Compatibility.jsx` | **아무 두 사람**(친구/연인) 궁합 — 2단계 위저드(내 생일 → 상대 이름+관계+생일) → 결과+공유카드. 상대 이름/관계(친구·연인·썸·가족·동료)를 입력받아 결과 헤딩("나 & {이름}")과 공유카드에 그대로 반영. 궁합 점수(%) + 왜 이 점수인지 한 줄 설명 포함. 팬덤 용어 없는 별도 문구 뱅크 사용. `?relationship=some`으로 진입하면 관계 선택 스텝을 건너뛰고 "썸"(내부 키는 `some`, 화면 영문 라벨은 "Crush" → **"Situationship"으로 재변경**, 한국어 라벨 "썸"은 그대로)으로 바로 시작 — Landing의 "썸궁합" 메뉴가 이 경로로 링크됨 |
 | `/romance` | `Romance.jsx` (신규) | **연애 상황별 궁합** — `?situation=reunion\|crush\|theirFeelings`. `Compatibility.jsx`와 거의 동일한 구조(내 생일 → 상대 이름+생일, 관계 선택 스텝은 없음 — situation 자체가 관계를 암시)지만 `getCompatibility`/`getCompatibilityScore`는 그대로 재사용하고 콘텐츠만 `romanceTemplates.js`(상황별 전용 문구뱅크)에서 가져옴. `reunion`은 결과에 공통 클로징 라인("다시 만나든 아니든, 지금부터가 중요해요")이 한 줄 추가됨(온스크린 결과에만 표시, 공유카드 이미지에는 공간 제약으로 미포함). 공유카드는 `CompatibilityShareCard.jsx` 재사용(헤딩만 situation 라벨로 교체) |
 | `/idol-match` | `IdolMatch.jsx` | **베스트매치 추천** — 생일+성별 입력 → 반대 성별 아이돌 풀(31개 그룹, 197명) 전체와 궁합 계산해서 1위를 추천. `?mode=group&group=X&member=Y`는 **그룹 선택 → 멤버 선택(드롭다운 2개, `.select-row`)** → 그 멤버 한 명과의 전체 궁합 상세(사주팔자+점수+설명+공유카드). 한때 자동 랭킹 리스트(`GroupRankList.jsx`, 멤버 전원 점수순 나열 + 탭해서 드릴다운)로 만들었었는데, "예전처럼 멤버를 직접 선택하는 방식으로 바꿔달라"는 피드백으로 **드롭다운 선택 방식으로 재변경** — `GroupRankList.jsx`는 삭제함 |
 | `/drama-match` | `DramaMatch.jsx` (신규) | 아이돌 매치와 **완전히 동일한 메커니즘**을 K-드라마 배우 100명(남 50/여 50, `kdramaActors.js`) 대상으로 실행. `findBestMatch`/`MatchResultCard`를 아이돌 매치와 공유 |
@@ -211,5 +212,5 @@
 - 모든 UI 변경은 Playwright로 실제 브라우저 구동해서 라이트/다크, 영어/한국어 스크린샷 확인 후 커밋하는 흐름을 계속 씀 (콘솔 에러 0건이 기본 기준)
 - 문구 뱅크(`*Templates.js`) 작성 시 **작은따옴표 문자열 안에 아포스트로피 이스케이프 실수**가 반복됐음 — 새 영어 문구 추가할 땐 큰따옴표로 감싸는 걸 권장 (한국어는 아포스트로피가 없어서 이 문제 없음)
 - `useEffect`를 컴포넌트의 조건부 early return **뒤에** 넣으면 React Hooks 규칙 위반(hook 개수가 렌더마다 달라짐) — 실제로 한 번 만들었다가 코드 리뷰로 잡음. birth 없을 때 early return 하는 페이지들(Result/Saju/Compatibility)은 전부 return 전에 훅을 배치해야 함
-- 헤더 네비가 좁은 화면(~480px 이하)에서 줄바꿈되며 `.page` 상단 padding과 겹치는 버그가 있었고 미디어 쿼리로 고쳐둔 상태 — 헤더에 항목 더 추가할 땐 재확인 필요
+- 헤더 네비가 좁은 화면(~480px 이하)에서 줄바꿈되며 `.page` 상단 padding과 겹치는 버그가 있었고 미디어 쿼리로 고쳐둔 상태 — 헤더에 항목 더 추가할 땐 재확인 필요. `.site-header`는 `align-items: flex-start`(원래 `center`였음) — `center`였을 때는 `header-actions`가 두 줄로 줄바꿈되면 로고가 두 줄 사이 정중앙에 붕 떠버려서, 좁은 화면에서 첫 줄(Guide/Contact us)과 나란히 정렬되도록 수정함. 넓은 화면(한 줄일 때)은 육안상 차이 없음
 - Playwright로 `position: fixed` 요소가 있는 페이지를 `fullPage: true` 스크린샷 찍으면 헤더가 여러 번 찍혀 겹쳐 보이는 촬영 아티팩트가 생김(실제 렌더링 버그 아님) — 뷰포트 스크린샷으로 재확인해서 착시였음을 확인한 적 있음
