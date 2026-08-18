@@ -12,7 +12,7 @@ export const ELEMENT_GRADIENT = {
   Water: ['#0f1f33', '#2f4d78'],
 };
 
-export const SITE_URL = 'product-builder-lecture-cgp.pages.dev';
+export const SITE_URL = 'getohaeng.com';
 
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 

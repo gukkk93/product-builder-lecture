@@ -38,7 +38,7 @@ export async function onRequestGet({ request }) {
   const elementLabel = locale.elements[element];
   const [from, to] = GRADIENTS[element];
   const characterSrc = CHARACTER_DATA_URI[element];
-  const siteLabel = 'product-builder-lecture-cgp.pages.dev';
+  const siteLabel = 'getohaeng.com';
   // Pre-uppercased in JS rather than via CSS text-transform: satori renders
   // whatever glyphs the *displayed* text needs, so a text-transform would
   // need its uppercase forms in the font subset below, not the source casing.
