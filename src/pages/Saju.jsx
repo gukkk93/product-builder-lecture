@@ -22,7 +22,7 @@ export default function Saju() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
+  const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -164,6 +164,13 @@ export default function Saju() {
               disabled={downloading}
             >
               {t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+            </button>
+            <button
+              className="button secondary"
+              onClick={() => saveImage('ohaeng-saju.png', 'saju')}
+              disabled={savingImage}
+            >
+              {t('result.saveImageButton')}
             </button>
           </div>
 

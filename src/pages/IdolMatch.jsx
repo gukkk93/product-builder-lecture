@@ -21,7 +21,7 @@ export default function IdolMatch() {
   const mode = params.get('mode'); // undefined | 'group'
   const [groupId, setGroupId] = useState(mode === 'group' ? params.get('group') || '' : '');
   const [gender, setGender] = useState(params.get('gender') === 'M' ? 'M' : 'F');
-  const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
+  const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -194,6 +194,9 @@ export default function IdolMatch() {
                 })
               }
               shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+              onSaveImage={() => saveImage(`ohaeng-${selectedMember.id}-group-match.png`, 'group-match')}
+              saveImageLabel={t('result.saveImageButton')}
+              savingImage={savingImage}
               disclaimer={t('idolMatch.disclaimer')}
               downloading={downloading}
             />
@@ -322,6 +325,9 @@ export default function IdolMatch() {
             })
           }
           shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+          onSaveImage={() => saveImage(`ohaeng-${best.candidate.id}-match.png`, 'idol-match')}
+          saveImageLabel={t('result.saveImageButton')}
+          savingImage={savingImage}
           disclaimer={t('idolMatch.disclaimer')}
           downloading={downloading}
         />

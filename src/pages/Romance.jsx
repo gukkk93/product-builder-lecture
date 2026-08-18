@@ -45,7 +45,7 @@ export default function Romance() {
   const [myBirth, setMyBirth] = useState(() => birthFromParamsIfComplete(params));
   const [theirName, setTheirName] = useState(() => params.get('tname') || '');
   const [theirBirth, setTheirBirth] = useState(() => birthFromParamsIfComplete(params, 't'));
-  const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
+  const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
 
   const displayName = theirName.trim() || t('compatibility.theirElement');
 
@@ -214,6 +214,13 @@ export default function Romance() {
               disabled={downloading}
             >
               {t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+            </button>
+            <button
+              className="button secondary"
+              onClick={() => saveImage(`ohaeng-romance-${situation}.png`, `romance-${situation}`)}
+              disabled={savingImage}
+            >
+              {t('result.saveImageButton')}
             </button>
           </div>
 

@@ -20,7 +20,7 @@ export default function DramaMatch() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const [gender, setGender] = useState(params.get('gender') === 'M' ? 'M' : 'F');
-  const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
+  const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -131,6 +131,9 @@ export default function DramaMatch() {
             })
           }
           shareLabel={t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+          onSaveImage={() => saveImage(`ohaeng-${best.candidate.id}-drama-match.png`, 'drama-match')}
+          saveImageLabel={t('result.saveImageButton')}
+          savingImage={savingImage}
           disclaimer={t('dramaMatch.disclaimer')}
           downloading={downloading}
         />

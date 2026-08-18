@@ -28,7 +28,17 @@ const supportsShare = typeof navigator !== 'undefined' && typeof navigator.share
 export function useShareCardDownload() {
   const cardRef = useRef(null);
   const [downloading, setDownloading] = useState(false);
+  const [savingImage, setSavingImage] = useState(false);
   const canShareFiles = useMemo(() => supportsShare, []);
+
+  async function renderCardToFile(filename) {
+    if (!cardRef.current) return;
+    const dataUrl = await toPng(cardRef.current, { pixelRatio: 3 });
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = dataUrl;
+    link.click();
+  }
 
   async function download(filename, analyticsContext, { text, url } = {}) {
     setDownloading(true);
@@ -48,17 +58,27 @@ export function useShareCardDownload() {
         }
       }
 
-      if (!cardRef.current) return;
-      const dataUrl = await toPng(cardRef.current, { pixelRatio: 3 });
-      const link = document.createElement('a');
-      link.download = filename;
-      link.href = dataUrl;
-      link.click();
+      await renderCardToFile(filename);
       trackShareDownload(analyticsContext);
     } finally {
       setDownloading(false);
     }
   }
 
-  return { cardRef, download, downloading, canShareFiles };
+  // Always renders and downloads the PNG, regardless of navigator.share
+  // support — a separate action from `download` above, which prefers the
+  // (link-only) share sheet on mobile. This is the one place a user gets
+  // the actual share-card image on a phone (e.g. to post to Instagram
+  // Stories), since the share-sheet path intentionally never attaches it.
+  async function saveImage(filename, analyticsContext) {
+    setSavingImage(true);
+    try {
+      await renderCardToFile(filename);
+      trackShareDownload(`${analyticsContext}-image`);
+    } finally {
+      setSavingImage(false);
+    }
+  }
+
+  return { cardRef, download, downloading, saveImage, savingImage, canShareFiles };
 }

@@ -25,6 +25,9 @@ export default function MatchResultCard({
   scoreLabel,
   onShare,
   shareLabel,
+  onSaveImage,
+  saveImageLabel,
+  savingImage,
   disclaimer,
   downloading,
 }) {
@@ -68,6 +71,9 @@ export default function MatchResultCard({
       <div className="result-actions">
         <button className="button" onClick={onShare} disabled={downloading}>
           {shareLabel}
+        </button>
+        <button className="button secondary" onClick={onSaveImage} disabled={savingImage}>
+          {saveImageLabel}
         </button>
       </div>
 

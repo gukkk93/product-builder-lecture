@@ -52,7 +52,7 @@ export default function Compatibility() {
     return RELATIONSHIPS.includes(shared) ? shared : presetRelationship || 'friend';
   });
   const [theirBirth, setTheirBirth] = useState(() => birthFromParamsIfComplete(params, 't'));
-  const { cardRef: shareCardRef, download, downloading, canShareFiles } = useShareCardDownload();
+  const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
 
   const displayName = theirName.trim() || t('compatibility.theirElement');
   const relationshipLabel = t(`compatibility.relationship.${theirRelationship}`);
@@ -233,6 +233,13 @@ export default function Compatibility() {
               disabled={downloading}
             >
               {t(canShareFiles ? 'result.shareNative' : 'result.shareButton')}
+            </button>
+            <button
+              className="button secondary"
+              onClick={() => saveImage('ohaeng-compatibility.png', 'compatibility')}
+              disabled={savingImage}
+            >
+              {t('result.saveImageButton')}
             </button>
           </div>
 
