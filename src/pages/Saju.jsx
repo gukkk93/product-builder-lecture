@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju } from '../utils/saju';
+import { calculateSaju, getDaeun } from '../utils/saju';
 import { getSajuProfile, getDayMasterLine, getDomainInsight } from '../data/sajuProfileTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
@@ -14,6 +14,7 @@ import SajuShareCard from '../components/SajuShareCard';
 import LoadingReveal from '../components/LoadingReveal';
 import ElementCharacter from '../components/ElementCharacter';
 import InsightSection from '../components/InsightSection';
+import DaeunTable from '../components/DaeunTable';
 
 const DOMAINS = ['romanceStyle', 'wealthStyle', 'careerStyle', 'healthStyle'];
 
@@ -74,6 +75,10 @@ export default function Saju() {
   const domainSections = DOMAINS.map((domain) =>
     getDomainInsight(i18n.language, domain, saju.dominantElement, saju.dayGanStrength)
   );
+  // Major Luck Cycles need gender for direction (forward/backward) — unlike
+  // name, this one isn't just cosmetic, so we only compute it when the
+  // optional gender field was actually filled in.
+  const daeun = gender ? getDaeun(birth, birth.timeKnown, gender, 8) : null;
 
   return (
     <LoadingReveal element={saju.dominantElement}>
@@ -100,7 +105,7 @@ export default function Saju() {
           <h2 style={{ marginTop: 24, marginBottom: 12, fontSize: 16, textAlign: 'left' }}>
             {t('saju.pillarsHeading')}
           </h2>
-          <PillarGrid pillars={saju.pillars} />
+          <PillarGrid pillars={saju.pillars} dayGan={saju.dayGan} />
         </div>
 
         <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
@@ -122,6 +127,18 @@ export default function Saju() {
           <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.dayMasterExplain')}</p>
           <p style={{ fontSize: 15, lineHeight: 1.7 }}>{dayMasterLine}</p>
           <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--text-muted)' }}>{t(`saju.strengthBlurb.${saju.dayGanStrength}`)}</p>
+        </div>
+
+        <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
+          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.daeunHeading')}</h2>
+          {daeun ? (
+            <>
+              <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.daeunExplain')}</p>
+              <DaeunTable daeun={daeun} />
+            </>
+          ) : (
+            <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{t('saju.daeunNeedGender')}</p>
+          )}
         </div>
 
         <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>

@@ -69,25 +69,45 @@ const ZHI_YINYANG = {
   Wu: 'yang', Wei: 'yin', Shen: 'yang', You: 'yin', Xu: 'yang', Hai: 'yin',
 };
 
-/** Full glossary entry for a Gan character: label, hanja, element, yin/yang. */
-export function getGanMeta(gan, lang) {
-  return {
+/**
+ * Full glossary entry for a Gan character: label, hanja, element, yin/yang,
+ * and (when `dayGan` is passed) its Ten God relative to the day master —
+ * omitted for the day pillar's own Gan tile (pass `isDayPillar: true` there
+ * instead, since a day master has no Ten God relative to itself).
+ */
+export function getGanMeta(gan, lang, { dayGan, isDayPillar } = {}) {
+  const meta = {
     category: 'gan',
     label: getGanLabel(gan, lang),
     hanja: GAN_HANJA[gan],
     element: GAN_ELEMENT[gan],
     yinYang: GAN_YINYANG[gan],
   };
+  if (dayGan) {
+    meta.isDayMaster = !!isDayPillar;
+    meta.tenGod = isDayPillar ? null : getTenGodMeta(getTenGod(dayGan, gan), lang);
+  }
+  return meta;
 }
-/** Full glossary entry for a Zhi character: label, hanja, element, yin/yang. */
-export function getZhiMeta(zhi, lang) {
-  return {
+/**
+ * Full glossary entry for a Zhi character: label, hanja, element, yin/yang,
+ * and (when `dayGan` is passed) its hidden-stem Ten Gods (지장간) and its
+ * Twelve Life Stage relative to the day master — this applies even to the
+ * day pillar's own Zhi, unlike the Gan case above.
+ */
+export function getZhiMeta(zhi, lang, { dayGan } = {}) {
+  const meta = {
     category: 'zhi',
     label: getZhiLabel(zhi, lang),
     hanja: ZHI_HANJA[zhi],
     element: ZHI_ELEMENT[zhi],
     yinYang: ZHI_YINYANG[zhi],
   };
+  if (dayGan) {
+    meta.tenGods = getTenGodsForZhi(dayGan, zhi).map((tg) => getTenGodMeta(tg, lang));
+    meta.twelveStage = getTwelveStageMeta(getTwelveStage(dayGan, zhi), lang);
+  }
+  return meta;
 }
 
 export const ELEMENTS = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
@@ -248,4 +268,236 @@ export function getCompatibilityScore(relation, seedInput = '') {
   const base = RELATION_SCORE[relation] ?? 70;
   const jitter = (hashCode(String(seedInput)) % 7) - 3; // -3..+3
   return Math.max(1, Math.min(99, base + jitter));
+}
+
+// ============================================================================
+// Ten Gods (십성/十神)
+// ============================================================================
+//
+// Classified from the same Five Element relation (getElementRelation) used
+// everywhere else in this file, cross-referenced with Yin/Yang polarity
+// match — the standard textbook rule: same element = 比劫 (companion),
+// generated-by-day-master = 食傷 (output), overcome-by-day-master = 財星
+// (wealth), overcomes-day-master = 官星 (officer), generates-day-master =
+// 印星 (resource); same polarity as day master = 偏 "indirect", different
+// polarity = 正 "direct".
+//
+// lunar-javascript ships this exact classification too (LunarUtil.SHI_SHEN),
+// and we verified our table reproduces it for all 100 Gan-pair combinations
+// before relying on our own version (see dev notes / verification script).
+// We didn't end up calling the library's own EightChar.getXxxShiShenZhi()
+// methods, though, because of a real bug we found in it: those methods
+// concatenate the day Gan with each hidden-stem Gan from LunarUtil's
+// ZHI_HIDE_GAN table to build a dictionary key, but ZHI_HIDE_GAN's *values*
+// never get translated out of raw Chinese even when I18n is set to 'en' —
+// only its *keys* do. With an English day Gan ("Ji") concatenated with an
+// untranslated Chinese hidden stem ("癸"), the lookup key never matches
+// anything in the table and the method silently returns null. Building our
+// own small, verified table sidesteps that entirely.
+const TEN_GOD_TABLE = {
+  same: { same: 'biJian', diff: 'jieCai' },
+  iGenerateOther: { same: 'shiShen', diff: 'shangGuan' },
+  iOvercomeOther: { same: 'pianCai', diff: 'zhengCai' },
+  otherOvercomesMe: { same: 'pianGuan', diff: 'zhengGuan' },
+  otherGeneratesMe: { same: 'pianYin', diff: 'zhengYin' },
+};
+
+const TEN_GOD_META = {
+  biJian: { hanja: '比肩', ko: '비견', en: 'Companion', category: 'companion' },
+  jieCai: { hanja: '劫財', ko: '겁재', en: 'Rob Wealth', category: 'companion' },
+  shiShen: { hanja: '食神', ko: '식신', en: 'Eating God', category: 'output' },
+  shangGuan: { hanja: '傷官', ko: '상관', en: 'Hurting Officer', category: 'output' },
+  pianCai: { hanja: '偏財', ko: '편재', en: 'Indirect Wealth', category: 'wealth' },
+  zhengCai: { hanja: '正財', ko: '정재', en: 'Direct Wealth', category: 'wealth' },
+  // Traditionally also called 칠살(七殺)/Seven Killings — the same position,
+  // just a more dramatic alternate name some schools prefer.
+  pianGuan: { hanja: '偏官', ko: '편관', en: 'Seven Killings', category: 'officer' },
+  zhengGuan: { hanja: '正官', ko: '정관', en: 'Direct Officer', category: 'officer' },
+  pianYin: { hanja: '偏印', ko: '편인', en: 'Indirect Resource', category: 'resource' },
+  zhengYin: { hanja: '正印', ko: '정인', en: 'Direct Resource', category: 'resource' },
+};
+
+const TEN_GOD_CATEGORY_META = {
+  companion: { hanja: '比劫', ko: '비겁', en: 'Companion' },
+  output: { hanja: '食傷', ko: '식상', en: 'Output' },
+  wealth: { hanja: '財星', ko: '재성', en: 'Wealth' },
+  officer: { hanja: '官星', ko: '관성', en: 'Officer' },
+  resource: { hanja: '印星', ko: '인성', en: 'Resource' },
+};
+
+/**
+ * Ten God (십성/十神) key for a Gan character relative to a day-master Gan.
+ * Returns one of the 10 keys in TEN_GOD_META (e.g. 'biJian').
+ */
+export function getTenGod(dayGan, otherGan) {
+  const relation = getElementRelation(GAN_ELEMENT[dayGan], GAN_ELEMENT[otherGan]);
+  const polarity = GAN_YINYANG[dayGan] === GAN_YINYANG[otherGan] ? 'same' : 'diff';
+  return TEN_GOD_TABLE[relation][polarity];
+}
+
+/** Hanja/label/category metadata for a Ten God key returned by getTenGod. */
+export function getTenGodMeta(tenGod, lang) {
+  const meta = TEN_GOD_META[tenGod];
+  const catMeta = TEN_GOD_CATEGORY_META[meta.category];
+  return {
+    key: tenGod,
+    label: lang === 'ko' ? meta.ko : meta.en,
+    hanja: meta.hanja,
+    category: meta.category,
+    categoryLabel: lang === 'ko' ? catMeta.ko : catMeta.en,
+    categoryHanja: catMeta.hanja,
+  };
+}
+
+// Hidden stems (지장간/地藏干) carried by each Earthly Branch — a fixed,
+// traditional textbook table (same data lunar-javascript ships as
+// LunarUtil.ZHI_HIDE_GAN, kept here in this file's own English Gan
+// romanization so it composes directly with getTenGod above without
+// depending on the buggy translation path described there).
+const ZHI_HIDE_GAN = {
+  Zi: ['Gui'],
+  Chou: ['Ji', 'Gui', 'Xin'],
+  Yin: ['Jia', 'Bing', 'Wu'],
+  Mao: ['Yi'],
+  Chen: ['Wu', 'Yi', 'Gui'],
+  Si: ['Bing', 'Geng', 'Wu'],
+  Wu: ['Ding', 'Ji'],
+  Wei: ['Ji', 'Ding', 'Yi'],
+  Shen: ['Geng', 'Ren', 'Wu'],
+  You: ['Xin'],
+  Xu: ['Wu', 'Xin', 'Ding'],
+  Hai: ['Ren', 'Jia'],
+};
+
+/**
+ * Ten God keys for every hidden stem (지장간) a Zhi carries, relative to a
+ * day-master Gan — a Zhi can hide up to 3 stems, so this returns an array
+ * (the first entry is always the Zhi's own primary/dominant element).
+ */
+export function getTenGodsForZhi(dayGan, zhi) {
+  return ZHI_HIDE_GAN[zhi].map((hiddenGan) => getTenGod(dayGan, hiddenGan));
+}
+
+// ============================================================================
+// Twelve Life Stages (십이운성/十二運星)
+// ============================================================================
+//
+// Classifies where an Earthly Branch falls in a Heavenly Stem's fixed
+// 12-stage life cycle (長生 Growth → ... → 養 Nurture). Textbook rule: each
+// of the 10 Gan has a fixed Zhi where its own cycle "begins" (長生), then
+// yang Gan read the 12 Zhi forward from there and yin Gan read them
+// backward. Not a school-dependent judgment call — the starting-Zhi table
+// and the forward/backward rule are fixed, so we verified our version
+// against lunar-javascript's own EightChar._getDiShi() computation (which
+// uses the same rule via a different code path — CHANG_SHENG_OFFSET/
+// CHANG_SHENG — not the buggy Zhi-hidden-stem dictionary lookup the Ten
+// God section above avoids) across a handful of real dates before relying
+// on it independently.
+const ZHI_ORDER = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
+
+// The Zhi at which each Gan's own 長生 (Growth, stage index 0) falls.
+const CHANG_SHENG_START_ZHI = {
+  Jia: 'Hai', Bing: 'Yin', Wu: 'Yin', Geng: 'Si', Ren: 'Shen',
+  Yi: 'Wu', Ding: 'You', Ji: 'You', Xin: 'Zi', Gui: 'Mao',
+};
+
+const TWELVE_STAGE_KEYS = [
+  'changSheng', 'muYu', 'guanDai', 'jianLu', 'diWang', 'shuai',
+  'bing', 'si', 'mu', 'jue', 'tai', 'yang',
+];
+
+const TWELVE_STAGE_META = {
+  changSheng: { hanja: '長生', ko: '장생', en: 'Growth' },
+  muYu: { hanja: '沐浴', ko: '목욕', en: 'Bath' },
+  guanDai: { hanja: '冠帶', ko: '관대', en: 'Youth' },
+  // Traditionally also called 임관(臨官) — same position, 건록 is the more
+  // commonly used term in Korean saju practice today.
+  jianLu: { hanja: '建祿', ko: '건록', en: 'Career' },
+  diWang: { hanja: '帝旺', ko: '제왕', en: 'Peak' },
+  shuai: { hanja: '衰', ko: '쇠', en: 'Decline' },
+  bing: { hanja: '病', ko: '병', en: 'Sickness' },
+  si: { hanja: '死', ko: '사', en: 'Death' },
+  mu: { hanja: '墓', ko: '묘', en: 'Storage' },
+  jue: { hanja: '絶', ko: '절', en: 'Void' },
+  tai: { hanja: '胎', ko: '태', en: 'Conception' },
+  yang: { hanja: '養', ko: '양', en: 'Nurture' },
+};
+
+/** Twelve Life Stage key for a Zhi relative to a Gan (usually the day master). */
+export function getTwelveStage(gan, zhi) {
+  const startIdx = ZHI_ORDER.indexOf(CHANG_SHENG_START_ZHI[gan]);
+  const zhiIdx = ZHI_ORDER.indexOf(zhi);
+  const forward = GAN_YINYANG[gan] === 'yang';
+  const stageIdx = forward ? (zhiIdx - startIdx + 12) % 12 : (startIdx - zhiIdx + 12) % 12;
+  return TWELVE_STAGE_KEYS[stageIdx];
+}
+
+/** Hanja/label metadata for a Twelve Stage key returned by getTwelveStage. */
+export function getTwelveStageMeta(stage, lang) {
+  const meta = TWELVE_STAGE_META[stage];
+  return { key: stage, label: lang === 'ko' ? meta.ko : meta.en, hanja: meta.hanja };
+}
+
+// ============================================================================
+// Major Luck Cycles (대운/大運)
+// ============================================================================
+//
+// Unlike Ten Gods and Twelve Stages above (fixed lookup tables), Da Yun
+// needs the exact day-count to the nearest solar term boundary — getting
+// that right by hand carries real error risk. lunar-javascript ships this
+// as a built-in, well-tested feature (EightChar.getYun -> Yun.getDaYun),
+// so we use it directly rather than reimplementing it: verified against
+// the library's own maintainer test suite (Yun.test.js) reproducing every
+// case exactly, plus an independent spot-check that the forward/backward
+// direction and 60-cycle Gan/Zhi stepping match the standard rule (see dev
+// notes) before wiring this up.
+const GAN_ORDER = ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'];
+// All 60 valid Gan+Zhi combinations, used to split the concatenated string
+// (e.g. "GengChen") the library's getGanZhi() returns back into parts —
+// safer than slicing by character count, since Gan/Zhi romanized names
+// vary in length.
+const JIA_ZI_60 = Array.from({ length: 60 }, (_, i) => ({
+  gan: GAN_ORDER[i % 10],
+  zhi: ZHI_ORDER[i % 12],
+  key: GAN_ORDER[i % 10] + ZHI_ORDER[i % 12],
+}));
+
+function parseGanZhi(ganZhiStr) {
+  const found = JIA_ZI_60.find((e) => e.key === ganZhiStr);
+  return found ? { gan: found.gan, zhi: found.zhi } : null;
+}
+
+/**
+ * Major Luck Cycles (대운) for a chart — one ~10-year period per entry, each
+ * with its own Gan/Zhi (and therefore Five Element reading) layered on top
+ * of the base chart. Direction (forward/backward through the 60-cycle from
+ * the month pillar) depends on the year Gan's Yin/Yang and the person's
+ * gender, per the standard rule.
+ *
+ * @param {{year:number, month:number, day:number, hour:number|null, calendar:'solar'|'lunar'}} birth
+ * @param {boolean} timeKnown
+ * @param {'M'|'F'} gender
+ * @param {number} [count=8] how many 10-year periods to return
+ */
+export function getDaeun(birth, timeKnown, gender, count = 8) {
+  const ec = buildEightChar(birth, timeKnown);
+  const yun = ec.getYun(gender === 'M' ? 1 : 0, 1);
+  const forward = yun.isForward();
+  const items = yun
+    .getDaYun(count + 1) // index 0 is the pre-first-cycle infancy period (empty ganzhi) — skip it below
+    .filter((d) => d.getIndex() > 0)
+    .map((d) => {
+      const { gan, zhi } = parseGanZhi(d.getGanZhi());
+      return {
+        startAge: d.getStartAge(),
+        endAge: d.getEndAge(),
+        startYear: d.getStartYear(),
+        endYear: d.getEndYear(),
+        gan,
+        zhi,
+        ganElement: GAN_ELEMENT[gan],
+        zhiElement: ZHI_ELEMENT[zhi],
+      };
+    });
+  return { forward, items };
 }

@@ -99,6 +99,8 @@
     "dayMasterHeading": "Your Day Master",
     "dayMasterExplain": "The Day Master is the Heavenly Stem of your Day Pillar — the character that represents \"you\" in the chart.",
     "glossaryHint": "Tap a pillar to see what it means.",
+    "dayMasterTag": "Day Master",
+    "hiddenStemsLabel": "Hidden Stems",
     "category": {
       "gan": "Heavenly Stem",
       "zhi": "Earthly Branch"
@@ -115,6 +117,11 @@
       "strong": "Most of your chart supports your day master — your core traits tend to come through clearly and consistently, wherever you are.",
       "weak": "Your day master gets less support from the rest of your chart — your core traits tend to show up more situationally, shaped by who's around you."
     },
+    "daeunHeading": "Major Luck Cycles",
+    "daeunExplain": "Each ~10-year period layers its own Gan/Zhi on top of your base chart, shifting your reading as you move through life.",
+    "daeunNeedGender": "Enter your gender above to see your Major Luck Cycles — the direction they run depends on it.",
+    "daeunForward": "Running forward (순행) from your month pillar.",
+    "daeunBackward": "Running backward (역행) from your month pillar.",
     "distributionHeading": "Element Balance",
     "personalityHeading": "Personality Profile",
     "domainHeading": "More About You",

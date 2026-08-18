@@ -43,15 +43,18 @@ function Cell({ char, element, onClick, active }) {
  * panel below the grid, so the chart stays readable at a glance while still
  * being explorable for anyone new to saju.
  */
-export default function PillarGrid({ pillars }) {
+export default function PillarGrid({ pillars, dayGan }) {
   const { t, i18n } = useTranslation();
   const keys = PILLAR_ORDER.filter((key) => pillars[key]);
   const [selected, setSelected] = useState(null); // { pillarKey, part: 'gan'|'zhi' }
 
   const selectedMeta = selected
     ? selected.part === 'gan'
-      ? getGanMeta(pillars[selected.pillarKey].gan, i18n.language)
-      : getZhiMeta(pillars[selected.pillarKey].zhi, i18n.language)
+      ? getGanMeta(pillars[selected.pillarKey].gan, i18n.language, {
+          dayGan,
+          isDayPillar: selected.pillarKey === 'day',
+        })
+      : getZhiMeta(pillars[selected.pillarKey].zhi, i18n.language, { dayGan })
     : null;
 
   return (
@@ -96,23 +99,37 @@ export default function PillarGrid({ pillars }) {
             {selectedMeta.label} ({selectedMeta.hanja})
           </strong>
           <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
-            {[t(`saju.category.${selectedMeta.category}`), t(`elements.${selectedMeta.element}`), t(`saju.yinYang.${selectedMeta.yinYang}`)].map((tag) => (
-              <span
-                key={tag}
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  color: 'var(--text-muted)',
-                  background: 'var(--bg)',
-                  border: '1px solid var(--border)',
-                  borderRadius: 8,
-                  padding: '3px 8px',
-                }}
-              >
-                {tag}
-              </span>
-            ))}
+            {[
+              t(`saju.category.${selectedMeta.category}`),
+              t(`elements.${selectedMeta.element}`),
+              selectedMeta.yinYang && t(`saju.yinYang.${selectedMeta.yinYang}`),
+              selectedMeta.isDayMaster && t('saju.dayMasterTag'),
+              selectedMeta.tenGod && `${selectedMeta.tenGod.label} (${selectedMeta.tenGod.hanja})`,
+              selectedMeta.twelveStage && `${selectedMeta.twelveStage.label} (${selectedMeta.twelveStage.hanja})`,
+            ]
+              .filter(Boolean)
+              .map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: 'var(--text-muted)',
+                    background: 'var(--bg)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 8,
+                    padding: '3px 8px',
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
           </div>
+          {selectedMeta.tenGods && (
+            <div style={{ marginTop: 8, fontSize: 12, color: 'var(--text-muted)' }}>
+              {t('saju.hiddenStemsLabel')}: {selectedMeta.tenGods.map((tg) => `${tg.label}(${tg.hanja})`).join(', ')}
+            </div>
+          )}
         </div>
       ) : (
         <p style={{ marginTop: 10, marginBottom: 0, fontSize: 12, color: 'var(--text-muted)' }}>

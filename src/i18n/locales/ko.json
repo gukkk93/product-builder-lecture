@@ -99,6 +99,8 @@
     "dayMasterHeading": "일간(日干)",
     "dayMasterExplain": "일간은 일주의 천간으로, 사주에서 '나'를 나타내는 기준이 되는 글자예요.",
     "glossaryHint": "칸을 눌러보면 무슨 뜻인지 알려드려요.",
+    "dayMasterTag": "일간(日干)",
+    "hiddenStemsLabel": "지장간",
     "category": {
       "gan": "천간",
       "zhi": "지지"
@@ -115,6 +117,11 @@
       "strong": "사주 전체가 일간을 든든하게 받쳐주고 있어요 — 어디서든 본모습이 또렷하고 일관되게 드러나는 편이에요.",
       "weak": "일간이 사주 나머지의 도움을 상대적으로 덜 받고 있어요 — 본모습이 상황이나 주변 사람에 따라 다르게 드러나는 편이에요."
     },
+    "daeunHeading": "대운",
+    "daeunExplain": "10년 단위로 원래 사주 위에 그 시기만의 간지가 새로 얹혀서, 인생의 흐름에 따라 사주 해석이 달라져요.",
+    "daeunNeedGender": "성별을 입력하면 대운을 볼 수 있어요 — 대운이 도는 방향은 성별에 따라 달라져요.",
+    "daeunForward": "월주에서 순행으로 흘러가는 대운이에요.",
+    "daeunBackward": "월주에서 역행으로 흘러가는 대운이에요.",
     "distributionHeading": "오행 분포",
     "personalityHeading": "성격 분석",
     "domainHeading": "나에 대해 더 알아보기",
