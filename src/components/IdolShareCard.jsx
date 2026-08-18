@@ -4,12 +4,11 @@ import { ELEMENT_ICON_SRC } from './ElementBadge';
 import { ELEMENT_GRADIENT } from './ShareCard';
 import ShareCardWatermark from './ShareCardWatermark';
 import ShareCardFooter from './ShareCardFooter';
-import MemberAvatar from './MemberAvatar';
 
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 
 const IdolShareCard = forwardRef(function IdolShareCard(
-  { memberName, groupName, userElement, idolElement, idolStrength, score, tier, line },
+  { memberName, groupName, userElement, idolElement, score, tier, line },
   ref
 ) {
   const { t } = useTranslation();
@@ -49,10 +48,9 @@ const IdolShareCard = forwardRef(function IdolShareCard(
           {t('app.name')}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-          <MemberAvatar element={idolElement} strength={idolStrength} size={60} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
           <div>
-            <div style={{ fontSize: 21, fontWeight: 800, wordBreak: 'keep-all' }}>{memberName}</div>
+            <div style={{ fontSize: 27, fontWeight: 800, wordBreak: 'keep-all' }}>{memberName}</div>
             <div style={{ fontSize: 12, opacity: 0.8, wordBreak: 'keep-all' }}>{groupName}</div>
           </div>
 
