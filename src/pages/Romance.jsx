@@ -97,7 +97,12 @@ export default function Romance() {
     : null;
 
   const score = compatibility && theirBirth
-    ? getCompatibilityScore(compatibility.relation, `${theirBirth.year}-${theirBirth.month}-${theirBirth.day}`)
+    ? getCompatibilityScore(
+        compatibility.relation,
+        `${theirBirth.year}-${theirBirth.month}-${theirBirth.day}`,
+        mySaju.dayGanStrength,
+        compatibility.otherSaju.dayGanStrength
+      )
     : null;
 
   useEffect(() => {

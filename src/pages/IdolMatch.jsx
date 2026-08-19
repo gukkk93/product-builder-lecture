@@ -75,7 +75,12 @@ export default function IdolMatch() {
   }, [selectedMember, userSaju]);
 
   const memberScore = memberCompat
-    ? getCompatibilityScore(memberCompat.relation, `${selectedMember.id}-group-${selectedGroup.id}`)
+    ? getCompatibilityScore(
+        memberCompat.relation,
+        `${selectedMember.id}-group-${selectedGroup.id}`,
+        userSaju.dayGanStrength,
+        memberCompat.otherSaju.dayGanStrength
+      )
     : null;
 
   const memberCopy = memberCompat

@@ -16,7 +16,7 @@ export function findBestMatch(pool, userSaju, myGender) {
       { year: candidate.year, month: candidate.month, day: candidate.day, hour: null, calendar: 'solar' },
       false
     );
-    const score = getCompatibilityScore(compat.relation, candidate.id);
+    const score = getCompatibilityScore(compat.relation, candidate.id, userSaju.dayGanStrength, compat.otherSaju.dayGanStrength);
     if (!best || score > best.score) {
       best = { candidate, saju: compat.otherSaju, relation: compat.relation, score };
     }

@@ -275,13 +275,30 @@ function hashCode(str) {
   return hash;
 }
 
+// Day-master strength bonus: opposite strengths (one strong, one weak) read
+// as complementary — each fills in what the other lacks — so they get a
+// small boost. Matching strengths (both strong or both weak) don't offer
+// that same balance, so they get a small penalty instead. Applied to the
+// base score before jitter, so it shifts the whole per-relation range
+// rather than just adding noise — this is what makes two "same"-relation
+// idols actually score differently instead of clustering on one number.
+const STRENGTH_BONUS = 4;
+const STRENGTH_PENALTY = -2;
+
 /**
  * Turns a Five Element relation into a stable 1-99 compatibility score, with
  * a small deterministic jitter (seeded by seedInput, e.g. a pair id) so two
  * pairs with the same relation don't all show the exact same number.
+ *
+ * `myStrength`/`otherStrength` (each 'strong'|'weak', from dayGanStrength)
+ * are optional — when both are given, they nudge the base score before
+ * jitter is applied (see STRENGTH_BONUS/STRENGTH_PENALTY above).
  */
-export function getCompatibilityScore(relation, seedInput = '') {
-  const base = RELATION_SCORE[relation] ?? 70;
+export function getCompatibilityScore(relation, seedInput = '', myStrength, otherStrength) {
+  let base = RELATION_SCORE[relation] ?? 70;
+  if (myStrength && otherStrength) {
+    base += myStrength === otherStrength ? STRENGTH_PENALTY : STRENGTH_BONUS;
+  }
   const jitter = (hashCode(String(seedInput)) % 7) - 3; // -3..+3
   return Math.max(1, Math.min(99, base + jitter));
 }
