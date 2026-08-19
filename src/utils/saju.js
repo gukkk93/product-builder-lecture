@@ -586,6 +586,48 @@ export function getDaeun(birth, timeKnown, gender, count = 8) {
 }
 
 // ============================================================================
+// Life Score Timeline (사주 인생 그래프)
+// ============================================================================
+//
+// Turns each of the 8 Major Luck Cycles above into a 1-99 "how favorable is
+// this decade" score, using the exact same Five Element relation + scoring
+// pattern getCompatibilityScore already applies to "me vs. someone else" —
+// here it's "me vs. this decade's own Gan/Zhi energy" instead. A period's
+// element is read from its Gan alone (not Gan+Zhi combined), matching the
+// same single-Gan convention getDayElement/getYearPillar already use for
+// "the element of a date" elsewhere in this file.
+const LIFE_STAGE_KEYS = ['early', 'youth', 'middle', 'late'];
+
+/**
+ * 8-period favorability timeline for a chart, derived from getDaeun (which
+ * needs gender for direction — same requirement, same reason). Each period
+ * gets a relation (vs. `dominantElement`) and a score; the 8 periods are
+ * also grouped into 4 life stages (초년/청년/중년/말년, 2 periods each)
+ * with an averaged score per stage.
+ *
+ * @param {{year:number, month:number, day:number, hour:number|null, calendar:'solar'|'lunar'}} birth
+ * @param {boolean} timeKnown
+ * @param {'M'|'F'} gender
+ * @param {string} dominantElement
+ */
+export function getLifeScoreTimeline(birth, timeKnown, gender, dominantElement) {
+  const daeun = getDaeun(birth, timeKnown, gender, 8);
+  const periods = daeun.items.map((item) => {
+    const relation = getElementRelation(dominantElement, item.ganElement);
+    const score = getCompatibilityScore(relation, `${item.gan}${item.zhi}-${item.startYear}`);
+    return { ...item, relation, score };
+  });
+
+  const stages = LIFE_STAGE_KEYS.map((key, i) => {
+    const stagePeriods = periods.slice(i * 2, i * 2 + 2);
+    const avgScore = Math.round(stagePeriods.reduce((sum, p) => sum + p.score, 0) / stagePeriods.length);
+    return { key, avgScore };
+  });
+
+  return { forward: daeun.forward, periods, stages };
+}
+
+// ============================================================================
 // Shensha (신살/神殺) — Peach Blossom, Traveling Horse, Canopy
 // ============================================================================
 //

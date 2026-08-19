@@ -129,6 +129,16 @@
     "daeunNeedGender": "Enter your gender above to see your Major Luck Cycles — the direction they run depends on it.",
     "daeunForward": "Running forward (순행) from your month pillar.",
     "daeunBackward": "Running backward (역행) from your month pillar.",
+    "lifeScoreHeading": "Life Score Timeline",
+    "lifeScoreExplain": "How favorable each ~10-year period reads against your dominant element, across your whole Major Luck Cycle timeline.",
+    "lifeScoreNeedGender": "Enter your gender above to see your Life Score Timeline — like Major Luck Cycles, it depends on it.",
+    "lifeScoreStages": {
+      "early": "Early Life",
+      "youth": "Youth",
+      "middle": "Midlife",
+      "late": "Later Life"
+    },
+    "premiumLockedNote": "Unlock the full timeline with Premium",
     "distributionHeading": "Element Balance",
     "personalityHeading": "Personality Profile",
     "domainHeading": "More About You",

@@ -129,6 +129,16 @@
     "daeunNeedGender": "성별을 입력하면 대운을 볼 수 있어요 — 대운이 도는 방향은 성별에 따라 달라져요.",
     "daeunForward": "월주에서 순행으로 흘러가는 대운이에요.",
     "daeunBackward": "월주에서 역행으로 흘러가는 대운이에요.",
+    "lifeScoreHeading": "사주 인생 그래프",
+    "lifeScoreExplain": "대운 전체 시기 동안, 각 ~10년이 나의 주 오행과 얼마나 잘 맞는지를 점수로 보여줘요.",
+    "lifeScoreNeedGender": "인생 그래프를 보려면 위에서 성별을 입력해주세요 — 대운과 마찬가지로 성별에 따라 달라져요.",
+    "lifeScoreStages": {
+      "early": "초년기",
+      "youth": "청년기",
+      "middle": "중년기",
+      "late": "말년기"
+    },
+    "premiumLockedNote": "프리미엄에서 전체 그래프를 확인할 수 있어요",
     "distributionHeading": "오행 분포",
     "personalityHeading": "성격 분석",
     "domainHeading": "나에 대해 더 알아보기",

@@ -72,6 +72,15 @@
 - **삼재(三災) — `getSamjae(saju, fromYear)`**: 년지가 속한 삼합 그룹의 "역마 지지부터 3년 연속"이 삼재 구간이라는 사실을 발견(4개 그룹 전부에서 역마 지지로 시작해 화개 지지로 끝나는 패턴이 정확히 일치함을 확인) — 별도 테이블 없이 위 신살 섹션의 역마 테이블을 재사용해서 도출. `fromYear` 기준 12년 이내에서 가장 가까운 삼재 구간(진행 중이면 그 구간, 아니면 다음 구간)을 찾아 `{ years: [3개 연도], samjaeZhis, isCurrent }`로 반환
 - **검증**: (1) 테스트 스크립트에 saju.js와는 완전히 별개로 각 조견표를 처음부터 다시 손으로 옮겨 적어서, 서로 다른 생년월일 5개에 대해 실제 구현 결과와 전부 대조(0건 불일치) (2) 잘 알려진 공개 사실 2건과 교차 확인 — "호랑이·말·개띠(寅午戌)의 삼재는 신유술년"과 "원숭이·쥐·용띠(申子辰)의 삼재는 인묘진년"이 계산 결과와 정확히 일치 (3) 천을귀인 표는 "甲戊庚牛羊..." 가결과 한 글자씩 대조 (4) `npm run build` + 기존 페이지(`/`, `/result`, `/saju`) Playwright 재확인으로 회귀 없음(콘솔 에러 0건) 확인 — 이 모듈이 아직 어디서도 안 쓰이므로 사실상 존재하지 않는 코드지만, 다른 export들과 섞여 있어 빌드 깨짐 여부만 체크
 
+## 3-5. 사주 인생 그래프 — 자물쇠 미리보기 (`getLifeScoreTimeline`, `LifeScoreChart.jsx`, `LockedPreview.jsx`)
+
+**결제 연동 없이 시각적 티저만** — Stripe는 아직 안 붙임. `/saju`의 대운표 카드 바로 아래에 새 카드로 배치.
+
+- **`getLifeScoreTimeline(birth, timeKnown, gender, dominantElement)`** (`saju.js`): 새 계산이 아니라 기존 로직 재조합 — `getDaeun`으로 8개 대운 시기를 가져온 뒤, 각 시기 간지의 **천간 오행**(대운 항목의 `ganElement` — `getYearPillar`/`getDayElement`가 "날짜의 오행"을 늘 천간 하나로만 읽는 것과 같은 관례)과 `dominantElement` 사이 관계를 `getElementRelation`으로 판정하고, `getCompatibilityScore(relation, seed)`를 그대로 재사용해 1-99 점수로 변환(새 기준점 테이블 안 만듦 — 기존 `RELATION_SCORE`를 그대로 씀). 8개 시기를 2개씩 묶어 초년기/청년기/중년기/말년기 4단계로 평균 점수도 같이 반환. 대운과 동일하게 성별 필요 — `Saju.jsx`에서 `gender ? getLifeScoreTimeline(...) : null` 패턴으로 대운과 나란히 처리(성별 없으면 안내 문구만)
+- **`LifeScoreChart.jsx`** (신규): `ElementDistribution`과 같은 톤(차트 라이브러리 없이 순수 CSS) — 8개 시기를 세로 막대로, 막대는 각 시기 천간 오행 색상, 아래에 초년/청년/중년/말년 4단계 라벨(2개 막대씩 span)
+- **`LockedPreview.jsx`** (신규, 재사용 가능한 범용 래퍼): children을 `blur(6px)`+낮은 opacity로 감싸고 그 위에 🔒 아이콘 + "프리미엄에서 전체 그래프를 확인할 수 있어요" 오버레이 — 순수 시각 처리, 결제 로직 전혀 없음. 이름 그대로 범용이라 나중에 신살/귀인/`sajuStrengthTemplates.js` 콘텐츠를 유료 섹션으로 묶을 때도 그대로 재사용 가능하게 설계
+- **검증**: Playwright로 성별 입력 시 그래프 실루엣(흐릿한 막대)+자물쇠+안내문구가 뜨는지, 성별 미입력 시 대운표와 동일하게 안내 문구만 뜨는지, en/ko·라이트/다크 4가지 조합 스크린샷으로 확인. 콘솔 에러 0건
+
 ## 4. 라우트/페이지 구조
 
 | 라우트 | 파일 | 내용 |
