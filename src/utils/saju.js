@@ -233,6 +233,11 @@ export function getElementRelation(myElement, otherElement) {
   return 'same';
 }
 
+/** The element that overcomes (克) the given element — e.g. Metal overcomes Wood. */
+export function getOvercomingElement(element) {
+  return ELEMENTS.find((el) => OVERCOMES[el] === element);
+}
+
 /** Today's fortune relation for a previously-calculated saju result. */
 export function getTodayRelation(saju, date = new Date()) {
   const todayElement = getDayElement(date);
@@ -470,6 +475,22 @@ export function getDayBranchTenGodCategory(saju) {
   return getTenGodMeta(primary, 'en').category;
 }
 
+// Tie-break order when two categories are equally represented — arbitrary
+// but fixed, so the same chart always resolves to the same dominant category.
+const TEN_GOD_CATEGORY_ORDER = ['companion', 'output', 'wealth', 'officer', 'resource'];
+
+/**
+ * The single most-represented Ten God category (비겁/식상/재성/관성/인성)
+ * across the whole chart — reuses getTenGodCategoryCounts's per-position
+ * tally and just picks the max, for a "what kind of energy runs this
+ * chart" temperament reading (as opposed to counting one category in
+ * isolation, like wealthStyle/careerStyle do above).
+ */
+export function getTenGodProfile(saju) {
+  const counts = getTenGodCategoryCounts(saju);
+  return TEN_GOD_CATEGORY_ORDER.reduce((best, cat) => (counts[cat] > counts[best] ? cat : best), TEN_GOD_CATEGORY_ORDER[0]);
+}
+
 /**
  * The Five Element with the lowest count in a chart (ties broken by
  * ELEMENTS order) — used for organ-correspondence health readings, since
@@ -540,6 +561,32 @@ export function getTwelveStageMeta(stage, lang) {
   return { key: stage, label: lang === 'ko' ? meta.ko : meta.en, hanja: meta.hanja };
 }
 
+// "Vigorous" (건록/제왕 — a stem at its career peak) vs "declining"
+// (사/절/묘 — a stem past its peak, in dormancy/storage) — the two
+// traditionally-cited clusters for an at-a-glance energy reading. The other
+// 7 stages (장생/목욕/관대/쇠/태/양) are transitional either direction, so a
+// chart where neither cluster clearly outweighs the other reads as balanced.
+const VIGOROUS_STAGES = ['jianLu', 'diWang'];
+const DECLINING_STAGES = ['si', 'jue', 'mu'];
+
+/**
+ * Overall Twelve Stage tendency across the chart's Zhi positions (relative
+ * to the day master, same convention getGanMeta/getZhiMeta already use for
+ * the day pillar's own Zhi) — 'vigorous' | 'declining' | 'balanced',
+ * depending on which cluster (if either) outweighs the other.
+ */
+export function getTwelveStageProfile(saju) {
+  const { pillars, dayGan } = saju;
+  const zhis = [pillars.year.zhi, pillars.month.zhi, pillars.day.zhi];
+  if (pillars.time) zhis.push(pillars.time.zhi);
+  const stages = zhis.map((zhi) => getTwelveStage(dayGan, zhi));
+  const vigorousCount = stages.filter((s) => VIGOROUS_STAGES.includes(s)).length;
+  const decliningCount = stages.filter((s) => DECLINING_STAGES.includes(s)).length;
+  if (vigorousCount > decliningCount) return 'vigorous';
+  if (decliningCount > vigorousCount) return 'declining';
+  return 'balanced';
+}
+
 // ============================================================================
 // Major Luck Cycles (대운/大運)
 // ============================================================================
@@ -602,6 +649,12 @@ export function getDaeun(birth, timeKnown, gender, count = 8) {
       };
     });
   return { forward, items };
+}
+
+/** The single Major Luck Cycle period a given year falls into, or null if
+ * it's outside the returned range entirely (e.g. before the first period). */
+export function getCurrentDaeunPeriod(daeun, year = new Date().getFullYear()) {
+  return daeun.items.find((item) => year >= item.startYear && year <= item.endYear) || null;
 }
 
 // ============================================================================

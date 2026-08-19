@@ -2,7 +2,8 @@ import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju, getDaeun, getLifeScoreTimeline, getShensha, getNobleman, getYearRelation, getSamjae } from '../utils/saju';
-import { getSajuProfile, getDayMasterLine, getDomainInsight } from '../data/sajuProfileTemplates';
+import { getSajuProfile, getDayMasterLine, getDomainChapter } from '../data/sajuProfileTemplates';
+import { getTenGodChapter } from '../data/sajuTenGodTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
@@ -75,19 +76,36 @@ export default function Saju() {
 
   const profile = getSajuProfile(i18n.language, saju.dominantElement);
   const dayMasterLine = getDayMasterLine(i18n.language, saju.dayGanElement);
-  // romanceStyle and wealthStyle stay free — two teaser domains, careerStyle
-  // and healthStyle gated.
-  const FREE_DOMAINS = ['romanceStyle', 'wealthStyle'];
-  const domainSections = DOMAINS.map((domain) => ({
-    ...getDomainInsight(i18n.language, domain, saju),
-    locked: !FREE_DOMAINS.includes(domain),
-  }));
   // Major Luck Cycles need gender for direction (forward/backward) — unlike
   // name, this one isn't just cosmetic, so we only compute it when the
   // optional gender field was actually filled in.
   const daeun = gender ? getDaeun(birth, birth.timeKnown, gender, 8) : null;
   // Same gender requirement as daeun above, since it's built directly on top of it.
   const lifeScore = gender ? getLifeScoreTimeline(birth, birth.timeKnown, gender, saju.dominantElement) : null;
+
+  // Each domain chapter is now [총운, sub-topic x3] — only the domain's
+  // 총운 (index 0) can be free, and only for the two domains already
+  // unlocked; every newly-added subtopic stays locked regardless of domain.
+  // wealthStyle's "timing" subtopic is the only one that needs daeun (for
+  // "which decade am I in right now"), so it's the only chapter call that
+  // gets it passed in — every other domain is derivable from saju alone.
+  const FREE_DOMAINS = ['romanceStyle', 'wealthStyle'];
+  const domainChapters = DOMAINS.map((domain) => {
+    const chapter = getDomainChapter(i18n.language, domain, saju, domain === 'wealthStyle' ? daeun : null);
+    return {
+      ...chapter,
+      sections: chapter.sections.map((section, i) => ({
+        ...section,
+        locked: i === 0 ? !FREE_DOMAINS.includes(domain) : true,
+      })),
+    };
+  });
+
+  // Ten God / Twelve Stage chapter — entirely new, always locked (see
+  // sajuTenGodTemplates.js). Gender only affects the officer-category
+  // relationships subtopic; every other subtopic is gender-independent.
+  const tenGodChapter = getTenGodChapter(i18n.language, saju, gender);
+  tenGodChapter.sections = tenGodChapter.sections.map((section) => ({ ...section, locked: true }));
 
   // Shensha/nobleman/year-luck/samjae: calculation-only content (no
   // personality copy written yet), so each gets just a short one-line
@@ -240,11 +258,22 @@ export default function Saju() {
 
         <div className="card" style={{ marginTop: 16, marginBottom: 16, textAlign: 'left' }}>
           <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.domainHeading')}</h2>
-          <InsightSection
-            element={saju.dominantElement}
-            intro={t('saju.domainIntro', { element: t(`elements.${saju.dominantElement}`) })}
-            sections={domainSections}
-          />
+          <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>
+            {t('saju.domainIntro', { element: t(`elements.${saju.dominantElement}`) })}
+          </p>
+        </div>
+
+        {domainChapters.map((chapter, i) => (
+          <div className="card" key={DOMAINS[i]} style={{ marginBottom: 16, textAlign: 'left' }}>
+            <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{chapter.title}</h2>
+            <InsightSection sections={chapter.sections} />
+          </div>
+        ))}
+
+        <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
+          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{tenGodChapter.title}</h2>
+          <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{tenGodChapter.intro}</p>
+          <InsightSection sections={tenGodChapter.sections} />
         </div>
 
         <div className="card" style={{ textAlign: 'left' }}>
