@@ -217,7 +217,8 @@
 - `src/i18n/locales/{en,ko}.json` — **완전 병렬 구조** (키 하나도 안 빠짐, 스크립트로 검증함)
 - `LanguageToggle.jsx`: 헤더의 EN/KO 버튼, 다크모드처럼 localStorage(`language` 키)에 저장돼 재방문시 유지
 - 사주 네 기둥 표기도 언어에 맞게 전환됨 (한국어면 갑을병정 한글, 영어면 Jia/Yi 로마자) — `getGanLabel`/`getZhiLabel` 참고
-- **브랜드명 로컬라이즈**: `app.name` 값이 en/ko로 분리됨 — 영어는 "Ohaeng" 그대로(영어권 유저한텐 이게 실질적 브랜드명), 한국어는 **"오행"**으로 변경. `t('app.name')`을 쓰는 헤더 로고(`Layout.jsx`)와 공유카드 4종(`ShareCard`/`SajuShareCard`/`IdolShareCard`/`CompatibilityShareCard`)이 이 키 하나로 자동 반영됨. 문구 뱅크(`shareCaption` 등) 안에 하드코딩된 "Ohaeng" 텍스트는 이번 범위에서 안 건드림 — 로고/워터마크처럼 브랜드 마크로 쓰이는 자리만 대상
+- **브랜드명 로컬라이즈**: `app.name` 값이 en/ko로 분리됨 — 영어는 "Ohaeng" 그대로(영어권 유저한텐 이게 실질적 브랜드명), 한국어는 **"오행"**으로 변경. `t('app.name')`을 쓰는 헤더 로고(`Layout.jsx`)와 공유카드 4종(`ShareCard`/`SajuShareCard`/`IdolShareCard`/`CompatibilityShareCard`)이 이 키 하나로 자동 반영됨
+  - **후속 정리 — 완료**: 처음엔 `app.name` 키만 바꿨는데, `ko.json` 안에 `app.name`을 안 거치고 문구 뱅크마다 직접 "Ohaeng"이 하드코딩된 자리가 20곳 더 있었음(`landing.title`, 각 페이지 `shareCaption`/`shareCardFooter`, `guide.*`, `privacy.*`, `terms.*`) — 전부 브랜드가 자기 자신을 지칭하는 문장이라 "실제 고유명사 인용/이메일 제목 같은 관리용 텍스트" 예외에 해당하는 곳은 없어서 전부 "오행"으로 일괄 교체. `landing.title`의 "Ohaeng 🔮"/"오행 🔮"에서 이모지도 제거(en/ko 둘 다) — 헤더 로고 등 다른 자리엔 같은 이모지가 없었음을 확인(있는 건 `public/favicon.svg`의 브라우저 탭 아이콘뿐인데, 이건 별개의 디자인 자산이라 이번 범위에서 안 건드림)
 
 ## 9. 애널리틱스 (`src/utils/analytics.js` + `main.jsx`) — **실제 키 등록·배포 완료, 정상 작동 중**
 
