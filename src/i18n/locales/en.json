@@ -239,6 +239,7 @@
     "yourElement": "You",
     "theirElement": "Them",
     "shareCaption": "Ohaeng just found my idol match — find yours:",
+    "situationalTitles": ["During comeback season", "On VLive", "At fan meetings", "At concerts", "Pulling photocards"],
     "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Member art is illustrative, not photos."
   },
   "dramaMatch": {
@@ -248,6 +249,7 @@
     "findMatchLabel": "Find my match",
     "actorLabel": "K-Drama Actor",
     "shareCaption": "Ohaeng just found my K-drama match — find yours:",
+    "situationalTitles": ["When they start a new project", "In interviews", "At fan meetings", "At premieres", "Looking at stills"],
     "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Portraits are illustrative, not photos."
   },
   "matchCommon": {

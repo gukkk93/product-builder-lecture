@@ -4,11 +4,22 @@
 //
 // Each relation has three parallel line banks (line/goodFit/watchFor), all
 // the same length, picked with the same seeded index so the three texts
-// read as one consistent "read" rather than three random fragments.
+// read as one consistent "read" rather than three random fragments. A
+// fourth bank, `situational`, holds exactly 5 entries — one per concrete
+// viewing situation (new project/interviews/fan meeting/premiere/stills) —
+// and is always returned in full (see getDramaMatchCopy) rather than picked
+// by seed, since the UI shows all 5 as separate sections.
 export const dramaMatchTemplates = {
   en: {
     same: {
       tier: 'Screen Soulmates',
+      situational: [
+        "you wouldn't need convincing — one casting announcement and you'd already trust the choice, no waiting for reviews.",
+        "you'd get every answer a beat before they finish it — this is the actor whose sense of humor needs zero translation for you.",
+        "you wouldn't even need a rehearsed question — the conversation would just flow, like catching up with someone who already knows you.",
+        "you'd read the room the exact same way they would — no awkward gap between what they're going for and what you're picking up.",
+        "it'd feel less like admiring a stranger and more like recognizing your own instincts, framed a little more cinematically.",
+      ],
       lines: [
         "You two would be running on the exact same frequency — less admiring someone different from you, more recognizing a slightly more polished version of your own energy on screen.",
         "Same element, same wavelength. You'd get their choices immediately — why they took that role, why that scene worked — no explaining required.",
@@ -33,6 +44,13 @@ export const dramaMatchTemplates = {
     },
     otherGeneratesMe: {
       tier: 'Comfort Rewatch',
+      situational: [
+        "it feels less like anticipation and more like a guaranteed good evening quietly showing up on schedule.",
+        "you'd read it with your guard down — no pressure to catch every quote live, the comfort holds either way.",
+        "they'd put you at ease before the first question even lands — their presence does the heavy lifting.",
+        "it'd feel less like an event and more like being wrapped in something warm for two hours straight.",
+        "any still from them lands the same way — a small, steady sense of okay, no 'bad' cut to worry about.",
+      ],
       lines: [
         "Their energy feeds yours — this is the actor whose scenes you replay on a hard day without quite knowing why it helps. Comfort-watching, basically.",
         "They'd be the steady, generous screen presence you put on when you need things to feel okay. Not flashy, just deeply, reliably comforting.",
@@ -57,6 +75,13 @@ export const dramaMatchTemplates = {
     },
     iGenerateOther: {
       tier: 'Number One Fan',
+      situational: [
+        "you'd turn into a one-person promo team — recommending, reviewing, dragging friends into the group chat to explain the casting.",
+        "you'd screenshot every quote worth remembering — quietly hoping they'd somehow see how much it landed.",
+        "you'd show up having watched everything, with a question you rehearsed way more than you'll admit to.",
+        "you'd clear your whole evening and watch it start to finish, live-tweeting the whole way through.",
+        "you'd study every detail of it, half-convinced there's a story behind the shot worth knowing.",
+      ],
       lines: [
         "You'd be the one doing the giving here — the streams, the reviews, the group chat updates. Lucky for them, you never seem to run out of enthusiasm.",
         "This match would turn you into the friend who brings up their filmography unprompted in every conversation — not annoying, just genuinely, helplessly proud.",
@@ -81,6 +106,13 @@ export const dramaMatchTemplates = {
     },
     otherOvercomesMe: {
       tier: 'Plot Twist Chemistry',
+      situational: [
+        "one casting rumor and you're already deep in speculation, insisting you're 'just curious about the project.'",
+        "you'd read more into one offhand answer than the whole interview — and then read it again.",
+        "one unexpected answer and you'd forget every question you rehearsed — this actor has a way of short-circuiting your composure.",
+        "you wouldn't just watch — you'd study every choice, convinced there's something there you're not fully decoding yet.",
+        "you'd go straight into an unplanned deep-dive on which project it's from — this actor never lets curiosity rest.",
+      ],
       lines: [
         "There's real friction in this pairing — the can't-look-away kind that turns a casual watch into a full rewatch spiral. Not a comfortable pick, a consuming one.",
         "Not an easy match, but a compelling one — the kind where you'd overanalyze a single trailer shot more than the whole synopsis.",
@@ -105,6 +137,13 @@ export const dramaMatchTemplates = {
     },
     iOvercomeOther: {
       tier: 'Their Biggest Advocate',
+      situational: [
+        "you'd turn into unofficial quality control — checking the casting news, correcting the timeline in every group chat before misinformation spreads.",
+        "you're the one screenshotting anything that could get twisted later — quietly protective, even when no one asked you to be.",
+        "you'd be the fan gently reminding everyone else to stick to the rules — not bossy, just instinctively looking out for the room.",
+        "you'd be the one making sure the theater chat doesn't get out of hand — steady, watchful, quietly in charge of the vibe.",
+        "you'd be the one explaining its context to everyone else before they even ask.",
+      ],
       lines: [
         "You'd be the calm, grounding presence in this dynamic — the fan correcting misinformation in the comments and generally rooting for their next project, quietly and firmly.",
         "This match would bring out your protective, take-charge side. You'd be the one recommending them for roles you're convinced they'd nail.",
@@ -131,6 +170,13 @@ export const dramaMatchTemplates = {
   ko: {
     same: {
       tier: '인생캐 케미',
+      situational: [
+        "설득이 따로 필요 없어요 — 캐스팅 공개되자마자 리뷰 기다릴 필요도 없이 바로 믿고 보게 될 거예요.",
+        "질문 끝나기도 전에 답을 예상하게 돼요 — 유머 코드가 아예 안 맞을 일이 없는 배우예요.",
+        "질문을 따로 준비 안 해도 괜찮아요 — 원래 알던 사람처럼 대화가 자연스럽게 흘러갈 거예요.",
+        "분위기 읽는 방식이 완전히 똑같아요 — 의도한 것과 내가 느끼는 것 사이에 어색한 간극이 없어요.",
+        "낯선 배우를 감상하는 느낌보다는, 좀 더 근사하게 찍힌 내 감각을 다시 보는 느낌에 가까워요.",
+      ],
       lines: [
         "완전히 같은 결로 움직이는 조합이에요 — 그냥 좋아하는 배우가 아니라, 화면 속에서 조금 더 빛나는 나 자신을 보는 느낌에 가까워요.",
         "같은 오행, 같은 리듬이에요. 왜 그 배역을 골랐는지, 왜 그 장면이 통했는지 굳이 설명 안 해도 바로 이해될 거예요.",
@@ -155,6 +201,13 @@ export const dramaMatchTemplates = {
     },
     otherGeneratesMe: {
       tier: '힐링 최애',
+      situational: [
+        "기대감보다는, 예정대로 조용히 도착하는 확실한 힐링에 가까워요.",
+        "긴장 없이 편하게 읽게 돼요 — 실시간으로 다 못 챙겨도 괜찮을 만큼, 편안함이 늘 그대로예요.",
+        "첫 질문이 나오기도 전에 이미 편안하게 만들어줄 거예요 — 그 존재감이 알아서 분위기를 풀어줘요.",
+        "이벤트라기보다, 두 시간 내내 따뜻하게 감싸이는 느낌에 가까워요.",
+        "어떤 컷이 떠도 똑같이 소소한 안정감을 줘요 — 이 배우한텐 딱히 '아쉬운' 컷이 없거든요.",
+      ],
       lines: [
         "저쪽 기운이 나를 채워주는 조합이에요 — 힘든 날 이유도 모른 채 그 배우 장면만 계속 돌려보게 되는, 그런 힐링 최애예요.",
         "화려하진 않아도 든든하게 챙겨주는 느낌의 배우예요. 뭘 봐도 마음이 편해지는 그런 조합이죠.",
@@ -179,6 +232,13 @@ export const dramaMatchTemplates = {
     },
     iGenerateOther: {
       tier: '본방사수 대장',
+      situational: [
+        "혼자서 홍보팀이 돼요 — 추천하고, 리뷰 남기고, 단톡방에 이 캐스팅이 왜 좋은지 구구절절 설명하고 있을 거예요.",
+        "기억할 만한 인터뷰 발언은 다 캡처해둘 거예요 — 혹시 이 마음이 전해질까 은근히 기대하면서요.",
+        "다 챙겨본 상태로, 티는 안 내지만 몇 번이고 연습한 질문까지 준비해서 갈 거예요.",
+        "저녁 시간을 통째로 비우고 실시간으로 반응하며 끝까지 챙겨보게 될 거예요.",
+        "그 컷 뒤에 무슨 사연이 있을지 궁금해서 디테일 하나하나를 다 뜯어보게 될 거예요.",
+      ],
       lines: [
         "여기선 내가 주는 쪽이에요 — 스밍, 리뷰, 단톡방 홍보까지 다요. 다행히 이 애정은 잘 마르지 않는 타입이에요.",
         "단톡방에서 이 배우 필모 얘기를 먼저 꺼내는 사람이 되는 조합이에요 — 부담스럽지 않게, 그냥 진심으로 자랑스러워서요.",
@@ -203,6 +263,13 @@ export const dramaMatchTemplates = {
     },
     otherOvercomesMe: {
       tier: '예측불가 케미',
+      situational: [
+        "캐스팅 루머 하나에 벌써 이런저런 추측을 하면서 '그냥 궁금해서'라고 우기고 있을 거예요.",
+        "무심코 한 대답 하나를 인터뷰 전체보다 더 깊게 읽고, 또 한 번 곱씹게 돼요.",
+        "예상 밖의 답 하나에 준비한 질문 다 까먹을 수도 있어요 — 이상하게 침착함을 흔들어놔요.",
+        "그냥 보는 게 아니라 선택 하나하나를 분석하게 돼요 — 아직 다 못 읽어낸 뭔가가 있다고 확신하면서요.",
+        "바로 그 작품 자료를 파러 들어가게 될 거예요 — 이 배우는 궁금증을 절대 가만 안 놔둬요.",
+      ],
       lines: [
         "이 조합엔 진짜 텐션이 있어요 — 눈을 못 떼는, 그런 종류의 끌림이요. 편안한 최애라기보단 확 빠져드는 쪽이에요.",
         "편안한 매치는 아니지만, 확실히 매력적인 조합이에요 — 예고편 한 장면에도 유난히 신경 쓰이게 돼요.",
@@ -227,6 +294,13 @@ export const dramaMatchTemplates = {
     },
     iOvercomeOther: {
       tier: '든든한 팬수호대',
+      situational: [
+        "은근히 품질 관리 담당이 돼요 — 캐스팅 소식 확인하고, 잘못된 정보 퍼지기 전에 단톡방에서 타임라인부터 바로잡아줘요.",
+        "나중에 왜곡될 만한 발언은 미리 캡처해두는 편이에요 — 누가 시키지 않아도 알아서 챙기는 그런 보호본능이요.",
+        "다른 팬들한테 매너 살짝 챙기라고 조용히 알려주는 쪽이에요 — 잔소리라기보다는 그냥 분위기를 지키는 본능에 가까워요.",
+        "상영관 단톡방이 과열되지 않게 은근히 챙기게 돼요 — 차분하게, 눈여겨보면서, 분위기를 조용히 이끌어가는 쪽이에요.",
+        "묻기도 전에 그 컷 배경부터 설명해주고 있을 거예요.",
+      ],
       lines: [
         "이 관계에서 내가 차분하고 든든한 쪽이에요 — 댓글창에서 잘못된 정보 바로잡아주고, 조용히 다음 작품을 응원하는 그런 조합이에요.",
         "보호 본능을 자극하는 배우예요. 어울릴 것 같은 배역을 먼저 추천하게 되는, 그런 케미요.",
@@ -262,12 +336,24 @@ function hashCode(str) {
 
 /**
  * Picks compatibility copy for a relation, stable per user+actor pair.
- * Returns the tier name plus three parallel texts (line/goodFit/watchFor)
- * all drawn from the same seeded variant index.
+ * Returns the tier name, three parallel texts (line/goodFit/watchFor) all
+ * drawn from the same seeded variant index, plus `situational` — all 5
+ * concrete-situation texts for this relation (new project/interviews/fan
+ * meeting/premiere/stills), always returned in full rather than picked by
+ * seed, since the UI now shows all 5 as separate sections instead of just
+ * one. The seed still keeps line/goodFit/watchFor stable per user+actor
+ * pair — it just no longer decides which situational text gets shown,
+ * since all of them do.
  */
 export function getDramaMatchCopy(lang, relation, seedInput) {
   const entry = (dramaMatchTemplates[lang] || dramaMatchTemplates.en)[relation];
   const seed = hashCode(seedInput);
   const idx = seed % entry.lines.length;
-  return { tier: entry.tier, line: entry.lines[idx], goodFit: entry.goodFit[idx], watchFor: entry.watchFor[idx] };
+  return {
+    tier: entry.tier,
+    line: entry.lines[idx],
+    goodFit: entry.goodFit[idx],
+    watchFor: entry.watchFor[idx],
+    situational: entry.situational,
+  };
 }

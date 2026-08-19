@@ -94,9 +94,9 @@
 ## 5. 콘텐츠 뱅크 (`src/data/`) — **en + ko 완전 병렬**
 
 - **`fortuneTemplates.js`**: 관계(5) × 카테고리(5) × 5개 문구 = **125개**, en/ko 각각. `getFortuneLine(lang, relation, category, seed)`
-- **`idolMatchTemplates.js`**: 관계 5종 × 5개 문구 = **25개**, en/ko 각각. tier명도 언어별로 다름 (예: same → en "Twin Flame" / ko "완벽한 싱크로율"). `RELATION_RANK`는 더 이상 정렬에 안 쓰이지만(점수 기반 정렬로 교체) 남아있음
-- **`compatibilityTemplates.js`**: idolMatch와 같은 구조지만 **팬덤 용어 없음** (친구/연인 관계에도 자연스럽게), 25개 × en/ko
-- **`dramaMatchTemplates.js`** (신규): idolMatch와 같은 5관계 구조지만 K-드라마 시청 어휘로 리라이트(정주행/본방사수/필모 등), 25개 × en/ko
+- **`idolMatchTemplates.js`**: 관계 5종 × 5개 문구(line/goodFit/watchFor 각각) = **25개**, en/ko 각각. tier명도 언어별로 다름 (예: same → en "Twin Flame" / ko "완벽한 싱크로율"). `RELATION_RANK`는 더 이상 정렬에 안 쓰이지만(점수 기반 정렬로 교체) 남아있음. **`situational` 필드 추가(5-2 참고)** — 관계별로 컴백/브이라이브/팬미팅/콘서트/포토카드 5개 구체적 상황에 맞춘 문구를 담고 있고, seed로 1개만 뽑는 다른 필드들과 달리 **항상 5개 전부** 반환됨
+- **`compatibilityTemplates.js`**: idolMatch와 같은 구조지만 **팬덤 용어 없음** (친구/연인 관계에도 자연스럽게), 25개 × en/ko. `situational` 없음 — 이건 아이돌/드라마 매치 전용
+- **`dramaMatchTemplates.js`** (신규): idolMatch와 같은 5관계 구조지만 K-드라마 시청 어휘로 리라이트(정주행/본방사수/필모 등), 25개 × en/ko. `situational`도 동일 패턴이되 상황 자체를 드라마 맥락으로 재정의(새 작품 들어갈 때/인터뷰/팬미팅/시사회/스틸컷) — 아이돌 어휘(컴백/브이라이브/콘서트/포토카드)를 그대로 쓰지 않고 기존 "K-드라마 시청 어휘로 리라이트" 원칙을 상황 이름에도 동일하게 적용함
 - **`sajuProfileTemplates.js`**: dominant element별 성격 프로필(제목+2문단) + day master별 "진짜 나" 텍스트, en/ko 각각
 - **`romanceTemplates.js`** (신규): situation(재회/짝사랑/속마음 3종) × 관계(5종) × 5개 문구 = **150개**(en/ko 합산). `compatibilityTemplates.js`처럼 팬덤 용어 없음, situation별로 문체만 다르게(재회=아직 못 놓는 이유+희망적 클로징, 짝사랑=가볍고 설레는 톤, 속마음=상대 시점으로 서술). 재회 전용 공통 클로징 라인은 `romanceClosing`으로 따로 관리(관계별 25개 문구에 안 넣고 렌더링 시 뒤에 붙임 — 유지보수 편하게). `getRomanceCopy(lang, situation, relation, seed)` / `getRomanceClosing(lang, situation)`
 - 한국어는 **직역이 아니라 자연스러운 로컬라이즈** — 최애/스밍/컴백/덕질 같은 팬덤 표현 사용
@@ -119,6 +119,17 @@
   - Playwright로 5개 페이지(궁합/로맨스/아이돌매치 베스트+최애매치 그룹모드/드라마매치/내사주) × 라이트·다크 × en/ko 전부 렌더링·콘솔 에러 없음 확인. 공유카드(`CompatibilityShareCard`/`IdolShareCard`)는 `InsightSection`을 렌더링하지 않아 회귀 없음도 스크린샷으로 확인
 
 **완료 기준 충족**: 궁합/아이돌매치/드라마매치/로맨스/내 사주 결과 화면 전부에 인사이트 섹션이 여러 개 순서대로 노출되고, 잠금 UI·결제 버튼·"+N가지 더" 배지는 전부 없이 콘텐츠만 다 열려있는 상태. `sajuStrengthTemplates.js`(1단계 산출물)만 아직 미사용 — 향후 신강/신약 비교 보너스 인사이트로 쓸 수 있게 대기 중
+
+## 5-2. 아이돌/드라마 매치 — situational 섹션 5개 추가 (3개 → 8개)
+
+5-1에서 아이돌매치/드라마매치는 인사이트 섹션이 3개(왜 이 점수인지/잘 맞는 부분/관계에서 챙길 점)였는데, 팬 생활의 구체적 장면(컴백/브이라이브/팬미팅/콘서트/포토카드) 5개를 각각 다루는 섹션을 그 사이에 끼워 넣어 **8개**로 확장함.
+
+- **데이터**: `idolMatchTemplates.js`/`dramaMatchTemplates.js` 각 관계(5종)에 `situational: [5개 문구]` 필드 신규 추가(en/ko 각각) — 기존 `lines`/`goodFit`/`watchFor`처럼 seed로 1개만 뽑는 게 아니라 **항상 5개 전부** 반환. `getIdolMatchCopy`/`getDramaMatchCopy`의 리턴 객체에 `situational` 배열이 추가됨(기존 `tier`/`line`/`goodFit`/`watchFor`는 시그니처·동작 그대로 유지)
+- **아이돌 vs 드라마 상황 어휘 분리**: 아이돌 매치는 컴백 시즌/브이라이브/팬미팅/콘서트/포토카드, 드라마 매치는 새 작품 들어갈 때/인터뷰/팬미팅/시사회/스틸컷 — 5개 문구 자체도, 상황 제목(`idolMatch.situationalTitles`/`dramaMatch.situationalTitles`, 각각 5개 배열, en/ko)도 두 파일이 서로 다르게 씀. 기존 "K-드라마는 자체 시청 어휘로 리라이트" 원칙(5번 참고)을 상황 이름에도 동일 적용한 것
+- **섹션 조합**: `IdolMatch.jsx`(베스트매치+최애매치 그룹모드 두 곳)/`DramaMatch.jsx`가 `sections` 배열을 `[explanation, goodFit, ...situational×5, watchFor]` 순서로 8개 구성 — situational 5개는 `situationalTitles[i]`를 제목으로, `compatCopy.situational[i]`를 본문으로 매핑. 궁합(Compatibility)/로맨스(Romance)는 `situational` 필드가 없는 기존 템플릿(compatibilityTemplates.js/romanceTemplates.js)을 그대로 쓰므로 3개 섹션 그대로 — 이번 확장은 아이돌/드라마 매치 두 곳에만 적용됨
+- **seed 역할 축소**: seed는 여전히 `line`/`goodFit`/`watchFor`가 같은 유저+아이돌(또는 배우) 조합에서 매번 같은 텍스트로 재현되게 하는 데 쓰이지만, situational 5개를 고르는 데는 더 이상 안 씀(전부 다 보여주니까 고를 필요가 없어짐)
+- **검증**: Playwright로 아이돌매치(베스트매치+최애매치 그룹모드)/드라마매치, en/ko 각각에서 섹션 제목이 정확히 `[이 점수가 나온 이유, 잘 맞는 부분, 상황 5개(순서대로), 관계에서 챙길 점]` 8개로 뜨는지 텍스트 순서까지 확인. 빌드에서 `idolMatchTemplates`/`dramaMatchTemplates`의 모든 관계 × 언어 조합이 `situational` 5개를 빠짐없이 갖고 있는지도 스크립트로 전수 확인. 콘솔 에러 0건
+- **완료 기준**: 지금은 결제/페이월이 없어서 8개 다 열려있는 채로 노출 — 나중에 Stripe 붙을 때 몇 번째 섹션부터 잠글지만 정하면 되는 구조(5-1에서 `InsightSection`이 `.slice()` 없이 `sections` 배열 전체를 그대로 렌더링하도록 설계해둔 덕분에, 이번에도 컴포넌트 수정 없이 배열 구성만 바꿔서 확장 가능했음)
 
 ## 6. 아이돌/배우 데이터
 
@@ -186,6 +197,7 @@
 - `src/i18n/locales/{en,ko}.json` — **완전 병렬 구조** (키 하나도 안 빠짐, 스크립트로 검증함)
 - `LanguageToggle.jsx`: 헤더의 EN/KO 버튼, 다크모드처럼 localStorage(`language` 키)에 저장돼 재방문시 유지
 - 사주 네 기둥 표기도 언어에 맞게 전환됨 (한국어면 갑을병정 한글, 영어면 Jia/Yi 로마자) — `getGanLabel`/`getZhiLabel` 참고
+- **브랜드명 로컬라이즈**: `app.name` 값이 en/ko로 분리됨 — 영어는 "Ohaeng" 그대로(영어권 유저한텐 이게 실질적 브랜드명), 한국어는 **"오행"**으로 변경. `t('app.name')`을 쓰는 헤더 로고(`Layout.jsx`)와 공유카드 4종(`ShareCard`/`SajuShareCard`/`IdolShareCard`/`CompatibilityShareCard`)이 이 키 하나로 자동 반영됨. 문구 뱅크(`shareCaption` 등) 안에 하드코딩된 "Ohaeng" 텍스트는 이번 범위에서 안 건드림 — 로고/워터마크처럼 브랜드 마크로 쓰이는 자리만 대상
 
 ## 9. 애널리틱스 (`src/utils/analytics.js` + `main.jsx`) — **실제 키 등록·배포 완료, 정상 작동 중**
 

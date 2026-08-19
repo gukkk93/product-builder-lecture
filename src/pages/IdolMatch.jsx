@@ -89,10 +89,13 @@ export default function IdolMatch() {
       })
     : null;
 
+  const situationalTitles = t('idolMatch.situationalTitles', { returnObjects: true });
+
   const memberInsightSections = memberCompat && memberCopy
     ? [
         { title: t('matchCommon.insightTitles.explanation'), text: memberExplanation },
         { title: t('matchCommon.insightTitles.goodFit'), text: memberCopy.goodFit },
+        ...memberCopy.situational.map((text, i) => ({ title: situationalTitles[i], text })),
         { title: t('matchCommon.insightTitles.watchFor'), text: memberCopy.watchFor },
       ]
     : null;
@@ -119,6 +122,7 @@ export default function IdolMatch() {
     ? [
         { title: t('matchCommon.insightTitles.explanation'), text: explanation },
         { title: t('matchCommon.insightTitles.goodFit'), text: compatCopy.goodFit },
+        ...compatCopy.situational.map((text, i) => ({ title: situationalTitles[i], text })),
         { title: t('matchCommon.insightTitles.watchFor'), text: compatCopy.watchFor },
       ]
     : null;

@@ -58,10 +58,13 @@ export default function DramaMatch() {
       })
     : null;
 
+  const situationalTitles = t('dramaMatch.situationalTitles', { returnObjects: true });
+
   const insightSections = best && compatCopy
     ? [
         { title: t('matchCommon.insightTitles.explanation'), text: explanation },
         { title: t('matchCommon.insightTitles.goodFit'), text: compatCopy.goodFit },
+        ...compatCopy.situational.map((text, i) => ({ title: situationalTitles[i], text })),
         { title: t('matchCommon.insightTitles.watchFor'), text: compatCopy.watchFor },
       ]
     : null;
