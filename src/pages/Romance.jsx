@@ -85,10 +85,13 @@ export default function Romance() {
       })
     : null;
 
+  const situationalTitles = t(`romance.${situation}.situationalTitles`, { returnObjects: true });
+
   const insightSections = compatibility && copy
     ? [
         { title: t('matchCommon.insightTitles.explanation'), text: explanation },
         { title: t('matchCommon.insightTitles.goodFit'), text: copy.goodFit },
+        ...copy.situational.map((text, i) => ({ title: situationalTitles[i], text })),
         { title: t('matchCommon.insightTitles.watchFor'), text: copy.watchFor },
       ]
     : null;

@@ -5,11 +5,26 @@
 // getRomanceClosing) appended after the per-relation line at render time,
 // rather than duplicated into all 25 reunion lines — keeps that one editable
 // in one place.
+//
+// Each situation+relation pair also has a `situational` bank of exactly 5
+// entries tied to concrete relationship moments — a different set of 5 per
+// situation (see the per-situation situationalTitles i18n keys), always
+// returned in full by getRomanceCopy rather than picked by seed, since the
+// UI shows all 5 as separate sections. theirFeelings' situational texts are
+// written from the other person's point of view ("they'd probably..."),
+// matching that situation's existing line/goodFit/watchFor voice.
 export const romanceTemplates = {
   en: {
     reunion: {
       same: {
         tier: 'Same Wavelength, Still',
+        situational: [
+          "you'd probably type three different messages before sending the simple one — but even the simple one would land exactly the way it used to.",
+          "it wouldn't sting the way it does with most exes — you'd read it and just feel like you already knew.",
+          "the conversation would likely pick up mid-sentence, like no time passed at all.",
+          "it'd feel less like news and more like confirmation of something you already sensed.",
+          "you'd both probably think of the same thing without saying it — that kind of sync doesn't need a calendar reminder.",
+        ],
         lines: [
           "The reason this is hard to let go of is simple — you two were never really out of sync to begin with. That kind of ease doesn't just disappear because the relationship did.",
           "You'd probably fall back into old rhythms faster than either of you expects. Familiarity like this doesn't fade, it just goes quiet for a while.",
@@ -34,6 +49,13 @@ export const romanceTemplates = {
       },
       otherGeneratesMe: {
         tier: 'They Still Show Up For You',
+        situational: [
+          "you'd hesitate less than you think — some part of you already knows reaching out to them tends to make things easier, not harder.",
+          "you'd probably feel steadier just seeing that they're doing okay, even without exchanging a word.",
+          "it wouldn't feel like reopening something — more like running into someone who was always going to be gentle with you.",
+          "you'd likely hear it and feel oddly relieved, the way good news about someone who was good to you tends to land.",
+          "you might notice the date and feel warmth before you feel anything complicated — that's this pairing's signature.",
+        ],
         lines: [
           "Even now, their energy has a way of steadying yours — that's probably part of why moving on has felt harder than you expected.",
           "This is the kind of ex who, if they reached out, would still know exactly what to say to make your day easier. That doesn't wear off quickly.",
@@ -58,6 +80,13 @@ export const romanceTemplates = {
       },
       iGenerateOther: {
         tier: 'You Were the One Giving',
+        situational: [
+          "you'd catch yourself drafting a message that gives more than it asks — worth noticing that pattern before you hit send.",
+          "seeing them doing well might sting a little, mixed with pride you didn't expect to still feel.",
+          "you'd probably be the one who says something first, the way you usually were — worth asking if that's what you actually want to repeat.",
+          "hearing it secondhand might make you want to reach out and check on them, before you check on yourself.",
+          "the date might make you want to do something for them, before you've asked what they'd do for you.",
+        ],
         lines: [
           "You were likely the one keeping the relationship fed — the effort, the initiating, the emotional labor. If you're considering reunion, ask what would be different this time.",
           "This dynamic tends to leave the giver a little depleted. Before reaching back out, it's worth knowing whether you'd be doing the same thing again.",
@@ -82,6 +111,13 @@ export const romanceTemplates = {
       },
       otherOvercomesMe: {
         tier: 'Unfinished Tension',
+        situational: [
+          "you'd probably rewrite that message more times than you'd admit — this pairing never made anything simple, even a text.",
+          "it might hit harder than you expect, in a way that surprises you — this connection was never quiet, even from a distance.",
+          "your stomach would probably drop a little, the good-bad kind of feeling this pairing specializes in.",
+          "you might feel unsettled in a way that's hard to explain to a friend who didn't know how it actually was.",
+          "the date creeping closer might stir up more than you planned for — this pairing doesn't really do neutral anniversaries.",
+        ],
         lines: [
           "This wasn't an easy relationship, and it's probably not an easy thing to move on from either — the ones with real friction tend to stay unresolved the longest.",
           "If you're still thinking about them, it's likely because something here never got fully worked out, not because the relationship itself was simple or good.",
@@ -106,6 +142,13 @@ export const romanceTemplates = {
       },
       iOvercomeOther: {
         tier: 'You Held the Steadier Hand',
+        situational: [
+          "you'd probably think twice before sending anything, weighing whether you'd end up steadying them again.",
+          "seeing them might bring up a protective instinct before anything else — old habits like that don't fade fast.",
+          "you might catch yourself hoping they're doing alright, the way you used to check without being asked.",
+          "hearing about them might make you want to make sure they're okay before you decide how you feel about it.",
+          "the date might make you wonder if they're managing without you the way they used to lean on you.",
+        ],
         lines: [
           "You were probably the more grounded one in this relationship — the one holding things together more often than not. That's worth remembering before you go back to doing it again.",
           "If they've reached out, or you're considering reaching out, ask honestly whether they've grown into meeting you halfway, or whether you'd still be carrying most of it.",
@@ -132,6 +175,13 @@ export const romanceTemplates = {
     crush: {
       same: {
         tier: 'Kindred Spirits',
+        situational: [
+          "you'd check your phone a little too fast when their name pops up — and honestly, they're probably doing the same on their end.",
+          "running into them would derail your whole day in the best way — and there's a decent chance it does the same to them.",
+          "you'd linger on their posts a beat too long, reading into details that probably aren't even subtext — except this time they might actually be.",
+          "you'd get unusually quiet trying not to smile when their name comes up — your friends have probably already noticed.",
+          "you'd talk yourself out of it more than the actual odds justify — this is exactly the kind of crush that's rarely as one-sided as it feels.",
+        ],
         lines: [
           "There's a real chance this isn't one-sided for long — matching energy like this tends to get noticed, even if nothing's been said yet.",
           "You'd probably feel unusually understood around them, like they get your sense of humor without you having to explain it. That's rarely one-directional.",
@@ -156,6 +206,13 @@ export const romanceTemplates = {
       },
       otherGeneratesMe: {
         tier: 'They Make Everything Easier',
+        situational: [
+          "seeing their message land would make your whole afternoon lighter, no matter what it actually says.",
+          "running into them would feel like an unplanned good thing happening to your day, not a nerve-wracking one.",
+          "you'd end up smiling at their posts without meaning to — their presence online does the same thing their presence in person does.",
+          "you'd probably fail at playing it cool, because your face tends to soften without your permission around anything related to them.",
+          "you'd probably talk yourself into it faster than usual — this crush has never asked much bravery of you, just honesty.",
+        ],
         lines: [
           "Just being around them probably makes your day better without much effort on their part — which is exactly the kind of energy that's easy to fall for.",
           "This is the kind of crush that sneaks up on you. You didn't decide to like them so much as you noticed, one day, that they'd become a bright spot.",
@@ -180,6 +237,13 @@ export const romanceTemplates = {
       },
       iGenerateOther: {
         tier: "You're Already All In",
+        situational: [
+          "you'd notice you're the one checking first, more often than not — worth being honest with yourself about that pattern.",
+          "running into them, you'd probably ask about their day before you've said anything about yours.",
+          "you'd catch yourself liking, saving, and remembering things they post — quietly cataloging without meaning to.",
+          "you'd be the friend who slips up and says too much before catching yourself — the enthusiasm doesn't hide easily.",
+          "you'd lean toward confessing sooner than feels comfortable — this crush tends to make patience the harder option, not the easier one.",
+        ],
         lines: [
           "You're probably the one noticing every little thing about them — that's this pairing's signature. The risk is caring before you know if it's mutual.",
           "This crush would bring out your most generous, most attentive self. Just make sure you're getting some of that energy reflected back before you go all in.",
@@ -204,6 +268,13 @@ export const romanceTemplates = {
       },
       otherOvercomesMe: {
         tier: 'The Magnetic, Confusing Kind',
+        situational: [
+          "you'd read way too much into whether they texted first or not — this crush turns every small thing into a clue.",
+          "running into them would leave you replaying the thirty seconds of small talk for the rest of the day.",
+          "you'd screenshot something they posted, not sure why, just needing to look at it again later.",
+          "you'd fail spectacularly at hiding it the second their name comes up — your friends already know before you've said a word.",
+          "you'd talk yourself into and out of confessing on the same afternoon, more than once.",
+        ],
         lines: [
           "This isn't a calm, easy crush — it's the kind that keeps you a little off-balance, replaying moments you can't quite read.",
           "You'd probably overanalyze one glance from them more than a whole conversation with anyone else. That's not comfortable, but it is compelling.",
@@ -228,6 +299,13 @@ export const romanceTemplates = {
       },
       iOvercomeOther: {
         tier: "You're the Calm in Their Storm",
+        situational: [
+          "you'd probably be the one who texts back calm and collected, even if you weren't feeling that way when it came in.",
+          "running into them, you'd likely be the steady one setting the tone — without really trying to.",
+          "you'd scroll their posts without much drama, just quietly keeping up, the way you do with people you care about.",
+          "your friends might not even clock it, because you don't perform this crush loudly — it just shows up as attentiveness.",
+          "you'd approach confessing like a decision, not a leap — weighing it calmly instead of spiraling, which is very on-brand for you.",
+        ],
         lines: [
           "You'd probably come across as the steady, grounded one to them — which is a quietly attractive quality, even if it doesn't feel exciting from the inside.",
           "This crush would bring out your protective side before you even realize it. Not a bad look, just worth knowing that about yourself.",
@@ -254,6 +332,13 @@ export const romanceTemplates = {
     theirFeelings: {
       same: {
         tier: 'They See Themselves in You',
+        situational: [
+          "a message from you probably doesn't feel like effort to answer — it likely feels closer to a relief, something easy to reply to.",
+          "if someone else comes up, there's a good chance they quietly compare that person's energy to yours, whether they realize it or not.",
+          "when something hard happens, you might be one of the first people they think of, not because you'd fix it, but because you'd get it.",
+          "as things wind down, they've probably thought at least once that they didn't want it to end yet.",
+          "in a group, they likely find themselves checking whether you laughed at the same thing they did.",
+        ],
         lines: [
           "There's a good chance they feel unusually understood around you — like they don't have to explain themselves as much as they do with other people.",
           "To them, you probably read as familiar in a good way — not boring, just easy. That's rarer than it sounds, and they likely notice it.",
@@ -278,6 +363,13 @@ export const romanceTemplates = {
       },
       otherGeneratesMe: {
         tier: 'They Feel Steadied By You',
+        situational: [
+          "a message from you probably lands as a small lift in their day, even on days they wouldn't say so.",
+          "when someone else comes up, they might notice that person doesn't make things feel as easy as you do.",
+          "when something hard happens, they may reach for you specifically because you tend to make things feel more manageable, not more complicated.",
+          "as a hangout winds down, they might feel a version of reluctance they don't fully examine — just a quiet 'already?'",
+          "in a group, they probably relax a little more than usual just because you're there, even if neither of you would name why.",
+        ],
         lines: [
           "You likely have a settling effect on them, even if neither of you has named it — they probably feel calmer, not more anxious, after spending time with you.",
           "In their mind, you're probably the person who makes things feel more manageable. That's a quiet but real kind of importance.",
@@ -302,6 +394,13 @@ export const romanceTemplates = {
       },
       iGenerateOther: {
         tier: 'They Notice You Trying',
+        situational: [
+          "a message from you probably registers as thoughtful, even if they don't always reply with the same energy right away.",
+          "when someone else comes up, they might quietly notice that person doesn't put in the effort you do.",
+          "when something hard happens, they may not reach out first, but they'd likely notice and appreciate it if you did.",
+          "as a hangout winds down, they've probably clocked how much you tend to show up for them, even if they haven't said it out loud.",
+          "in a group, they might not perform gratitude toward you, but there's a decent chance they've registered your effort more than they let on.",
+        ],
         lines: [
           "They're likely aware, on some level, that you put in effort for them — and it probably reads as genuine, not performative.",
           "In their head, you're probably someone who shows up — reliably, generously, without making a big deal of it. That doesn't go unnoticed.",
@@ -326,6 +425,13 @@ export const romanceTemplates = {
       },
       otherOvercomesMe: {
         tier: "You're Hard for Them to Read",
+        situational: [
+          "a message from you probably doesn't feel neutral to them — there's a decent chance they read into it more than they'd admit.",
+          "when someone else comes up, they might find themselves oddly attentive to how you react, more than the topic itself.",
+          "when something hard happens, you might be someone they think of even if they don't reach out — hard to explain, harder to ignore.",
+          "as a hangout winds down, they may feel an unease they can't quite name — this pairing rarely ends on a fully settled note.",
+          "in a group, they might find themselves watching you a little more than they'd planned to.",
+        ],
         lines: [
           "You probably keep them a little on their toes, which — whether or not you intend it — tends to hold someone's attention rather than lose it.",
           "In their head, you're likely someone they can't quite predict, and that unpredictability is doing more work than you'd expect.",
@@ -350,6 +456,13 @@ export const romanceTemplates = {
       },
       iOvercomeOther: {
         tier: 'They Feel Safe With You',
+        situational: [
+          "a message from you probably lands as reassuring — the kind they don't have to brace for or overthink.",
+          "when someone else comes up, they might notice that person doesn't give them the same sense of steadiness you do.",
+          "when something hard happens, there's a decent chance you're one of the first people they'd trust to keep a level head about it.",
+          "as a hangout winds down, they've likely clocked, at least once, how much calmer they feel around you than around most people.",
+          "in a group, they might quietly relax knowing you're there to keep things from getting out of hand.",
+        ],
         lines: [
           "They likely feel a kind of quiet safety around you — like you're someone who wouldn't let things get out of hand, even if they never said that out loud.",
           "In their mind, you're probably the dependable one — the person they'd trust to keep a level head when they can't.",
@@ -378,6 +491,13 @@ export const romanceTemplates = {
     reunion: {
       same: {
         tier: '여전히 같은 파장',
+        situational: [
+          "메시지를 세 번쯤 다르게 써봤다가 결국 제일 담백한 걸 보내게 될 거예요 — 그런데 그 담백한 말도 예전이랑 똑같이 가닿을 거예요.",
+          "다른 전 애인 소식만큼 아프지 않을 거예요 — 그냥 이미 알고 있던 걸 확인하는 느낌에 가까울 거예요.",
+          "대화가 끊긴 데서부터 다시 이어질 확률이 높아요 — 시간이 하나도 안 지난 것처럼요.",
+          "새로운 소식이라기보다는, 원래 어렴풋이 느끼고 있던 걸 다시 확인하는 느낌일 거예요.",
+          "말 안 해도 둘 다 같은 생각을 하고 있을 확률이 높아요 — 이런 싱크로율엔 굳이 알림이 필요 없어요.",
+        ],
         lines: [
           "쉽게 못 놓는 이유가 간단해요 — 애초에 두 사람, 결이 어긋난 적이 없었거든요. 이런 편안함은 관계가 끝났다고 갑자기 사라지지 않아요.",
           "다시 만나면 예상보다 빨리 예전 리듬으로 돌아갈 확률이 높아요. 이런 익숙함은 사라지는 게 아니라 잠깐 조용해질 뿐이에요.",
@@ -402,6 +522,13 @@ export const romanceTemplates = {
       },
       otherGeneratesMe: {
         tier: '여전히 채워주는 사람',
+        situational: [
+          "생각보다 덜 망설이게 될 거예요 — 이 사람한테 먼저 연락하면 대체로 편해진다는 걸 마음 한쪽에서 이미 알고 있으니까요.",
+          "그냥 잘 지내는구나 싶은 것만으로도 마음이 놓일 확률이 높아요, 말 한마디 안 해도요.",
+          "다시 여는 느낌보다는, 원래 나한테 다정했던 사람을 우연히 다시 만난 느낌에 가까울 거예요.",
+          "그 소식을 듣고 묘하게 안심하게 될 거예요 — 나한테 좋았던 사람의 좋은 소식은 원래 그렇게 다가와요.",
+          "날짜를 보는 순간 복잡한 감정보다 따뜻함이 먼저 들 수도 있어요 — 이 조합의 특징이에요.",
+        ],
         lines: [
           "지금도 그 사람 기운이 은근히 나를 다독여주고 있을 거예요 — 그래서 놓는 게 생각보다 힘들었던 걸지도요.",
           "연락이 다시 닿으면, 그 사람은 여전히 뭐라고 말해야 내 하루가 편해지는지 정확히 아는 사람일 확률이 높아요.",
@@ -426,6 +553,13 @@ export const romanceTemplates = {
       },
       iGenerateOther: {
         tier: '내가 더 많이 준 쪽',
+        situational: [
+          "묻는 것보다 주는 게 더 많은 메시지를 쓰고 있는 나 자신을 발견할 수도 있어요 — 보내기 전에 그 패턴부터 알아채는 게 좋아요.",
+          "잘 지내는 모습을 보면 살짝 마음이 아프면서도, 예상 못 한 뿌듯함이 같이 들 수 있어요.",
+          "예전처럼 먼저 말 거는 쪽이 될 확률이 높아요 — 그게 정말 다시 반복하고 싶은 패턴인지 스스로에게 물어보는 게 좋아요.",
+          "건너서 소식을 들으면 내 마음보다 그 사람 안부부터 챙기고 싶어질 수 있어요.",
+          "그 날짜가 다가오면 그 사람이 나한테 뭘 해줄지보다 내가 뭘 해줄지부터 고민하게 될 수 있어요.",
+        ],
         lines: [
           "관계를 먹여 살리던 쪽은 아마 나였을 거예요 — 노력도, 먼저 다가가는 것도, 감정 노동도요. 재회를 생각한다면 이번엔 뭐가 달라질지부터 물어보세요.",
           "이 조합은 주는 쪽을 자꾸 지치게 만들어요. 다시 연락하기 전에, 또 같은 걸 반복하게 되는 건 아닌지부터 확인하는 게 좋아요.",
@@ -450,6 +584,13 @@ export const romanceTemplates = {
       },
       otherOvercomesMe: {
         tier: '끝나지 않은 긴장감',
+        situational: [
+          "그 메시지를 인정하는 것보다 훨씬 더 많이 고쳐 쓰게 될 거예요 — 이 조합은 문자 하나도 절대 간단하게 안 만들었으니까요.",
+          "예상보다 더 세게 다가올 수 있어요 — 이 인연은 멀리서도 절대 조용한 적이 없었으니까요.",
+          "속이 살짝 철렁할 확률이 높아요, 이 조합 특유의 좋기도 하고 나쁘기도 한 그 느낌이요.",
+          "그때가 어땠는지 모르는 친구한테는 설명하기 힘든 방식으로 마음이 흔들릴 수 있어요.",
+          "날짜가 다가올수록 예상보다 더 많은 감정이 올라올 수 있어요 — 이 조합엔 원래 무덤덤한 기념일이 없거든요.",
+        ],
         lines: [
           "편한 연애는 아니었을 거고, 놓는 것도 쉽지 않았을 거예요 — 진짜 마찰이 있던 관계일수록 오래 마음에 남거든요.",
           "여전히 그 사람 생각이 난다면, 관계가 단순히 좋았기 때문이 아니라 뭔가 제대로 풀리지 않은 게 남아있어서일 확률이 높아요.",
@@ -474,6 +615,13 @@ export const romanceTemplates = {
       },
       iOvercomeOther: {
         tier: '더 단단했던 건 나',
+        situational: [
+          "뭘 보내기 전에 두 번은 생각하게 될 거예요 — 결국 또 그 사람을 챙기는 쪽이 되는 건 아닌지 재보면서요.",
+          "그 사람을 보면 다른 무엇보다 보호 본능이 먼저 올라올 수 있어요 — 그런 오래된 습관은 쉽게 안 없어져요.",
+          "물어보지도 않았는데 예전처럼 그 사람이 잘 지내나 은근히 신경 쓰고 있는 나를 발견할 수도 있어요.",
+          "소식을 들으면 내 감정을 정리하기 전에 그 사람이 괜찮은지부터 확인하고 싶어질 수 있어요.",
+          "날짜가 다가오면 예전에 나한테 기대던 것처럼 지금도 혼자 잘 버티고 있을지 궁금해질 수 있어요.",
+        ],
         lines: [
           "이 관계에서 더 중심을 잡던 쪽은 아마 나였을 거예요 — 다시 그 역할로 돌아가기 전에, 그걸 기억해두는 게 좋아요.",
           "연락이 왔거나 먼저 연락을 고민 중이라면, 그 사람이 이제는 나만큼 다가올 줄 아는 사람이 됐는지, 아니면 여전히 내가 대부분을 짊어지게 될지 솔직하게 확인해보세요.",
@@ -500,6 +648,13 @@ export const romanceTemplates = {
     crush: {
       same: {
         tier: '닮은 마음',
+        situational: [
+          "이름 뜨는 순간 폰을 너무 빨리 확인하게 될 거예요 — 근데 아마 그쪽도 똑같이 하고 있을 확률이 높아요.",
+          "우연히 마주치면 그날 하루가 통째로 흔들릴 거예요, 제일 좋은 의미로요 — 그리고 상대도 그럴 확률이 꽤 있어요.",
+          "그 사람 게시물을 필요 이상으로 오래 들여다보게 될 거예요 — 근데 이번엔 그게 진짜 의미 있는 신호일 수도 있어요.",
+          "이름만 나와도 웃음 참느라 유난히 조용해질 거예요 — 친구들은 이미 눈치챘을 확률이 높아요.",
+          "실제 가능성보다 더 많이 스스로를 설득하려 들 거예요 — 이런 짝사랑은 생각보다 일방적이지 않은 경우가 많거든요.",
+        ],
         lines: [
           "이 마음, 짝사랑으로 오래 안 남을 가능성이 꽤 있어요 — 이렇게 결이 비슷하면 아직 말 안 했어도 상대도 눈치챘을 확률이 높거든요.",
           "그 사람 앞에서 유난히 이해받는 느낌이 들 거예요 — 농담 코드까지 설명 안 해도 통하는 그런 느낌이요. 이런 건 보통 일방적이지 않아요.",
@@ -524,6 +679,13 @@ export const romanceTemplates = {
       },
       otherGeneratesMe: {
         tier: '모든 걸 편하게 만드는 사람',
+        situational: [
+          "메시지 오는 것만 봐도 오후 전체가 가벼워질 거예요, 내용이 뭐든 상관없이요.",
+          "우연히 마주치면 긴장되는 일이 아니라 그날 예상 못 한 좋은 일이 생긴 느낌일 거예요.",
+          "게시물 보다가 나도 모르게 웃고 있을 거예요 — 온라인에서도 실제로 만났을 때랑 똑같은 효과를 줘요.",
+          "티 안 내려고 해도 잘 안 될 확률이 높아요 — 이 사람 관련이면 표정이 허락도 없이 풀어지거든요.",
+          "평소보다 빨리 마음을 정하게 될 거예요 — 이 짝사랑은 원래 큰 용기를 요구한 적이 없어요, 그냥 솔직함만요.",
+        ],
         lines: [
           "그 사람 옆에 있는 것만으로 하루가 나아지는 느낌일 거예요, 별로 애쓰지 않아도요 — 딱 빠지기 쉬운 그런 에너지예요.",
           "이런 짝사랑은 어느새 스며들어요. 좋아하기로 결심했다기보다, 어느 날 문득 그 사람이 내 하루의 밝은 부분이 됐다는 걸 깨닫는 쪽에 가까워요.",
@@ -548,6 +710,13 @@ export const romanceTemplates = {
       },
       iGenerateOther: {
         tier: '이미 마음 다 준 쪽',
+        situational: [
+          "먼저 확인하는 쪽이 나라는 걸 자주 느끼게 될 거예요 — 그 패턴에 스스로 솔직해지는 게 좋아요.",
+          "마주치면 내 하루 얘기보다 그 사람 하루부터 물어보게 될 확률이 높아요.",
+          "올린 걸 좋아요 누르고, 저장하고, 기억하고 있는 나를 발견할 거예요 — 의도치 않게 조용히 다 기록해두면서요.",
+          "티 안 내려다가 결국 말이 너무 많아지는 친구가 될 거예요 — 이 설렘은 쉽게 숨겨지지 않아요.",
+          "편한 것보다 더 빨리 고백 쪽으로 기울게 될 거예요 — 이 짝사랑은 참는 게 오히려 더 어려운 쪽이에요.",
+        ],
         lines: [
           "그 사람의 사소한 것까지 다 눈치채는 쪽은 아마 나일 거예요 — 이 조합의 특징이죠. 위험한 건 마음이 닿았는지 모른 채 먼저 마음을 쏟는다는 거예요.",
           "이 짝사랑은 가장 다정하고 배려 깊은 내 모습을 끌어내요. 다만 그만큼의 마음이 돌아오고 있는지도 챙기면서 가는 게 좋아요.",
@@ -572,6 +741,13 @@ export const romanceTemplates = {
       },
       otherOvercomesMe: {
         tier: '설레면서도 헷갈리는 마음',
+        situational: [
+          "먼저 문자했는지 안 했는지에 과하게 의미를 부여하게 될 거예요 — 이 짝사랑은 사소한 것도 다 단서로 만들어버려요.",
+          "마주치고 나면 30초짜리 스몰토크를 하루 종일 곱씹게 될 거예요.",
+          "이유도 모른 채 그 사람 게시물을 캡처해두게 될 거예요, 나중에 다시 보고 싶어서요.",
+          "이름만 나와도 티 숨기는 데 완전히 실패할 거예요 — 말 꺼내기도 전에 친구들은 이미 알고 있어요.",
+          "같은 오후에 고백하기로 마음먹었다가 그만두기를 몇 번씩 반복하게 될 거예요.",
+        ],
         lines: [
           "편안하고 잔잔한 짝사랑은 아니에요 — 순간순간을 자꾸 곱씹게 만들고, 살짝 흔들리게 만드는 쪽이에요.",
           "다른 사람과의 대화 전체보다 그 사람의 눈빛 하나를 더 오래 곱씹게 될 거예요. 편하진 않지만, 확실히 끌려요.",
@@ -596,6 +772,13 @@ export const romanceTemplates = {
       },
       iOvercomeOther: {
         tier: '폭풍 속 나만 침착한 쪽',
+        situational: [
+          "메시지 받을 땐 속으로 어떻든 겉으론 침착하게 답장하는 쪽일 확률이 높아요.",
+          "마주치면 별로 애쓰지 않아도 분위기를 차분하게 이끄는 쪽이 될 거예요.",
+          "게시물은 큰 동요 없이 그냥 조용히 챙겨보게 될 거예요 — 원래 소중한 사람들한테 그렇게 하듯이요.",
+          "친구들도 잘 눈치 못 챌 수 있어요 — 이 마음을 요란하게 드러내는 타입이 아니라, 그냥 세심함으로 티가 나는 쪽이니까요.",
+          "고백도 충동보다는 결정에 가깝게 접근할 거예요 — 소용돌이치기보다 차분히 재보는 쪽, 딱 나답게요.",
+        ],
         lines: [
           "그 사람 눈엔 내가 든든하고 중심 잡힌 사람으로 보일 확률이 높아요 — 설레는 매력은 아니어도 은근히 끌리는 포인트예요.",
           "이 짝사랑은 나도 모르게 보호 본능을 끌어내요. 나쁜 인상은 아니니, 내가 그런 사람이라는 것만 알아두면 돼요.",
@@ -622,6 +805,13 @@ export const romanceTemplates = {
     theirFeelings: {
       same: {
         tier: '당신에게서 자신을 봐요',
+        situational: [
+          "메시지가 오면 답장하는 게 일처럼 느껴지지 않을 거예요 — 오히려 안도감에 더 가까울 확률이 높아요.",
+          "다른 사람 얘기가 나오면, 본인도 모르게 그 사람 결을 나랑 은근히 비교하고 있을 확률이 높아요.",
+          "힘든 일이 생기면 나를 먼저 떠올릴 수도 있어요, 해결해줄 사람이라서가 아니라 이해해줄 사람이라서요.",
+          "만남이 끝나갈 때쯤엔 아직 안 끝났으면 좋겠다고 한 번쯤 생각했을 확률이 높아요.",
+          "여럿이 있을 때는 내가 같은 포인트에서 웃었는지 은근히 확인하고 있을 거예요.",
+        ],
         lines: [
           "그 사람도 나와 있을 때 유난히 이해받는 느낌을 받을 확률이 높아요 — 다른 사람들 앞에서보다 덜 설명해도 되는 느낌이요.",
           "그 사람에게 나는 좋은 의미로 익숙한 사람일 거예요 — 지루한 게 아니라 편한 쪽으로요. 생각보다 흔치 않은 거라 아마 눈치챘을 거예요.",
@@ -646,6 +836,13 @@ export const romanceTemplates = {
       },
       otherGeneratesMe: {
         tier: '당신 덕분에 편안해져요',
+        situational: [
+          "메시지가 오면 말은 안 해도 그날 기분이 살짝 좋아질 확률이 높아요.",
+          "다른 사람 얘기가 나오면, 그 사람은 나만큼 편하게 해주지 않는다는 걸 은근히 느낄 수도 있어요.",
+          "힘든 일이 생기면 나를 찾을 수도 있어요, 복잡하게 만드는 사람이 아니라 편하게 만들어주는 사람이라서요.",
+          "만남이 끝나갈 때쯤엔 딱히 설명 못 할 아쉬움을 한 번쯤 느낄 수도 있어요 — 그냥 '벌써?' 정도의 감정으로요.",
+          "여럿이 있을 때는 이유는 몰라도 내가 있으면 평소보다 조금 더 편해질 확률이 높아요.",
+        ],
         lines: [
           "둘 다 말한 적은 없어도, 나는 그 사람을 은근히 안정시켜주는 존재일 확률이 높아요 — 같이 있으면 더 불안해지는 게 아니라 더 차분해질 거예요.",
           "그 사람 마음속에서 나는 상황을 더 감당할 만하게 만들어주는 사람일 거예요. 조용하지만 진짜 중요한 존재감이에요.",
@@ -670,6 +867,13 @@ export const romanceTemplates = {
       },
       iGenerateOther: {
         tier: '노력을 알아채는 사람',
+        situational: [
+          "메시지가 오면 다정하다고 느낄 확률이 높아요, 바로 같은 텐션으로 답 못 할 때도요.",
+          "다른 사람 얘기가 나오면, 그 사람은 나만큼 신경 써주지 않는다는 걸 은근히 느낄 수도 있어요.",
+          "힘든 일이 생기면 먼저 연락은 안 해도, 내가 먼저 연락하면 알아채고 고마워할 확률이 높아요.",
+          "만남이 끝나갈 때쯤엔 내가 얼마나 챙겨주는 사람인지 이미 눈치챘을 확률이 높아요, 말은 안 해도요.",
+          "여럿이 있을 때는 티 나게 고마워하진 않아도, 생각보다 내 노력을 많이 알아채고 있을 확률이 높아요.",
+        ],
         lines: [
           "내가 그 사람을 위해 애쓰고 있다는 걸 어느 정도는 알아채고 있을 확률이 높아요 — 그리고 그게 진심으로 느껴질 거예요, 과하게 티 내지 않아도요.",
           "그 사람 머릿속에서 나는 꾸준히, 아낌없이, 별로 티 안 내면서 곁에 있어주는 사람일 거예요. 그런 건 눈에 안 띄어도 잊히지 않아요.",
@@ -694,6 +898,13 @@ export const romanceTemplates = {
       },
       otherOvercomesMe: {
         tier: '쉽게 안 읽히는 사람',
+        situational: [
+          "메시지가 오면 그 사람한텐 그냥 무덤덤한 일이 아닐 확률이 높아요 — 인정하는 것보다 더 많은 의미를 부여하고 있을 수 있어요.",
+          "다른 사람 얘기가 나오면, 주제 자체보다 내 반응을 유난히 신경 써서 보고 있을 수 있어요.",
+          "힘든 일이 생기면 먼저 연락은 안 해도 나를 떠올릴 수 있어요 — 설명하긴 어려워도 무시하긴 더 어려운 감정이에요.",
+          "만남이 끝나갈 때쯤엔 콕 집어 말하기 힘든 찜찜함을 느낄 수도 있어요 — 이 조합은 깔끔하게 끝나는 경우가 드물어요.",
+          "여럿이 있을 때는 계획한 것보다 나를 조금 더 자주 쳐다보고 있을 수 있어요.",
+        ],
         lines: [
           "나는 그 사람을 살짝 긴장하게 만드는 존재일 확률이 높아요 — 의도했든 안 했든, 그런 예측 불가함이 관심을 놓치게 하기보단 더 붙잡아둬요.",
           "그 사람 머릿속에서 나는 쉽게 예측이 안 되는 사람일 거예요, 그리고 그 예측불가함이 생각보다 훨씬 큰 역할을 하고 있어요.",
@@ -718,6 +929,13 @@ export const romanceTemplates = {
       },
       iOvercomeOther: {
         tier: '당신 곁에서 안심해요',
+        situational: [
+          "메시지가 오면 마음을 졸이지 않아도 되는, 안심되는 연락으로 느낄 확률이 높아요.",
+          "다른 사람 얘기가 나오면, 그 사람은 나만큼 든든한 느낌을 주지 않는다는 걸 은근히 느낄 수도 있어요.",
+          "힘든 일이 생기면 침착하게 얘기할 수 있는 사람으로 나를 제일 먼저 믿을 확률이 꽤 있어요.",
+          "만남이 끝나갈 때쯤엔 다른 사람들이랑 있을 때보다 나랑 있을 때 훨씬 편안하다는 걸 한 번쯤 느꼈을 확률이 높아요.",
+          "여럿이 있을 때는 내가 있으면 상황이 크게 흐트러지지 않을 거라는 걸 은근히 믿고 편안해할 수 있어요.",
+        ],
         lines: [
           "나와 있을 때 그 사람은 조용한 안전함을 느낄 확률이 높아요 — 입 밖으로 낸 적은 없어도, 내가 상황을 크게 흔들지 않을 사람이라는 걸 아는 거죠.",
           "그 사람 머릿속에서 나는 믿을 수 있는 사람, 흔들릴 때 중심을 잡아줄 사람일 확률이 높아요.",
@@ -765,15 +983,26 @@ function hashCode(str) {
 
 /**
  * Picks copy for a situation+relation, stable per pair of birthdates.
- * Returns the tier name plus three parallel texts (line/goodFit/watchFor)
- * all drawn from the same seeded variant index.
+ * Returns the tier name, three parallel texts (line/goodFit/watchFor) all
+ * drawn from the same seeded variant index, plus `situational` — all 5
+ * concrete-moment texts for this situation+relation, always returned in
+ * full rather than picked by seed, since the UI shows all 5 as separate
+ * sections. The seed still keeps line/goodFit/watchFor stable per pair of
+ * birthdates — it just no longer decides which situational text gets
+ * shown, since all of them do.
  */
 export function getRomanceCopy(lang, situation, relation, seedInput) {
   const bank = romanceTemplates[lang] || romanceTemplates.en;
   const entry = bank[situation][relation];
   const seed = hashCode(seedInput);
   const idx = seed % entry.lines.length;
-  return { tier: entry.tier, line: entry.lines[idx], goodFit: entry.goodFit[idx], watchFor: entry.watchFor[idx] };
+  return {
+    tier: entry.tier,
+    line: entry.lines[idx],
+    goodFit: entry.goodFit[idx],
+    watchFor: entry.watchFor[idx],
+    situational: entry.situational,
+  };
 }
 
 /** Shared closing line for a situation, if one exists (currently just reunion). */

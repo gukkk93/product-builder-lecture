@@ -208,19 +208,22 @@
       "title": "Reunion Reading 🔁",
       "subtitle": "Wondering if you two could find your way back to each other? Enter both birthdays to find out.",
       "badge": "Reunion Reading",
-      "shareCaption": "I just got my Ohaeng reunion reading — try yours:"
+      "shareCaption": "I just got my Ohaeng reunion reading — try yours:",
+      "situationalTitles": ["When you're debating whether to reach out", "Seeing their story or post", "Running into them by chance", "Hearing about them through a friend", "As an anniversary or their birthday nears"]
     },
     "crush": {
       "title": "Crush Reading 💓",
       "subtitle": "Wondering if this feeling could go somewhere? Enter both birthdays to find out.",
       "badge": "Crush Reading",
-      "shareCaption": "I just got my Ohaeng crush reading — try yours:"
+      "shareCaption": "I just got my Ohaeng crush reading — try yours:",
+      "situationalTitles": ["Checking for a message every day", "Running into them", "Scrolling their social media", "Trying to play it cool around friends", "Debating whether to confess"]
     },
     "theirFeelings": {
       "title": "Their True Feelings 👀",
       "subtitle": "Curious what they really think of you? Enter both birthdays to find out.",
       "badge": "Their True Feelings",
-      "shareCaption": "I just got my Ohaeng reading on their true feelings — try yours:"
+      "shareCaption": "I just got my Ohaeng reading on their true feelings — try yours:",
+      "situationalTitles": ["When they get a message from you", "When someone else comes up", "When something hard happens", "As a hangout winds down", "In a group setting"]
     }
   },
   "idolMatch": {
