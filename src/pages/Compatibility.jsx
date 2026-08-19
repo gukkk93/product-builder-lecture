@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { getCompatibilityCopy } from '../data/compatibilityTemplates';
+import { getSajuStrengthInsight } from '../data/sajuStrengthTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl, birthParams } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
@@ -90,11 +91,19 @@ export default function Compatibility() {
       })
     : null;
 
+  // sajuStrengthTemplates.js needs both people's dayGanStrength, which only
+  // a two-person page like this one has — that's why it's wired in here
+  // rather than the (solo) /saju page.
+  const strengthInsight = compatibility
+    ? getSajuStrengthInsight(i18n.language, mySaju.dayGanStrength, compatibility.otherSaju.dayGanStrength)
+    : null;
+
   const insightSections = compatibility && copy
     ? [
-        { title: t('matchCommon.insightTitles.explanation'), text: explanation },
-        { title: t('matchCommon.insightTitles.goodFit'), text: copy.goodFit },
-        { title: t('matchCommon.insightTitles.watchFor'), text: copy.watchFor },
+        { title: t('matchCommon.insightTitles.explanation'), text: explanation, locked: false },
+        { title: t('matchCommon.insightTitles.goodFit'), text: copy.goodFit, locked: false },
+        { title: t('matchCommon.insightTitles.watchFor'), text: copy.watchFor, locked: true },
+        { title: t('matchCommon.insightTitles.strengthMatch'), text: strengthInsight, locked: true },
       ]
     : null;
 

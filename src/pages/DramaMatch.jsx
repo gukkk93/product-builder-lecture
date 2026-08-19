@@ -62,10 +62,10 @@ export default function DramaMatch() {
 
   const insightSections = best && compatCopy
     ? [
-        { title: t('matchCommon.insightTitles.explanation'), text: explanation },
-        { title: t('matchCommon.insightTitles.goodFit'), text: compatCopy.goodFit },
-        ...compatCopy.situational.map((text, i) => ({ title: situationalTitles[i], text })),
-        { title: t('matchCommon.insightTitles.watchFor'), text: compatCopy.watchFor },
+        { title: t('matchCommon.insightTitles.explanation'), text: explanation, locked: false },
+        { title: t('matchCommon.insightTitles.goodFit'), text: compatCopy.goodFit, locked: false },
+        ...compatCopy.situational.map((text, i) => ({ title: situationalTitles[i], text, locked: true })),
+        { title: t('matchCommon.insightTitles.watchFor'), text: compatCopy.watchFor, locked: true },
       ]
     : null;
 

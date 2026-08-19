@@ -72,14 +72,32 @@
 - **삼재(三災) — `getSamjae(saju, fromYear)`**: 년지가 속한 삼합 그룹의 "역마 지지부터 3년 연속"이 삼재 구간이라는 사실을 발견(4개 그룹 전부에서 역마 지지로 시작해 화개 지지로 끝나는 패턴이 정확히 일치함을 확인) — 별도 테이블 없이 위 신살 섹션의 역마 테이블을 재사용해서 도출. `fromYear` 기준 12년 이내에서 가장 가까운 삼재 구간(진행 중이면 그 구간, 아니면 다음 구간)을 찾아 `{ years: [3개 연도], samjaeZhis, isCurrent }`로 반환
 - **검증**: (1) 테스트 스크립트에 saju.js와는 완전히 별개로 각 조견표를 처음부터 다시 손으로 옮겨 적어서, 서로 다른 생년월일 5개에 대해 실제 구현 결과와 전부 대조(0건 불일치) (2) 잘 알려진 공개 사실 2건과 교차 확인 — "호랑이·말·개띠(寅午戌)의 삼재는 신유술년"과 "원숭이·쥐·용띠(申子辰)의 삼재는 인묘진년"이 계산 결과와 정확히 일치 (3) 천을귀인 표는 "甲戊庚牛羊..." 가결과 한 글자씩 대조 (4) `npm run build` + 기존 페이지(`/`, `/result`, `/saju`) Playwright 재확인으로 회귀 없음(콘솔 에러 0건) 확인 — 이 모듈이 아직 어디서도 안 쓰이므로 사실상 존재하지 않는 코드지만, 다른 export들과 섞여 있어 빌드 깨짐 여부만 체크
 
-## 3-5. 사주 인생 그래프 — 자물쇠 미리보기 (`getLifeScoreTimeline`, `LifeScoreChart.jsx`, `LockedPreview.jsx`)
+## 3-5. 사주 인생 그래프 — 자물쇠 미리보기 (`getLifeScoreTimeline`, `LifeScoreChart.jsx`)
 
 **결제 연동 없이 시각적 티저만** — Stripe는 아직 안 붙임. `/saju`의 대운표 카드 바로 아래에 새 카드로 배치.
 
 - **`getLifeScoreTimeline(birth, timeKnown, gender, dominantElement)`** (`saju.js`): 새 계산이 아니라 기존 로직 재조합 — `getDaeun`으로 8개 대운 시기를 가져온 뒤, 각 시기 간지의 **천간 오행**(대운 항목의 `ganElement` — `getYearPillar`/`getDayElement`가 "날짜의 오행"을 늘 천간 하나로만 읽는 것과 같은 관례)과 `dominantElement` 사이 관계를 `getElementRelation`으로 판정하고, `getCompatibilityScore(relation, seed)`를 그대로 재사용해 1-99 점수로 변환(새 기준점 테이블 안 만듦 — 기존 `RELATION_SCORE`를 그대로 씀). 8개 시기를 2개씩 묶어 초년기/청년기/중년기/말년기 4단계로 평균 점수도 같이 반환. 대운과 동일하게 성별 필요 — `Saju.jsx`에서 `gender ? getLifeScoreTimeline(...) : null` 패턴으로 대운과 나란히 처리(성별 없으면 안내 문구만)
 - **`LifeScoreChart.jsx`** (신규): `ElementDistribution`과 같은 톤(차트 라이브러리 없이 순수 CSS) — 8개 시기를 세로 막대로, 막대는 각 시기 천간 오행 색상, 아래에 초년/청년/중년/말년 4단계 라벨(2개 막대씩 span)
-- **`LockedPreview.jsx`** (신규, 재사용 가능한 범용 래퍼): children을 `blur(6px)`+낮은 opacity로 감싸고 그 위에 🔒 아이콘 + "프리미엄에서 전체 그래프를 확인할 수 있어요" 오버레이 — 순수 시각 처리, 결제 로직 전혀 없음. 이름 그대로 범용이라 나중에 신살/귀인/`sajuStrengthTemplates.js` 콘텐츠를 유료 섹션으로 묶을 때도 그대로 재사용 가능하게 설계
+- 잠금 UI 자체(당시 `LockedPreview.jsx`)는 **3-6에서 `PremiumLock.jsx`로 이름을 바꾸고 앱 전체 공용 컴포넌트로 확장됨** — 아래 참고
 - **검증**: Playwright로 성별 입력 시 그래프 실루엣(흐릿한 막대)+자물쇠+안내문구가 뜨는지, 성별 미입력 시 대운표와 동일하게 안내 문구만 뜨는지, en/ko·라이트/다크 4가지 조합 스크린샷으로 확인. 콘솔 에러 0건
+
+## 3-6. 프리미엄 잠금 UI 전면 확장 (`PremiumLock.jsx`, `InsightSection`의 `locked` 지원)
+
+3-5에서 `LifeScoreChart` 하나에만 쓰던 잠금 컴포넌트를 앱 전체 프리미엄 콘텐츠에 쓰는 공용 패턴으로 확장. **여전히 Stripe 연동 없음 — 순수 시각적 처리만.**
+
+- **`LockedPreview.jsx` → `PremiumLock.jsx`로 이름 변경**: 구현은 동일(blur(6px)+opacity 0.55 오버레이 + 🔒 아이콘 + 안내 문구), 이름만 범용성에 맞게 변경. `saju.premiumLockedNote` 문구도 "프리미엄에서 전체 그래프를 확인할 수 있어요"(그래프 전용 표현)에서 **"프리미엄에서 확인 가능"**(범용 표현)으로 같이 수정 — 이제 차트뿐 아니라 텍스트 섹션에도 쓰이므로
+- **`InsightSection.jsx`에 `locked` 지원 추가**: `sections` 배열 각 항목에 `locked?: boolean` 필드를 추가할 수 있고, `locked: true`인 섹션은 그 섹션 하나(번호 배지+제목+본문 카드)만 개별적으로 `PremiumLock`으로 감싸서 렌더링 — 잠긴 섹션 여러 개가 연달아 있으면 각자 따로 블러+자물쇠가 뜸(하나로 묶어서 감싸지 않음, 스펙대로). 여전히 `.slice()` 안 씀 — 배열을 구성하는 시점에 어떤 항목이 잠기는지 `locked` 플래그로 전부 결정되고 컴포넌트 자체는 그대로 전체 배열을 렌더링
+- **각 페이지 `sections` 배열에 `locked` 적용**:
+  - `IdolMatch.jsx`(베스트매치+최애매치 그룹모드)/`DramaMatch.jsx`/`Romance.jsx`(재회·짝사랑·속마음 공용): `[explanation, goodFit]`은 `locked:false`, `situational×5` + `watchFor`는 `locked:true` — 8개 중 2개만 무료
+  - `Compatibility.jsx`: `[explanation, goodFit]`은 `locked:false`, `watchFor`는 `locked:true`(이 페이지는 애초에 situational 확장 대상이 아니었어서 3개 섹션 구조 그대로)
+  - `Saju.jsx` 도메인 섹션 4개(연애/재물/커리어/건강 스타일): **연애 스타일(romanceStyle)만 무료**로 남기고 나머지 3개(재물/커리어/건강)는 잠금 — 흥미 유발용 티저 1개 구조
+- **`sajuStrengthTemplates.js` 연결 — 요청과 다르게 `Compatibility.jsx`에 배치함(중요)**: 원래 지시는 "Saju.jsx에 새 섹션으로 추가"였는데, `getSajuStrengthInsight(lang, myStrength, theirStrength)`는 애초에(5-1의 1단계 산출물) **"나 vs 상대방" 두 사람의 신강/신약을 비교하는 관계형 콘텐츠**("이 관계 안에서", "상대는" 같은 문장으로 씀)라서, 상대방이 없는 `/saju`(솔로 프로필 페이지)에 붙이면 문맥이 안 맞고 읽었을 때 이상함(예: "둘 다 신강이라 이 관계에서 존재감 없이 묻히지 않아요" 같은 문장이 혼자 보는 페이지에 뜨는 상황). 그래서 이미 `mySaju.dayGanStrength`/`compatibility.otherSaju.dayGanStrength` 둘 다 갖고 있는 `Compatibility.jsx`에 4번째 섹션(`locked:true`)으로 대신 연결함 — `matchCommon.insightTitles.strengthMatch`("신강신약 궁합") 신규 키 추가. `/saju`에는 이 콘텐츠를 붙이지 않음
+- **신살/귀인/연운/삼재 — `Saju.jsx`에 새 카드로 추가(`saju.extraHeading`, "신살·귀인·연운·삼재")**: 계산 로직만 있고 성격 설명 문구가 없는 상태라, 각각 실제 계산 결과를 반영한 **한 줄 프리뷰**만 작성(전부 `locked:true`) — 문장 자체는 최소한이지만 플레이스홀더가 아니라 실제 계산값을 반영함:
+  - 신살: `getShensha(saju, lang)` 결과가 있으면 "이런 신살이 있어요: {{라벨들}}", 없으면 "특별히 두드러지는 신살은 없어요"
+  - 귀인: `getNobleman(saju, lang)`의 `hasNobleman` 여부로 "천을귀인이 있어요"/"천을귀인은 없어요"
+  - 연운: `getYearRelation(saju, 올해)`의 관계(5종)마다 새로 쓴 한 줄씩(`saju.yearLuckOneLiner.*`, 5개 × en/ko) — 예: "2026년은 나와 같은 기운으로 흘러가요"
+  - 삼재: `getSamjae(saju, 올해)`가 `isCurrent`면 "지금이 삼재 시기예요 ({{시작}}~{{끝}}년)", 아니면 "다음 삼재는 {{시작}}~{{끝}}년이에요"
+- **검증**: Playwright로 6개 결과 화면(아이돌매치 베스트+그룹모드, 드라마매치, 궁합, 로맨스, 사주) 전부에서 각 인사이트 섹션 제목 옆에 자물쇠가 정확히 스펙대로 붙는지(무료 섹션엔 안 붙고 잠금 섹션에만 붙는지) DOM 검사로 전수 확인 — 전부 일치. 라이트/다크 스크린샷으로 블러+자물쇠+안내문구가 시각적으로 자연스러운지, 무료 섹션(연애 스타일, 각 매치 페이지의 explanation+goodFit)은 블러 없이 선명하게 보이는지 확인. 콘솔 에러 0건
 
 ## 4. 라우트/페이지 구조
 
@@ -127,7 +145,7 @@
 - **1단계**: `matchCommon.explanation.*`(관계 5종, 궁합 점수 아래에 붙는 설명 문구)를 한 줄 요약에서 **3~4문장 문단**으로 확장(en/ko). `src/data/sajuStrengthTemplates.js` 신규(신강/신약 조합 4개 × en/ko, `getSajuStrengthInsight` — **아직 어디에도 연결 안 됨**, Step 1~5 어디서도 안 씀, 향후 보너스 콘텐츠용으로 대기 중). `Compatibility.jsx`가 `compatibility` 네임스페이스에 없던 `theirElement` 키(`idolMatch`에만 있던 복붙 버그)를 호출하던 것도 이때 발견해 수정
 - **2단계**: `compatibilityTemplates.js`/`idolMatchTemplates.js`/`dramaMatchTemplates.js`/`romanceTemplates.js` 네 파일 전체에 `goodFit`("잘 맞는 부분")/`watchFor`("관계에서 챙길 점") 2개 문단 뱅크를 관계 5종 × 5개 변형(en/ko) 추가. 기존 `line`과 같은 시드 인덱스로 뽑아서 세 문단이 일관되게 읽히도록 함. `getCompatibilityCopy`/`getIdolMatchCopy`/`getDramaMatchCopy`/`getRomanceCopy` 모두 `{ tier, line, goodFit, watchFor }` 반환
 - **3단계**: `sajuProfileTemplates.js`에 `romanceStyle`/`wealthStyle`/`careerStyle`/`healthStyle` 4개 도메인 섹션 추가 — 처음엔 오행 5 × 강약 2 × en/ko로 시작했지만, 내용이 서로 겹친다는 피드백으로 **3-3에서 도메인별로 다른 근거를 쓰도록 재설계됨**(십성/배우자궁/최약오행 기반) — 최신 구조는 3-3 참고
-- **4단계**: `src/components/InsightSection.jsx` 신규 — `sections`(`{ title, text }` 배열)를 번호 배지+제목+본문 카드로 `.map()` 렌더링(`.slice()`는 의도적으로 안 씀 — 나중에 페이월 게이팅을 슬라이스만으로 붙일 수 있게). `element`+`intro` prop을 주면 `ElementCharacter`가 말풍선(`.insight-bubble`, `global.css`에 꼬리만 별도 CSS 클래스, 나머지는 인라인 스타일)으로 섹션 목록을 소개
+- **4단계**: `src/components/InsightSection.jsx` 신규 — `sections`(`{ title, text }` 배열)를 번호 배지+제목+본문 카드로 `.map()` 렌더링(`.slice()`는 의도적으로 안 씀 — 나중에 페이월 게이팅을 슬라이스만으로 붙일 수 있게). `element`+`intro` prop을 주면 `ElementCharacter`가 말풍선(`.insight-bubble`, `global.css`에 꼬리만 별도 CSS 클래스, 나머지는 인라인 스타일)으로 섹션 목록을 소개. **실제로 게이팅이 붙을 때(3-6)는 슬라이스가 아니라 항목별 `locked` 플래그 방식으로 결정됨** — 그래도 이 컴포넌트 자체(`.map()`으로 전체 배열 렌더링)는 안 바뀜, 예측대로 컴포넌트 수정 없이 확장됨
 - **5단계(최종) 완료**: `InsightSection`을 실제 결과 화면에 연결
   - `MatchResultCard.jsx`(아이돌/드라마 매치 공용): `explanation` prop을 `insightSections` 배열 prop으로 교체
   - `IdolMatch.jsx`(베스트매치+최애매치 멤버상세)/`DramaMatch.jsx`: `[{explanation}, {goodFit}, {watchFor}]` 3개 섹션을 구성해 `MatchResultCard`에 전달
@@ -137,7 +155,7 @@
   - 새 i18n 키: `matchCommon.insightTitles.{explanation,goodFit,watchFor}`, `saju.domainHeading`/`domainIntro` (en/ko, parity 확인됨). 도메인 섹션 자체의 제목(`연애 스타일` 등)은 3단계에서 만든 `getDomainInsight`의 `title` 필드를 그대로 씀 — 별도 i18n 키 안 만듦
   - Playwright로 5개 페이지(궁합/로맨스/아이돌매치 베스트+최애매치 그룹모드/드라마매치/내사주) × 라이트·다크 × en/ko 전부 렌더링·콘솔 에러 없음 확인. 공유카드(`CompatibilityShareCard`/`IdolShareCard`)는 `InsightSection`을 렌더링하지 않아 회귀 없음도 스크린샷으로 확인
 
-**완료 기준 충족**: 궁합/아이돌매치/드라마매치/로맨스/내 사주 결과 화면 전부에 인사이트 섹션이 여러 개 순서대로 노출되고, 잠금 UI·결제 버튼·"+N가지 더" 배지는 전부 없이 콘텐츠만 다 열려있는 상태. `sajuStrengthTemplates.js`(1단계 산출물)만 아직 미사용 — 향후 신강/신약 비교 보너스 인사이트로 쓸 수 있게 대기 중
+**완료 기준 충족**: 궁합/아이돌매치/드라마매치/로맨스/내 사주 결과 화면 전부에 인사이트 섹션이 여러 개 순서대로 노출되고, 잠금 UI·결제 버튼·"+N가지 더" 배지는 전부 없이 콘텐츠만 다 열려있는 상태. `sajuStrengthTemplates.js`(1단계 산출물)만 아직 미사용 — 향후 신강/신약 비교 보너스 인사이트로 쓸 수 있게 대기 중. **(3-6에서 상태 변경됨)** 이후 프리미엄 잠금 UI가 실제로 붙으면서 이 "전부 열려있는" 상태는 끝남 — `sajuStrengthTemplates.js`도 `Compatibility.jsx`에 잠긴 섹션으로 연결됨
 
 ## 5-2. 아이돌/드라마/로맨스 매치 — situational 섹션 5개 추가 (3개 → 8개)
 

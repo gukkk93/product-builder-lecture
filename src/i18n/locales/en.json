@@ -138,7 +138,26 @@
       "middle": "Midlife",
       "late": "Later Life"
     },
-    "premiumLockedNote": "Unlock the full timeline with Premium",
+    "premiumLockedNote": "Available with Premium",
+    "extraHeading": "Shensha, Nobleman & More",
+    "extraIntro": "A few more traditional saju markers layered on top of your chart",
+    "shenshaTitle": "Shensha (신살)",
+    "shenshaFoundNote": "Shensha found in your chart: {{labels}}",
+    "shenshaNoneNote": "No notable shensha in this chart",
+    "noblemanTitle": "Nobleman (귀인)",
+    "noblemanFoundNote": "You have a {{label}}",
+    "noblemanNoneNote": "No {{label}} in this chart",
+    "yearLuckTitle": "{{year}} Year Luck",
+    "yearLuckOneLiner": {
+      "same": "{{year}} moves in step with your own energy.",
+      "otherGeneratesMe": "{{year}} tends to feed and support you.",
+      "iGenerateOther": "{{year}} asks you to give more than you receive.",
+      "otherOvercomesMe": "{{year}} brings more friction than flow.",
+      "iOvercomeOther": "{{year}} puts you in the driver's seat."
+    },
+    "samjaeTitle": "Samjae (삼재)",
+    "samjaeCurrentNote": "You're currently in a Samjae period ({{start}}-{{end}}).",
+    "samjaeUpcomingNote": "Your next Samjae period: {{start}}-{{end}}.",
     "distributionHeading": "Element Balance",
     "personalityHeading": "Personality Profile",
     "domainHeading": "More About You",
@@ -280,7 +299,8 @@
     "insightTitles": {
       "explanation": "Why This Score",
       "goodFit": "What Works Well",
-      "watchFor": "What To Watch For"
+      "watchFor": "What To Watch For",
+      "strengthMatch": "Your Strength Dynamic"
     },
     "genderShort": {
       "F": "Female",

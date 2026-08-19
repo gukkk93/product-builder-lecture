@@ -138,7 +138,26 @@
       "middle": "중년기",
       "late": "말년기"
     },
-    "premiumLockedNote": "프리미엄에서 전체 그래프를 확인할 수 있어요",
+    "premiumLockedNote": "프리미엄에서 확인 가능",
+    "extraHeading": "신살·귀인·연운·삼재",
+    "extraIntro": "사주에서 참고하는 전통 표시들을 몇 가지 더 보여드려요",
+    "shenshaTitle": "신살(神殺)",
+    "shenshaFoundNote": "이런 신살이 있어요: {{labels}}",
+    "shenshaNoneNote": "특별히 두드러지는 신살은 없어요",
+    "noblemanTitle": "귀인(貴人)",
+    "noblemanFoundNote": "{{label}}이 있어요",
+    "noblemanNoneNote": "{{label}}은 없어요",
+    "yearLuckTitle": "{{year}}년 운세",
+    "yearLuckOneLiner": {
+      "same": "{{year}}년은 나와 같은 기운으로 흘러가요.",
+      "otherGeneratesMe": "{{year}}년은 나를 채워주는 흐름이에요.",
+      "iGenerateOther": "{{year}}년은 내가 더 많이 내어주는 흐름이에요.",
+      "otherOvercomesMe": "{{year}}년은 부딪힘이 많은 흐름이에요.",
+      "iOvercomeOther": "{{year}}년은 내가 주도권을 쥐는 흐름이에요."
+    },
+    "samjaeTitle": "삼재(三災)",
+    "samjaeCurrentNote": "지금이 삼재 시기예요 ({{start}}~{{end}}년).",
+    "samjaeUpcomingNote": "다음 삼재는 {{start}}~{{end}}년이에요.",
     "distributionHeading": "오행 분포",
     "personalityHeading": "성격 분석",
     "domainHeading": "나에 대해 더 알아보기",
@@ -280,7 +299,8 @@
     "insightTitles": {
       "explanation": "이 점수가 나온 이유",
       "goodFit": "잘 맞는 부분",
-      "watchFor": "관계에서 챙길 점"
+      "watchFor": "관계에서 챙길 점",
+      "strengthMatch": "신강신약 궁합"
     },
     "genderShort": {
       "F": "여자",

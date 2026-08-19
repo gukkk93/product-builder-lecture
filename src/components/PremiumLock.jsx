@@ -1,14 +1,13 @@
 import { useTranslation } from 'react-i18next';
 
 /**
- * Wraps a preview (chart, section, etc.) with a blurred/dimmed silhouette
- * and a lock overlay — purely visual, no payment logic. Meant for content
- * that's fully built but not ready to actually unlock yet (see
- * LifeScoreChart's use in Saju.jsx); reusable for bundling more sections
- * behind the same treatment later (신살/귀인 content, sajuStrengthTemplates)
- * once real payment is wired up.
+ * Wraps any content with a blurred/dimmed silhouette and a lock overlay —
+ * purely visual, no payment logic. The shared "locked" treatment for every
+ * premium-gated piece of content in the app (LifeScoreChart, individual
+ * InsightSection entries via their `locked` flag, etc.) until real payment
+ * is wired up.
  */
-export default function LockedPreview({ children }) {
+export default function PremiumLock({ children }) {
   const { t } = useTranslation();
 
   return (

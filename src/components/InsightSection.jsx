@@ -1,13 +1,16 @@
 import ElementCharacter from './ElementCharacter';
+import PremiumLock from './PremiumLock';
 
 /**
  * Renders a numbered list of insight paragraphs (badge + title + body),
  * optionally introduced by an ElementCharacter speech bubble. Always renders
- * the full `sections` array via .map() — no .slice() here on purpose, so a
- * future free/paid split can be added later just by slicing the array
- * passed in, without touching this component.
+ * the full `sections` array via .map() — no .slice() here on purpose, so the
+ * free/paid split is decided by each section's own `locked` flag when the
+ * array is built, not by this component. A section with `locked: true` gets
+ * wrapped in PremiumLock individually (blurred + its own lock overlay)
+ * rather than the whole list sharing one lock.
  *
- * `sections`: Array<{ title: string, text: string }>
+ * `sections`: Array<{ title: string, text: string, locked?: boolean }>
  */
 export default function InsightSection({ element, intro, sections }) {
   if (!sections || sections.length === 0) return null;
@@ -35,39 +38,41 @@ export default function InsightSection({ element, intro, sections }) {
       )}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-        {sections.map((section, i) => (
-          <div
-            key={i}
-            style={{
-              padding: '14px 16px',
-              borderRadius: 14,
-              background: 'var(--bg)',
-              border: '1px solid var(--border)',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-              <span
-                style={{
-                  flexShrink: 0,
-                  width: 22,
-                  height: 22,
-                  borderRadius: '50%',
-                  background: 'var(--accent)',
-                  color: 'var(--accent-contrast)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 12,
-                  fontWeight: 700,
-                }}
-              >
-                {i + 1}
-              </span>
-              <strong style={{ fontSize: 14 }}>{section.title}</strong>
+        {sections.map((section, i) => {
+          const card = (
+            <div
+              style={{
+                padding: '14px 16px',
+                borderRadius: 14,
+                background: 'var(--bg)',
+                border: '1px solid var(--border)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                <span
+                  style={{
+                    flexShrink: 0,
+                    width: 22,
+                    height: 22,
+                    borderRadius: '50%',
+                    background: 'var(--accent)',
+                    color: 'var(--accent-contrast)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 12,
+                    fontWeight: 700,
+                  }}
+                >
+                  {i + 1}
+                </span>
+                <strong style={{ fontSize: 14 }}>{section.title}</strong>
+              </div>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)' }}>{section.text}</p>
             </div>
-            <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)' }}>{section.text}</p>
-          </div>
-        ))}
+          );
+          return <div key={i}>{section.locked ? <PremiumLock>{card}</PremiumLock> : card}</div>;
+        })}
       </div>
     </div>
   );

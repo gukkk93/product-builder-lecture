@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getDaeun, getLifeScoreTimeline } from '../utils/saju';
+import { calculateSaju, getDaeun, getLifeScoreTimeline, getShensha, getNobleman, getYearRelation, getSamjae } from '../utils/saju';
 import { getSajuProfile, getDayMasterLine, getDomainInsight } from '../data/sajuProfileTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
@@ -16,7 +16,7 @@ import ElementCharacter from '../components/ElementCharacter';
 import InsightSection from '../components/InsightSection';
 import DaeunTable from '../components/DaeunTable';
 import LifeScoreChart from '../components/LifeScoreChart';
-import LockedPreview from '../components/LockedPreview';
+import PremiumLock from '../components/PremiumLock';
 
 const DOMAINS = ['romanceStyle', 'wealthStyle', 'careerStyle', 'healthStyle'];
 
@@ -75,13 +75,54 @@ export default function Saju() {
 
   const profile = getSajuProfile(i18n.language, saju.dominantElement);
   const dayMasterLine = getDayMasterLine(i18n.language, saju.dayGanElement);
-  const domainSections = DOMAINS.map((domain) => getDomainInsight(i18n.language, domain, saju));
+  // Only romanceStyle stays free — one teaser domain, the other three gated.
+  const domainSections = DOMAINS.map((domain) => ({
+    ...getDomainInsight(i18n.language, domain, saju),
+    locked: domain !== 'romanceStyle',
+  }));
   // Major Luck Cycles need gender for direction (forward/backward) — unlike
   // name, this one isn't just cosmetic, so we only compute it when the
   // optional gender field was actually filled in.
   const daeun = gender ? getDaeun(birth, birth.timeKnown, gender, 8) : null;
   // Same gender requirement as daeun above, since it's built directly on top of it.
   const lifeScore = gender ? getLifeScoreTimeline(birth, birth.timeKnown, gender, saju.dominantElement) : null;
+
+  // Shensha/nobleman/year-luck/samjae: calculation-only content (no
+  // personality copy written yet), so each gets just a short one-line
+  // preview behind its own lock rather than a full paragraph.
+  const currentYear = new Date().getFullYear();
+  const shensha = getShensha(saju, i18n.language);
+  const nobleman = getNobleman(saju, i18n.language);
+  const yearLuck = getYearRelation(saju, currentYear);
+  const samjae = getSamjae(saju, currentYear);
+
+  const extraSections = [
+    {
+      title: t('saju.shenshaTitle'),
+      text: shensha.length > 0
+        ? t('saju.shenshaFoundNote', { labels: shensha.map((s) => s.label).join('·') })
+        : t('saju.shenshaNoneNote'),
+      locked: true,
+    },
+    {
+      title: t('saju.noblemanTitle'),
+      text: t(nobleman.hasNobleman ? 'saju.noblemanFoundNote' : 'saju.noblemanNoneNote', { label: nobleman.label }),
+      locked: true,
+    },
+    {
+      title: t('saju.yearLuckTitle', { year: currentYear }),
+      text: t(`saju.yearLuckOneLiner.${yearLuck.relation}`, { year: currentYear }),
+      locked: true,
+    },
+    {
+      title: t('saju.samjaeTitle'),
+      text: t(samjae.isCurrent ? 'saju.samjaeCurrentNote' : 'saju.samjaeUpcomingNote', {
+        start: samjae.years[0],
+        end: samjae.years[2],
+      }),
+      locked: true,
+    },
+  ];
 
   return (
     <LoadingReveal element={saju.dominantElement}>
@@ -149,9 +190,9 @@ export default function Saju() {
           {lifeScore ? (
             <>
               <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.lifeScoreExplain')}</p>
-              <LockedPreview>
+              <PremiumLock>
                 <LifeScoreChart periods={lifeScore.periods} />
-              </LockedPreview>
+              </PremiumLock>
             </>
           ) : (
             <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{t('saju.lifeScoreNeedGender')}</p>
@@ -195,13 +236,18 @@ export default function Saju() {
           <p className="disclaimer">{t('saju.disclaimer')}</p>
         </div>
 
-        <div className="card" style={{ marginTop: 16, textAlign: 'left' }}>
+        <div className="card" style={{ marginTop: 16, marginBottom: 16, textAlign: 'left' }}>
           <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.domainHeading')}</h2>
           <InsightSection
             element={saju.dominantElement}
             intro={t('saju.domainIntro', { element: t(`elements.${saju.dominantElement}`) })}
             sections={domainSections}
           />
+        </div>
+
+        <div className="card" style={{ textAlign: 'left' }}>
+          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.extraHeading')}</h2>
+          <InsightSection element={saju.dominantElement} intro={t('saju.extraIntro')} sections={extraSections} />
         </div>
       </div>
 
