@@ -86,6 +86,7 @@
     "saveImageButton": "이미지로 저장",
     "shareCardFooter": "당신의 오행은? 오행에서 확인해보세요",
     "shareCaption": "오행에서 오늘의 운세 확인했어요 — 당신도 확인해보세요:",
+    "cautionLabel": "참고하세요:",
     "idolMatchCta": "아이돌 궁합 보기 →",
     "sajuCta": "내 사주 자세히 보기 →",
     "disclaimer": "재미로 보는 콘텐츠예요 — 의학적·금전적·전문적 조언이 아니에요."
@@ -271,7 +272,6 @@
     "yourElement": "나",
     "theirElement": "상대",
     "shareCaption": "오행에서 내 아이돌 베스트매치 찾았어요 — 당신의 매치도 찾아보세요:",
-    "situationalTitles": ["컴백 시즌엔", "브이라이브에서는", "팬미팅에서는", "콘서트에서는", "포토카드 뽑을 때는"],
     "disclaimer": "재미로 보는 콘텐츠예요. 생일 정보는 공개된 자료를 참고했으며 실제와 다를 수 있어요. 멤버 이미지는 일러스트이며 실제 사진이 아니에요."
   },
   "dramaMatch": {
@@ -281,7 +281,6 @@
     "findMatchLabel": "내 매치 찾기",
     "actorLabel": "K-드라마 배우",
     "shareCaption": "오행에서 내 K-드라마 베스트매치 찾았어요 — 당신의 매치도 찾아보세요:",
-    "situationalTitles": ["새 작품 들어갈 때는", "인터뷰에서는", "팬미팅에서는", "시사회에서는", "스틸컷 볼 때는"],
     "disclaimer": "재미로 보는 콘텐츠예요. 생일 정보는 공개된 자료를 참고했으며 실제와 다를 수 있어요. 이미지는 일러스트이며 실제 사진이 아니에요."
   },
   "matchCommon": {
@@ -301,6 +300,12 @@
       "goodFit": "잘 맞는 부분",
       "watchFor": "관계에서 챙길 점",
       "strengthMatch": "신강신약 궁합"
+    },
+    "pillarTitles": {
+      "year": "끌린 이유",
+      "month": "편하게 느껴지는 이유",
+      "day": "진짜 매력을 알아보는 이유",
+      "time": "사소한 것까지 좋아지는 이유"
     },
     "genderShort": {
       "F": "여자",

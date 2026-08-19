@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju } from '../utils/saju';
+import { calculateSaju, getPillarCompatibility } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
 import { getDramaMatchCopy } from '../data/dramaMatchTemplates';
 import { kdramaActors, getActorName } from '../data/kdramaActors';
@@ -47,8 +47,10 @@ export default function DramaMatch() {
     return findBestMatch(kdramaActors, userSaju, gender);
   }, [userSaju, gender]);
 
+  const pillarCompat = best ? getPillarCompatibility(userSaju, best.saju) : null;
+
   const compatCopy = best
-    ? getDramaMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`)
+    ? getDramaMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`, pillarCompat)
     : null;
 
   const explanation = best
@@ -58,13 +60,15 @@ export default function DramaMatch() {
       })
     : null;
 
-  const situationalTitles = t('dramaMatch.situationalTitles', { returnObjects: true });
+  const pillarTitles = t('matchCommon.pillarTitles', { returnObjects: true });
 
+  // Only the year pillar (always index 0 — see getPillarCompatibility) stays
+  // free, as the "why you were drawn in" teaser; month/day/time are locked.
   const insightSections = best && compatCopy
     ? [
         { title: t('matchCommon.insightTitles.explanation'), text: explanation, locked: false },
         { title: t('matchCommon.insightTitles.goodFit'), text: compatCopy.goodFit, locked: false },
-        ...compatCopy.situational.map((text, i) => ({ title: situationalTitles[i], text, locked: true })),
+        ...compatCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
         { title: t('matchCommon.insightTitles.watchFor'), text: compatCopy.watchFor, locked: true },
       ]
     : null;

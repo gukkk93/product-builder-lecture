@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju, getTodayRelation, getZodiacLabel } from '../utils/saju';
-import { getFortuneLine } from '../data/fortuneTemplates';
+import { getFortuneLine, getFortuneCaution } from '../data/fortuneTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
@@ -73,6 +73,9 @@ export default function Result() {
   const lines = Object.fromEntries(
     CATEGORIES.map((cat) => [cat, getFortuneLine(i18n.language, today.relation, cat, seedInput)])
   );
+  const cautions = Object.fromEntries(
+    CATEGORIES.map((cat) => [cat, getFortuneCaution(i18n.language, today.relation, cat)])
+  );
 
   return (
     <LoadingReveal element={saju.dominantElement}>
@@ -98,7 +101,10 @@ export default function Result() {
             {CATEGORIES.map((cat) => (
               <div className="fortune-row" key={cat}>
                 <div className="fortune-row__label">{t(`categories.${cat}`)}</div>
-                <div className="fortune-row__text">{lines[cat]}</div>
+                <div>
+                  <div className="fortune-row__text">{lines[cat]}</div>
+                  <div className="fortune-row__caution">{t('result.cautionLabel')} {cautions[cat]}</div>
+                </div>
               </div>
             ))}
           </div>

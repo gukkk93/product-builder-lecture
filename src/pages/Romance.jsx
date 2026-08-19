@@ -87,11 +87,14 @@ export default function Romance() {
 
   const situationalTitles = t(`romance.${situation}.situationalTitles`, { returnObjects: true });
 
+  // Matches the idol/drama match "3 of 6-7 free" ratio: explanation, goodFit,
+  // and the first situational moment (the earliest-stage one for each
+  // situation) stay free as a teaser; the rest are locked.
   const insightSections = compatibility && copy
     ? [
         { title: t('matchCommon.insightTitles.explanation'), text: explanation, locked: false },
         { title: t('matchCommon.insightTitles.goodFit'), text: copy.goodFit, locked: false },
-        ...copy.situational.map((text, i) => ({ title: situationalTitles[i], text, locked: true })),
+        ...copy.situational.map((text, i) => ({ title: situationalTitles[i], text, locked: i !== 0 })),
         { title: t('matchCommon.insightTitles.watchFor'), text: copy.watchFor, locked: true },
       ]
     : null;

@@ -42,6 +42,13 @@ export const fortuneTemplates = {
         "This is a good day to fully enjoy being a fan without any of the anxiety that usually comes with it — no comparison, no scarcity mindset, just pure enjoyment of the art.",
         "If you've been meaning to rewatch a debut stage or an old fancam for the nostalgia, today is exactly that kind of comfort-watching day. Let yourself be a little sentimental about it.",
       ],
+      caution: {
+        overall: "Even on an easy day like this, it's worth double-checking details before finalizing anything — smooth days can make you skip the fine print.",
+        love: "Things feel easy right now, so there's no need to rush a conversation or a confession — let it happen at its own pace instead of forcing it today.",
+        wealth: "Because spending feels easy and guilt-free today, it's worth pausing before any bigger purchase — comfort can blur the line between a treat and overspending.",
+        health: "Feeling good today doesn't mean you can skip the basics — keep your usual sleep and meals steady instead of overextending just because you feel fine.",
+        comeback: "Hype is running high today, so it's worth checking a rumor or price twice before acting on it — excitement makes things feel more urgent than they are.",
+      },
     },
     otherGeneratesMe: {
       overall: [
@@ -79,6 +86,13 @@ export const fortuneTemplates = {
         "Good day for someone to gift you merch, a ticket, or a recommendation that turns into your new favorite thing. Say yes to the fandom generosity coming your way.",
         "The community is going to feel unusually warm and giving today — a mutual's fan edit, a stranger's kind comment, a group chat that just gets you. Let it in.",
       ],
+      caution: {
+        overall: "Good things are landing on their own today, but it's still worth reading the fine print on anything you're offered — easy doesn't always mean risk-free.",
+        love: "Being cared for today feels good, but there's no need to rush returning the favor or over-explaining your feelings — let the ease stay easy.",
+        wealth: "If money or a good deal comes your way today, it's still worth checking the details before committing — a gift can come with strings you didn't expect.",
+        health: "Comfort and rest feel good today, but don't let a restful mood turn into skipping something your body actually needs, like water or movement.",
+        comeback: "If merch, a ticket, or a deal falls into your lap today, it's still worth double-checking authenticity or seller reviews before paying.",
+      },
     },
     iGenerateOther: {
       overall: [
@@ -116,6 +130,13 @@ export const fortuneTemplates = {
         "Good day to make something for the fandom — a thread, an edit, a playlist. Your creative energy today is the kind that gets shared around.",
         "You'll be the one organizing the group order, the watch party, or the birthday project today. It's a lot of effort, but it's effort you're clearly built for right now.",
       ],
+      caution: {
+        overall: "You're in a giving mood today, so it's worth pausing before committing time or money you can't easily take back — enthusiasm can outrun your actual bandwidth.",
+        love: "Your instinct to give a lot today is genuine, but it's worth pacing your words and effort instead of pouring everything out at once — some things land better in smaller doses.",
+        wealth: "Generosity is the theme today, so set a rough limit before you start spending on others — a kind impulse can quietly turn into overspending.",
+        health: "You'll want to push your body harder for someone or something today — just don't skip the actual rest you need to keep up the pace tomorrow.",
+        comeback: "Before buying extra merch, tickets, or gifting something to support your bias today, it's worth checking your budget first — enthusiasm spends faster than plans do.",
+      },
     },
     otherOvercomesMe: {
       overall: [
@@ -153,6 +174,13 @@ export const fortuneTemplates = {
         "You might feel a little disconnected from the hype today, like everyone else is more excited than you are. That's fine — you're allowed an off day as a fan too.",
         "If a comment section or a fan war is stressing you out today, log off rather than engaging. Today's discourse isn't worth the energy it's asking for.",
       ],
+      caution: {
+        overall: "Today has some friction built in, so it's not the day for big, hard-to-reverse decisions — sleep on anything that isn't urgent.",
+        love: "If a conversation feels tense today, it's worth waiting for a calmer moment rather than trying to resolve everything in one sitting — timing matters more than usual.",
+        wealth: "Financial decisions made under today's pressure are more likely to be regretted later — avoid big purchases or commitments until the friction eases.",
+        health: "Your body is more likely to protest today, so skip the urge to push through fatigue — rest now costs less than pushing costs later.",
+        comeback: "Rumors and unclear info spread easily on a day like today — it's worth waiting for an official announcement before reacting or spending based on speculation.",
+      },
     },
     iOvercomeOther: {
       overall: [
@@ -190,6 +218,13 @@ export const fortuneTemplates = {
         "Your organizing energy is unusually strong today — streaming parties, voting drives, birthday projects all go more smoothly with you in charge.",
         "If there's fandom misinformation going around, today you have both the patience and the receipts to correct it clearly and calmly.",
       ],
+      caution: {
+        overall: "Confidence is running high today, which is great for decisions, but it's worth double-checking the details on anything big before you commit — certainty isn't the same as being right.",
+        love: "Your opinion carries extra weight today, so it's worth pausing before saying something bluntly — a lighter touch lands just as clearly.",
+        wealth: "You're likely to win negotiations today, but it's still worth reading contracts or terms carefully before signing — confidence shouldn't skip the fine print.",
+        health: "You can push your limits today, but it's worth stopping at a reasonable point — today's extra stamina isn't a permanent upgrade.",
+        comeback: "Your read on fandom debates or predictions is sharp today, but it's still worth fact-checking before posting something as certain — confidence can outpace accuracy.",
+      },
     },
   },
   ko: {
@@ -229,6 +264,13 @@ export const fortuneTemplates = {
         "비교도 불안도 없이 순수하게 덕질을 즐기기 좋은 날이에요. 오늘만큼은 그냥 좋아하는 마음 그대로 즐기세요.",
         "데뷔 무대나 옛날 직캠 다시 보고 싶어졌다면, 오늘이 딱 그런 추억팔이 하기 좋은 날이에요. 마음껏 감성에 젖어보세요.",
       ],
+      caution: {
+        overall: "이렇게 수월한 날에도 뭔가 확정하기 전에 세부사항은 한 번 더 체크하는 게 좋아요 — 순조로운 날일수록 작은 디테일을 놓치기 쉬워요.",
+        love: "지금은 마음이 편하니까, 고백이나 진지한 대화를 굳이 서두를 필요 없어요 — 오늘 억지로 밀어붙이기보다 자연스러운 타이밍을 기다려보세요.",
+        wealth: "소비가 죄책감 없이 편하게 느껴지는 날이라, 큰 지출 전에는 한 번 멈춰서 생각해보세요 — 편안함이 과소비랑 구분이 잘 안 될 수 있어요.",
+        health: "컨디션이 좋다고 기본을 건너뛰면 안 돼요 — 괜찮다고 느껴져도 평소 수면과 식사는 그대로 챙기세요.",
+        comeback: "오늘은 기대감이 유난히 높은 날이라, 루머나 가격은 행동하기 전에 한 번 더 확인하는 게 좋아요 — 설렘이 실제보다 더 급하게 느껴지게 만들거든요.",
+      },
     },
     otherGeneratesMe: {
       overall: [
@@ -266,6 +308,13 @@ export const fortuneTemplates = {
         "누가 굿즈든 티켓이든 취향 저격 추천이든 선물해주는 날이에요. 팬덤의 다정함을 그냥 받아들이세요.",
         "커뮤니티 전체가 유난히 따뜻하게 느껴지는 날이에요 — 뮤튜얼의 편집물, 낯선 사람의 다정한 댓글, 마음 잘 맞는 단톡방까지요. 그냥 그 안에 머무르세요.",
       ],
+      caution: {
+        overall: "좋은 일이 알아서 굴러들어오는 날이지만, 뭔가 제안받으면 세부 조건은 그래도 확인해보세요 — 쉽게 온다고 다 안전한 건 아니에요.",
+        love: "오늘 받는 배려가 기분 좋더라도, 굳이 바로 갚으려 하거나 마음을 다 설명하려 애쓸 필요는 없어요 — 편안함은 편안한 채로 둬도 괜찮아요.",
+        wealth: "돈이나 좋은 조건이 오늘 알아서 찾아와도, 결정하기 전에 세부 내용은 확인해보세요 — 선물처럼 보여도 예상 못한 조건이 붙어 있을 수 있어요.",
+        health: "편안하고 쉬기 좋은 날이지만, 그 기분에 취해서 물 마시기나 몸 움직이기처럼 꼭 필요한 걸 건너뛰지는 마세요.",
+        comeback: "오늘 굿즈나 티켓, 좋은 조건의 딜이 갑자기 나타나도, 결제 전에 판매자 후기나 진위 여부는 확인해보세요.",
+      },
     },
     iGenerateOther: {
       overall: [
@@ -303,6 +352,13 @@ export const fortuneTemplates = {
         "팬덤을 위해 뭔가 만들기 좋은 날이에요 — 트윗 스레드든, 편집물이든, 플레이리스트든요. 오늘의 창작 에너지는 널리 퍼져나가는 종류예요.",
         "오늘은 내가 공구 모으고, 같이 보기 모임 열고, 생일 프로젝트 진행하는 사람이에요. 손이 많이 가지만, 지금 딱 그럴 능력이 있는 날이에요.",
       ],
+      caution: {
+        overall: "오늘은 베푸는 기분이 강한 날이라, 되돌리기 어려운 시간이나 돈을 쓰기 전에 한 번 멈춰보세요 — 의욕이 실제 여력보다 앞서갈 수 있어요.",
+        love: "오늘 뭔가 많이 주고 싶은 마음은 진심이지만, 한 번에 다 쏟아내기보다 말과 정성을 조금씩 나눠서 표현하는 게 더 잘 전해져요.",
+        wealth: "오늘의 테마는 베풂이니, 다른 사람한테 쓰기 전에 대략적인 한도를 미리 정해두세요 — 좋은 마음이 어느새 과소비로 이어질 수 있어요.",
+        health: "오늘은 누군가를 위해 몸을 더 쓰고 싶어질 텐데, 내일도 그 페이스를 유지하려면 꼭 필요한 휴식은 건너뛰지 마세요.",
+        comeback: "오늘 최애를 위해 굿즈나 티켓을 더 사거나 선물하고 싶어질 텐데, 결제 전에 예산은 한 번 확인해보세요 — 의욕이 계획보다 빨리 지갑을 비울 수 있어요.",
+      },
     },
     otherOvercomesMe: {
       overall: [
@@ -340,6 +396,13 @@ export const fortuneTemplates = {
         "오늘은 다들 나보다 더 신나 보이는 것처럼, 하이프에서 살짝 떨어진 느낌이 들 수 있어요. 괜찮아요 — 팬도 가끔은 텐션 낮은 날이 있어도 돼요.",
         "댓글창이나 팬덤 논쟁이 오늘 스트레스로 다가온다면, 얽히기보다 로그아웃하세요. 오늘의 논쟁은 쏟을 에너지만큼의 가치가 없어요.",
       ],
+      caution: {
+        overall: "오늘은 살짝 마찰이 있는 날이라, 크고 되돌리기 힘든 결정은 미루는 게 좋아요 — 급하지 않은 건 하루 재워두세요.",
+        love: "오늘 대화가 좀 팽팽하게 느껴진다면, 한 번에 다 풀려고 하기보다 좀 더 차분한 순간을 기다리는 게 나아요 — 오늘은 타이밍이 평소보다 중요해요.",
+        wealth: "오늘 같은 압박감 속에서 내린 재정 결정은 나중에 후회할 확률이 높아요 — 마찰이 가라앉을 때까지 큰 지출이나 약속은 미뤄두세요.",
+        health: "오늘은 몸이 평소보다 더 반항할 수 있으니, 피곤한 걸 억지로 참고 밀어붙이지 마세요 — 지금 쉬는 게 나중에 밀어붙이는 것보다 훨씬 덜 힘들어요.",
+        comeback: "오늘 같은 날은 루머나 불확실한 정보가 유난히 잘 퍼져요 — 공식 발표가 나오기 전까지는 추측성 정보로 반응하거나 돈 쓰는 건 잠깐 미뤄두세요.",
+      },
     },
     iOvercomeOther: {
       overall: [
@@ -377,6 +440,13 @@ export const fortuneTemplates = {
         "오늘은 조직력이 평소보다 좋은 날이에요 — 스밍 파티든, 투표 운동이든, 생일 프로젝트든 내가 나서면 훨씬 매끄럽게 굴러가요.",
         "팬덤에 잘못된 정보가 돌고 있다면, 오늘은 그걸 차분하고 명확하게 바로잡을 인내심과 근거 둘 다 갖춘 날이에요.",
       ],
+      caution: {
+        overall: "오늘은 자신감이 넘치는 날이라 결정에는 좋지만, 큰 일일수록 확정 전에 세부사항은 한 번 더 확인하세요 — 확신이 항상 정답인 건 아니에요.",
+        love: "오늘은 내 말에 평소보다 힘이 실리니까, 직설적으로 말하기 전에 한 번 더 생각해보세요 — 조금 부드럽게 말해도 충분히 잘 전달돼요.",
+        wealth: "오늘은 협상에서 유리하겠지만, 계약서나 조건은 그래도 꼼꼼히 확인하고 서명하세요 — 자신감이 있어도 세부사항 확인은 건너뛰면 안 돼요.",
+        health: "오늘은 평소보다 무리해도 괜찮지만, 적당한 선에서 멈추는 게 좋아요 — 오늘의 여분 체력이 계속 유지되는 건 아니에요.",
+        comeback: "오늘은 팬덤 논쟁이나 예측에 대한 감이 날카롭지만, 확신에 차서 올리기 전에 사실 확인은 한 번 더 하세요 — 자신감이 정확도를 앞지를 수 있어요.",
+      },
     },
   },
 };
@@ -398,4 +468,16 @@ export function getFortuneLine(lang, relation, category, seedInput) {
   const bank = (fortuneTemplates[lang] || fortuneTemplates.en)[relation][category];
   const seed = hashCode(`${seedInput}-${category}`);
   return bank[seed % bank.length];
+}
+
+/**
+ * A short, practical "worth keeping in mind" note for a relation/category
+ * pair — unlike getFortuneLine, this is a single fixed string (no seed
+ * variants needed for a one-liner tip), always shown alongside the main
+ * fortune line rather than gated, since /result has stayed a free page
+ * from the start.
+ */
+export function getFortuneCaution(lang, relation, category) {
+  const entry = (fortuneTemplates[lang] || fortuneTemplates.en)[relation];
+  return entry.caution[category];
 }

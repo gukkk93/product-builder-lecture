@@ -75,10 +75,12 @@ export default function Saju() {
 
   const profile = getSajuProfile(i18n.language, saju.dominantElement);
   const dayMasterLine = getDayMasterLine(i18n.language, saju.dayGanElement);
-  // Only romanceStyle stays free — one teaser domain, the other three gated.
+  // romanceStyle and wealthStyle stay free — two teaser domains, careerStyle
+  // and healthStyle gated.
+  const FREE_DOMAINS = ['romanceStyle', 'wealthStyle'];
   const domainSections = DOMAINS.map((domain) => ({
     ...getDomainInsight(i18n.language, domain, saju),
-    locked: domain !== 'romanceStyle',
+    locked: !FREE_DOMAINS.includes(domain),
   }));
   // Major Luck Cycles need gender for direction (forward/backward) — unlike
   // name, this one isn't just cosmetic, so we only compute it when the

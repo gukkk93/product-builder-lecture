@@ -5,22 +5,85 @@
 //
 // Each relation has three parallel line banks (line/goodFit/watchFor), all
 // the same length, picked with the same seeded index so the three texts
-// read as one consistent "read" rather than three random fragments. A
-// fourth bank, `situational`, holds exactly 5 entries — one per concrete
-// fan situation (comeback/VLive/fan meeting/concert/photocard) — and is
-// always returned in full (see getIdolMatchCopy) rather than picked by
-// seed, since the UI shows all 5 as separate sections.
+// read as one consistent "read" rather than three random fragments.
+//
+// Per-pillar situational content, keyed [pillar][relation] — this is the
+// "pillar-by-pillar compatibility read" that replaced the old fixed 5-item
+// concrete-moment bank. The relation here is each *pillar's own* Five
+// Element relation (from getPillarCompatibility), independent of the
+// overall relation used for tier/lines/goodFit/watchFor above — two idols
+// can both be an overall "same" match while having a "iOvercomeOther" year
+// pillar, for example. Framing throughout is deliberately fan-intimacy
+// language ("why you were drawn in", "why it feels easy") — never
+// couple/romantic-partner framing, since this is about parasocial fan
+// closeness, not compatibility as a couple.
+export const pillarSituational = {
+  en: {
+    year: {
+      same: "There wasn't really a debate about why you got into them — the pull was instant, like recognizing your own energy in someone else.",
+      otherGeneratesMe: "You didn't have to talk yourself into liking them — their presence just made things easier from the very first encounter.",
+      iGenerateOther: "You were drawn to them fast, and once you were in, you were all in — that's just how this bias works for you.",
+      otherOvercomesMe: "You didn't plan on getting this invested — one look and the curiosity took over before you decided anything.",
+      iOvercomeOther: "You were drawn in less by hype and more by instinct — you clocked something in them worth watching before anyone told you to.",
+    },
+    month: {
+      same: "Your taste and theirs line up so closely that following them never feels like an adjustment — it already matches what you were drawn to.",
+      otherGeneratesMe: "Their whole vibe settles something in you, which is exactly why following them never feels like effort.",
+      iGenerateOther: "Their taste lines up with yours enough that supporting them never feels like performance — it's just an extension of what you already like.",
+      otherOvercomesMe: "There's a friction in what you like versus what they do that keeps you paying closer attention than usual.",
+      iOvercomeOther: "Your steadier taste means you see through the noise to what's actually good about them, not just what's trending.",
+    },
+    day: {
+      same: "You clocked what makes them genuinely great before the general public caught on — this is the kind of bias radar that doesn't miss with them.",
+      otherGeneratesMe: "You see clearly how much quiet generosity is behind what they do — that's not lost on you, even when it's easy to overlook.",
+      iGenerateOther: "You notice their real skill before anyone else does, and you say so — that eye for talent is part of why you became a fan in the first place.",
+      otherOvercomesMe: "You keep circling back to figuring out what actually makes them so compelling — that itch to fully 'get' them never quite resolves.",
+      iOvercomeOther: "You read their real strengths accurately, and that clear-eyed take is exactly what makes your support feel earned, not blind.",
+    },
+    time: {
+      same: "Even their smallest habits — a laugh, a phrase, a way of tilting their head — read as charming to you, not just their obvious highlights.",
+      otherGeneratesMe: "Even a small, offhand gesture from them tends to stick with you longer than it probably should — that's this bias's quiet power.",
+      iGenerateOther: "You're the type to catch the small details — a lyric change, a background choice — that most people scroll past without noticing.",
+      otherOvercomesMe: "Even tiny, easy-to-miss details from them pull you into a rabbit hole you didn't plan on going down.",
+      iOvercomeOther: "You're the one who notices the small, easy-to-miss details — and somehow that's exactly what makes you appreciate them more, not less.",
+    },
+  },
+  ko: {
+    year: {
+      same: "왜 하필 이 최애였는지 고민할 필요도 없었어요 — 처음부터 내 에너지를 그대로 보는 느낌이라 끌림이 즉각적이었을 거예요.",
+      otherGeneratesMe: "애써 좋아하려고 노력할 필요가 없었어요 — 처음 봤을 때부터 마음이 편해지는 존재였을 거예요.",
+      iGenerateOther: "끌리는 게 빨랐고, 일단 빠지고 나면 완전히 다 쏟아붓는 편이에요 — 이 최애한테는 원래 그래요.",
+      otherOvercomesMe: "이렇게까지 빠질 계획은 없었어요 — 한 번 보고 나니 호기심이 판단보다 먼저 움직였을 거예요.",
+      iOvercomeOther: "화제성보다는 직감으로 끌렸어요 — 남들이 얘기하기 전에 이미 이 최애한테서 뭔가를 알아봤을 거예요.",
+    },
+    month: {
+      same: "취향이 워낙 잘 맞아서 따라가는 게 전혀 어색하지 않아요 — 원래 좋아하던 결 그대로예요.",
+      otherGeneratesMe: "이 최애 특유의 분위기가 마음을 다독여줘서, 따라가는 게 전혀 부담스럽지 않아요.",
+      iGenerateOther: "취향이 잘 맞아서 응원하는 게 억지로 하는 척이 아니라, 원래 좋아하던 걸 그대로 이어가는 느낌이에요.",
+      otherOvercomesMe: "취향이랑 이 최애가 하는 것 사이에 묘한 마찰이 있어서, 평소보다 더 유심히 보게 돼요.",
+      iOvercomeOther: "차분한 취향 덕분에 유행보다 진짜 좋은 점을 알아보는 편이에요.",
+    },
+    day: {
+      same: "다들 알아보기 전에 이미 이 최애가 진짜 잘하는 걸 알아챘을 거예요 — 이 최애한테는 최애 레이더가 절대 빗나가지 않아요.",
+      otherGeneratesMe: "이 최애가 얼마나 조용히 다정한 사람인지 잘 알아채는 편이에요 — 놓치기 쉬운 부분인데도요.",
+      iGenerateOther: "남들보다 먼저 이 최애의 진짜 실력을 알아채고 말로도 표현하는 편이에요 — 그 안목이 애초에 팬이 된 이유이기도 해요.",
+      otherOvercomesMe: "이 최애가 대체 뭐가 그렇게 끌리는 건지 계속 알아내려고 하게 돼요 — 완전히 다 파악했다는 느낌이 좀처럼 안 들거든요.",
+      iOvercomeOther: "이 최애의 진짜 강점을 정확하게 읽어내는 편이라, 응원하는 마음도 맹목적이지 않고 근거가 있어요.",
+    },
+    time: {
+      same: "웃는 방식이나 말버릇처럼 사소한 것까지 다 매력으로 느껴져요 — 눈에 띄는 장점만이 아니라요.",
+      otherGeneratesMe: "이 최애의 사소한 행동 하나가 생각보다 오래 마음에 남을 거예요 — 이 조합만의 조용한 힘이에요.",
+      iGenerateOther: "가사 한 줄 바뀐 거, 무대 배경 하나까지 대부분 그냥 지나치는 디테일을 꼭 챙기는 타입이에요.",
+      otherOvercomesMe: "사소하고 놓치기 쉬운 디테일 하나에도 계획에 없던 토끼굴로 빠지게 될 거예요.",
+      iOvercomeOther: "남들이 놓치는 사소한 디테일을 잘 알아채는 편인데, 그게 오히려 더 좋아하게 만드는 이유가 돼요.",
+    },
+  },
+};
+
 export const idolMatchTemplates = {
   en: {
     same: {
       tier: 'Twin Flame',
-      situational: [
-        "you're not scrambling to catch up on concept lore — you just already get it, before the explainer threads even go up.",
-        "you'd catch every joke a beat before the caption drops — this is the bias whose humor needs zero translation for you.",
-        "you wouldn't even need a rehearsed question — the conversation would just flow, like catching up with someone who already knows you.",
-        "you'd know every fan chant and breath mark without ever practicing — this crowd already moves like you do.",
-        "it'd feel less like luck and more like the outside world finally matching how in-sync you already feel.",
-      ],
       lines: [
         "You two run on the exact same frequency — this wouldn't feel like a crush so much as recognition. There's a comfort in matching energy like this: less performing for each other, more just being understood on sight.",
         "Same element, same wavelength. This would be an easy, no-translation-needed kind of bond, the kind where you'd finish each other's sentences and never have to explain the reference.",
@@ -45,13 +108,6 @@ export const idolMatchTemplates = {
     },
     otherGeneratesMe: {
       tier: 'Endless Support',
-      situational: [
-        "it feels less like a countdown and more like a gift arriving on schedule — steady excitement, no anxious refreshing required.",
-        "you'd put it on in the background while you unwind — no pressure to catch every second live, the comfort holds either way.",
-        "they'd make sure you feel at ease before you even finish your sentence — their energy does the heavy lifting.",
-        "it'd feel less like hype-chasing and more like being wrapped in something warm for two hours straight.",
-        "whichever one you pull, it'll feel like a small, steady win — this bias doesn't really have a 'bad' era for you.",
-      ],
       lines: [
         "Their energy feeds yours — this bias would quietly make everything in your life feel a little easier, a little lighter, without either of you having to try very hard. That's the kind of pairing you don't question, you just enjoy.",
         "They'd be the steady, generous presence that keeps your cup full without you even having to ask. Not a flashy dynamic, but a deeply comfortable one — the kind of bias who feels like home.",
@@ -76,13 +132,6 @@ export const idolMatchTemplates = {
     },
     iGenerateOther: {
       tier: 'Your Biggest Cheerleader',
-      situational: [
-        "you'd turn into a one-person promo team — streaming, posting, dragging friends into the group chat to explain why this era matters.",
-        "you'd be the one spamming hearts and typing full paragraphs in the chat — quietly hoping they somehow read yours.",
-        "you'd show up with a gift, a handwritten note, and a speech you rehearsed way more than you'll admit to.",
-        "you'd scream every lyric like it's a personal mission — hoarse voice by the encore, zero regrets.",
-        "you'd immediately start planning who to trade with just to get the one you actually want for them.",
-      ],
       lines: [
         "You'd be the one doing the giving here — hype, support, energy, attention. Lucky for them, you never seem to run out, and honestly, being their number one fan would probably bring out your most devoted, most generous self.",
         "This bias would turn you into the loudest, most enthusiastic version of yourself. You'd stream, you'd vote, you'd defend them in every group chat — and somehow it would never feel like a chore.",
@@ -107,13 +156,6 @@ export const idolMatchTemplates = {
     },
     otherOvercomesMe: {
       tier: 'Magnetic Tension',
-      situational: [
-        "one teaser and you're already rewatching it frame by frame, insisting you're 'just curious.'",
-        "it pulls you in longer than you meant to stay — you'd tell yourself five more minutes, three separate times.",
-        "one look their way and you'd forget every question you rehearsed — this bias has a way of short-circuiting your composure.",
-        "you wouldn't just watch — you'd study every move, convinced there's something there you're not fully decoding yet.",
-        "you'd go straight into an unplanned deep-dive on which era it's from — this bias never lets curiosity rest.",
-      ],
       lines: [
         "There's real friction in this pairing — the uncomfortable, can't-look-away kind that turns a casual interest into a full-blown obsession. Not a soft, easy bias; a consuming one.",
         "Not a comfortable match, but a compelling one — the kind of dynamic where you'd overanalyze every glance and read too much into every lyric. This is exactly the energy that turns into a years-long bias without you fully choosing it.",
@@ -138,13 +180,6 @@ export const idolMatchTemplates = {
     },
     iOvercomeOther: {
       tier: 'You Call the Shots',
-      situational: [
-        "you'd turn into unofficial quality control — checking the choreo credits, correcting the timeline in every group chat before misinformation spreads.",
-        "you're the one screenshotting anything that could get twisted later — quietly protective, even when no one asked you to be.",
-        "you'd be the fan gently reminding everyone else to stick to the rules — not bossy, just instinctively looking out for the room.",
-        "you'd be the one making sure your section doesn't get out of hand — steady, watchful, quietly in charge of the vibe.",
-        "you'd be the one explaining its context to everyone else in the trade chat before they even ask.",
-      ],
       lines: [
         "You'd be the calm, grounding force in this dynamic — the one who keeps them steady, whether they know it or not. There's something quietly protective about how you'd root for them.",
         "This bias would bring out your protective, take-charge side. You'd be the fan defending them in comment sections, correcting misinformation, and generally acting like their unofficial, self-appointed hype team captain — firmly and happily in charge of this bond.",
@@ -171,13 +206,6 @@ export const idolMatchTemplates = {
   ko: {
     same: {
       tier: '완벽한 싱크로율',
-      situational: [
-        "컨셉 해석하느라 허둥대지 않고, 설명글 올라오기도 전에 이미 다 이해하고 있을 거예요.",
-        "드립을 자막 뜨기도 전에 알아채요 — 유머 코드가 아예 안 맞을 일이 없는 최애예요.",
-        "질문을 따로 준비 안 해도 괜찮아요 — 원래 알던 사람처럼 대화가 자연스럽게 흘러갈 거예요.",
-        "떼창도, 숨소리 타이밍도 연습 없이 딱 맞을 거예요 — 원래부터 같은 박자로 움직이는 팬덤이니까요.",
-        "운이라기보다는, 원래 잘 맞던 싱크로율이 드디어 겉으로도 드러나는 느낌일 거예요.",
-      ],
       lines: [
         "완전히 같은 주파수로 움직이는 케미예요 — 그냥 좋아하는 게 아니라, 원래 알고 있던 사람을 다시 만난 느낌에 가까워요. 설명 안 해도 통하는, 그런 편안함이 있어요.",
         "같은 오행, 같은 결이에요. 번역 필요 없이 바로 통하는 사이 — 드립도, 텐션도, 취향도 따로 설명할 필요가 없을 거예요.",
@@ -202,13 +230,6 @@ export const idolMatchTemplates = {
     },
     otherGeneratesMe: {
       tier: '든든한 서포터',
-      situational: [
-        "초조하게 새로고침할 일이 별로 없어요 — 예정대로 도착하는 선물처럼, 편안한 설렘으로 기다리게 돼요.",
-        "틀어놓고 쉬기 좋은 편이에요 — 실시간으로 다 못 봐도 괜찮을 만큼, 편안함이 늘 그대로예요.",
-        "말을 다 끝내기도 전에 먼저 편하게 만들어줄 거예요 — 특유의 다정함이 알아서 분위기를 풀어줘요.",
-        "텐션을 쫓아다니는 느낌보다, 두 시간 내내 따뜻하게 감싸이는 느낌에 가까워요.",
-        "어떤 게 나와도 소소하게 든든한 승리처럼 느껴질 거예요 — 이 최애한텐 딱히 '아쉬운' 컷이 없거든요.",
-      ],
       lines: [
         "저쪽 기운이 나를 채워주는 조합이에요 — 애쓰지 않아도 최애 존재 자체가 내 하루를 편하게 만들어줘요. 별로 고민할 필요 없는, 그냥 스며드는 관계예요.",
         "말없이 든든하게 챙겨주는 느낌의 최애예요. 화려하진 않아도 깊이 편안한 케미죠.",
@@ -233,13 +254,6 @@ export const idolMatchTemplates = {
     },
     iGenerateOther: {
       tier: '무한 팬심 제공자',
-      situational: [
-        "혼자서 홍보팀이 돼요 — 스밍하고, 게시물 올리고, 단톡방에 이번 컨셉이 왜 좋은지 구구절절 설명하고 있을 거예요.",
-        "하트 연타에 채팅창엔 장문을 남기고 있을 거예요 — 혹시 내 댓글 읽었을까 은근히 기대하면서요.",
-        "선물이랑 손편지, 그리고 티는 안 내지만 몇 번이고 연습한 멘트까지 챙겨서 갈 거예요.",
-        "가사 한 줄 한 줄이 무슨 사명처럼 느껴져서 목이 쉬도록 따라 부르게 돼요 — 후회는 1도 없어요.",
-        "원하는 컷 구하려고 바로 교환 계획부터 짜고 있을 거예요.",
-      ],
       lines: [
         "여기선 내가 주는 쪽이에요 — 애정, 응원, 관심 다요. 다행히 난 잘 마르지 않는 타입이라, 최애의 넘버원 팬 되는 게 오히려 나한테 제일 헌신적인 나를 끌어내줄 거예요.",
         "새벽 2시에 편집 영상 만들고 있는 나 자신을 발견하게 되는 조합이에요. 억지로가 아니라, 그냥 애정이 자연스럽게 흘러넘쳐서요.",
@@ -264,13 +278,6 @@ export const idolMatchTemplates = {
     },
     otherOvercomesMe: {
       tier: '자석 같은 텐션',
-      situational: [
-        "티저 하나 뜨면 벌써 프레임 단위로 돌려보면서 '그냥 궁금해서'라고 우기고 있을 거예요.",
-        "생각보다 오래 붙잡아요 — '5분만 더'를 세 번은 반복하게 될 거예요.",
-        "눈 한 번 마주치면 준비한 질문 다 까먹을 수도 있어요 — 이상하게 침착함을 흔들어놔요.",
-        "그냥 보는 게 아니라 동작 하나하나를 분석하게 돼요 — 아직 다 못 읽어낸 뭔가가 있다고 확신하면서요.",
-        "바로 그 시절 자료를 파러 들어가게 될 거예요 — 이 최애는 궁금증을 절대 가만 안 놔둬요.",
-      ],
       lines: [
         "이 조합엔 진짜 텐션이 있어요 — 불편할 정도로 눈을 못 떼는, 그런 종류의 끌림이요. 편안한 최애라기보단, 확 빠져드는 최애에 가까워요.",
         "편안한 케미는 아니지만, 확실히 매력적인 케미예요 — 눈빛 하나, 가사 하나에도 유난히 신경 쓰이게 되는 그런 상대요.",
@@ -295,13 +302,6 @@ export const idolMatchTemplates = {
     },
     iOvercomeOther: {
       tier: '든든한 보호자',
-      situational: [
-        "은근히 품질 관리 담당이 돼요 — 안무 크레딧 확인하고, 잘못된 정보 퍼지기 전에 단톡방에서 타임라인부터 바로잡아줘요.",
-        "나중에 왜곡될 만한 장면은 미리 캡처해두는 편이에요 — 누가 시키지 않아도 알아서 챙기는 그런 보호본능이요.",
-        "다른 팬들한테 매너 살짝 챙기라고 조용히 알려주는 쪽이에요 — 잔소리라기보다는 그냥 분위기를 지키는 본능에 가까워요.",
-        "우리 구역이 과열되지 않게 은근히 챙기게 돼요 — 차분하게, 눈여겨보면서, 분위기를 조용히 이끌어가는 쪽이에요.",
-        "교환방에서 묻기도 전에 그 컷 배경부터 설명해주고 있을 거예요.",
-      ],
       lines: [
         "이 관계에서 내가 차분하고 든든한 쪽이에요 — 최애가 알아채든 못 알아채든, 은근히 지켜주는 입장이 되는 조합이에요.",
         "보호 본능을 자극하는 최애예요. 댓글창에서 방어해주고, 잘못된 정보 바로잡아주고, 자연스럽게 이 최애의 비공식 홍보대사가 되는 그런 케미요.",
@@ -343,16 +343,17 @@ function hashCode(str) {
 /**
  * Picks compatibility copy for a relation, stable per user+idol pair.
  * Returns the tier name, three parallel texts (line/goodFit/watchFor) all
- * drawn from the same seeded variant index, plus `situational` — all 5
- * concrete-situation texts for this relation (comeback/VLive/fan meeting/
- * concert/photocard), always returned in full rather than picked by seed,
- * since the UI now shows all 5 as separate sections instead of just one.
- * The seed still keeps line/goodFit/watchFor stable per user+idol pair —
- * it just no longer decides which situational text gets shown, since all
- * of them do.
+ * drawn from the same seeded variant index, plus `situational` — a
+ * pillar-by-pillar compatibility read built from `pillarCompat` (see
+ * getPillarCompatibility in utils/saju.js), one entry per pillar in the
+ * order it was given (year/month/day[/time]). The seed still keeps
+ * line/goodFit/watchFor stable per user+idol pair; the pillar reads don't
+ * need a seed since each one is fully determined by that pillar's own
+ * Five Element relation.
  */
-export function getIdolMatchCopy(lang, relation, seedInput) {
+export function getIdolMatchCopy(lang, relation, seedInput, pillarCompat = []) {
   const entry = (idolMatchTemplates[lang] || idolMatchTemplates.en)[relation];
+  const pillarBank = pillarSituational[lang] || pillarSituational.en;
   const seed = hashCode(seedInput);
   const idx = seed % entry.lines.length;
   return {
@@ -360,6 +361,9 @@ export function getIdolMatchCopy(lang, relation, seedInput) {
     line: entry.lines[idx],
     goodFit: entry.goodFit[idx],
     watchFor: entry.watchFor[idx],
-    situational: entry.situational,
+    situational: pillarCompat.map(({ pillar, relation: pillarRelation }) => ({
+      pillar,
+      text: pillarBank[pillar][pillarRelation],
+    })),
   };
 }

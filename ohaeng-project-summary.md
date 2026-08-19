@@ -87,9 +87,9 @@
 
 - **`LockedPreview.jsx` → `PremiumLock.jsx`로 이름 변경**: 구현은 동일(blur(6px)+opacity 0.55 오버레이 + 🔒 아이콘 + 안내 문구), 이름만 범용성에 맞게 변경. `saju.premiumLockedNote` 문구도 "프리미엄에서 전체 그래프를 확인할 수 있어요"(그래프 전용 표현)에서 **"프리미엄에서 확인 가능"**(범용 표현)으로 같이 수정 — 이제 차트뿐 아니라 텍스트 섹션에도 쓰이므로
 - **`InsightSection.jsx`에 `locked` 지원 추가**: `sections` 배열 각 항목에 `locked?: boolean` 필드를 추가할 수 있고, `locked: true`인 섹션은 그 섹션 하나(번호 배지+제목+본문 카드)만 개별적으로 `PremiumLock`으로 감싸서 렌더링 — 잠긴 섹션 여러 개가 연달아 있으면 각자 따로 블러+자물쇠가 뜸(하나로 묶어서 감싸지 않음, 스펙대로). 여전히 `.slice()` 안 씀 — 배열을 구성하는 시점에 어떤 항목이 잠기는지 `locked` 플래그로 전부 결정되고 컴포넌트 자체는 그대로 전체 배열을 렌더링
-- **각 페이지 `sections` 배열에 `locked` 적용**:
+- **각 페이지 `sections` 배열에 `locked` 적용**: *(이 잠금 비율 자체는 5-3에서 다시 완화됨 — 아이돌/드라마/로맨스매치는 3개 무료로, `/saju` 도메인은 2개 무료로 늘어남. 아래는 이 작업 당시의 최초 비율)*
   - `IdolMatch.jsx`(베스트매치+최애매치 그룹모드)/`DramaMatch.jsx`/`Romance.jsx`(재회·짝사랑·속마음 공용): `[explanation, goodFit]`은 `locked:false`, `situational×5` + `watchFor`는 `locked:true` — 8개 중 2개만 무료
-  - `Compatibility.jsx`: `[explanation, goodFit]`은 `locked:false`, `watchFor`는 `locked:true`(이 페이지는 애초에 situational 확장 대상이 아니었어서 3개 섹션 구조 그대로)
+  - `Compatibility.jsx`: `[explanation, goodFit]`은 `locked:false`, `watchFor`는 `locked:true`(이 페이지는 애초에 situational 확장 대상이 아니었어서 3개 섹션 구조 그대로, 5-3 이후도 변경 없음)
   - `Saju.jsx` 도메인 섹션 4개(연애/재물/커리어/건강 스타일): **연애 스타일(romanceStyle)만 무료**로 남기고 나머지 3개(재물/커리어/건강)는 잠금 — 흥미 유발용 티저 1개 구조
 - **`sajuStrengthTemplates.js` 연결 — 요청과 다르게 `Compatibility.jsx`에 배치함(중요)**: 원래 지시는 "Saju.jsx에 새 섹션으로 추가"였는데, `getSajuStrengthInsight(lang, myStrength, theirStrength)`는 애초에(5-1의 1단계 산출물) **"나 vs 상대방" 두 사람의 신강/신약을 비교하는 관계형 콘텐츠**("이 관계 안에서", "상대는" 같은 문장으로 씀)라서, 상대방이 없는 `/saju`(솔로 프로필 페이지)에 붙이면 문맥이 안 맞고 읽었을 때 이상함(예: "둘 다 신강이라 이 관계에서 존재감 없이 묻히지 않아요" 같은 문장이 혼자 보는 페이지에 뜨는 상황). 그래서 이미 `mySaju.dayGanStrength`/`compatibility.otherSaju.dayGanStrength` 둘 다 갖고 있는 `Compatibility.jsx`에 4번째 섹션(`locked:true`)으로 대신 연결함 — `matchCommon.insightTitles.strengthMatch`("신강신약 궁합") 신규 키 추가. `/saju`에는 이 콘텐츠를 붙이지 않음
 - **신살/귀인/연운/삼재 — `Saju.jsx`에 새 카드로 추가(`saju.extraHeading`, "신살·귀인·연운·삼재")**: 계산 로직만 있고 성격 설명 문구가 없는 상태라, 각각 실제 계산 결과를 반영한 **한 줄 프리뷰**만 작성(전부 `locked:true`) — 문장 자체는 최소한이지만 플레이스홀더가 아니라 실제 계산값을 반영함:
@@ -159,6 +159,8 @@
 
 ## 5-2. 아이돌/드라마/로맨스 매치 — situational 섹션 5개 추가 (3개 → 8개)
 
+*(아이돌/드라마 매치의 situational 구조는 5-3에서 "구체적 팬 상황 5개"→"기둥별 궁합 분석 3개"로 다시 재설계됨 — 8개가 아니라 6개가 됨. 로맨스는 이 5-2의 구조 그대로 유지됨, 5-3 참고)*
+
 5-1에서 아이돌매치/드라마매치/궁합/로맨스는 인사이트 섹션이 3개(왜 이 점수인지/잘 맞는 부분/관계에서 챙길 점)였는데, 아이돌매치·드라마매치·로맨스(3종) 세 곳은 구체적 순간 5개를 각각 다루는 섹션을 그 사이에 끼워 넣어 **8개**로 확장함. 먼저 아이돌/드라마 매치(팬 생활 장면: 컴백/브이라이브/팬미팅/콘서트/포토카드)에 적용한 뒤, 같은 방식을 로맨스(재회/짝사랑/속마음, 일반 연애 장면)에도 이어서 적용함. **궁합(Compatibility)만 3개 그대로** — 특정 관계 유형(친구/연인/썸/가족/동료)을 아우르는 범용 콘텐츠라 "구체적 순간 5개"라는 틀 자체가 안 맞는다고 판단해 이번 확장 대상에서 제외함
 
 - **데이터**: `idolMatchTemplates.js`/`dramaMatchTemplates.js`(각 관계 5종)와 `romanceTemplates.js`(각 situation×관계 = 3×5=15 조합)에 `situational: [5개 문구]` 필드 신규 추가(en/ko 각각) — 기존 `lines`/`goodFit`/`watchFor`처럼 seed로 1개만 뽑는 게 아니라 **항상 5개 전부** 반환. `getIdolMatchCopy`/`getDramaMatchCopy`/`getRomanceCopy`의 리턴 객체에 `situational` 배열이 추가됨(기존 `tier`/`line`/`goodFit`/`watchFor`는 시그니처·동작 그대로 유지). 로맨스의 재회 전용 공통 클로징 라인(`romanceClosing`)은 이번 재구성과 완전히 무관하게 그대로 유지됨
@@ -168,6 +170,22 @@
 - **seed 역할 축소**: seed는 여전히 `line`/`goodFit`/`watchFor`가 같은 조합(유저+아이돌/배우, 또는 두 생년월일)에서 매번 같은 텍스트로 재현되게 하는 데 쓰이지만, situational 5개를 고르는 데는 더 이상 안 씀(전부 다 보여주니까 고를 필요가 없어짐)
 - **검증**: Playwright로 아이돌매치(베스트매치+최애매치 그룹모드)/드라마매치/로맨스(재회·짝사랑·속마음 3종) 전부, en/ko 각각에서 섹션 제목이 정확히 `[이 점수가 나온 이유, 잘 맞는 부분, 상황 5개(순서대로), 관계에서 챙길 점]` 8개로 뜨는지 텍스트 순서까지 확인. `idolMatchTemplates`/`dramaMatchTemplates`/`romanceTemplates`의 모든 situation×관계×언어 조합(로맨스는 3×5×2=30개)이 `situational` 5개를 빠짐없이 갖고 있는지도 스크립트로 전수 확인. 콘솔 에러 0건
 - **완료 기준**: 지금은 결제/페이월이 없어서 8개 다 열려있는 채로 노출 — 나중에 Stripe 붙을 때 몇 번째 섹션부터 잠글지만 정하면 되는 구조(5-1에서 `InsightSection`이 `.slice()` 없이 `sections` 배열 전체를 그대로 렌더링하도록 설계해둔 덕분에, 이번에도 컴포넌트 수정 없이 배열 구성만 바꿔서 확장 가능했음)
+
+## 5-3. 아이돌/드라마 매치 — 기둥별 궁합 분석으로 재설계 + 잠금 비율 완화 + 운세 주의사항
+
+세 가지를 한 번에 진행: (1) 아이돌/드라마 매치의 situational 섹션을 "구체적 팬 상황 5개"(5-2 산물)에서 "기둥별 궁합 분석"으로 재설계, (2) 아이돌/드라마/로맨스매치·`/saju`의 잠금 비율 완화, (3) `/result`(오늘의 운세)에 안전한 영역의 "주의사항" 문구 추가.
+
+- **`getPillarCompatibility(mySaju, otherSaju)`** (`saju.js`, 신규): 년/월/일 기둥(둘 다 시간 정보 있으면 시주까지)을 각 기둥의 **천간 오행**끼리 `getElementRelation`으로 비교해서 `{ pillar, relation, myElement, otherElement }` 배열 반환. 시간 정보 없는 쪽이 있으면 시주는 배열에서 자동 제외 — 아이돌/배우는 항상 생시가 비공개라(`calculateSaju(..., false)`로 계산됨) 아이돌/드라마 매치는 **항상 3기둥**(년/월/일)만 나옴, 유저가 자기 생시를 입력했어도 마찬가지(그룹모드에서 유저 시간 입력 있어도 3기둥으로 정상 동작하는 것까지 확인)
+- **콘텐츠 뱅크 재작성 — `pillarSituational`** (`idolMatchTemplates.js`/`dramaMatchTemplates.js` 각각 신규 export): 기존 "관계별 5개 구체 상황"(5-2 산물, 컴백/브이라이브/팬미팅/콘서트/포토카드 등) 구조를 통째로 **기둥(4) × 관계(5) = 20개** 매트릭스로 교체 — `pillarSituational[lang][pillar][relation]`. 기둥별 관점: 년주=왜 하필 끌렸는지(첫인상), 월주=취향이 통해 편한 이유, 일주=진짜 매력을 알아보는 눈(비중 크게), 시주=사소한 디테일까지 좋아지는 이유. **문구는 전부 팬-최애 감정적 친밀감의 언어**("왜 끌렸는지"/"왜 편한지"/"왜 매력을 알아보는지") — "커플처럼 잘 맞다" 식 연인 프레이밍은 의도적으로 전혀 안 씀(Playwright로 en "couple/partner/boyfriend/girlfriend", ko "커플/연인/사귀" 문자열이 렌더링된 텍스트에 하나도 없는지 전수 확인). 이 값은 **관계별 tier/line/goodFit/watchFor가 쓰는 "전체 관계"와는 별개** — 두 사람이 전체로는 같은 오행(same)이어도 특정 기둥끼리는 다른 관계(예: 일주가 iOvercomeOther)가 나올 수 있고, 실제로 그렇게 각 기둥이 자기 고유의 관계값으로 렌더링됨(전체 관계 하나로 통일해서 억지로 맞추지 않음)
+- **`getIdolMatchCopy`/`getDramaMatchCopy` 시그니처 변경**: `(lang, relation, seedInput)` → `(lang, relation, seedInput, pillarCompat)` — `situational` 반환값이 고정 5개 문자열 배열에서 `pillarCompat` 순서(년→월→일[→시]) 그대로의 `{ pillar, text }` 배열로 바뀜(가변 길이, 보통 3개). 호출부(`IdolMatch.jsx` 베스트매치+그룹모드, `DramaMatch.jsx`)에서 `getPillarCompatibility(userSaju, 상대Saju)` 결과를 넘겨줌
+- **섹션 구성**: `sections = [explanation, goodFit, ...기둥별 3개, watchFor]` — 8개(5-2)에서 **6개**로 줄어듦(기둥이 항상 3개라 가변이라기보단 사실상 고정 6개가 됨, 시주가 들어갈 일이 구조적으로 없어서). 섹션 제목은 새 `matchCommon.pillarTitles.{year,month,day,time}` i18n 키(아이돌/드라마 공용) — 기존 `idolMatch.situationalTitles`/`dramaMatch.situationalTitles`(5개짜리 고정 배열)는 더 이상 안 쓰여서 제거함
+- **잠금 비율 완화(전 페이지 재계산)**:
+  - 아이돌/드라마/로맨스매치: `explanation`/`goodFit`은 그대로 무료, **기둥별(또는 situational) 첫 번째 항목도 무료**로 풀어서(항상 배열 0번째 = 년주 또는 상황1) 6개 중 3개/8개 중 3개가 무료가 됨. 나머지(월주/일주 + `watchFor`, 또는 situational 2~5번 + `watchFor`)는 잠금
+  - `/saju` 도메인: 연애 스타일에 더해 **재물 성향도 무료**로 풀어서 4개 중 2개 무료(커리어/건강만 잠금)
+  - 신강신약 궁합(Compatibility)·신살/귀인/연운/삼재·인생그래프는 **그대로 잠금 유지**(처음부터 프리미엄 전용으로 기획된 것들이라 이번엔 안 건드림)
+  - **로맨스매치는 콘텐츠 구조를 재설계하지 않음(의도적 스코프 유지)**: 요청의 "기둥별 궁합 분석" 재설계는 문면상 아이돌/드라마 매치 전용(팬-최애 감정 언어는 로맨스의 "일반 연애 상황, 팬덤 용어 없음" 원칙과 안 맞음)이었는데, 잠금 비율 지시에서만 로맨스가 아이돌/드라마와 함께 "6~7개 중 3개 무료"로 묶여 언급됨 — 콘텐츠는 5-2의 기존 5개 상황 구조 그대로 두고, **잠금 로직만 동일한 패턴(situational[0]도 무료)으로 맞춤**. 결과적으로 로맨스는 8개 중 3개 무료(explanation/goodFit/situational 첫 항목), 나머지 로맨스 전용 구조(상황명 i18n, `romanceClosing` 등)는 전혀 안 건드림
+- **`/result` 운세 주의사항(`caution`) — 전부 무료 유지**: `fortuneTemplates.js`의 관계 5종 각각에 `caution: { overall, love, wealth, health, comeback }` 필드 신규 추가(관계 5종 × 카테고리 5종 = 25개, en/ko 각각 총 50개) — `getFortuneLine`처럼 seed로 여러 변형 중 하나를 뽑는 게 아니라, 카테고리당 **고정 한 줄**(짧은 실용 팁이라 변형이 굳이 필요 없다고 판단). `getFortuneCaution(lang, relation, category)` 신규 함수. 톤은 재물/건강/타이밍처럼 **안전한 실용 조언**만(예: 재물="큰돈 쓰는 결정은 신중하게", 건강="컨디션 관리 챙기기") — 애정 카테고리도 "이별 조심"류 관계 불안 자극이 아니라 "고백/진지한 대화를 서두르지 마세요" 정도의 안전한 톤으로 작성. `/result`는 애초부터 계속 무료 원칙이었던 페이지라 이 필드도 잠그지 않음 — `Result.jsx`가 각 카테고리 본문(`.fortune-row__text`) 아래에 작은 보조 문구(`.fortune-row__caution`, 12px 회색)로 `{{result.cautionLabel}} {{caution}}` 형태로 표시
+- **검증**: Playwright로 (1) 아이돌매치 베스트매치+그룹모드(유저 생시 있음/없음 둘 다), 드라마매치 — en/ko 각각 기둥별 섹션이 정확히 3개(년/월/일) 렌더링되고 커플 프레이밍 문자열이 전혀 없는지 확인 (2) 6개 결과 화면(아이돌매치 베스트+그룹모드/드라마매치/로맨스-재회/`/saju`) 전부 DOM 잠금 상태 검사로 "명시한 비율대로" 무료/잠금이 정확히 나뉘는지 전수 확인 — 전부 스펙과 일치 (3) `/result` en/ko에서 5개 카테고리 전부 caution 문구가 실제 계산된 관계값 기준으로 노출되는지 확인 (4) 라이트/다크 스크린샷으로 무료 섹션은 선명, 잠금 섹션은 각각 개별 블러+자물쇠로 일관되게 보이는지 확인. 콘솔 에러 0건
 
 ## 6. 아이돌/배우 데이터
 

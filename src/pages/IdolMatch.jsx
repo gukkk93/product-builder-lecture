@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
+import { calculateSaju, getCompatibility, getCompatibilityScore, getPillarCompatibility } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
 import { getIdolMatchCopy } from '../data/idolMatchTemplates';
 import { idolGroups, getMemberName } from '../data/idols';
@@ -83,8 +83,10 @@ export default function IdolMatch() {
       )
     : null;
 
+  const memberPillarCompat = memberCompat ? getPillarCompatibility(userSaju, memberCompat.otherSaju) : null;
+
   const memberCopy = memberCompat
-    ? getIdolMatchCopy(i18n.language, memberCompat.relation, `${birth.year}-${birth.month}-${birth.day}-${selectedMember.id}`)
+    ? getIdolMatchCopy(i18n.language, memberCompat.relation, `${birth.year}-${birth.month}-${birth.day}-${selectedMember.id}`, memberPillarCompat)
     : null;
 
   const memberExplanation = memberCompat
@@ -94,13 +96,15 @@ export default function IdolMatch() {
       })
     : null;
 
-  const situationalTitles = t('idolMatch.situationalTitles', { returnObjects: true });
+  const pillarTitles = t('matchCommon.pillarTitles', { returnObjects: true });
 
+  // Only the year pillar (always index 0 — see getPillarCompatibility) stays
+  // free, as the "why you were drawn in" teaser; month/day/time are locked.
   const memberInsightSections = memberCompat && memberCopy
     ? [
         { title: t('matchCommon.insightTitles.explanation'), text: memberExplanation, locked: false },
         { title: t('matchCommon.insightTitles.goodFit'), text: memberCopy.goodFit, locked: false },
-        ...memberCopy.situational.map((text, i) => ({ title: situationalTitles[i], text, locked: true })),
+        ...memberCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
         { title: t('matchCommon.insightTitles.watchFor'), text: memberCopy.watchFor, locked: true },
       ]
     : null;
@@ -112,8 +116,10 @@ export default function IdolMatch() {
 
   const bestName = best ? getMemberName(best.candidate, i18n.language) : '';
 
+  const bestPillarCompat = best ? getPillarCompatibility(userSaju, best.saju) : null;
+
   const compatCopy = best
-    ? getIdolMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`)
+    ? getIdolMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`, bestPillarCompat)
     : null;
 
   const explanation = best
@@ -127,7 +133,7 @@ export default function IdolMatch() {
     ? [
         { title: t('matchCommon.insightTitles.explanation'), text: explanation, locked: false },
         { title: t('matchCommon.insightTitles.goodFit'), text: compatCopy.goodFit, locked: false },
-        ...compatCopy.situational.map((text, i) => ({ title: situationalTitles[i], text, locked: true })),
+        ...compatCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
         { title: t('matchCommon.insightTitles.watchFor'), text: compatCopy.watchFor, locked: true },
       ]
     : null;

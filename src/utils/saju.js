@@ -257,6 +257,25 @@ export function getCompatibility(mySaju, otherBirth, otherTimeKnown = false) {
   };
 }
 
+/**
+ * Per-pillar Five Element relation between two charts — year/month/day
+ * pillars are always compared (using each pillar's Gan element, the same
+ * single-Gan convention getDayElement/getLifeScoreTimeline use elsewhere in
+ * this file), and the hour pillar is included only when both people have a
+ * known birth time. Idols/actors never have a public birth time, so an
+ * idol/drama match comparison always comes out to exactly 3 pillars.
+ */
+export function getPillarCompatibility(mySaju, otherSaju) {
+  const pillars = mySaju.pillars.time && otherSaju.pillars.time
+    ? ['year', 'month', 'day', 'time']
+    : ['year', 'month', 'day'];
+  return pillars.map((pillar) => {
+    const myElement = GAN_ELEMENT[mySaju.pillars[pillar].gan];
+    const otherElement = GAN_ELEMENT[otherSaju.pillars[pillar].gan];
+    return { pillar, relation: getElementRelation(myElement, otherElement), myElement, otherElement };
+  });
+}
+
 // Baseline score per relation, used to turn a qualitative relation into a
 // shareable number. Ordering mirrors RELATION_RANK in idolMatchTemplates.js.
 const RELATION_SCORE = {

@@ -551,6 +551,13 @@ textarea:focus {
   line-height: 1.5;
 }
 
+.fortune-row__caution {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
 .result-meta {
   display: flex;
   justify-content: space-between;
