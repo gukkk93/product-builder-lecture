@@ -584,3 +584,187 @@ export function getDaeun(birth, timeKnown, gender, count = 8) {
     });
   return { forward, items };
 }
+
+// ============================================================================
+// Shensha (신살/神殺) — Peach Blossom, Traveling Horse, Canopy
+// ============================================================================
+//
+// lunar-javascript has no built-in method for these (verified by inspecting
+// its source — it ships a same-named-looking SHEN_SHA/DAY_SHEN_SHA table,
+// but that's for a completely different feature, the daily almanac's
+// auspicious/inauspicious day spirits, not birth-chart shensha), so this is
+// a from-scratch, traditional textbook lookup table, verified by hand
+// against known reference charts before relying on it (see dev notes).
+//
+// All three are looked up the same way: which of the 4 Earthly-Branch trine
+// (삼합/三合) groups a reference branch belongs to, then a fixed target
+// branch for that group — present if the target branch shows up anywhere
+// in the chart. Both 년지 and 일지 are traditionally used as the reference
+// branch, so both are checked and reported separately via `bases`.
+const SAMHE_GROUP = {
+  Yin: 'fire', Wu: 'fire', Xu: 'fire', // 寅午戌
+  Shen: 'water', Zi: 'water', Chen: 'water', // 申子辰
+  Si: 'metal', You: 'metal', Chou: 'metal', // 巳酉丑
+  Hai: 'wood', Mao: 'wood', Wei: 'wood', // 亥卯未
+};
+
+// 역마살(驛馬殺): the branch that clashes (沖) with the trine group's own
+// 생지 (first/initiating branch) — e.g. 申子辰(water)'s 생지 is 申, which
+// clashes with 寅, so water-group people carry 역마 in 寅.
+const YIMA_TABLE = { fire: 'Shen', water: 'Yin', metal: 'Hai', wood: 'Si' };
+// 도화살(桃花殺): standard textbook target per group (not derivable from
+// the other two tables by a simple rule — a fixed traditional mapping).
+const TAOHUA_TABLE = { fire: 'Mao', water: 'You', metal: 'Wu', wood: 'Zi' };
+// 화개살(華蓋殺): the trine group's own 묘지 (storage/last branch) — e.g.
+// 申子辰(water)'s own storage branch is 辰, so water-group people carry
+// 화개 in 辰 (i.e. it can coincide with their own reference branch).
+const HWAGAE_TABLE = { fire: 'Xu', water: 'Chen', metal: 'Chou', wood: 'Wei' };
+
+const SHENSHA_TABLES = { taohua: TAOHUA_TABLE, yima: YIMA_TABLE, hwagae: HWAGAE_TABLE };
+const SHENSHA_META = {
+  taohua: { hanja: '桃花殺', ko: '도화살', en: 'Peach Blossom' },
+  yima: { hanja: '驛馬殺', ko: '역마살', en: 'Traveling Horse' },
+  hwagae: { hanja: '華蓋殺', ko: '화개살', en: 'Canopy' },
+};
+
+/** Every Zhi actually present in a chart (year/month/day, plus hour if known). */
+function collectZhis(saju) {
+  const { pillars } = saju;
+  const zhis = [pillars.year.zhi, pillars.month.zhi, pillars.day.zhi];
+  if (pillars.time) zhis.push(pillars.time.zhi);
+  return zhis;
+}
+
+/**
+ * Checks a chart for the 3 most commonly cited shensha (도화살/역마살/화개살).
+ * Returns only the ones actually present, each with `bases` listing whether
+ * it was found via the 년지 reference, 일지 reference, or both.
+ */
+export function getShensha(saju, lang) {
+  const zhis = collectZhis(saju);
+  const refs = [
+    { basis: 'year', zhi: saju.pillars.year.zhi },
+    { basis: 'day', zhi: saju.pillars.day.zhi },
+  ];
+
+  const results = [];
+  for (const key of Object.keys(SHENSHA_TABLES)) {
+    const table = SHENSHA_TABLES[key];
+    const bases = refs
+      .filter((ref) => zhis.includes(table[SAMHE_GROUP[ref.zhi]]))
+      .map((ref) => ref.basis);
+    if (bases.length > 0) {
+      const meta = SHENSHA_META[key];
+      results.push({ key, label: lang === 'ko' ? meta.ko : meta.en, hanja: meta.hanja, bases });
+    }
+  }
+  return results;
+}
+
+// ============================================================================
+// Nobleman (귀인/貴人) — Heavenly Nobleman (天乙貴人)
+// ============================================================================
+//
+// The most widely used 귀인. Standard day-Gan → up to 2 target-Zhi table,
+// the traditional "甲戊庚牛羊，乙己鼠猴鄉，丙丁豬雞位，壬癸兔蛇藏，六辛逢
+// 馬虎" mnemonic (牛=丑, 羊=未, 鼠=子, 猴=申, 豬=亥, 雞=酉, 兔=卯, 蛇=巳,
+// 馬=午, 虎=寅) — not in lunar-javascript, so hand-built and checked against
+// that mnemonic before relying on it.
+const NOBLEMAN_TABLE = {
+  Jia: ['Chou', 'Wei'], Wu: ['Chou', 'Wei'], Geng: ['Chou', 'Wei'],
+  Yi: ['Zi', 'Shen'], Ji: ['Zi', 'Shen'],
+  Bing: ['Hai', 'You'], Ding: ['Hai', 'You'],
+  Ren: ['Mao', 'Si'], Gui: ['Mao', 'Si'],
+  Xin: ['Wu', 'Yin'],
+};
+const NOBLEMAN_META = { hanja: '天乙貴人', ko: '천을귀인', en: 'Heavenly Nobleman' };
+
+/**
+ * Checks a chart for 천을귀인, looked up from the day master. Returns the
+ * day master's 2 target branches plus which of them actually appear
+ * anywhere in the chart (`present` — empty if neither does).
+ */
+export function getNobleman(saju, lang) {
+  const targets = NOBLEMAN_TABLE[saju.dayGan];
+  const zhis = collectZhis(saju);
+  const present = targets.filter((z) => zhis.includes(z));
+  return {
+    key: 'tianyi',
+    label: lang === 'ko' ? NOBLEMAN_META.ko : NOBLEMAN_META.en,
+    hanja: NOBLEMAN_META.hanja,
+    targets,
+    present,
+    hasNobleman: present.length > 0,
+  };
+}
+
+// ============================================================================
+// Year Luck (연운/年運)
+// ============================================================================
+//
+// Same Five Element relation math as getTodayRelation, just applied to a
+// given calendar year's Gan/Zhi (세운/歲運) instead of today's date.
+function getYearPillar(year) {
+  // June 15 sits safely inside this year's 입춘-to-입춘 window (입춘 falls
+  // ~Feb 4-5; the library's own solar-term boundary already handles the
+  // precise cutoff, same convention buildEightChar() relies on for the
+  // birth-chart year pillar) — avoids edge cases from a date near Jan 1 or
+  // the following 입춘.
+  const ec = Solar.fromYmd(year, 6, 15).getLunar().getEightChar();
+  return { gan: ec.getYearGan(), zhi: ec.getYearZhi() };
+}
+
+/** Five Element relation between a chart's dominant element and a given year's Gan. */
+export function getYearRelation(saju, year) {
+  const { gan, zhi } = getYearPillar(year);
+  const yearElement = GAN_ELEMENT[gan];
+  return {
+    year,
+    yearGan: gan,
+    yearZhi: zhi,
+    yearElement,
+    relation: getElementRelation(saju.dominantElement, yearElement),
+  };
+}
+
+/** getYearRelation for `count` consecutive years starting at fromYear. */
+export function getYearRelations(saju, fromYear, count = 5) {
+  return Array.from({ length: count }, (_, i) => getYearRelation(saju, fromYear + i));
+}
+
+// ============================================================================
+// Samjae (삼재/三災)
+// ============================================================================
+//
+// The 3 consecutive years, recurring once every 12 years, tied to the trine
+// group (see SAMHE_GROUP above) of a person's own 년지 (zodiac branch): the
+// window is [역마 branch, next, next] in the fixed 12-branch cycle, always
+// landing exactly on that group's own 화개 branch as the third year — e.g.
+// 申子辰(water) people: 역마=寅, so 삼재 = 寅卯辰. Cross-checked all 4
+// groups against the well-known Korean 삼재 table (e.g. 돼지/토끼/양띠 →
+// 뱀/말/양해) before relying on this derivation.
+function samjaeZhisForGroup(group) {
+  const startIdx = ZHI_ORDER.indexOf(YIMA_TABLE[group]);
+  return [0, 1, 2].map((i) => ZHI_ORDER[(startIdx + i) % 12]);
+}
+
+/**
+ * Finds the samjae window (3 consecutive years) closest to `fromYear` — the
+ * one already in progress if `fromYear` falls inside it, otherwise the next
+ * upcoming one. Recurs every 12 years, so scanning a 12-year span starting
+ * 2 years before `fromYear` is guaranteed to find exactly one match.
+ */
+export function getSamjae(saju, fromYear) {
+  const group = SAMHE_GROUP[saju.pillars.year.zhi];
+  const samjaeZhis = samjaeZhisForGroup(group);
+
+  let startYear = null;
+  for (let y = fromYear - 2; y < fromYear + 10; y++) {
+    if (getYearPillar(y).zhi === samjaeZhis[0]) {
+      startYear = y;
+      break;
+    }
+  }
+  const years = [startYear, startYear + 1, startYear + 2];
+  return { group, samjaeZhis, years, isCurrent: fromYear >= startYear && fromYear <= startYear + 2 };
+}
