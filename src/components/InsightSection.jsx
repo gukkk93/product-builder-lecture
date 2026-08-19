@@ -10,7 +10,12 @@ import PremiumLock from './PremiumLock';
  * wrapped in PremiumLock individually (blurred + its own lock overlay)
  * rather than the whole list sharing one lock.
  *
- * `sections`: Array<{ title: string, text: string, locked?: boolean }>
+ * `text` may contain multiple paragraphs separated by "\n\n" — each is
+ * rendered as its own <p>. An optional `subheading` renders as a bold lead
+ * line above the body, for sections deep enough to want one; most callers
+ * leave it out and just rely on the numbered `title`.
+ *
+ * `sections`: Array<{ title: string, subheading?: string, text: string, locked?: boolean }>
  */
 export default function InsightSection({ element, intro, sections }) {
   if (!sections || sections.length === 0) return null;
@@ -68,7 +73,19 @@ export default function InsightSection({ element, intro, sections }) {
                 </span>
                 <strong style={{ fontSize: 14 }}>{section.title}</strong>
               </div>
-              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)' }}>{section.text}</p>
+              {section.subheading && (
+                <p style={{ margin: '0 0 6px', fontSize: 13, fontWeight: 700, color: 'var(--accent)' }}>
+                  {section.subheading}
+                </p>
+              )}
+              {section.text.split('\n\n').map((para, pi) => (
+                <p
+                  key={pi}
+                  style={{ margin: pi === 0 ? 0 : '8px 0 0', fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)' }}
+                >
+                  {para}
+                </p>
+              ))}
             </div>
           );
           return <div key={i}>{section.locked ? <PremiumLock>{card}</PremiumLock> : card}</div>;

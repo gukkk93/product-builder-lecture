@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { PREVIEW_MODE_UNLOCK_ALL } from '../config';
 
 /**
  * Wraps any content with a blurred/dimmed silhouette and a lock overlay —
@@ -6,9 +7,16 @@ import { useTranslation } from 'react-i18next';
  * premium-gated piece of content in the app (LifeScoreChart, individual
  * InsightSection entries via their `locked` flag, etc.) until real payment
  * is wired up.
+ *
+ * While PREVIEW_MODE_UNLOCK_ALL is on, this renders children directly and
+ * skips the lock treatment entirely — every caller's `locked` flag stays
+ * exactly as it is, so flipping the config back off restores the paywall
+ * without touching any call site.
  */
 export default function PremiumLock({ children }) {
   const { t } = useTranslation();
+
+  if (PREVIEW_MODE_UNLOCK_ALL) return children;
 
   return (
     <div style={{ position: 'relative' }}>

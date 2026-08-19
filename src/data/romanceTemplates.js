@@ -32,20 +32,14 @@ export const romanceTemplates = {
           "This is the kind of history that doesn't really close. Even apart, you'd likely still finish each other's sentences without trying.",
           "If you're wondering whether the connection is still there, it probably is — this pairing rarely fully switches off, it just dims.",
         ],
-        goodFit: [
-          "If you got back together, the sync would likely return almost immediately — you rarely had to work hard to understand each other, and that doesn't reset just because you took a break.",
-          "This is one of the easier types of reunion to picture working — you're not learning a new person, you're returning to one you already understood well.",
-          "Whatever pulled you apart probably wasn't a fundamental mismatch — this pairing's ease was real, and ease like that tends to still be there on the other side.",
-          "You'd likely skip most of the awkward re-getting-to-know-you phase — the shorthand you built doesn't really expire.",
-          "If trust is intact, this reunion has fewer obstacles than most — the hard part here was never understanding each other.",
-        ],
-        watchFor: [
-          "Easy chemistry doesn't automatically mean the actual issue that ended things got resolved — worth naming what that was before assuming it won't repeat.",
-          "It's tempting to read the ease of reconnecting as proof you should get back together — comfort and rightness aren't always the same thing.",
-          "Because you understand each other so well, it's easy to avoid the harder conversation about why you broke up in the first place — that conversation still needs to happen.",
-          "Two people this similar can also share the same blind spot that caused the breakup — worth checking whether that's actually been addressed.",
-          "The pull back might be nostalgia for how easy it felt, more than a real plan for what changes this time — worth being honest about which one it is.",
-        ],
+        goodFit: {
+          subheading: "The Sync Doesn't Reset",
+          text: "If you got back together, the sync would likely return almost immediately — you rarely had to work hard to understand each other, and a break doesn't erase that kind of shorthand. You're not learning a new person here, you're returning to one you already understood well, which skips most of the awkward re-getting-to-know-you phase entirely.\n\nWhatever pulled you apart probably wasn't a fundamental mismatch — the ease in this pairing was real, and ease like that tends to still be there on the other side. If trust is intact, this reunion has fewer obstacles than most, because understanding each other was never the hard part.",
+        },
+        watchFor: {
+          subheading: 'Name What Actually Ended It',
+          text: "Easy chemistry doesn't automatically mean the issue that ended things actually got resolved — it's worth naming what that was before assuming it won't repeat, since comfort and rightness aren't always the same thing. Because you understand each other so well, it's easy to keep avoiding the harder conversation about why you broke up in the first place; that conversation still needs to happen, ideally before the reunion, not after.\n\nTwo people this similar can also share the same blind spot that caused the breakup, so it's worth checking whether that's actually been addressed rather than just softened by time apart. The pull back might be nostalgia for how easy it felt, more than an actual plan for what changes this time — it's worth being honest with yourself about which one it is.",
+        },
       },
       otherGeneratesMe: {
         tier: 'They Still Show Up For You',
@@ -63,20 +57,14 @@ export const romanceTemplates = {
           "Some relationships take from you even after they end. This isn't that kind — whatever you got from them probably still lingers, quietly.",
           "If there's a version of them showing up again that would actually help you, it's this one — steady, generous, in no rush.",
         ],
-        goodFit: [
-          "If they came back, you'd likely feel steadied by them again almost immediately — that kind of support tends to hold up even after time apart.",
-          "This is a reunion where the comfort was probably real and mutual, not one-sided — worth trusting that part of the memory.",
-          "Whatever they gave you before, there's a good chance they still would — this dynamic doesn't usually run out on its own.",
-          "You wouldn't have to convince yourself the good parts were real — the steadiness this person offered tends to be consistent, not a phase.",
-          "If you're nervous about reaching out, it helps to remember: this was never a relationship where you had to chase their support.",
-        ],
-        watchFor: [
-          "It's worth asking what you gave back, not just what they gave you — comfort like this can quietly become one-directional over time if it isn't checked.",
-          "Missing how they made you feel isn't quite the same as missing them specifically — worth separating those two things before reaching out.",
-          "If the relationship ended anyway despite this comfort, something else was likely the real issue — worth naming it instead of assuming the good parts will fix it.",
-          "It's easy to romanticize how steady they were without remembering what wasn't working — worth revisiting both sides honestly.",
-          "Reunions built mostly on relief can start strong and then quietly stall if nothing else gets addressed — the comfort alone won't carry the whole relationship.",
-        ],
+        goodFit: {
+          subheading: 'The Comfort Was Real, and Mutual',
+          text: "If they came back, you'd likely feel steadied by them again almost immediately — that kind of support tends to hold up even after time apart, because it was never contingent on constant contact to begin with. This is a reunion where the comfort was probably real and mutual, not one-sided, which is worth trusting rather than second-guessing.\n\nWhatever they gave you before, there's a good chance they still would — this dynamic doesn't usually run dry on its own. If you're nervous about reaching out, it helps to remember this was never a relationship where you had to chase their support; it simply showed up.",
+        },
+        watchFor: {
+          subheading: "Ask What You're Bringing Back",
+          text: "It's worth asking what you gave back, not just what they gave you — comfort like this can quietly become one-directional over time if it's never checked from both sides. Missing how they made you feel isn't quite the same as missing them specifically, so it's worth separating those two things honestly before reaching out.\n\nIf the relationship ended anyway despite this comfort, something else was likely the real issue, and it's worth naming that instead of assuming the good parts alone will fix it this time. Reunions built mostly on relief can start strong and then quietly stall if nothing else gets addressed — the comfort alone won't carry the whole relationship on its own.",
+        },
       },
       iGenerateOther: {
         tier: 'You Were the One Giving',
@@ -94,20 +82,14 @@ export const romanceTemplates = {
           "If you go back, go back with clearer terms. This pairing works best when the generosity runs both ways, not just from you.",
           "Missing someone you gave a lot to isn't the same as missing a relationship that worked. Worth separating those two feelings before deciding anything.",
         ],
-        goodFit: [
-          "If you go back with clearer boundaries, this pairing can actually work better the second time — the generosity was never the problem, the balance was.",
-          "You already know exactly what you're capable of giving here — that clarity is useful going into round two, as long as it's not one-sided again.",
-          "A reunion here has real potential if it starts with an honest conversation about reciprocity — the warmth you bring was never in question.",
-          "This dynamic can genuinely improve with time apart, since distance tends to clarify what each person actually needs from the other.",
-          "If they've grown enough to meet you halfway, the same qualities that made you a great partner the first time still apply.",
-        ],
-        watchFor: [
-          "Before reaching out, it's worth asking honestly whether anything would actually be different this time, or if you'd fall into the same one-sided pattern.",
-          "Missing someone you gave a lot to can feel a lot like missing the relationship itself — worth untangling which one you're actually feeling.",
-          "If they haven't shown any sign of meeting you halfway, hope alone won't rebalance this dynamic — watch for actual behavior, not intentions.",
-          "This pairing tends to repeat its pattern unless something concrete changes — a returned apology isn't the same as returned effort.",
-          "It's worth checking whether you're missing them, or missing being needed — those two feelings point to very different next steps.",
-        ],
+        goodFit: {
+          subheading: 'Clearer Terms, Same Warmth',
+          text: "If you go back with clearer boundaries this time, this pairing can actually work better the second time around — the generosity was never the problem, the balance was. You already know exactly what you're capable of giving here, and that clarity is genuinely useful going into round two, as long as it isn't one-sided again.\n\nA reunion here has real potential if it starts with an honest conversation about reciprocity, since the warmth you bring was never actually in question. Distance tends to clarify what each person actually needs from the other, so if they've grown enough to meet you halfway, the same qualities that made you a great partner the first time still apply.",
+        },
+        watchFor: {
+          subheading: 'Ask What Would Actually Be Different',
+          text: "Before reaching out, it's worth asking honestly whether anything would actually be different this time, or whether you'd fall back into the same one-sided pattern out of familiarity. Missing someone you gave a lot to can feel a lot like missing the relationship itself, so it's worth untangling which one you're actually feeling before you decide anything.\n\nIf they haven't shown any real sign of meeting you halfway, hope alone won't rebalance this dynamic — watch for actual behavior, not stated intentions. It's worth checking whether you're missing them specifically, or missing being needed by someone — those two feelings point toward very different next steps.",
+        },
       },
       otherOvercomesMe: {
         tier: 'Unfinished Tension',
@@ -125,20 +107,14 @@ export const romanceTemplates = {
           "Reunion here isn't a clean idea — it's a complicated one, and it's okay to admit that's exactly why it's tempting.",
           "Some connections don't end quietly. If this is one of them, the pull back isn't really about them being right for you — it's about the story feeling unfinished.",
         ],
-        goodFit: [
-          "If there's real chemistry underneath the friction, that part likely hasn't gone anywhere — this pairing rarely fades from lack of interest.",
-          "The intensity that made this relationship hard is often the same intensity that made it feel worth having — that part of the pull is real.",
-          "If you both do the work of talking through what caused the friction, this reunion has more depth to draw on than an easier relationship would.",
-          "This isn't a bond that goes quiet easily — if you're both still willing, there's real substance here to work with.",
-          "The push and pull that made this hard also made it memorable — that kind of charge doesn't come from nowhere.",
-        ],
-        watchFor: [
-          "Unresolved tension has a way of resurfacing almost immediately after reunion — it's worth actually addressing the root cause, not just the urge to reconnect.",
-          "It's easy to mistake unfinished business for enduring love — worth being honest about which one is actually pulling you back.",
-          "If the friction was never actually worked through, getting back together usually just restarts the same cycle on a delay.",
-          "This kind of pull can feel like fate, but it's worth checking whether it's actually compatibility, or just difficulty you haven't fully processed.",
-          "Reunions built on unresolved tension need an honest conversation up front — skipping that step tends to just postpone the same ending.",
-        ],
+        goodFit: {
+          subheading: 'The Chemistry Never Actually Left',
+          text: "If there's real chemistry underneath the friction, that part likely hasn't gone anywhere — this pairing rarely fades from a lack of interest, it fades from unresolved friction instead. The intensity that made this relationship hard is often the same intensity that made it feel worth having in the first place, and that part of the pull is genuinely real.\n\nIf you both do the work of actually talking through what caused the friction, this reunion has more depth to draw on than an easier relationship would. This isn't a bond that goes quiet easily — if you're both still willing, there's real substance here worth working with, not just history to revisit.",
+        },
+        watchFor: {
+          subheading: 'Talk Through the Root Cause First',
+          text: "Unresolved tension has a way of resurfacing almost immediately after reunion, so it's worth actually addressing the root cause up front, not just the urge to reconnect. It's easy to mistake unfinished business for enduring love — worth being honest with yourself about which one is actually pulling you back before you act on it.\n\nIf the friction was never actually worked through the first time, getting back together usually just restarts the same cycle on a delay. This kind of pull can feel like fate, but it's worth checking whether it's actually compatibility, or just difficulty neither of you has fully processed yet — that conversation is worth having before the reunion, not during it.",
+        },
       },
       iOvercomeOther: {
         tier: 'You Held the Steadier Hand',
@@ -156,20 +132,14 @@ export const romanceTemplates = {
           "You'd likely be the one steadying things again if you got back together — not necessarily a bad thing, just worth going in with eyes open.",
           "Missing being needed isn't quite the same as missing the relationship. Worth sitting with that difference before deciding anything.",
         ],
-        goodFit: [
-          "If they've genuinely grown since, this reunion could look very different from the first round — worth giving that possibility real consideration.",
-          "The stability you brought before is still something you're capable of offering — the question is just whether it's asked of you fairly this time.",
-          "A more balanced version of this relationship is possible if the roles shift even slightly — worth exploring what that would actually look like.",
-          "You already know you can hold this relationship together if needed — the more useful question is whether you should have to.",
-          "If there's real mutual effort this time, the steadiness you bring becomes a strength shared between you, not a job assigned to just one person.",
-        ],
-        watchFor: [
-          "Before going back, it's worth asking honestly whether they've grown into meeting you halfway, or whether you'd still be carrying most of it.",
-          "Missing being needed by someone isn't quite the same as missing a healthy relationship — worth sitting with that difference.",
-          "This dynamic can look like devotion from the outside and feel like exhaustion from the inside — worth being honest with yourself about which one it actually was.",
-          "If you go back into the same role without any real change, burnout tends to return on a similar timeline as before.",
-          "It's worth asking what they'd actually change, specifically, not just whether they say they've changed in general.",
-        ],
+        goodFit: {
+          subheading: 'A More Balanced Version Is Possible',
+          text: "If they've genuinely grown since, this reunion could look very different from the first round — worth giving that possibility real, honest consideration rather than assuming old patterns will just repeat. The stability you brought before is still something you're fully capable of offering; the real question is just whether it's asked of you fairly this time.\n\nA more balanced version of this relationship is possible if the roles shift even slightly, and it's worth exploring together what that would actually look like in practice. You already know you can hold this relationship together if needed — the more useful question is whether you should have to carry it alone again.",
+        },
+        watchFor: {
+          subheading: 'Check Whether the Load Has Shifted',
+          text: "Before going back, it's worth asking honestly whether they've grown into meeting you halfway, or whether you'd still be carrying most of it the way you did before. Missing being needed by someone isn't quite the same as missing a healthy, balanced relationship — that difference is worth sitting with before you decide anything.\n\nThis dynamic can look like devotion from the outside and feel like quiet exhaustion from the inside, so it's worth being honest with yourself about which one it actually was for you. If you go back into the same role without any real change, burnout tends to return on a similar timeline as before — ask what they'd actually change, specifically, not just whether they say they've changed in general.",
+        },
       },
     },
     crush: {
@@ -189,20 +159,14 @@ export const romanceTemplates = {
           "If you're overthinking every interaction, it might be worth remembering — people this in sync with you tend to notice you back.",
           "This isn't a crush you'd have to talk yourself into. The ease you feel around them is a pretty good sign, not just wishful thinking.",
         ],
-        goodFit: [
-          "The ease you feel around them is a real signal, not just wishful thinking — people this in sync rarely stay unaware of each other for long.",
-          "You wouldn't have to build chemistry from scratch here — it's already there, which gives this crush a real head start over most.",
-          "If you did tell them how you felt, the conversation would likely feel more like confirming something than announcing it.",
-          "This is the kind of crush where the friendship groundwork is basically already done — the shift to something more wouldn't require reinventing the dynamic.",
-          "Feeling unusually understood by someone this early on is a good sign, not a coincidence — this pairing tends to click fast for a reason.",
-        ],
-        watchFor: [
-          "Because the friendship feels so easy, it's worth being clear (to yourself and eventually them) about wanting more than that — easy chemistry can stay platonic by default if no one names it.",
-          "It's worth checking whether the closeness you feel is romantic interest or just really strong friendship compatibility — both are real, but they call for different next moves.",
-          "Two people this alike can also both avoid bringing up feelings out of the same instinct to keep things comfortable — someone has to break that pattern eventually.",
-          "Don't assume they already know how you feel just because things feel easy — comfort isn't the same as communication.",
-          "If this stays unspoken too long, the friendship-shaped comfort can become its own reason to never risk changing it — worth noticing if that's what's happening.",
-        ],
+        goodFit: {
+          subheading: "This Isn't Wishful Thinking",
+          text: "The ease you feel around them is a real signal, not just wishful thinking — people this in sync with each other rarely stay unaware of one another for long. You wouldn't have to build chemistry from scratch here; it's already there, which gives this crush a real head start over most.\n\nIf you did tell them how you felt, the conversation would likely feel more like confirming something than announcing it out of nowhere. Feeling unusually understood by someone this early on is a good sign, not a coincidence — pairings like this tend to click fast for a reason worth trusting.",
+        },
+        watchFor: {
+          subheading: 'Name What You Actually Want',
+          text: "Because the friendship feels so easy, it's worth being clear — with yourself first, and eventually with them — about wanting more than just that. Easy chemistry can stay comfortably platonic by default if nobody ever names what it could become.\n\nIt's worth checking whether the closeness you feel is romantic interest or just a really strong friendship — both are real, but they call for different next moves. Don't assume they already know how you feel just because things feel easy between you; comfort isn't the same thing as communication, and this crush deserves an actual conversation eventually, not just continued closeness.",
+        },
       },
       otherGeneratesMe: {
         tier: 'They Make Everything Easier',
@@ -220,20 +184,14 @@ export const romanceTemplates = {
           "You'd likely feel more like yourself around them, not less — a good sign for a crush that could turn into something steadier.",
           "This crush isn't complicated to explain, even if it's hard to admit out loud: they're just genuinely good for your mood.",
         ],
-        goodFit: [
-          "The fact that they make things easier for you is exactly the kind of quiet, real evidence worth trusting over any single grand gesture.",
-          "This crush isn't built on fantasy — it's built on how you actually feel around them, which tends to be a more reliable foundation than most.",
-          "Feeling more like yourself around someone, not less, is one of the better signs a crush has real potential.",
-          "If you're waiting for a dramatic sign this is worth pursuing, this might be it — steady, genuine improvement to your day isn't a small thing.",
-          "This is the kind of crush that could turn into something lasting precisely because it's built on comfort rather than intensity alone.",
-        ],
-        watchFor: [
-          "It's worth checking whether you like them, specifically, or just like how good they make you feel — worth being honest about which one this actually is.",
-          "Comfort like this can be easy to sit with indefinitely without ever acting on it — worth noticing if you're using the ease as an excuse not to say anything.",
-          "Don't mistake their easygoing warmth toward you as necessarily romantic — some people are just naturally like that with everyone.",
-          "If this crush stays quiet for too long, it risks settling into a comfortable non-romance that neither of you disrupts.",
-          "The steadiness you feel is real, but it's still worth actually finding out whether they feel the same before building too much around it.",
-        ],
+        goodFit: {
+          subheading: 'The Evidence Is Quiet, But Real',
+          text: "The fact that they make things easier for you is exactly the kind of quiet, real evidence worth trusting over any single grand gesture. This crush isn't built on fantasy — it's built on how you actually feel around them, which tends to be a far more reliable foundation than intensity alone.\n\nFeeling more like yourself around someone, not less, is one of the better signs a crush has real potential to become something lasting. If you're waiting for a dramatic sign that this is worth pursuing, this might already be it — a steady, genuine improvement to your day isn't a small thing to feel.",
+        },
+        watchFor: {
+          subheading: "Find Out If It's Mutual",
+          text: "It's worth checking whether you like them specifically, or just like how good they consistently make you feel — worth being honest with yourself about which one this actually is. Comfort like this can be easy to sit with indefinitely without ever acting on it, so it's worth noticing if you're using the ease itself as an excuse not to say anything.\n\nDon't mistake their easygoing warmth toward you as necessarily romantic — some people are just naturally like that with everyone they know. If this crush stays quiet for too long, it risks settling into a comfortable non-romance neither of you ever disrupts — worth finding out how they actually feel before that happens.",
+        },
       },
       iGenerateOther: {
         tier: "You're Already All In",
@@ -251,20 +209,14 @@ export const romanceTemplates = {
           "This is the kind of crush where you give first and hope the timing works out. It often does, but it's fair to want to know sooner rather than later.",
           "You're the type to fall for someone through their actual personality, not just the idea of them — which makes this crush a little more real than most.",
         ],
-        goodFit: [
-          "Your attentiveness here is genuine, not performative — if this crush turns into something, that same devotion will likely be one of its strengths.",
-          "Caring this much this early is a good sign of real investment, not just infatuation — worth trusting that instinct.",
-          "This is the kind of crush built on actually noticing someone as a person, which tends to hold up better than crushes built on less.",
-          "If they do feel the same, your attentiveness will likely already feel familiar to them — this kind of care rarely goes completely unnoticed.",
-          "You're the type to fall for someone's actual personality, which makes whatever you're feeling here more durable than a surface-level crush.",
-        ],
-        watchFor: [
-          "Worth checking in on the balance before this goes further — this pairing works best when the interest is confirmed as mutual, not assumed.",
-          "Giving this much attention to someone who hasn't reciprocated yet can lead to reading more into small gestures than is actually there.",
-          "It's fair to want to know sooner rather than later whether this is mutual — you don't have to keep giving indefinitely without any signal back.",
-          "Watch for the pattern of always initiating — if it's always you reaching out, that's worth noticing rather than explaining away.",
-          "This much devotion, if unreciprocated for too long, can turn into quiet resentment even when you don't want it to — worth being honest with yourself about the timeline.",
-        ],
+        goodFit: {
+          subheading: 'This Devotion Is a Strength',
+          text: "Your attentiveness here is genuine, not performative — if this crush turns into something real, that same devotion will likely be one of its lasting strengths. Caring this much this early is a good sign of real investment, not just infatuation, and it's worth trusting that instinct rather than downplaying it.\n\nThis is the kind of crush built on actually noticing someone as a full person, which tends to hold up better over time than crushes built on less. If they do feel the same way, your attentiveness will likely already feel familiar and welcome to them — this kind of care rarely goes completely unnoticed, even when it's not acknowledged out loud.",
+        },
+        watchFor: {
+          subheading: "Watch Who's Always Reaching First",
+          text: "It's worth checking in on the balance before this goes any further — this pairing works best when the interest is actually confirmed as mutual, not just assumed from how it feels on your end. Giving this much attention to someone who hasn't clearly reciprocated yet can lead to reading more into small gestures than is actually there.\n\nIt's fair to want to know sooner rather than later whether this is mutual — you don't have to keep giving indefinitely without any real signal coming back. Watch for the pattern of always being the one who initiates; if it's consistently you reaching out, that's worth noticing honestly rather than quietly explaining away.",
+        },
       },
       otherOvercomesMe: {
         tier: 'The Magnetic, Confusing Kind',
@@ -282,20 +234,14 @@ export const romanceTemplates = {
           "Not every crush is supposed to feel simple. This one asks a little more of you — more patience, more nerve — which is part of why it feels so real.",
           "If this crush has you a little unsettled, that's on brand for this pairing — the confusing ones often turn out to be the ones worth paying attention to.",
         ],
-        goodFit: [
-          "The uncertainty is part of what makes this feel so real — crushes that ask nothing of you rarely stick around this long in your head.",
-          "This kind of pull tends to mean there's real chemistry underneath the confusion — it's rarely nothing when it's this hard to shake.",
-          "Not knowing exactly where you stand is uncomfortable, but it also means you're genuinely invested rather than just casually interested.",
-          "This crush asking more of you — more patience, more nerve — is part of why it feels more significant than an easier one would.",
-          "If this crush has stuck around despite the confusion, that persistence is itself a pretty reliable signal worth paying attention to.",
-        ],
-        watchFor: [
-          "It's easy to read too much into ambiguous moments with someone like this — worth checking your interpretations against what's actually being said and done.",
-          "This kind of magnetic uncertainty can also just mean unclear signals, not necessarily mutual interest — worth not assuming meaning that hasn't been confirmed.",
-          "Obsessing over a single glance or message is part of the pull, but it's also worth eventually asking directly instead of endlessly interpreting.",
-          "The excitement of not knowing can become its own reason to avoid finding out for sure — worth noticing if that's happening.",
-          "This crush can be emotionally tiring if it goes on too long without resolution — it's okay to want clarity instead of staying in the uncertainty indefinitely.",
-        ],
+        goodFit: {
+          subheading: 'The Uncertainty Means It Feels Real',
+          text: "The uncertainty is part of what makes this feel so real — crushes that ask nothing of you rarely stick around this long in your head without a reason. This kind of pull tends to mean there's genuine chemistry underneath the confusion; it's rarely nothing when it's this hard to shake off.\n\nNot knowing exactly where you stand is uncomfortable, but it also means you're genuinely invested rather than just casually curious. This crush asking more of you — more patience, more nerve — is part of why it feels more significant than an easier one would, and that persistence is itself a signal worth paying attention to.",
+        },
+        watchFor: {
+          subheading: 'Interpret Less, Ask More',
+          text: "It's easy to read too much into ambiguous moments with someone like this — worth checking your interpretations against what's actually being said and done, not just what you're hoping for. This kind of magnetic uncertainty can also simply mean unclear signals, not necessarily mutual interest, so it's worth not assuming a meaning that hasn't actually been confirmed.\n\nObsessing over a single glance or message is part of the pull, but at some point it's worth asking directly instead of endlessly interpreting from a distance. This crush can be emotionally tiring if it goes on too long without resolution — it's completely okay to want real clarity instead of staying in the uncertainty indefinitely.",
+        },
       },
       iOvercomeOther: {
         tier: "You're the Calm in Their Storm",
@@ -313,20 +259,14 @@ export const romanceTemplates = {
           "There's a good chance they notice your steadiness before you notice their interest. Worth paying attention either way.",
           "This isn't a chaotic crush — it's one where you'd likely be the anchor. Being someone's calm can be its own kind of romantic.",
         ],
-        goodFit: [
-          "Being the calm, steady presence in someone's life is a quietly attractive quality — it's worth not underselling that about yourself.",
-          "There's a good chance they've noticed your steadiness already, even if they haven't said anything — calm has a way of standing out.",
-          "If this turns into something, your groundedness would likely be one of the things that made the relationship actually work.",
-          "You don't have to be the flashiest person in the room to be the one someone remembers — being steady is its own kind of magnetic.",
-          "This crush has real potential precisely because what you offer (calm, reliability) is rarer than people think, and often more wanted than excitement.",
-        ],
-        watchFor: [
-          "Being the steady one can sometimes read as 'just a friend' rather than romantic interest — worth being a little more direct if you want them to see it differently.",
-          "It's worth checking whether they see your calm as attractive or just convenient — those read very differently to the person offering it.",
-          "Don't assume they'll notice your interest just because you're consistently present — steadiness can go unread as romantic without a clearer signal.",
-          "If you're always the one keeping things calm, it's worth eventually letting them see the parts of you that aren't just composed.",
-          "This dynamic works best when your calm is met with genuine curiosity from them — worth watching for whether that's actually there.",
-        ],
+        goodFit: {
+          subheading: 'Being Steady Is Its Own Magnetism',
+          text: "Being the calm, steady presence in someone's life is a quietly attractive quality — it's worth not underselling that about yourself just because it doesn't feel dramatic from the inside. There's a good chance they've already noticed your steadiness, even if they haven't said anything yet; calm has a way of standing out precisely because it's rare.\n\nIf this turns into something, your groundedness would likely be one of the things that made the relationship actually work long-term. You don't have to be the flashiest person in the room to be the one someone remembers — being steady is its own kind of magnetic, and often the more wanted one.",
+        },
+        watchFor: {
+          subheading: 'Let Them See More of You',
+          text: "Being the steady one can sometimes read as 'just a friend' rather than romantic interest — worth being a little more direct if you actually want them to see it differently. It's worth checking whether they see your calm as genuinely attractive, or just convenient to have around; those read very differently from the person offering it.\n\nDon't assume they'll notice your interest just because you're consistently present — steadiness can go unread as romantic without a clearer signal from you at some point. If you're always the one keeping things calm, it's worth eventually letting them see the parts of you that aren't just composed.",
+        },
       },
     },
     theirFeelings: {
@@ -346,20 +286,14 @@ export const romanceTemplates = {
           "In their head, you're likely filed under 'easy to be around,' which from this pairing is a genuine compliment, not a small one.",
           "If they think about it, they probably feel like less of a performance is required around you than around most people.",
         ],
-        goodFit: [
-          "Feeling this understood by someone is rare, and they likely know it — this kind of ease tends to register as significant, even if it's not said out loud.",
-          "If they've ever thought about it directly, they probably already sense this connection has more potential than an average friendship.",
-          "People don't usually forget who made them feel unusually at ease — that alone puts you in a different category for them than most people they know.",
-          "This kind of natural sync is exactly the type of thing that quietly turns into something more, if either of you ever names it.",
-          "They likely feel less alone in some specific way around you — that's not a small thing to represent for someone, even if it's never discussed.",
-        ],
-        watchFor: [
-          "Feeling understood by you doesn't necessarily mean they've connected that feeling to romantic interest yet — worth not assuming they've drawn the same conclusion you have.",
-          "This kind of comfort can also just read as 'great friend' to them unless something shifts the framing — worth considering whether that needs to be said explicitly.",
-          "They may value this ease specifically because it feels safe and low-stakes — worth being aware that changing the dynamic carries real risk for both of you.",
-          "Just because they feel at ease around you doesn't mean they've been thinking about what that ease could turn into — those are two different realizations.",
-          "It's worth not overestimating how much they've actually reflected on this — comfort can be felt without being consciously examined.",
-        ],
+        goodFit: {
+          subheading: 'They Likely Sense It Too',
+          text: "Feeling this understood by someone is rare, and they likely already know it on some level — this kind of ease tends to register as significant, even when it's never actually said out loud. If they've ever thought about it directly, they probably already sense this connection has more potential than an average friendship.\n\nPeople don't usually forget who made them feel unusually at ease — that alone likely puts you in a different category for them than most people they know. This kind of natural sync is exactly the type of thing that quietly turns into something more, if either of you ever actually names it.",
+        },
+        watchFor: {
+          subheading: "Comfort Isn't the Same as a Conclusion",
+          text: "Feeling understood by you doesn't necessarily mean they've connected that feeling to romantic interest yet — worth not assuming they've drawn the same conclusion you already have. This kind of comfort can also simply read as 'great friend' to them unless something shifts the framing, so it's worth considering whether that needs to be said explicitly at some point.\n\nJust because they feel at ease around you doesn't mean they've been thinking about what that ease could actually turn into — those are two genuinely different realizations. It's worth not overestimating how much they've actually reflected on this consciously; comfort can be felt without ever being examined.",
+        },
       },
       otherGeneratesMe: {
         tier: 'They Feel Steadied By You',
@@ -377,20 +311,14 @@ export const romanceTemplates = {
           "If you asked them what they liked about you, 'you make things easier' is a strong guess for what they'd land on, even if it's not the first thing they'd say.",
           "They probably don't fully realize how much they lean on your presence until it's missing — that's this pairing's quiet signature.",
         ],
-        goodFit: [
-          "Being someone's steadying presence is a real, valued role — even if they haven't said it, this kind of impact tends to matter more to people than louder gestures.",
-          "If they've ever had a hard week and felt better after time with you, that's not nothing to them, even if it's gone unspoken.",
-          "People remember who made things feel more manageable during a hard time — that kind of memory tends to stick.",
-          "This is the sort of quiet importance that often becomes clearer to someone in hindsight — worth trusting that the impact is real, even without confirmation yet.",
-          "If they were asked what they liked about you, this steadying quality would likely come up, even if it's not the first thing they'd mention.",
-        ],
-        watchFor: [
-          "Being someone's calm presence is valuable, but it's worth checking they see you as more than just a source of relief — you deserve to be wanted for more than utility.",
-          "This kind of quiet reliance doesn't always get acknowledged out loud — worth eventually asking directly rather than waiting for them to notice on their own.",
-          "It's possible they haven't fully registered how much they lean on you until it's missing — worth deciding whether you're willing to wait for that realization.",
-          "Steadying someone can start to feel one-directional if it's never reciprocated — worth paying attention to whether they show up for you in a similar way.",
-          "Don't assume the relief you provide automatically translates to romantic interest on their end — it's a real form of care, but it isn't proof of feelings by itself.",
-        ],
+        goodFit: {
+          subheading: 'A Quiet, Valued Kind of Impact',
+          text: "Being someone's steadying presence is a real, valued role — even if they haven't said it outright, this kind of impact tends to matter more to people than louder, flashier gestures do. If they've ever had a hard week and genuinely felt better after time with you, that's not nothing to them, even if it's gone unspoken.\n\nPeople remember who made things feel more manageable during a hard time — that kind of memory tends to stick longer than they'd admit. This is the sort of quiet importance that often becomes clearer to someone in hindsight, so it's worth trusting the impact is real even without a confirmation yet.",
+        },
+        watchFor: {
+          subheading: 'You Deserve More Than Utility',
+          text: "Being someone's calm presence is genuinely valuable, but it's worth checking they see you as more than just a source of relief — you deserve to be wanted for more than what you provide. This kind of quiet reliance doesn't always get acknowledged out loud, so it's worth eventually asking directly rather than waiting for them to notice on their own.\n\nSteadying someone can start to feel one-directional if it's never reciprocated, so it's worth paying attention to whether they show up for you in a similar way. Don't assume the relief you provide automatically translates to romantic interest on their end — it's a real form of care, but it isn't proof of feelings by itself.",
+        },
       },
       iGenerateOther: {
         tier: 'They Notice You Trying',
@@ -408,20 +336,14 @@ export const romanceTemplates = {
           "If they had to describe your role in their life, 'someone who's there for me' is a likely answer, whether or not they've said it out loud.",
           "They probably feel a quiet gratitude toward you, even if it doesn't come up in conversation — this dynamic tends to register more than it announces.",
         ],
-        goodFit: [
-          "Effort like yours rarely goes completely unnoticed, even when it's not acknowledged in the moment — there's a good chance it's registered more than you think.",
-          "Consistent, unflashy care is exactly the kind of thing people come to rely on and eventually miss if it stopped — that says something about your role in their life.",
-          "If they had to describe someone who shows up for them, there's a real chance you'd come to mind first.",
-          "This kind of quiet dependability tends to build trust over time, even without big declarations — worth trusting that the pattern is working in your favor.",
-          "They likely feel a kind of gratitude toward you even if it hasn't come up directly — that's still a real, positive signal worth paying attention to.",
-        ],
-        watchFor: [
-          "It's worth checking whether your effort is being noticed and appreciated, or just quietly expected — those read very differently over time.",
-          "Noticing effort isn't the same as reciprocating feelings — worth being clear-eyed about that distinction before reading too much into their gratitude.",
-          "If you've been giving a lot without much said in return, it's fair to want some acknowledgment rather than assuming they'll eventually say something.",
-          "Watch for whether this appreciation ever turns into them making an effort too — one-sided noticing isn't quite the same as mutual investment.",
-          "It's okay to ask directly how they feel instead of waiting to be sure they've noticed everything you've done — clarity beats guessing.",
-        ],
+        goodFit: {
+          subheading: 'The Effort Registers More Than It Seems',
+          text: "Effort like yours rarely goes completely unnoticed, even when it isn't acknowledged in the moment — there's a good chance it's registered with them more than you currently think. Consistent, unflashy care is exactly the kind of thing people come to quietly rely on, and eventually miss if it stopped — that says something real about your role in their life.\n\nIf they had to describe someone who reliably shows up for them, there's a real chance you'd come to mind first. This kind of quiet dependability tends to build genuine trust over time, even without big declarations along the way — worth trusting that the pattern is working in your favor.",
+        },
+        watchFor: {
+          subheading: 'Ask for Acknowledgment, Not Just Give It',
+          text: "It's worth checking whether your effort is actually being noticed and appreciated, or just quietly expected by now — those two things read very differently over time. Noticing effort isn't the same as reciprocating feelings, so it's worth being clear-eyed about that distinction before reading too much into their quiet gratitude.\n\nIf you've been giving a lot without much said in return, it's fair to want some real acknowledgment rather than assuming they'll eventually bring it up themselves. It's okay to ask directly how they feel instead of waiting to be sure they've noticed everything you've done — clarity beats guessing here.",
+        },
       },
       otherOvercomesMe: {
         tier: "You're Hard for Them to Read",
@@ -439,20 +361,14 @@ export const romanceTemplates = {
           "There's a good chance they think about your interactions more than they let on, replaying them the way people do with things they can't quite resolve.",
           "You probably don't fully register as 'easy' to them — but easy isn't always what keeps someone's attention. This might be.",
         ],
-        goodFit: [
-          "Being hard to fully predict tends to hold someone's attention rather than lose it — that unpredictability is likely doing real work here.",
-          "If they think about your interactions more than they let on, that's a meaningful sign, even without a clear declaration yet.",
-          "This kind of magnetic uncertainty often means they're genuinely intrigued, not just casually curious — worth taking that seriously.",
-          "Not being instantly 'easy' to read isn't a flaw here — this dynamic tends to stay interesting precisely because nothing's fully settled yet.",
-          "If they keep coming back to conversations with you even when they can't quite explain why, that's a real sign of interest worth noting.",
-        ],
-        watchFor: [
-          "Being hard to read cuts both ways — it's worth checking that the mystery isn't also creating real confusion or hesitation on their end.",
-          "This kind of intrigue doesn't stay effective forever — at some point it's worth letting them see more of what's actually going on with you.",
-          "It's possible they're intrigued but also unsure where they stand — worth considering whether more clarity from you would help rather than hurt.",
-          "Unpredictability can hold attention, but it can also make someone hesitant to invest further without more certainty from you.",
-          "If you want this to move somewhere specific, relying on mystery alone eventually stalls things out — worth being a little more direct at some point.",
-        ],
+        goodFit: {
+          subheading: 'The Intrigue Is Doing Real Work',
+          text: "Being hard to fully predict tends to hold someone's attention rather than lose it — that unpredictability is likely doing real, active work in how often they think about you. If they think about your interactions more than they let on, that's a meaningful sign worth taking seriously, even without a clear declaration yet.\n\nThis kind of magnetic uncertainty often means they're genuinely intrigued, not just casually curious about you. Not being instantly 'easy' to read isn't a flaw here — this dynamic tends to stay interesting precisely because nothing about it feels fully settled yet.",
+        },
+        watchFor: {
+          subheading: 'Mystery Only Works for So Long',
+          text: "Being hard to read cuts both ways — it's worth checking that the mystery isn't also creating real confusion or hesitation on their end, not just intrigue. This kind of intrigue doesn't stay effective forever; at some point it's worth letting them see more of what's actually going on with you.\n\nIt's possible they're genuinely intrigued but also unsure where they actually stand — worth considering whether more clarity from you would help rather than hurt at this point. If you want this to move somewhere specific, relying on mystery alone eventually stalls things out — worth being a little more direct once the intrigue has done its job.",
+        },
       },
       iOvercomeOther: {
         tier: 'They Feel Safe With You',
@@ -470,20 +386,14 @@ export const romanceTemplates = {
           "If asked to describe you, 'grounded' or 'someone I trust' would be a reasonable guess for what they'd say.",
           "They probably feel more like themselves, not less, when you're around — which is this pairing's quiet strength.",
         ],
-        goodFit: [
-          "Being the person someone trusts to keep a level head is a real foundation for something lasting, even if it's not the most dramatic quality.",
-          "If they lean on your steadiness, especially when things feel unpredictable, that's a strong, quiet sign of trust worth valuing.",
-          "People don't usually feel safe with just anyone — being that person for them puts you in a smaller, more significant category.",
-          "If asked to describe you, words like 'grounded' or 'trustworthy' carry real weight as first impressions of someone worth being close to.",
-          "Feeling more like themselves around you is a genuinely good sign — that kind of ease is hard to fake and rarely accidental.",
-        ],
-        watchFor: [
-          "Feeling safe with you is valuable, but it's worth checking whether that safety has been read as romantic interest, or simply as a good friendship.",
-          "Being the reliable, grounded one can sometimes get someone comfortable enough that they never feel urgency to define things further — worth noticing that pattern.",
-          "It's fair to want them to see you as more than just 'the safe option' — worth eventually finding out how they'd describe their actual feelings, not just their comfort level.",
-          "Trust is a strong foundation, but it isn't proof of romantic interest by itself — worth keeping that distinction in mind.",
-          "If you're always the steady one, it's worth letting them see a fuller picture of you too — safety plus a little unpredictability tends to deepen interest, not just maintain it.",
-        ],
+        goodFit: {
+          subheading: 'A Rare, Real Kind of Trust',
+          text: "Being the person someone trusts to keep a level head is a real foundation for something lasting, even if it isn't the most dramatic quality to offer. If they lean on your steadiness, especially when things around them feel unpredictable, that's a strong, quiet sign of trust worth genuinely valuing.\n\nPeople don't usually feel safe with just anyone — being that person for them puts you in a smaller, more significant category than you might realize. Feeling more like themselves around you is a genuinely good sign; that kind of ease is hard to fake and rarely happens by accident.",
+        },
+        watchFor: {
+          subheading: "Safety Isn't Proof, Just a Foundation",
+          text: "Feeling safe with you is valuable, but it's worth checking whether that safety has actually been read as romantic interest, or simply as a good, comfortable friendship. Being the reliable, grounded one can sometimes make someone comfortable enough that they never feel real urgency to define things further — worth noticing if that pattern is happening here.\n\nTrust is a strong foundation, but it isn't proof of romantic interest by itself — worth keeping that distinction in mind before reading too much into it. If you're always the steady one, it's worth letting them see a fuller picture of you too — safety plus a little unpredictability tends to deepen interest, not just maintain it.",
+        },
       },
     },
   },
@@ -505,20 +415,14 @@ export const romanceTemplates = {
           "쉽게 안 끝나는 인연이에요. 떨어져 있어도 애쓰지 않고 서로 말을 알아듣는 사이일 확률이 높아요.",
           "아직 연결이 남아있는지 궁금하다면, 아마 남아있을 거예요 — 이런 조합은 완전히 꺼지기보다 잠깐 어두워지는 쪽에 가까워요.",
         ],
-        goodFit: [
-          "다시 만나면 그 싱크로율은 거의 바로 돌아올 확률이 높아요 — 원래 서로 이해하는 데 힘들었던 적이 별로 없었으니, 잠깐 떨어져 있었다고 리셋되진 않아요.",
-          "이건 비교적 잘 될 확률이 높은 재회 유형이에요 — 새로운 사람을 알아가는 게 아니라, 이미 잘 알던 사람에게 돌아가는 거니까요.",
-          "헤어진 이유가 근본적으로 안 맞아서는 아니었을 확률이 높아요 — 이 조합의 편안함은 진짜였고, 그런 편안함은 보통 다시 만나도 여전히 남아있어요.",
-          "어색한 재적응 기간을 거의 건너뛸 확률이 높아요 — 둘이 쌓아온 그 케미는 유통기한이 따로 없어요.",
-          "신뢰만 남아있다면, 이 재회는 다른 재회보다 걸림돌이 적어요 — 여기서 어려운 건 서로를 이해하는 부분이 아니었으니까요.",
-        ],
-        watchFor: [
-          "케미가 좋다고 해서 헤어진 진짜 이유가 저절로 풀린 건 아니에요 — 다시 반복되지 않을 거라고 넘겨짚기 전에 그 이유부터 짚어보세요.",
-          "다시 연락했을 때 느껴지는 편안함을 재회해야 하는 근거로 착각하기 쉬워요 — 편안한 것과 맞는 것은 항상 같지 않아요.",
-          "서로 너무 잘 이해하다 보니 헤어진 진짜 이유에 대한 어려운 대화를 자꾸 미루기 쉬워요 — 그 대화는 여전히 필요해요.",
-          "이렇게 닮은 두 사람은 헤어짐의 원인이 된 같은 맹점도 공유하고 있을 수 있어요 — 그게 실제로 해결됐는지 확인해보세요.",
-          "다시 끌리는 이유가 그때 느꼈던 편안함에 대한 그리움일 수도 있어요, 이번엔 뭐가 달라질지에 대한 진짜 계획이 아니라요 — 둘 중 뭔지 솔직해지는 게 좋아요.",
-        ],
+        goodFit: {
+          subheading: '싱크로율은 리셋되지 않아요',
+          text: "다시 만나면 그 싱크로율은 거의 바로 돌아올 확률이 높아요 — 원래 서로 이해하는 데 힘들었던 적이 별로 없었으니, 잠깐 떨어져 있었다고 그 감각이 사라지진 않아요. 새로운 사람을 알아가는 게 아니라 이미 잘 알던 사람에게 돌아가는 거라, 어색한 재적응 기간도 거의 건너뛸 확률이 높아요.\n\n헤어진 이유가 근본적으로 안 맞아서는 아니었을 확률이 높아요 — 이 조합의 편안함은 진짜였고, 그런 편안함은 보통 다시 만나도 여전히 남아있어요. 신뢰만 남아있다면, 이 재회는 다른 재회보다 걸림돌이 적어요 — 서로를 이해하는 부분은 애초에 어려운 적이 없었으니까요.",
+        },
+        watchFor: {
+          subheading: '진짜 헤어진 이유부터 짚어보세요',
+          text: "케미가 좋다고 해서 헤어진 진짜 이유가 저절로 풀린 건 아니에요 — 다시 반복되지 않을 거라고 넘겨짚기 전에, 편안한 것과 맞는 것이 항상 같지는 않다는 걸 기억하며 그 이유부터 짚어보세요. 서로 너무 잘 이해하다 보니 헤어진 진짜 이유에 대한 어려운 대화를 자꾸 미루기 쉬운데, 그 대화는 재회 전에 한 번은 꼭 필요해요.\n\n이렇게 닮은 두 사람은 헤어짐의 원인이 된 같은 맹점도 공유하고 있을 수 있어요 — 그게 시간이 지나서 저절로 옅어진 게 아니라 실제로 해결됐는지 확인해보세요. 다시 끌리는 이유가 그때 느꼈던 편안함에 대한 그리움일 수도 있어요, 이번엔 뭐가 달라질지에 대한 진짜 계획이 아니라요 — 지금 느끼는 게 둘 중 뭔지 스스로에게 솔직해지는 게 좋아요.",
+        },
       },
       otherGeneratesMe: {
         tier: '여전히 채워주는 사람',
@@ -536,20 +440,14 @@ export const romanceTemplates = {
           "어떤 관계는 끝나도 계속 뭔가를 가져가요. 이건 그런 관계가 아니에요 — 그 사람에게서 받았던 건 아마 지금도 조용히 남아있을 거예요.",
           "다시 나타나서 진짜 도움이 될 사람이 있다면, 이 조합이에요 — 든든하고, 베풀 줄 알고, 서두르지 않는 쪽이요.",
         ],
-        goodFit: [
-          "다시 돌아온다면 그 사람에게 다시 안정감을 느낄 확률이 높아요 — 이런 종류의 지지는 시간이 지나도 잘 사라지지 않아요.",
-          "이 재회는 그 편안함이 진짜였고, 일방적이지 않았을 가능성이 높은 재회예요 — 그 기억을 믿어도 괜찮아요.",
-          "그 사람이 전에 나한테 줬던 게 있다면, 지금도 여전히 줄 확률이 높아요 — 이 조합은 보통 스스로 고갈되지 않아요.",
-          "좋았던 기억이 진짜였는지 스스로 설득할 필요 없어요 — 이 사람이 준 안정감은 대체로 일시적인 게 아니라 꾸준한 성격이에요.",
-          "연락을 망설이고 있다면 이걸 기억하세요 — 원래 그 사람의 지지를 애써 쫓아다녀야 했던 관계는 아니었어요.",
-        ],
-        watchFor: [
-          "그 사람이 뭘 줬는지만 보지 말고 나는 뭘 돌려줬는지도 물어보세요 — 이런 편안함은 점검 안 하면 조용히 일방통행이 될 수 있어요.",
-          "그 사람이 나를 어떻게 느끼게 해줬는지 그리운 것과, 그 사람 자체가 그리운 건 좀 달라요 — 연락하기 전에 이 둘을 구분해보세요.",
-          "이런 편안함에도 관계가 결국 끝났다면, 진짜 문제는 다른 데 있었을 확률이 높아요 — 좋았던 부분이 알아서 해결해줄 거라 넘겨짚지 말고 그 문제부터 짚어보세요.",
-          "그 사람의 안정감만 미화하고 안 맞았던 부분은 잊기 쉬워요 — 양쪽 다 솔직하게 다시 들여다보는 게 좋아요.",
-          "안도감만으로 시작한 재회는 처음엔 좋다가 다른 게 안 풀리면 조용히 멈출 수 있어요 — 편안함만으로 관계 전체를 끌고 갈 순 없어요.",
-        ],
+        goodFit: {
+          subheading: '그 편안함은 진짜였고, 일방적이지 않았어요',
+          text: "다시 돌아온다면 그 사람에게 다시 안정감을 느낄 확률이 높아요 — 이런 종류의 지지는 계속된 연락에만 기대는 게 아니라서, 시간이 지나도 잘 사라지지 않아요. 이 재회는 그 편안함이 진짜였고, 일방적이지 않았을 가능성이 높은 재회예요 — 그 기억을 의심하기보다 믿어도 괜찮아요.\n\n그 사람이 전에 나한테 줬던 게 있다면, 지금도 여전히 줄 확률이 높아요 — 이 조합은 보통 스스로 고갈되지 않아요. 연락을 망설이고 있다면 이걸 기억하세요 — 원래 그 사람의 지지를 애써 쫓아다녀야 했던 관계는 아니었고, 그냥 자연스럽게 그렇게 다가왔던 사이예요.",
+        },
+        watchFor: {
+          subheading: '내가 뭘 돌려주고 있는지도 물어보세요',
+          text: "그 사람이 뭘 줬는지만 보지 말고 나는 뭘 돌려줬는지도 물어보세요 — 이런 편안함은 양쪽에서 점검 안 하면 조용히 일방통행이 될 수 있어요. 그 사람이 나를 어떻게 느끼게 해줬는지 그리운 것과, 그 사람 자체가 그리운 건 좀 다르니, 연락하기 전에 이 둘을 솔직하게 구분해보세요.\n\n이런 편안함에도 관계가 결국 끝났다면, 진짜 문제는 다른 데 있었을 확률이 높아요 — 좋았던 부분이 알아서 그 문제까지 해결해줄 거라 넘겨짚지 말고 그 문제부터 짚어보세요. 안도감만으로 시작한 재회는 처음엔 좋다가 다른 게 안 풀리면 조용히 멈출 수 있어요 — 편안함만으로 관계 전체를 끌고 갈 순 없어요.",
+        },
       },
       iGenerateOther: {
         tier: '내가 더 많이 준 쪽',
@@ -567,20 +465,14 @@ export const romanceTemplates = {
           "다시 만난다면, 이번엔 조건을 좀 더 명확히 하세요. 이 조합은 베푸는 게 한쪽에서만이 아니라 양쪽에서 오갈 때 제일 잘 작동해요.",
           "많이 줬던 사람이 그리운 것과, 잘 맞았던 관계가 그리운 건 다른 감정이에요. 결정 내리기 전에 이 둘을 구분해보는 게 좋아요.",
         ],
-        goodFit: [
-          "이번엔 조건을 더 명확히 하고 돌아간다면, 이 조합은 두 번째에 오히려 더 잘 될 수 있어요 — 문제는 베푸는 마음이 아니라 균형이었으니까요.",
-          "내가 여기서 얼마나 줄 수 있는지는 이미 잘 알고 있어요 — 그 명확함은 다시 시작할 때 유용해요, 다시 일방적으로 흐르지만 않는다면요.",
-          "상호성에 대해 솔직한 대화로 시작한다면 이 재회는 진짜 가능성이 있어요 — 내가 가진 다정함 자체는 원래 문제가 아니었어요.",
-          "떨어져 있던 시간이 오히려 이 관계를 더 나아지게 만들 수 있어요 — 거리를 두면 서로 진짜 필요한 게 뭔지 더 명확해지는 경우가 많거든요.",
-          "그 사람이 정말 성장해서 이제 나만큼 다가올 줄 안다면, 처음에 나를 좋은 상대로 만들었던 그 특징들은 여전히 유효해요.",
-        ],
-        watchFor: [
-          "연락하기 전에 솔직하게 물어보세요 — 이번엔 진짜 뭐가 달라질지, 아니면 또 같은 일방적인 패턴에 빠지게 될지요.",
-          "많이 줬던 사람이 그리운 건 관계 자체가 그리운 것처럼 느껴질 수 있어요 — 지금 느끼는 게 실제로 뭔지 풀어보는 게 필요해요.",
-          "그 사람이 나만큼 다가올 조짐이 전혀 없었다면, 희망만으로는 이 균형이 다시 맞춰지지 않아요 — 의도가 아니라 실제 행동을 지켜보세요.",
-          "구체적으로 뭔가 바뀌지 않으면 이 패턴은 반복되는 경향이 있어요 — 돌아온 사과가 돌아온 노력과 같은 건 아니에요.",
-          "그 사람이 그리운 건지, 필요한 존재가 되는 게 그리운 건지 확인해보세요 — 이 둘은 완전히 다른 다음 걸음을 요구해요.",
-        ],
+        goodFit: {
+          subheading: '이번엔 조건을 더 명확히 하고',
+          text: "이번엔 조건을 더 명확히 하고 돌아간다면, 이 조합은 두 번째에 오히려 더 잘 될 수 있어요 — 문제는 베푸는 마음이 아니라 균형이었으니까요. 내가 여기서 얼마나 줄 수 있는지는 이미 잘 알고 있고, 그 명확함은 다시 시작할 때 유용해요, 다시 일방적으로 흐르지만 않는다면요.\n\n상호성에 대해 솔직한 대화로 시작한다면 이 재회는 진짜 가능성이 있어요 — 내가 가진 다정함 자체는 원래 문제가 아니었어요. 떨어져 있던 시간이 오히려 서로 진짜 필요한 게 뭔지 더 명확하게 만들어줬을 수 있어요, 그 사람이 정말 성장해서 이제 나만큼 다가올 줄 안다면요.",
+        },
+        watchFor: {
+          subheading: '이번엔 진짜 뭐가 달라질지 물어보세요',
+          text: "연락하기 전에 솔직하게 물어보세요 — 이번엔 진짜 뭐가 달라질지, 아니면 또 익숙함 때문에 같은 일방적인 패턴에 빠지게 될지요. 많이 줬던 사람이 그리운 건 관계 자체가 그리운 것처럼 느껴질 수 있어요 — 결정 내리기 전에 지금 느끼는 게 실제로 뭔지 풀어보는 게 필요해요.\n\n그 사람이 나만큼 다가올 조짐이 전혀 없었다면, 희망만으로는 이 균형이 다시 맞춰지지 않아요 — 말이 아니라 실제 행동을 지켜보세요. 그 사람이 그리운 건지, 필요한 존재가 되는 게 그리운 건지 확인해보세요 — 이 둘은 완전히 다른 다음 걸음을 요구해요.",
+        },
       },
       otherOvercomesMe: {
         tier: '끝나지 않은 긴장감',
@@ -598,20 +490,14 @@ export const romanceTemplates = {
           "여기서 재회는 깔끔한 선택이 아니에요 — 복잡한 선택이고, 그게 오히려 끌리는 이유라는 걸 인정해도 괜찮아요.",
           "어떤 인연은 조용히 끝나지 않아요. 이게 그런 경우라면, 다시 끌리는 이유는 그 사람이 맞아서가 아니라 이야기가 아직 안 끝난 것 같아서일 거예요.",
         ],
-        goodFit: [
-          "마찰 밑에 진짜 케미가 있다면 그건 어디 안 가고 그대로 남아있을 확률이 높아요 — 이 조합은 관심이 없어서 흐지부지되는 경우가 드물어요.",
-          "이 관계를 힘들게 만들었던 그 강렬함이 동시에 이 관계를 가질 가치가 있다고 느끼게 만든 부분이기도 해요 — 그 끌림은 진짜예요.",
-          "마찰의 원인을 둘 다 제대로 풀어낸다면, 이 재회는 더 편했던 관계보다 훨씬 깊이 있는 관계로 이어질 수 있어요.",
-          "이건 쉽게 조용해지는 인연이 아니에요 — 둘 다 여전히 마음이 있다면, 여기엔 진짜 다뤄볼 만한 게 있어요.",
-          "이 관계를 힘들게 만들었던 그 밀당이 동시에 이 관계를 잊기 힘들게 만든 이유이기도 해요 — 그런 긴장은 그냥 생기지 않아요.",
-        ],
-        watchFor: [
-          "풀리지 않은 긴장은 재회 직후에 거의 바로 다시 떠오르는 경향이 있어요 — 다시 만나고 싶은 충동 말고 진짜 원인을 짚고 넘어가는 게 좋아요.",
-          "못다 한 일을 진짜 사랑으로 착각하기 쉬워요 — 지금 나를 끌어당기는 게 실제로 뭔지 솔직해지는 게 좋아요.",
-          "마찰의 원인이 제대로 풀린 적이 없다면, 재회는 보통 같은 사이클을 시차를 두고 다시 시작하는 것뿐이에요.",
-          "이런 끌림은 운명처럼 느껴질 수 있지만, 실제로 잘 맞는 건지 아니면 아직 제대로 소화 못 한 어려움인지 확인해볼 필요가 있어요.",
-          "풀리지 않은 긴장 위에 세운 재회는 미리 솔직한 대화가 필요해요 — 그 단계를 건너뛰면 보통 같은 결말을 잠깐 미루는 것뿐이에요.",
-        ],
+        goodFit: {
+          subheading: '케미는 어디 안 가고 그대로 있어요',
+          text: "마찰 밑에 진짜 케미가 있다면 그건 어디 안 가고 그대로 남아있을 확률이 높아요 — 이 조합은 관심이 없어서 흐지부지되는 경우가 드물고, 대개는 마찰 자체 때문에 멀어져요. 이 관계를 힘들게 만들었던 그 강렬함이 동시에 이 관계를 가질 가치가 있다고 느끼게 만든 부분이기도 해요 — 그 끌림은 진짜예요.\n\n마찰의 원인을 둘 다 제대로 풀어낸다면, 이 재회는 더 편했던 관계보다 훨씬 깊이 있는 관계로 이어질 수 있어요. 이건 쉽게 조용해지는 인연이 아니에요 — 둘 다 여전히 마음이 있다면, 그냥 다시 만나는 게 아니라 진짜 다뤄볼 만한 게 여기 있어요.",
+        },
+        watchFor: {
+          subheading: '먼저 원인부터 얘기해보세요',
+          text: "풀리지 않은 긴장은 재회 직후에 거의 바로 다시 떠오르는 경향이 있어요 — 다시 만나고 싶은 충동을 따라가기 전에 진짜 원인부터 짚고 넘어가는 게 좋아요. 못다 한 일을 진짜 사랑으로 착각하기 쉬운데, 지금 나를 끌어당기는 게 실제로 뭔지 행동으로 옮기기 전에 솔직해지는 게 좋아요.\n\n마찰의 원인이 제대로 풀린 적이 없다면, 재회는 보통 같은 사이클을 시차를 두고 다시 시작하는 것뿐이에요. 이런 끌림은 운명처럼 느껴질 수 있지만, 실제로 잘 맞는 건지 아니면 아직 제대로 소화 못 한 어려움인지 확인해볼 필요가 있어요 — 그 대화는 재회 도중이 아니라 그 전에 하는 게 좋아요.",
+        },
       },
       iOvercomeOther: {
         tier: '더 단단했던 건 나',
@@ -629,20 +515,14 @@ export const romanceTemplates = {
           "다시 만난다면 또 한 번 중심을 잡는 쪽이 될 확률이 높아요 — 나쁜 건 아니지만, 알고 시작하는 게 나아요.",
           "필요한 사람이 되는 게 그리운 것과, 그 관계 자체가 그리운 건 조금 달라요. 결정하기 전에 그 차이를 한번 들여다보세요.",
         ],
-        goodFit: [
-          "그 사람이 진짜 성장했다면 이번 재회는 처음과 많이 다를 수 있어요 — 그 가능성을 진지하게 고려해볼 가치가 있어요.",
-          "전에 내가 줬던 그 안정감은 여전히 내가 줄 수 있는 거예요 — 문제는 이번엔 그게 공평하게 요구되는지예요.",
-          "역할이 조금이라도 바뀐다면 더 균형 잡힌 관계가 가능해요 — 그게 실제로 어떤 모습일지 한번 그려보는 게 좋아요.",
-          "필요하다면 이 관계를 지탱할 수 있다는 걸 이미 알고 있어요 — 더 중요한 질문은 그걸 내가 또 해야만 하느냐는 거예요.",
-          "이번엔 진짜 서로 노력한다면, 내가 주는 안정감은 한 사람에게 떠맡겨진 일이 아니라 둘이 나누는 강점이 될 수 있어요.",
-        ],
-        watchFor: [
-          "다시 돌아가기 전에 솔직하게 물어보세요 — 그 사람이 이제 나만큼 다가올 줄 아는 사람이 됐는지, 아니면 여전히 내가 대부분을 짊어지게 될지요.",
-          "누군가에게 필요한 사람이 되는 게 그리운 것과, 건강한 관계가 그리운 건 좀 달라요 — 그 차이를 한번 들여다보세요.",
-          "이 조합은 밖에서 보면 헌신처럼 보이고 안에서 느끼면 지침처럼 느껴질 수 있어요 — 실제로 어느 쪽이었는지 스스로에게 솔직해지세요.",
-          "실질적인 변화 없이 같은 역할로 돌아간다면, 번아웃도 비슷한 시점에 다시 찾아오는 경향이 있어요.",
-          "그 사람이 전반적으로 '변했다'고 말하는 것 말고, 구체적으로 뭘 바꿀 건지 물어보는 게 좋아요.",
-        ],
+        goodFit: {
+          subheading: '더 균형 잡힌 버전이 가능해요',
+          text: "그 사람이 진짜 성장했다면 이번 재회는 처음과 많이 다를 수 있어요 — 옛 패턴이 그냥 반복될 거라 넘겨짚기보다, 그 가능성을 진지하게 고려해볼 가치가 있어요. 전에 내가 줬던 그 안정감은 여전히 내가 줄 수 있는 거예요 — 진짜 질문은 이번엔 그게 공평하게 요구되는지예요.\n\n역할이 조금이라도 바뀐다면 더 균형 잡힌 관계가 가능해요 — 그게 실제로 어떤 모습일지 함께 한번 그려보는 게 좋아요. 필요하다면 이 관계를 지탱할 수 있다는 걸 이미 알고 있어요 — 더 중요한 질문은 그걸 또 혼자 해야만 하느냐는 거예요.",
+        },
+        watchFor: {
+          subheading: '무게 중심이 정말 옮겨졌는지 확인하세요',
+          text: "다시 돌아가기 전에 솔직하게 물어보세요 — 그 사람이 이제 나만큼 다가올 줄 아는 사람이 됐는지, 아니면 여전히 예전처럼 내가 대부분을 짊어지게 될지요. 누군가에게 필요한 사람이 되는 게 그리운 것과, 건강하고 균형 잡힌 관계가 그리운 건 좀 다르니, 결정하기 전에 그 차이를 한번 들여다보세요.\n\n이 조합은 밖에서 보면 헌신처럼 보이고 안에서 느끼면 조용한 지침처럼 느껴질 수 있어요 — 실제로 어느 쪽이었는지 스스로에게 솔직해지세요. 실질적인 변화 없이 같은 역할로 돌아간다면, 번아웃도 비슷한 시점에 다시 찾아오는 경향이 있어요 — 그 사람이 전반적으로 '변했다'고 말하는 것 말고, 구체적으로 뭘 바꿀 건지 물어보는 게 좋아요.",
+        },
       },
     },
     crush: {
@@ -662,20 +542,14 @@ export const romanceTemplates = {
           "매 순간을 너무 곱씹고 있다면 이걸 기억하세요 — 이렇게 잘 통하는 사람은 보통 나도 눈치채고 있을 확률이 높다는 거요.",
           "억지로 좋아하려고 애쓸 필요 없는 마음이에요. 함께 있을 때 느끼는 편안함 자체가 꽤 괜찮은 신호예요, 그냥 희망 사항이 아니라요.",
         ],
-        goodFit: [
-          "그 사람 앞에서 느끼는 이 편안함은 진짜 신호예요, 그냥 희망 사항이 아니라요 — 이렇게 잘 통하는 사람들은 서로를 오래 모른 채로 남는 경우가 드물어요.",
-          "여기선 케미를 처음부터 쌓을 필요가 없어요 — 이미 있으니까요, 그게 이 짝사랑을 다른 것보다 한발 앞서게 만들어요.",
-          "마음을 고백한다면, 그 대화는 뭔가를 새로 알리는 느낌보다는 이미 서로 알고 있던 걸 확인하는 느낌에 가까울 확률이 높아요.",
-          "이런 짝사랑은 친구로서의 기반이 이미 거의 다 갖춰진 경우예요 — 더 깊은 관계로 넘어가는 데 새로 관계를 재구성할 필요가 없어요.",
-          "이렇게 초반부터 유난히 이해받는 느낌이 드는 건 좋은 신호예요, 우연이 아니라요 — 이 조합은 이유가 있어서 빨리 통해요.",
-        ],
-        watchFor: [
-          "우정이 워낙 편하다 보니, 그 이상을 원한다는 걸 나 자신에게, 그리고 언젠가는 그 사람에게 분명히 밝히는 게 필요해요 — 편안한 케미는 아무도 말 안 하면 그냥 우정으로 남을 수 있거든요.",
-          "지금 느끼는 친밀감이 연애 감정인지, 아니면 그냥 아주 잘 맞는 우정인지 확인해보세요 — 둘 다 진짜 감정이지만 다음 걸음이 달라요.",
-          "이렇게 닮은 두 사람은 관계를 편하게 유지하고 싶은 같은 본능 때문에 서로 감정 얘기를 피할 수도 있어요 — 결국 누군가는 그 패턴을 깨야 해요.",
-          "다 편하다고 해서 그 사람이 내 마음을 이미 알고 있을 거라 넘겨짚지 마세요 — 편안함이 곧 소통은 아니에요.",
-          "이 마음을 너무 오래 말 안 하고 두면, 우정이 주는 편안함 자체가 굳이 바꾸지 않을 이유가 될 수 있어요 — 지금 그런 상황인지 살펴보세요.",
-        ],
+        goodFit: {
+          subheading: '희망 사항이 아니라 진짜 신호예요',
+          text: "그 사람 앞에서 느끼는 이 편안함은 진짜 신호예요, 그냥 희망 사항이 아니라요 — 이렇게 잘 통하는 사람들은 서로를 오래 모른 채로 남는 경우가 드물어요. 여기선 케미를 처음부터 쌓을 필요가 없어요, 이미 있으니까요 — 그게 이 짝사랑을 다른 것보다 한발 앞서게 만들어요.\n\n마음을 고백한다면, 그 대화는 뭔가를 새로 알리는 느낌보다는 이미 서로 알고 있던 걸 확인하는 느낌에 가까울 확률이 높아요. 이런 짝사랑은 친구로서의 기반이 이미 거의 다 갖춰진 경우예요 — 더 깊은 관계로 넘어가는 데 관계 자체를 새로 재구성할 필요가 없어요.",
+        },
+        watchFor: {
+          subheading: '원하는 걸 스스로에게 먼저 인정하세요',
+          text: "우정이 워낙 편하다 보니, 그 이상을 원한다는 걸 나 자신에게, 그리고 언젠가는 그 사람에게 분명히 밝히는 게 필요해요 — 편안한 케미는 아무도 말 안 하면 그냥 우정으로 남을 수 있거든요. 지금 느끼는 친밀감이 연애 감정인지, 아니면 그냥 아주 잘 맞는 우정인지 확인해보세요 — 둘 다 진짜 감정이지만 다음 걸음이 달라요.\n\n이렇게 닮은 두 사람은 관계를 편하게 유지하고 싶은 같은 본능 때문에 서로 감정 얘기를 피할 수도 있어요 — 결국 누군가는 그 패턴을 깨야 해요. 다 편하다고 해서 그 사람이 내 마음을 이미 알고 있을 거라 넘겨짚지 마세요 — 편안함이 곧 소통은 아니니, 이 마음은 언젠가 실제 대화로 이어질 필요가 있어요.",
+        },
       },
       otherGeneratesMe: {
         tier: '모든 걸 편하게 만드는 사람',
@@ -693,20 +567,14 @@ export const romanceTemplates = {
           "그 사람 앞에서 나답지 않아지는 게 아니라 오히려 더 나다워질 확률이 높아요 — 더 단단한 관계로 이어질 만한 좋은 신호예요.",
           "이 마음은 설명하기 어렵지 않아요, 말로 꺼내기 조금 민망할 뿐이죠 — 그 사람은 그냥 내 기분을 진짜로 좋게 만들어주는 사람이라는 것뿐이에요.",
         ],
-        goodFit: [
-          "그 사람이 나를 편하게 만들어준다는 사실 자체가, 어떤 극적인 순간보다 믿을 만한 조용하고 진짜인 증거예요.",
-          "이 짝사랑은 환상 위에 세워진 게 아니에요 — 그 사람 옆에서 실제로 느끼는 감정 위에 세워진 거라, 대부분보다 더 믿을 만한 기반이에요.",
-          "그 사람 옆에서 덜한 내가 아니라 더 나다워지는 느낌이 드는 건, 이 짝사랑에 진짜 가능성이 있다는 좋은 신호 중 하나예요.",
-          "행동으로 옮길 만한 극적인 신호를 기다리고 있다면, 이게 그거일 수 있어요 — 꾸준하고 진짜로 하루를 나아지게 하는 건 작은 게 아니에요.",
-          "이 짝사랑은 강렬함만으로 세워진 게 아니라 편안함 위에 세워졌기 때문에, 오히려 오래가는 관계로 이어질 가능성이 있어요.",
-        ],
-        watchFor: [
-          "그 사람 자체를 좋아하는 건지, 아니면 그 사람이 만들어주는 기분을 좋아하는 건지 확인해보세요 — 지금 느끼는 게 실제로 뭔지 솔직해지는 게 좋아요.",
-          "이런 편안함은 끝없이 그냥 즐기기만 하고 절대 행동으로 안 옮길 수도 있어요 — 이 편안함을 아무 말 안 할 핑계로 쓰고 있는 건 아닌지 살펴보세요.",
-          "그 사람의 다정함이 나한테만 특별한 건지, 원래 누구한테나 그런 성격인지 착각하지 마세요.",
-          "이 마음이 너무 오래 조용히 있으면, 둘 다 굳이 깨고 싶지 않은 편안한 '연애 아닌 무언가'로 자리 잡을 위험이 있어요.",
-          "지금 느끼는 안정감은 진짜지만, 그 사람도 같은 마음인지는 여전히 직접 확인해봐야 알 수 있어요 — 너무 많은 걸 미리 쌓아 올리기 전에요.",
-        ],
+        goodFit: {
+          subheading: '조용하지만 진짜인 증거',
+          text: "그 사람이 나를 편하게 만들어준다는 사실 자체가, 어떤 극적인 순간보다 믿을 만한 조용하고 진짜인 증거예요. 이 짝사랑은 환상 위에 세워진 게 아니에요 — 그 사람 옆에서 실제로 느끼는 감정 위에 세워진 거라, 대부분의 짝사랑보다 더 믿을 만한 기반이에요.\n\n그 사람 옆에서 덜한 내가 아니라 더 나다워지는 느낌이 드는 건, 이 짝사랑에 진짜 가능성이 있다는 좋은 신호 중 하나예요. 행동으로 옮길 만한 극적인 신호를 기다리고 있다면, 이게 그거일 수 있어요 — 꾸준하고 진짜로 하루를 나아지게 하는 건 작은 게 아니에요.",
+        },
+        watchFor: {
+          subheading: '그 사람인지, 그 기분인지 확인해보세요',
+          text: "그 사람 자체를 좋아하는 건지, 아니면 그 사람이 만들어주는 기분을 좋아하는 건지 확인해보세요 — 지금 느끼는 게 실제로 뭔지 솔직해지는 게 좋아요. 이런 편안함은 끝없이 그냥 즐기기만 하고 절대 행동으로 안 옮길 수도 있어요 — 이 편안함을 아무 말 안 할 핑계로 쓰고 있는 건 아닌지 살펴보세요.\n\n그 사람의 다정함이 나한테만 특별한 건지, 원래 누구한테나 그런 성격인지 착각하지 마세요. 이 마음이 너무 오래 조용히 있으면, 둘 다 굳이 깨고 싶지 않은 편안한 '연애 아닌 무언가'로 자리 잡을 위험이 있어요 — 지금 느끼는 안정감은 진짜지만, 그 사람도 같은 마음인지는 여전히 직접 확인해봐야 알 수 있어요.",
+        },
       },
       iGenerateOther: {
         tier: '이미 마음 다 준 쪽',
@@ -724,20 +592,14 @@ export const romanceTemplates = {
           "이런 짝사랑은 내가 먼저 주고 타이밍이 맞기를 바라는 쪽이에요. 대체로 잘 맞긴 하지만, 너무 늦지 않게 알고 싶은 마음도 당연해요.",
           "이미지가 아니라 그 사람의 진짜 성격에 반하는 타입이에요 — 그래서 이 짝사랑이 다른 것보다 조금 더 진짜에 가까워요.",
         ],
-        goodFit: [
-          "여기서 보이는 세심함은 억지가 아니라 진심이에요 — 이 짝사랑이 뭔가로 이어진다면, 그 헌신은 이 관계의 강점이 될 확률이 높아요.",
-          "이렇게 초반부터 마음을 많이 쓰는 건 단순한 반함이 아니라 진짜 투자의 좋은 신호예요 — 그 직감을 믿어도 좋아요.",
-          "이 짝사랑은 상대를 진짜 한 사람으로서 알아가는 데서 시작된 거라, 그보다 덜한 걸로 시작한 짝사랑보다 더 오래 버티는 경향이 있어요.",
-          "그 사람도 같은 마음이라면, 내 세심함이 이미 익숙하게 느껴질 확률이 높아요 — 이런 정성은 멀리서라도 잘 안 사라져요.",
-          "이미지가 아니라 그 사람의 진짜 성격에 반하는 타입이라, 지금 느끼는 감정이 겉핥기식 짝사랑보다 훨씬 단단해요.",
-        ],
-        watchFor: [
-          "더 나아가기 전에 균형을 점검해보세요 — 이 조합은 관심이 서로라는 게 확인됐을 때 제일 잘 작동해요, 넘겨짚을 때가 아니라요.",
-          "아직 돌아오지 않은 마음에 이만큼 관심을 쏟다 보면, 작은 행동에 실제보다 더 많은 의미를 부여하게 될 수 있어요.",
-          "이게 서로인지 빨리 알고 싶은 건 당연한 마음이에요 — 아무 신호도 없이 계속 주기만 할 필요는 없어요.",
-          "항상 내가 먼저 다가가는 패턴은 아닌지 살펴보세요 — 계속 그렇다면, 넘기지 말고 그 사실 자체를 눈여겨보세요.",
-          "이 정도의 헌신이 너무 오래 돌아오지 않으면, 원치 않아도 조용히 서운함으로 바뀔 수 있어요 — 지금까지의 시간에 대해 스스로 솔직해지는 게 좋아요.",
-        ],
+        goodFit: {
+          subheading: '이 헌신은 이미 강점이에요',
+          text: "여기서 보이는 세심함은 억지가 아니라 진심이에요 — 이 짝사랑이 뭔가로 이어진다면, 그 헌신은 이 관계의 강점이 될 확률이 높아요. 이렇게 초반부터 마음을 많이 쓰는 건 단순한 반함이 아니라 진짜 투자의 좋은 신호예요 — 그 직감을 믿어도 좋아요.\n\n이 짝사랑은 상대를 진짜 한 사람으로서 알아가는 데서 시작된 거라, 그보다 덜한 걸로 시작한 짝사랑보다 더 오래 버티는 경향이 있어요. 그 사람도 같은 마음이라면, 내 세심함이 이미 익숙하게 느껴질 확률이 높아요 — 이런 정성은 티가 안 나도 멀리서라도 잘 안 사라져요.",
+        },
+        watchFor: {
+          subheading: '누가 먼저 다가가는지 살펴보세요',
+          text: "더 나아가기 전에 균형을 점검해보세요 — 이 조합은 관심이 서로라는 게 확인됐을 때 제일 잘 작동해요, 넘겨짚을 때가 아니라요. 아직 돌아오지 않은 마음에 이만큼 관심을 쏟다 보면, 작은 행동에 실제보다 더 많은 의미를 부여하게 될 수 있어요.\n\n이게 서로인지 빨리 알고 싶은 건 당연한 마음이에요 — 아무 신호도 없이 계속 주기만 할 필요는 없어요. 항상 내가 먼저 다가가는 패턴은 아닌지 살펴보세요 — 계속 그렇다면, 넘기지 말고 그 사실 자체를 솔직하게 눈여겨보세요.",
+        },
       },
       otherOvercomesMe: {
         tier: '설레면서도 헷갈리는 마음',
@@ -755,20 +617,14 @@ export const romanceTemplates = {
           "모든 짝사랑이 다 단순해야 하는 건 아니에요. 이건 조금 더 많은 걸 요구해요 — 인내심도, 용기도요. 그래서 더 진짜처럼 느껴지는 거고요.",
           "이 마음이 좀 불안정하게 느껴진다면, 이 조합답게 흘러가는 거예요 — 헷갈리는 마음일수록 결국 신경 쓸 가치가 있는 경우가 많아요.",
         ],
-        goodFit: [
-          "이 불확실함이 오히려 이 마음을 더 진짜처럼 느껴지게 만드는 부분이에요 — 아무것도 안 요구하는 짝사랑은 이렇게 오래 머릿속에 안 남아요.",
-          "이런 끌림은 보통 혼란 밑에 진짜 케미가 있다는 뜻이에요 — 이렇게 떨쳐내기 힘든 감정은 아무것도 아닌 경우가 드물어요.",
-          "내가 어디 서 있는지 정확히 모르는 게 불편하긴 해도, 그만큼 가볍게 스쳐가는 관심이 아니라 진짜 마음을 쓰고 있다는 뜻이기도 해요.",
-          "이 짝사랑이 더 많은 걸 요구하는 것(더 많은 인내심, 더 많은 용기) 자체가, 쉬운 짝사랑보다 더 의미 있게 느껴지는 이유예요.",
-          "이 짝사랑이 혼란스러운데도 계속 남아있다면, 그 지속성 자체가 눈여겨볼 만한 신뢰할 만한 신호예요.",
-        ],
-        watchFor: [
-          "이런 상대와의 애매한 순간을 실제보다 더 의미 있게 해석하기 쉬워요 — 내 해석을 실제 말과 행동이랑 비교해보는 게 좋아요.",
-          "이런 자석 같은 불확실함은 서로 마음이 있다는 뜻이 아니라 그냥 신호가 불분명한 것일 수도 있어요 — 확인 안 된 의미를 넘겨짚지 마세요.",
-          "눈빛 하나, 메시지 하나에 과몰입하는 것도 이 끌림의 일부지만, 결국은 계속 해석만 하지 말고 직접 물어보는 것도 필요해요.",
-          "모르는 상태가 주는 설렘이 오히려 확실히 알아보는 걸 미루는 핑계가 될 수도 있어요 — 지금 그런 상황인지 살펴보세요.",
-          "이 짝사랑은 해결 없이 너무 오래가면 감정적으로 지칠 수 있어요 — 불확실함 속에 계속 머무는 대신 명확함을 원해도 괜찮아요.",
-        ],
+        goodFit: {
+          subheading: '불확실함이 오히려 진짜라는 증거예요',
+          text: "이 불확실함이 오히려 이 마음을 더 진짜처럼 느껴지게 만드는 부분이에요 — 아무것도 안 요구하는 짝사랑은 이렇게 오래 머릿속에 안 남아요. 이런 끌림은 보통 혼란 밑에 진짜 케미가 있다는 뜻이에요 — 이렇게 떨쳐내기 힘든 감정은 아무것도 아닌 경우가 드물어요.\n\n내가 어디 서 있는지 정확히 모르는 게 불편하긴 해도, 그만큼 가볍게 스쳐가는 관심이 아니라 진짜 마음을 쓰고 있다는 뜻이기도 해요. 이 짝사랑이 혼란스러운데도 계속 남아있다면, 그 지속성 자체가 눈여겨볼 만한 신뢰할 만한 신호예요.",
+        },
+        watchFor: {
+          subheading: '해석보다 직접 물어보는 게 나아요',
+          text: "이런 상대와의 애매한 순간을 실제보다 더 의미 있게 해석하기 쉬워요 — 내 해석을 실제 말과 행동이랑 비교해보는 게 좋아요. 이런 자석 같은 불확실함은 서로 마음이 있다는 뜻이 아니라 그냥 신호가 불분명한 것일 수도 있어요 — 확인 안 된 의미를 넘겨짚지 마세요.\n\n눈빛 하나, 메시지 하나에 과몰입하는 것도 이 끌림의 일부지만, 결국은 계속 해석만 하지 말고 직접 물어보는 것도 필요해요. 이 짝사랑은 해결 없이 너무 오래가면 감정적으로 지칠 수 있어요 — 불확실함 속에 계속 머무는 대신 명확함을 원해도 괜찮아요.",
+        },
       },
       iOvercomeOther: {
         tier: '폭풍 속 나만 침착한 쪽',
@@ -786,20 +642,14 @@ export const romanceTemplates = {
           "내가 그 사람한테 관심 있다는 걸 눈치채기 전에, 그 사람이 먼저 내 안정감을 눈치챌 확률이 커요. 어느 쪽이든 주의 깊게 볼 만해요.",
           "혼란스러운 짝사랑이 아니에요 — 오히려 내가 중심이 되는 쪽이에요. 누군가의 안정감이 돼주는 것도 하나의 로맨스예요.",
         ],
-        goodFit: [
-          "누군가의 삶에서 차분하고 든든한 존재가 되는 건 은근히 매력적인 자질이에요 — 스스로 그 부분을 과소평가하지 마세요.",
-          "그 사람이 이미 내 안정감을 눈치챘을 확률이 꽤 높아요, 말은 안 했어도요 — 차분함은 은근히 눈에 띄는 법이에요.",
-          "이게 뭔가로 이어진다면, 내 안정감이 이 관계를 실제로 잘 작동하게 만드는 요소 중 하나가 될 확률이 높아요.",
-          "방 안에서 제일 화려한 사람일 필요는 없어요 — 오래 기억되는 사람이 되려면요. 든든함도 그 자체로 매력이에요.",
-          "이 짝사랑은 진짜 가능성이 있어요, 내가 주는 것(차분함, 믿음직함)이 생각보다 드물고, 흥분보다 오히려 더 원해지는 경우가 많거든요.",
-        ],
-        watchFor: [
-          "든든한 쪽으로 있는 게 가끔은 연애 감정이 아니라 '그냥 친구'로 읽힐 수 있어요 — 다르게 봐주길 원한다면 조금 더 직접적으로 다가가는 게 좋아요.",
-          "그 사람이 내 차분함을 매력으로 느끼는지, 그냥 편리해서 좋아하는지 확인해보세요 — 이 둘은 받아들이는 사람 입장에서 꽤 다르게 느껴져요.",
-          "꾸준히 곁에 있다고 해서 그 사람이 내 마음을 알아챌 거라 넘겨짚지 마세요 — 확실한 신호 없이는 든든함이 연애 감정으로 안 읽힐 수도 있어요.",
-          "항상 분위기를 차분하게 만드는 쪽이라면, 언젠가는 차분하지만은 않은 내 모습도 보여주는 게 좋아요.",
-          "이 조합은 내 차분함에 그 사람이 진짜 호기심을 가질 때 제일 잘 작동해요 — 실제로 그런지 눈여겨보세요.",
-        ],
+        goodFit: {
+          subheading: '든든함도 그 자체로 매력이에요',
+          text: "누군가의 삶에서 차분하고 든든한 존재가 되는 건 은근히 매력적인 자질이에요 — 스스로 그 부분을 과소평가하지 마세요. 그 사람이 이미 내 안정감을 눈치챘을 확률이 꽤 높아요, 말은 안 했어도요 — 차분함은 은근히 눈에 띄는 법이에요.\n\n이게 뭔가로 이어진다면, 내 안정감이 이 관계를 실제로 잘 작동하게 만드는 요소 중 하나가 될 확률이 높아요. 방 안에서 제일 화려한 사람일 필요는 없어요 — 이 짝사랑은 진짜 가능성이 있어요, 내가 주는 것(차분함, 믿음직함)이 생각보다 드물고, 흥분보다 오히려 더 원해지는 경우가 많거든요.",
+        },
+        watchFor: {
+          subheading: '차분한 모습 너머도 보여주세요',
+          text: "든든한 쪽으로 있는 게 가끔은 연애 감정이 아니라 '그냥 친구'로 읽힐 수 있어요 — 다르게 봐주길 원한다면 조금 더 직접적으로 다가가는 게 좋아요. 그 사람이 내 차분함을 매력으로 느끼는지, 그냥 편리해서 좋아하는지 확인해보세요 — 이 둘은 받아들이는 사람 입장에서 꽤 다르게 느껴져요.\n\n꾸준히 곁에 있다고 해서 그 사람이 내 마음을 알아챌 거라 넘겨짚지 마세요 — 확실한 신호 없이는 든든함이 연애 감정으로 안 읽힐 수도 있어요. 항상 분위기를 차분하게 만드는 쪽이라면, 언젠가는 차분하지만은 않은 내 모습도 보여주는 게 좋아요.",
+        },
       },
     },
     theirFeelings: {
@@ -819,20 +669,14 @@ export const romanceTemplates = {
           "그 사람 머릿속에서 나는 '편한 사람' 카테고리에 들어가 있을 확률이 높아요, 이 조합에선 이게 진짜 칭찬이에요.",
           "곰곰이 생각해보면, 그 사람은 나랑 있을 때 다른 사람들 앞에서보다 덜 애써도 된다고 느낄 거예요.",
         ],
-        goodFit: [
-          "누군가에게 이렇게까지 이해받는 느낌은 흔치 않고, 그 사람도 아마 그걸 알고 있을 거예요 — 이런 편안함은 말로 안 해도 중요하게 느껴지는 법이에요.",
-          "그 사람이 이걸 직접 생각해본 적이 있다면, 이 관계가 평범한 우정보다 더 가능성이 있다는 걸 이미 어렴풋이 느끼고 있을 확률이 높아요.",
-          "사람들은 보통 자신을 유난히 편하게 만들어준 사람을 잊지 않아요 — 그것만으로도 그 사람 안에서 나는 다른 사람들과는 다른 카테고리에 속해있을 거예요.",
-          "이런 자연스러운 싱크로율은 누군가 이름을 붙이는 순간 조용히 그 이상으로 변하는 종류의 감정이에요.",
-          "그 사람은 나와 있을 때 어떤 면에서 덜 외로움을 느낄 확률이 높아요 — 말은 안 해도, 그건 누군가에게 작지 않은 의미예요.",
-        ],
-        watchFor: [
-          "나한테 이해받는다고 느낀다고 해서 그 사람이 그 감정을 연애 감정과 연결 지었다는 뜻은 아니에요 — 나랑 같은 결론에 도달했을 거라 넘겨짚지 마세요.",
-          "이런 편안함은 뭔가 계기가 없으면 그냥 '좋은 친구'로만 읽힐 수도 있어요 — 그걸 명확하게 말로 꺼낼 필요가 있는지 생각해보세요.",
-          "이 편안함이 안전하고 부담 없다는 이유만으로 소중하게 여기고 있을 수도 있어요 — 관계의 성격을 바꾸는 건 둘 다에게 실제 위험이 따른다는 걸 알아두세요.",
-          "나와 있을 때 편안함을 느낀다고 해서 그 편안함이 뭔가로 바뀔 수 있다는 생각까지 해본 건 아닐 수 있어요 — 이 둘은 다른 깨달음이에요.",
-          "그 사람이 이걸 실제로 얼마나 곱씹어봤는지 과대평가하지 마세요 — 편안함은 의식적으로 들여다보지 않아도 느껴질 수 있거든요.",
-        ],
+        goodFit: {
+          subheading: '그 사람도 이미 느끼고 있을 거예요',
+          text: "누군가에게 이렇게까지 이해받는 느낌은 흔치 않고, 그 사람도 아마 그걸 알고 있을 거예요 — 이런 편안함은 말로 안 해도 중요하게 느껴지는 법이에요. 그 사람이 이걸 직접 생각해본 적이 있다면, 이 관계가 평범한 우정보다 더 가능성이 있다는 걸 이미 어렴풋이 느끼고 있을 확률이 높아요.\n\n사람들은 보통 자신을 유난히 편하게 만들어준 사람을 잊지 않아요 — 그것만으로도 그 사람 안에서 나는 다른 사람들과는 다른 카테고리에 속해있을 거예요. 이런 자연스러운 싱크로율은 누군가 이름을 붙이는 순간 조용히 그 이상으로 변하는 종류의 감정이에요.",
+        },
+        watchFor: {
+          subheading: '편안함이 곧 결론은 아니에요',
+          text: "나한테 이해받는다고 느낀다고 해서 그 사람이 그 감정을 연애 감정과 연결 지었다는 뜻은 아니에요 — 나랑 같은 결론에 도달했을 거라 넘겨짚지 마세요. 이런 편안함은 뭔가 계기가 없으면 그냥 '좋은 친구'로만 읽힐 수도 있어요 — 그걸 명확하게 말로 꺼낼 필요가 있는지 생각해보세요.\n\n나와 있을 때 편안함을 느낀다고 해서 그 편안함이 뭔가로 바뀔 수 있다는 생각까지 해본 건 아닐 수 있어요 — 이 둘은 다른 깨달음이에요. 그 사람이 이걸 실제로 얼마나 곱씹어봤는지 과대평가하지 마세요 — 편안함은 의식적으로 들여다보지 않아도 느껴질 수 있거든요.",
+        },
       },
       otherGeneratesMe: {
         tier: '당신 덕분에 편안해져요',
@@ -850,20 +694,14 @@ export const romanceTemplates = {
           "내 어떤 점이 좋냐고 물으면, '네가 있으면 편해져'가 가장 유력한 답일 거예요, 첫마디로 안 나올 수는 있어도요.",
           "내 존재를 얼마나 많이 의지하고 있는지 그 사람도 모를 수 있어요 — 없어져 봐야 알게 되는 게 이 조합의 특징이에요.",
         ],
-        goodFit: [
-          "누군가의 안정감이 되어주는 건 진짜 가치 있는 역할이에요 — 말은 안 해도, 이런 영향력은 화려한 제스처보다 사람들에게 더 크게 남는 경우가 많아요.",
-          "그 사람이 힘든 한 주를 보내다가 나랑 시간을 보내고 나아졌다면, 말은 안 해도 그건 그 사람에게 작지 않은 의미예요.",
-          "사람들은 힘든 시기에 상황을 더 감당할 만하게 만들어준 사람을 기억해요 — 그런 기억은 보통 오래 남아요.",
-          "이런 조용한 중요함은 시간이 지나서야 그 사람에게 더 뚜렷해지는 경우가 많아요 — 아직 확인은 못 했어도 그 영향력이 진짜라는 걸 믿어도 좋아요.",
-          "그 사람에게 내 어떤 점이 좋냐고 물으면, 이 안정감을 주는 부분이 나올 확률이 높아요, 제일 먼저 말하는 건 아니어도요.",
-        ],
-        watchFor: [
-          "누군가의 차분한 존재가 되어주는 건 소중하지만, 그 사람이 나를 그냥 위안의 원천 이상으로 보고 있는지 확인해보세요 — 나는 쓸모 이상으로 원해질 자격이 있어요.",
-          "이런 조용한 의지는 대놓고 인정받지 못하는 경우가 많아요 — 그 사람이 알아서 눈치채길 기다리기보다 언젠가 직접 물어보는 게 좋아요.",
-          "내가 없을 때야 비로소 얼마나 의지하고 있었는지 깨닫는 경우도 있어요 — 그 깨달음을 기다릴 의향이 있는지 스스로 결정해보세요.",
-          "누군가를 안정시켜주는 일이 계속 돌아오지 않으면 일방적으로 느껴지기 시작할 수 있어요 — 그 사람도 비슷하게 나를 챙기고 있는지 살펴보세요.",
-          "내가 주는 안도감이 자동으로 그 사람의 연애 감정으로 이어진다고 넘겨짚지 마세요 — 진짜 배려의 한 형태이긴 해도, 그 자체가 마음의 증거는 아니에요.",
-        ],
+        goodFit: {
+          subheading: '조용하지만 진짜로 중요한 존재',
+          text: "누군가의 안정감이 되어주는 건 진짜 가치 있는 역할이에요 — 말은 안 해도, 이런 영향력은 화려한 제스처보다 사람들에게 더 크게 남는 경우가 많아요. 그 사람이 힘든 한 주를 보내다가 나랑 시간을 보내고 나아졌다면, 말은 안 해도 그건 그 사람에게 작지 않은 의미예요.\n\n사람들은 힘든 시기에 상황을 더 감당할 만하게 만들어준 사람을 기억해요 — 그런 기억은 보통 오래 남아요. 이런 조용한 중요함은 시간이 지나서야 그 사람에게 더 뚜렷해지는 경우가 많아요 — 아직 확인은 못 했어도 그 영향력이 진짜라는 걸 믿어도 좋아요.",
+        },
+        watchFor: {
+          subheading: '쓸모 이상으로 원해질 자격이 있어요',
+          text: "누군가의 차분한 존재가 되어주는 건 소중하지만, 그 사람이 나를 그냥 위안의 원천 이상으로 보고 있는지 확인해보세요 — 나는 쓸모 이상으로 원해질 자격이 있어요. 이런 조용한 의지는 대놓고 인정받지 못하는 경우가 많아요 — 그 사람이 알아서 눈치채길 기다리기보다 언젠가 직접 물어보는 게 좋아요.\n\n내가 없을 때야 비로소 얼마나 의지하고 있었는지 깨닫는 경우도 있어요 — 그 깨달음을 기다릴 의향이 있는지 스스로 결정해보세요. 내가 주는 안도감이 자동으로 그 사람의 연애 감정으로 이어진다고 넘겨짚지 마세요 — 진짜 배려의 한 형태이긴 해도, 그 자체가 마음의 증거는 아니에요.",
+        },
       },
       iGenerateOther: {
         tier: '노력을 알아채는 사람',
@@ -881,20 +719,14 @@ export const romanceTemplates = {
           "내 역할을 한마디로 말해달라면, '내 곁에 있어주는 사람'이라고 답할 확률이 높아요, 입 밖으로 안 냈어도요.",
           "말로 꺼내진 않아도 조용한 고마움을 느끼고 있을 거예요 — 이 조합은 대놓고 티 내기보다 조용히 쌓이는 쪽이에요.",
         ],
-        goodFit: [
-          "나 같은 노력은 그 순간 인정받지 못해도 완전히 안 보이고 지나가는 경우는 드물어요 — 생각보다 더 잘 느껴지고 있을 확률이 높아요.",
-          "꾸준하고 화려하지 않은 배려는 사람들이 결국 의지하게 되고, 없어지면 그리워하게 되는 종류예요 — 그건 그 사람 삶에서 내 위치에 대해 뭔가 말해줘요.",
-          "그 사람이 자기 곁에 있어주는 사람을 떠올려야 한다면, 내가 제일 먼저 떠오를 확률이 꽤 있어요.",
-          "이런 조용한 믿음직함은 큰 선언 없이도 시간이 지나면서 신뢰를 쌓아요 — 이 패턴이 내게 유리하게 작용하고 있다는 걸 믿어도 좋아요.",
-          "직접적으로 언급된 적은 없어도 그 사람은 나에게 조용한 고마움을 느끼고 있을 확률이 높아요 — 그것도 눈여겨볼 만한 진짜 긍정적인 신호예요.",
-        ],
-        watchFor: [
-          "내 노력이 알아차려지고 고마워하고 있는 건지, 아니면 그냥 조용히 당연시되고 있는 건지 확인해보세요 — 시간이 지나면 이 둘은 꽤 다르게 느껴져요.",
-          "노력을 알아채는 것과 마음을 돌려주는 건 달라요 — 그 사람의 고마움을 너무 확대 해석하기 전에 이 차이를 분명히 해두는 게 좋아요.",
-          "돌아오는 말 없이 많이 주고 있었다면, 언젠가 알아서 뭔가 말해주겠지 기대하기보다 어느 정도 인정을 원해도 괜찮아요.",
-          "이 고마움이 그 사람도 노력하는 쪽으로 이어지는지 지켜보세요 — 일방적인 알아챔은 서로 투자하는 것과는 좀 달라요.",
-          "그 사람이 내가 한 모든 걸 다 알아챘는지 확신이 설 때까지 기다리지 말고, 직접 마음이 어떤지 물어봐도 괜찮아요 — 추측보다 명확함이 나아요.",
-        ],
+        goodFit: {
+          subheading: '노력은 생각보다 잘 전해지고 있어요',
+          text: "나 같은 노력은 그 순간 인정받지 못해도 완전히 안 보이고 지나가는 경우는 드물어요 — 생각보다 더 잘 느껴지고 있을 확률이 높아요. 꾸준하고 화려하지 않은 배려는 사람들이 결국 의지하게 되고, 없어지면 그리워하게 되는 종류예요 — 그건 그 사람 삶에서 내 위치에 대해 뭔가 말해줘요.\n\n그 사람이 자기 곁에 있어주는 사람을 떠올려야 한다면, 내가 제일 먼저 떠오를 확률이 꽤 있어요. 이런 조용한 믿음직함은 큰 선언 없이도 시간이 지나면서 신뢰를 쌓아요 — 이 패턴이 내게 유리하게 작용하고 있다는 걸 믿어도 좋아요.",
+        },
+        watchFor: {
+          subheading: '알아채는 것과 돌려주는 건 달라요',
+          text: "내 노력이 알아차려지고 고마워하고 있는 건지, 아니면 그냥 조용히 당연시되고 있는 건지 확인해보세요 — 시간이 지나면 이 둘은 꽤 다르게 느껴져요. 노력을 알아채는 것과 마음을 돌려주는 건 달라요 — 그 사람의 고마움을 너무 확대 해석하기 전에 이 차이를 분명히 해두는 게 좋아요.\n\n돌아오는 말 없이 많이 주고 있었다면, 언젠가 알아서 뭔가 말해주겠지 기대하기보다 어느 정도 인정을 원해도 괜찮아요. 그 사람이 내가 한 모든 걸 다 알아챘는지 확신이 설 때까지 기다리지 말고, 직접 마음이 어떤지 물어봐도 괜찮아요 — 추측보다 명확함이 나아요.",
+        },
       },
       otherOvercomesMe: {
         tier: '쉽게 안 읽히는 사람',
@@ -912,20 +744,14 @@ export const romanceTemplates = {
           "겉으로 티는 안 내도, 나와의 대화를 생각보다 자주 곱씹고 있을 확률이 높아요 — 딱 떨어지지 않는 걸 계속 되짚어보는 사람들이 그렇듯이요.",
           "그 사람에게 나는 딱히 '편한' 사람으로 안 느껴질 수도 있어요 — 근데 관심을 붙잡아두는 게 항상 편안함은 아니에요. 이게 그 경우일 수도 있고요.",
         ],
-        goodFit: [
-          "완전히 예측이 안 되는 사람으로 남는 건 관심을 잃게 만들기보다 오히려 붙잡아두는 경향이 있어요 — 그 예측 불가함이 실제로 여기서 역할을 하고 있을 확률이 높아요.",
-          "그 사람이 나와의 대화를 말한 것보다 더 자주 생각한다면, 아직 확실한 고백은 아니어도 의미 있는 신호예요.",
-          "이런 자석 같은 불확실함은 보통 그 사람이 그냥 궁금해하는 정도가 아니라 진짜 끌리고 있다는 뜻이에요 — 진지하게 받아들일 만해요.",
-          "바로 '편한 사람'으로 안 읽히는 게 여기선 단점이 아니에요 — 이 조합은 아직 뭔가 확실히 정리되지 않았을 때 오히려 계속 흥미를 유지하는 경향이 있어요.",
-          "왜인지 정확히 설명은 못 해도 자꾸 나와의 대화로 돌아온다면, 그건 눈여겨볼 만한 진짜 관심의 신호예요.",
-        ],
-        watchFor: [
-          "예측이 안 되는 건 양날의 검이에요 — 그 미스터리가 그 사람 쪽에 진짜 혼란이나 망설임을 만들고 있는 건 아닌지 확인해보세요.",
-          "이런 종류의 흥미는 영원히 효과 있지는 않아요 — 어느 시점부터는 실제 내 모습을 조금 더 보여주는 게 좋아요.",
-          "궁금해하면서도 자기 위치를 확신 못 하고 있을 수도 있어요 — 내가 좀 더 명확하게 다가가는 게 오히려 도움이 될지 생각해보세요.",
-          "예측 불가함은 관심을 붙잡아둘 수 있지만, 동시에 더 확신 없이는 더 다가가길 망설이게 만들 수도 있어요.",
-          "이걸 구체적으로 어딘가로 이어가고 싶다면, 미스터리에만 의존하는 건 결국 정체되기 마련이에요 — 어느 시점엔 조금 더 직접적으로 다가가는 게 좋아요.",
-        ],
+        goodFit: {
+          subheading: '그 궁금증이 진짜로 작동하고 있어요',
+          text: "완전히 예측이 안 되는 사람으로 남는 건 관심을 잃게 만들기보다 오히려 붙잡아두는 경향이 있어요 — 그 예측 불가함이 실제로 여기서 역할을 하고 있을 확률이 높아요. 그 사람이 나와의 대화를 말한 것보다 더 자주 생각한다면, 아직 확실한 고백은 아니어도 의미 있는 신호예요.\n\n이런 자석 같은 불확실함은 보통 그 사람이 그냥 궁금해하는 정도가 아니라 진짜 끌리고 있다는 뜻이에요 — 진지하게 받아들일 만해요. 바로 '편한 사람'으로 안 읽히는 게 여기선 단점이 아니에요 — 이 조합은 아직 뭔가 확실히 정리되지 않았을 때 오히려 계속 흥미를 유지하는 경향이 있어요.",
+        },
+        watchFor: {
+          subheading: '미스터리도 유통기한이 있어요',
+          text: "예측이 안 되는 건 양날의 검이에요 — 그 미스터리가 그 사람 쪽에 진짜 혼란이나 망설임을 만들고 있는 건 아닌지 확인해보세요. 이런 종류의 흥미는 영원히 효과 있지는 않아요 — 어느 시점부터는 실제 내 모습을 조금 더 보여주는 게 좋아요.\n\n궁금해하면서도 자기 위치를 확신 못 하고 있을 수도 있어요 — 내가 좀 더 명확하게 다가가는 게 오히려 도움이 될지 생각해보세요. 이걸 구체적으로 어딘가로 이어가고 싶다면, 미스터리에만 의존하는 건 결국 정체되기 마련이에요 — 어느 시점엔 조금 더 직접적으로 다가가는 게 좋아요.",
+        },
       },
       iOvercomeOther: {
         tier: '당신 곁에서 안심해요',
@@ -943,20 +769,14 @@ export const romanceTemplates = {
           "나를 어떻게 설명할지 물으면, '든든한 사람' 또는 '믿을 수 있는 사람'이라는 답이 나올 확률이 높아요.",
           "내가 옆에 있을 때 그 사람은 오히려 더 자기다워질 확률이 높아요 — 이 조합의 조용한 강점이에요.",
         ],
-        goodFit: [
-          "누군가가 믿고 중심을 맡길 수 있는 사람이 되는 건, 화려하지는 않아도 오래가는 관계의 진짜 기반이에요.",
-          "그 사람이 특히 상황이 예측 불가능하게 느껴질 때 내 안정감에 기댄다면, 그건 눈여겨볼 만한 조용하지만 강한 신뢰의 신호예요.",
-          "사람들은 아무한테나 안전함을 느끼지 않아요 — 그 사람에게 그런 존재가 된다는 건 더 작고 더 의미 있는 카테고리에 든다는 뜻이에요.",
-          "나를 설명해달라고 하면 '든든한 사람'이나 '믿을 수 있는 사람' 같은 표현이 나온다면, 그건 가까이 지낼 만한 사람에 대한 진짜 무게 있는 첫인상이에요.",
-          "그 사람이 나와 있을 때 더 자기다워지는 느낌을 받는다면, 그건 진짜 좋은 신호예요 — 그런 편안함은 억지로 만들기 어렵고 우연히 생기지도 않아요.",
-        ],
-        watchFor: [
-          "안전하게 느껴지는 건 소중하지만, 그 안전함이 연애 감정으로 읽히고 있는지, 그냥 좋은 우정으로 읽히고 있는지 확인해보세요.",
-          "든든하고 안정적인 사람으로만 있으면, 그 사람이 굳이 관계를 더 명확히 정의할 필요를 못 느낄 정도로 편해질 수도 있어요 — 그 패턴을 눈여겨보세요.",
-          "그 사람이 나를 그냥 '안전한 선택지' 이상으로 봐주길 바라는 건 당연해요 — 편안함의 정도 말고 진짜 마음이 어떤지 언젠가는 확인해보는 게 좋아요.",
-          "신뢰는 강한 기반이지만 그 자체로 연애 감정의 증거는 아니에요 — 그 차이를 염두에 두세요.",
-          "항상 든든한 쪽으로만 있다면, 내 좀 더 다양한 모습도 보여주는 게 좋아요 — 안전함에 약간의 예측 불가함이 더해지면 관심을 유지하는 것뿐 아니라 더 깊어지는 경우가 많아요.",
-        ],
+        goodFit: {
+          subheading: '드물고 진짜인 신뢰예요',
+          text: "누군가가 믿고 중심을 맡길 수 있는 사람이 되는 건, 화려하지는 않아도 오래가는 관계의 진짜 기반이에요. 그 사람이 특히 상황이 예측 불가능하게 느껴질 때 내 안정감에 기댄다면, 그건 눈여겨볼 만한 조용하지만 강한 신뢰의 신호예요.\n\n사람들은 아무한테나 안전함을 느끼지 않아요 — 그 사람에게 그런 존재가 된다는 건 더 작고 더 의미 있는 카테고리에 든다는 뜻이에요. 그 사람이 나와 있을 때 더 자기다워지는 느낌을 받는다면, 그건 진짜 좋은 신호예요 — 그런 편안함은 억지로 만들기 어렵고 우연히 생기지도 않아요.",
+        },
+        watchFor: {
+          subheading: '안전함은 증거가 아니라 기반이에요',
+          text: "안전하게 느껴지는 건 소중하지만, 그 안전함이 연애 감정으로 읽히고 있는지, 그냥 좋은 우정으로 읽히고 있는지 확인해보세요. 든든하고 안정적인 사람으로만 있으면, 그 사람이 굳이 관계를 더 명확히 정의할 필요를 못 느낄 정도로 편해질 수도 있어요 — 그 패턴을 눈여겨보세요.\n\n신뢰는 강한 기반이지만 그 자체로 연애 감정의 증거는 아니에요 — 그 차이를 염두에 두세요. 항상 든든한 쪽으로만 있다면, 내 좀 더 다양한 모습도 보여주는 게 좋아요 — 안전함에 약간의 예측 불가함이 더해지면 관심을 유지하는 것뿐 아니라 더 깊어지는 경우가 많아요.",
+        },
       },
     },
   },
@@ -983,13 +803,14 @@ function hashCode(str) {
 
 /**
  * Picks copy for a situation+relation, stable per pair of birthdates.
- * Returns the tier name, three parallel texts (line/goodFit/watchFor) all
- * drawn from the same seeded variant index, plus `situational` — all 5
- * concrete-moment texts for this situation+relation, always returned in
- * full rather than picked by seed, since the UI shows all 5 as separate
- * sections. The seed still keeps line/goodFit/watchFor stable per pair of
- * birthdates — it just no longer decides which situational text gets
- * shown, since all of them do.
+ * Returns the tier name, the seeded `line` (5 variants, picked as always),
+ * plus `situational` — all 5 concrete-moment texts, always returned in
+ * full since the UI shows all 5 as separate sections — and `goodFit`/
+ * `watchFor`, each a fixed { subheading, text } per situation+relation
+ * rather than a seeded pick. Like compatibilityTemplates.js, these two
+ * are long enough now (multi-paragraph reads) that one well-written entry
+ * per combination serves better than diluting the same depth across 5
+ * near-duplicate variants.
  */
 export function getRomanceCopy(lang, situation, relation, seedInput) {
   const bank = romanceTemplates[lang] || romanceTemplates.en;
@@ -999,8 +820,8 @@ export function getRomanceCopy(lang, situation, relation, seedInput) {
   return {
     tier: entry.tier,
     line: entry.lines[idx],
-    goodFit: entry.goodFit[idx],
-    watchFor: entry.watchFor[idx],
+    goodFit: entry.goodFit,
+    watchFor: entry.watchFor,
     situational: entry.situational,
   };
 }

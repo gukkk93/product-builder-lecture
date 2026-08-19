@@ -17,7 +17,7 @@ export const SITE_URL = 'getohaeng.com';
 
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 
-const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, comebackLine }, ref) {
+const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, fandomLine }, ref) {
   const { t, i18n } = useTranslation();
   const [from, to] = ELEMENT_GRADIENT[element];
 
@@ -80,7 +80,7 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
           </p>
 
           <p style={{ fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 280, opacity: 0.9, wordBreak: 'keep-all' }}>
-            ✨ {comebackLine}
+            ✨ {fandomLine}
           </p>
         </div>
 

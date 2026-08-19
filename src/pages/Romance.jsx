@@ -79,10 +79,13 @@ export default function Romance() {
   const closing = getRomanceClosing(i18n.language, situation);
 
   const explanation = compatibility
-    ? t(`matchCommon.explanation.${compatibility.relation}`, {
-        my: t(`elements.${mySaju.dominantElement}`),
-        other: t(`elements.${compatibility.otherSaju.dominantElement}`),
-      })
+    ? {
+        subheading: t(`matchCommon.explanation.${compatibility.relation}.subheading`),
+        text: t(`matchCommon.explanation.${compatibility.relation}.text`, {
+          my: t(`elements.${mySaju.dominantElement}`),
+          other: t(`elements.${compatibility.otherSaju.dominantElement}`),
+        }),
+      }
     : null;
 
   const situationalTitles = t(`romance.${situation}.situationalTitles`, { returnObjects: true });
@@ -92,10 +95,10 @@ export default function Romance() {
   // situation) stay free as a teaser; the rest are locked.
   const insightSections = compatibility && copy
     ? [
-        { title: t('matchCommon.insightTitles.explanation'), text: explanation, locked: false },
-        { title: t('matchCommon.insightTitles.goodFit'), text: copy.goodFit, locked: false },
+        { title: t('matchCommon.insightTitles.explanation'), subheading: explanation.subheading, text: explanation.text, locked: false },
+        { title: t('matchCommon.insightTitles.goodFit'), subheading: copy.goodFit.subheading, text: copy.goodFit.text, locked: false },
         ...copy.situational.map((text, i) => ({ title: situationalTitles[i], text, locked: i !== 0 })),
-        { title: t('matchCommon.insightTitles.watchFor'), text: copy.watchFor, locked: true },
+        { title: t('matchCommon.insightTitles.watchFor'), subheading: copy.watchFor.subheading, text: copy.watchFor.text, locked: true },
       ]
     : null;
 

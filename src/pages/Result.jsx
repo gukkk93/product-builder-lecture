@@ -11,7 +11,7 @@ import ShareCard from '../components/ShareCard';
 import BirthDateForm from '../components/BirthDateForm';
 import LoadingReveal from '../components/LoadingReveal';
 
-const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'comeback'];
+const CATEGORIES = ['overall', 'love', 'wealth', 'health', 'fandom'];
 
 export default function Result() {
   const { t, i18n } = useTranslation();
@@ -147,7 +147,7 @@ export default function Result() {
           element={saju.dominantElement}
           zodiac={saju.zodiac}
           overallLine={lines.overall}
-          comebackLine={lines.comeback}
+          fandomLine={lines.fandom}
         />
       </div>
     </main>

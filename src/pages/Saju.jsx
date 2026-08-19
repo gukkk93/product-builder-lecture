@@ -83,29 +83,27 @@ export default function Saju() {
   // Same gender requirement as daeun above, since it's built directly on top of it.
   const lifeScore = gender ? getLifeScoreTimeline(birth, birth.timeKnown, gender, saju.dominantElement) : null;
 
-  // Each domain chapter is now [총운, sub-topic x3] — only the domain's
-  // 총운 (index 0) can be free, and only for the two domains already
-  // unlocked; every newly-added subtopic stays locked regardless of domain.
-  // wealthStyle's "timing" subtopic is the only one that needs daeun (for
-  // "which decade am I in right now"), so it's the only chapter call that
-  // gets it passed in — every other domain is derivable from saju alone.
-  const FREE_DOMAINS = ['romanceStyle', 'wealthStyle'];
+  // Each domain chapter is now [총운, sub-topic x3] — every domain's 총운
+  // (index 0) stays free as the teaser for that chapter; the 3 subtopics
+  // stay locked regardless of domain. wealthStyle's "timing" subtopic is
+  // the only one that needs daeun (for "which decade am I in right now"),
+  // so it's the only chapter call that gets it passed in — every other
+  // domain is derivable from saju alone.
   const domainChapters = DOMAINS.map((domain) => {
     const chapter = getDomainChapter(i18n.language, domain, saju, domain === 'wealthStyle' ? daeun : null);
     return {
       ...chapter,
-      sections: chapter.sections.map((section, i) => ({
-        ...section,
-        locked: i === 0 ? !FREE_DOMAINS.includes(domain) : true,
-      })),
+      sections: chapter.sections.map((section, i) => ({ ...section, locked: i !== 0 })),
     };
   });
 
-  // Ten God / Twelve Stage chapter — entirely new, always locked (see
+  // Ten God / Twelve Stage chapter — new, first item (temperament) free as
+  // this chapter's own teaser, matching every other chapter's "first item
+  // free" pattern; the remaining 3 subtopics stay locked (see
   // sajuTenGodTemplates.js). Gender only affects the officer-category
   // relationships subtopic; every other subtopic is gender-independent.
   const tenGodChapter = getTenGodChapter(i18n.language, saju, gender);
-  tenGodChapter.sections = tenGodChapter.sections.map((section) => ({ ...section, locked: true }));
+  tenGodChapter.sections = tenGodChapter.sections.map((section, i) => ({ ...section, locked: i !== 0 }));
 
   // Shensha/nobleman/year-luck/samjae: calculation-only content (no
   // personality copy written yet), so each gets just a short one-line

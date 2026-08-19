@@ -35,7 +35,7 @@ export const fortuneTemplates = {
         "A good day to check in with yourself honestly — not to fix anything, just to notice how you're actually doing. Chances are the answer is better than you expected.",
         "Whatever wellness routine you've been sticking to, today is proof it's paying off in small, steady ways. Keep showing up for it exactly as you have been.",
       ],
-      comeback: [
+      fandom: [
         "If your bias dropped a comeback today, it would chart — your taste and the universe's timing are perfectly aligned right now. Trust your gut on anything comeback-related today, whether that's a prediction, a purchase, or a playlist pick.",
         "Comeback season energy: you already know all the choreo before the MV even drops, and today that instinct is sharper than usual. It's a great day to dive back into an old era for comfort or finally start that fan project you've been putting off.",
         "Your bias radar is unusually accurate today — trust whatever you're predicting about setlists, outfits, or surprise collabs. The vibes are, for once, backed by actual instinct.",
@@ -47,7 +47,7 @@ export const fortuneTemplates = {
         love: "Things feel easy right now, so there's no need to rush a conversation or a confession — let it happen at its own pace instead of forcing it today.",
         wealth: "Because spending feels easy and guilt-free today, it's worth pausing before any bigger purchase — comfort can blur the line between a treat and overspending.",
         health: "Feeling good today doesn't mean you can skip the basics — keep your usual sleep and meals steady instead of overextending just because you feel fine.",
-        comeback: "Hype is running high today, so it's worth checking a rumor or price twice before acting on it — excitement makes things feel more urgent than they are.",
+        fandom: "Hype is running high today, so it's worth checking a rumor or price twice before acting on it — excitement makes things feel more urgent than they are.",
       },
     },
     otherGeneratesMe: {
@@ -79,7 +79,7 @@ export const fortuneTemplates = {
         "Your body responds unusually well to rest today, so if you can build in a nap or an early bedtime, it'll pay off more than usual.",
         "This is a day to accept help with physical tasks instead of insisting on independence. Let someone carry something, literally or otherwise.",
       ],
-      comeback: [
+      fandom: [
         "The algorithm is feeding you good content today — expect a fancam, a teaser, or a throwback edit to find you before you even go looking for it. Let yourself fall down the rabbit hole a little; it's a good day for it.",
         "Good day for a surprise comeback announcement or a long-awaited update to land right in your feed. Stay logged on a little longer than usual — today has main-character-finds-out-good-news energy.",
         "A friend in the fandom is going to send you exactly the content you needed today, without you even asking. Keep your notifications on.",
@@ -91,7 +91,7 @@ export const fortuneTemplates = {
         love: "Being cared for today feels good, but there's no need to rush returning the favor or over-explaining your feelings — let the ease stay easy.",
         wealth: "If money or a good deal comes your way today, it's still worth checking the details before committing — a gift can come with strings you didn't expect.",
         health: "Comfort and rest feel good today, but don't let a restful mood turn into skipping something your body actually needs, like water or movement.",
-        comeback: "If merch, a ticket, or a deal falls into your lap today, it's still worth double-checking authenticity or seller reviews before paying.",
+        fandom: "If merch, a ticket, or a deal falls into your lap today, it's still worth double-checking authenticity or seller reviews before paying.",
       },
     },
     iGenerateOther: {
@@ -123,7 +123,7 @@ export const fortuneTemplates = {
         "This is a good day to take care of someone else physically — cooking for them, walking them somewhere, checking in on how they're doing. It'll energize you more than tire you.",
         "Your body is asking to move today, not rest. Feed that instinct instead of second-guessing it, just don't run yourself completely empty by tonight.",
       ],
-      comeback: [
+      fandom: [
         "You're the one hyping the group chat today — stream, vote, post, whatever the fandom needs, your energy is what carries it. People are quietly grateful for that kind of consistency, even if no one says it out loud.",
         "Big main-character energy for a fan project or stream party today. If you've been thinking about organizing something for your bias or group, today's the day your enthusiasm is contagious enough to actually rally people.",
         "You're the one explaining the concept photos to the group chat today, and everyone's grateful for it even if they don't say so directly.",
@@ -135,7 +135,7 @@ export const fortuneTemplates = {
         love: "Your instinct to give a lot today is genuine, but it's worth pacing your words and effort instead of pouring everything out at once — some things land better in smaller doses.",
         wealth: "Generosity is the theme today, so set a rough limit before you start spending on others — a kind impulse can quietly turn into overspending.",
         health: "You'll want to push your body harder for someone or something today — just don't skip the actual rest you need to keep up the pace tomorrow.",
-        comeback: "Before buying extra merch, tickets, or gifting something to support your bias today, it's worth checking your budget first — enthusiasm spends faster than plans do.",
+        fandom: "Before buying extra merch, tickets, or gifting something to support your bias today, it's worth checking your budget first — enthusiasm spends faster than plans do.",
       },
     },
     otherOvercomesMe: {
@@ -167,7 +167,7 @@ export const fortuneTemplates = {
         "Small annoyances — a stiff neck, a restless night, a headache that won't quite go away — are more likely today. None of it is serious, just inconvenient.",
         "This is a day to lower the bar on what counts as a productive day. Getting through it gently is enough; you don't need to optimize anything.",
       ],
-      comeback: [
+      fandom: [
         "Comeback anxiety is valid today — spoilers, leaks, or scheduling conflicts might test your patience more than they normally would. It's a completely fair day to log off for a while if the timeline is stressing you out.",
         "The wait for the next era feels extra long today, and nothing about the timeline seems to be moving the way you want. Rewatch an old era for comfort instead of doom-scrolling for updates that aren't coming yet.",
         "Delays, vague teasers, or confusing announcements might test your patience today. The fandom timeline is not moving on your schedule, and that's just today's mood.",
@@ -179,7 +179,7 @@ export const fortuneTemplates = {
         love: "If a conversation feels tense today, it's worth waiting for a calmer moment rather than trying to resolve everything in one sitting — timing matters more than usual.",
         wealth: "Financial decisions made under today's pressure are more likely to be regretted later — avoid big purchases or commitments until the friction eases.",
         health: "Your body is more likely to protest today, so skip the urge to push through fatigue — rest now costs less than pushing costs later.",
-        comeback: "Rumors and unclear info spread easily on a day like today — it's worth waiting for an official announcement before reacting or spending based on speculation.",
+        fandom: "Rumors and unclear info spread easily on a day like today — it's worth waiting for an official announcement before reacting or spending based on speculation.",
       },
     },
     iOvercomeOther: {
@@ -211,7 +211,7 @@ export const fortuneTemplates = {
         "You have the discipline today to say no to something that doesn't serve you — an extra drink, a late night, a skipped workout. Use it.",
         "Today favors decisive health choices — starting the routine, ending the habit, making the appointment. Your resolve is stronger than it usually is.",
       ],
-      comeback: [
+      fandom: [
         "You'll out-theory the fandom today — your read on the next concept, the hidden lore, or the comeback timeline is probably more accurate than you're giving yourself credit for. Trust the prediction and say it out loud.",
         "Today you're the reliable one explaining lore to newer fans, settling debates, and generally being the fandom's unofficial source of truth. Wear the title proudly; you've earned the credibility today more than most days.",
         "You're the one setting the narrative in the fandom today — your take on a comeback or controversy is the one people end up agreeing with.",
@@ -223,7 +223,7 @@ export const fortuneTemplates = {
         love: "Your opinion carries extra weight today, so it's worth pausing before saying something bluntly — a lighter touch lands just as clearly.",
         wealth: "You're likely to win negotiations today, but it's still worth reading contracts or terms carefully before signing — confidence shouldn't skip the fine print.",
         health: "You can push your limits today, but it's worth stopping at a reasonable point — today's extra stamina isn't a permanent upgrade.",
-        comeback: "Your read on fandom debates or predictions is sharp today, but it's still worth fact-checking before posting something as certain — confidence can outpace accuracy.",
+        fandom: "Your read on fandom debates or predictions is sharp today, but it's still worth fact-checking before posting something as certain — confidence can outpace accuracy.",
       },
     },
   },
@@ -257,7 +257,7 @@ export const fortuneTemplates = {
         "무리하지 않고도 스스로를 잘 챙기고 있는지 솔직하게 체크해보기 좋은 날이에요. 생각보다 잘하고 있을 확률이 높아요.",
         "요즘 지켜온 건강 습관이 조용히 쌓이고 있다는 걸 느끼게 되는 날이에요. 지금처럼만 계속 가세요.",
       ],
-      comeback: [
+      fandom: [
         "오늘 최애가 컴백해도 바로 차트 올킬 각이에요 — 내 취향과 우주의 타이밍이 딱 맞아떨어지는 날이거든요. 예감, 소비, 플레이리스트 뭐든 오늘은 감을 믿어보세요.",
         "컴백 시즌 같은 기운이 흐르는 날이에요 — 뮤비 나오기도 전에 안무 다 외운 그 느낌으로, 오늘은 감이 유난히 잘 맞아요.",
         "최애 레이더가 유난히 정확한 날이에요 — 세트리스트든, 의상이든, 깜짝 콜라보든 오늘 예감은 믿어도 좋아요.",
@@ -269,7 +269,7 @@ export const fortuneTemplates = {
         love: "지금은 마음이 편하니까, 고백이나 진지한 대화를 굳이 서두를 필요 없어요 — 오늘 억지로 밀어붙이기보다 자연스러운 타이밍을 기다려보세요.",
         wealth: "소비가 죄책감 없이 편하게 느껴지는 날이라, 큰 지출 전에는 한 번 멈춰서 생각해보세요 — 편안함이 과소비랑 구분이 잘 안 될 수 있어요.",
         health: "컨디션이 좋다고 기본을 건너뛰면 안 돼요 — 괜찮다고 느껴져도 평소 수면과 식사는 그대로 챙기세요.",
-        comeback: "오늘은 기대감이 유난히 높은 날이라, 루머나 가격은 행동하기 전에 한 번 더 확인하는 게 좋아요 — 설렘이 실제보다 더 급하게 느껴지게 만들거든요.",
+        fandom: "오늘은 기대감이 유난히 높은 날이라, 루머나 가격은 행동하기 전에 한 번 더 확인하는 게 좋아요 — 설렘이 실제보다 더 급하게 느껴지게 만들거든요.",
       },
     },
     otherGeneratesMe: {
@@ -301,7 +301,7 @@ export const fortuneTemplates = {
         "몸이 유난히 휴식에 잘 반응하는 날이에요. 낮잠이나 일찍 잠드는 게 평소보다 효과가 좋아요.",
         "오늘은 혼자 다 하려 하지 말고 도움을 받아들이기 좋은 날이에요. 누가 뭔가 대신 들어준다면, 그냥 맡기세요.",
       ],
-      comeback: [
+      fandom: [
         "알고리즘이 오늘 나한테 유난히 잘해주는 날이에요 — 찾지도 않았는데 직캠이나 티저가 알아서 떠요. 오늘은 그 토끼굴에 좀 빠져도 괜찮아요.",
         "깜짝 컴백 소식이나 오래 기다린 업데이트가 알아서 피드에 뜨는 날이에요. 평소보다 조금 더 폰을 붙잡고 있어도 좋아요.",
         "덕메가 오늘 딱 필요했던 그 콘텐츠를 먼저 보내주는 날이에요. 알림 꺼두지 마세요.",
@@ -313,7 +313,7 @@ export const fortuneTemplates = {
         love: "오늘 받는 배려가 기분 좋더라도, 굳이 바로 갚으려 하거나 마음을 다 설명하려 애쓸 필요는 없어요 — 편안함은 편안한 채로 둬도 괜찮아요.",
         wealth: "돈이나 좋은 조건이 오늘 알아서 찾아와도, 결정하기 전에 세부 내용은 확인해보세요 — 선물처럼 보여도 예상 못한 조건이 붙어 있을 수 있어요.",
         health: "편안하고 쉬기 좋은 날이지만, 그 기분에 취해서 물 마시기나 몸 움직이기처럼 꼭 필요한 걸 건너뛰지는 마세요.",
-        comeback: "오늘 굿즈나 티켓, 좋은 조건의 딜이 갑자기 나타나도, 결제 전에 판매자 후기나 진위 여부는 확인해보세요.",
+        fandom: "오늘 굿즈나 티켓, 좋은 조건의 딜이 갑자기 나타나도, 결제 전에 판매자 후기나 진위 여부는 확인해보세요.",
       },
     },
     iGenerateOther: {
@@ -345,7 +345,7 @@ export const fortuneTemplates = {
         "오늘은 나 말고 다른 사람을 몸으로 챙기기 좋은 날이에요 — 요리해주기, 데려다주기, 안부 확인하기요. 지치기보다 오히려 에너지가 생길 거예요.",
         "몸이 오늘 쉬기보다 움직이고 싶어해요. 그 신호, 억지로 무시하지 말고 따라가 보세요.",
       ],
-      comeback: [
+      fandom: [
         "오늘은 내가 단톡방 분위기를 살리는 사람이에요 — 스밍이든, 투표든, 홍보든 팬덤이 필요로 하는 거요. 오늘 내 에너지가 다 이끌고 가는 날이에요. 말은 안 해도 다들 고마워하고 있어요.",
         "팬 프로젝트나 같이 보는 모임을 준비하기 좋은 날이에요. 최애나 그룹 위해 뭔가 기획해보고 싶었다면, 오늘 그 열정이 사람들을 진짜로 움직여요.",
         "오늘은 내가 단톡방에 컨셉 사진 해석해주는 사람이에요, 다들 티는 안 내도 고마워하고 있어요.",
@@ -357,7 +357,7 @@ export const fortuneTemplates = {
         love: "오늘 뭔가 많이 주고 싶은 마음은 진심이지만, 한 번에 다 쏟아내기보다 말과 정성을 조금씩 나눠서 표현하는 게 더 잘 전해져요.",
         wealth: "오늘의 테마는 베풂이니, 다른 사람한테 쓰기 전에 대략적인 한도를 미리 정해두세요 — 좋은 마음이 어느새 과소비로 이어질 수 있어요.",
         health: "오늘은 누군가를 위해 몸을 더 쓰고 싶어질 텐데, 내일도 그 페이스를 유지하려면 꼭 필요한 휴식은 건너뛰지 마세요.",
-        comeback: "오늘 최애를 위해 굿즈나 티켓을 더 사거나 선물하고 싶어질 텐데, 결제 전에 예산은 한 번 확인해보세요 — 의욕이 계획보다 빨리 지갑을 비울 수 있어요.",
+        fandom: "오늘 최애를 위해 굿즈나 티켓을 더 사거나 선물하고 싶어질 텐데, 결제 전에 예산은 한 번 확인해보세요 — 의욕이 계획보다 빨리 지갑을 비울 수 있어요.",
       },
     },
     otherOvercomesMe: {
@@ -389,7 +389,7 @@ export const fortuneTemplates = {
         "목이 뻐근하거나, 잠을 설치거나, 두통이 안 가시거나 — 오늘은 이런 자잘한 불편함이 생기기 쉬운 날이에요. 심각한 건 아니고 그냥 좀 성가신 정도예요.",
         "오늘은 '생산적인 하루'의 기준을 좀 낮춰도 괜찮은 날이에요. 부드럽게 하루를 넘기는 것만으로 충분해요, 뭔가 최적화하려 애쓰지 않아도 돼요.",
       ],
-      comeback: [
+      fandom: [
         "컴백 불안이 오늘은 유난히 크게 느껴질 수 있어요 — 스포일러든, 유출이든, 일정 겹침이든요. 타임라인 때문에 스트레스 받는다면, 오늘 하루 로그아웃해도 충분히 괜찮은 선택이에요.",
         "다음 시즌을 기다리는 게 오늘따라 유난히 길게 느껴져요, 타임라인도 딱히 원하는 방향으로 안 움직이는 것 같고요. 업데이트 찾아 헤매기보다 옛날 시대 다시 보며 위로받으세요.",
         "지연되거나, 애매한 티저나, 헷갈리는 공지가 오늘은 인내심을 시험할 수 있어요. 팬덤 타임라인이 내 스케줄대로 안 움직이는 것뿐, 그냥 오늘 기운이 그래요.",
@@ -401,7 +401,7 @@ export const fortuneTemplates = {
         love: "오늘 대화가 좀 팽팽하게 느껴진다면, 한 번에 다 풀려고 하기보다 좀 더 차분한 순간을 기다리는 게 나아요 — 오늘은 타이밍이 평소보다 중요해요.",
         wealth: "오늘 같은 압박감 속에서 내린 재정 결정은 나중에 후회할 확률이 높아요 — 마찰이 가라앉을 때까지 큰 지출이나 약속은 미뤄두세요.",
         health: "오늘은 몸이 평소보다 더 반항할 수 있으니, 피곤한 걸 억지로 참고 밀어붙이지 마세요 — 지금 쉬는 게 나중에 밀어붙이는 것보다 훨씬 덜 힘들어요.",
-        comeback: "오늘 같은 날은 루머나 불확실한 정보가 유난히 잘 퍼져요 — 공식 발표가 나오기 전까지는 추측성 정보로 반응하거나 돈 쓰는 건 잠깐 미뤄두세요.",
+        fandom: "오늘 같은 날은 루머나 불확실한 정보가 유난히 잘 퍼져요 — 공식 발표가 나오기 전까지는 추측성 정보로 반응하거나 돈 쓰는 건 잠깐 미뤄두세요.",
       },
     },
     iOvercomeOther: {
@@ -433,7 +433,7 @@ export const fortuneTemplates = {
         "오늘은 나한테 안 좋은 걸 거절할 만한 단호함이 있는 날이에요 — 한 잔 더, 늦은 밤, 빠진 운동 같은 거요. 그 힘, 잘 쓰세요.",
         "오늘은 건강 관련 결단을 내리기 좋은 날이에요 — 루틴 시작하기, 습관 끊기, 예약 잡기요. 평소보다 결심이 훨씬 단단해요.",
       ],
-      comeback: [
+      fandom: [
         "오늘은 팬덤보다 한 수 앞서가는 날이에요 — 다음 컨셉이나 숨은 떡밥에 대한 내 예감이 생각보다 정확할 확률이 높아요. 예감 믿고 그냥 말해보세요.",
         "오늘은 신규 팬들에게 세계관 설명해주는 믿음직한 존재예요, 논쟁도 정리해주고, 팬덤의 비공식 진실 공급원 역할까지 해요. 그 타이틀 당당하게 달고 다니세요.",
         "오늘은 내가 팬덤 여론을 이끄는 날이에요 — 컨트로버시나 컴백에 대한 내 해석에 다들 결국 동의하게 돼요.",
@@ -445,7 +445,7 @@ export const fortuneTemplates = {
         love: "오늘은 내 말에 평소보다 힘이 실리니까, 직설적으로 말하기 전에 한 번 더 생각해보세요 — 조금 부드럽게 말해도 충분히 잘 전달돼요.",
         wealth: "오늘은 협상에서 유리하겠지만, 계약서나 조건은 그래도 꼼꼼히 확인하고 서명하세요 — 자신감이 있어도 세부사항 확인은 건너뛰면 안 돼요.",
         health: "오늘은 평소보다 무리해도 괜찮지만, 적당한 선에서 멈추는 게 좋아요 — 오늘의 여분 체력이 계속 유지되는 건 아니에요.",
-        comeback: "오늘은 팬덤 논쟁이나 예측에 대한 감이 날카롭지만, 확신에 차서 올리기 전에 사실 확인은 한 번 더 하세요 — 자신감이 정확도를 앞지를 수 있어요.",
+        fandom: "오늘은 팬덤 논쟁이나 예측에 대한 감이 날카롭지만, 확신에 차서 올리기 전에 사실 확인은 한 번 더 하세요 — 자신감이 정확도를 앞지를 수 있어요.",
       },
     },
   },

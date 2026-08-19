@@ -61,7 +61,7 @@
     "step2": "Enter your birthday",
     "step3": "See your result",
     "items": {
-      "fortune": { "title": "Today's Fortune", "description": "From your overall luck to your comeback luck, all in one read." },
+      "fortune": { "title": "Today's Fortune", "description": "From your overall luck to your fandom luck, all in one read." },
       "saju": { "title": "My Saju Profile", "description": "Your real personality, read through your Four Pillars." },
       "compatibility": { "title": "Compatibility", "description": "Chemistry with anyone, read through saju." },
       "reunion": { "title": "Reunion Reading", "description": "Could you find your way back to each other?" },
@@ -172,7 +172,7 @@
     "love": "Love",
     "wealth": "Wealth",
     "health": "Health",
-    "comeback": "Comeback Luck"
+    "fandom": "Fandom Luck"
   },
   "elements": {
     "Wood": "Wood",
@@ -289,11 +289,26 @@
     "genderMale": "Male",
     "scoreLabel": "Match Score",
     "explanation": {
-      "same": "{{my}} and {{other}} are the exact same element — that's the real reason you two feel so in sync. There's no need to translate yourselves for each other; you're already speaking the same language, emotionally and otherwise. The risk with this kind of match is that you can reinforce each other's blind spots as easily as your strengths, since neither of you naturally pulls in a different direction. Still, the comfort here is real, and comfort like this is rarer than people think.",
-      "otherGeneratesMe": "{{other}} generates {{my}} in the Five Element cycle, which means their energy feeds yours rather than draining it. You'll likely notice this as a kind of ease — things feel lighter, more supported, less like work, when they're around. That said, it's worth staying aware of how much you're leaning on that support versus building your own; the risk of a generating relationship is quietly outsourcing your steadiness to someone else. Used well, though, this is one of the more sustainable pairings there is.",
-      "iGenerateOther": "{{my}} generates {{other}} here, which means your energy is the one doing the feeding — you give, and they receive, more often than the reverse. This tends to bring out your most generous, most attentive self, and that's not a bad thing in small doses. The catch is that generating relationships can quietly tip into one-sided if you're not paying attention, so it's worth checking in on whether the effort is actually reciprocated, not just appreciated. When it's balanced, though, this is exactly the kind of pairing where your care genuinely makes a difference.",
-      "otherOvercomesMe": "{{other}} overcomes {{my}} in the Five Element cycle, and that's the real source of the tension you're probably feeling — not a bad sign necessarily, just a real one. Overcoming relationships tend to push you rather than soothe you, which is exactly why they're memorable: something about this connection asks more of you than the easy ones do. The upside is that this kind of friction, handled with a little patience, tends to teach you more about yourself than a comfortable match ever would. The downside is it takes real work to keep it from tipping into actual conflict — so go in with your eyes open, not just your curiosity.",
-      "iOvercomeOther": "{{my}} overcomes {{other}} here, which puts you in the steadier, more grounding role in this pairing, whether or not either of you has named it that way. People in this position often become the one who keeps things from spiraling — the calm in the room, even when it's not asked for. That can be a genuinely good instinct, but it's worth watching that it doesn't tip into control, since 'grounding' and 'taking over' can look similar from the inside. Used with a light hand, though, this steadiness is exactly what makes this pairing work."
+      "same": {
+        "subheading": "Two People Speaking One Language",
+        "text": "In the Five Element cycle, {{my}} and {{other}} sit in exactly the same place — not two forces meeting, but one energy showing up twice. That's the real mechanism behind how easy this feels: there's no translation layer between you, no adjusting your register before you speak. Whatever you'd say to yourself in your own head is close enough to what they'd say too, and that kind of overlap is rare enough to actually notice.\n\nThe place to stay a little alert is exactly where the comfort comes from: two people this alike can reinforce the same blind spot instead of covering for each other's. Use the ease deliberately — bring it into the moments that need trust, and every so often, invite a genuinely different read into the room. Matching energy is a resource, not a script; the more you actually use it instead of coasting on it, the more it pays off."
+      },
+      "otherGeneratesMe": {
+        "subheading": "Their Energy Feeds Yours",
+        "text": "In the Five Element cycle, {{other}} generates {{my}} — their energy doesn't just sit next to yours, it actively feeds it. That's why this tends to feel less like effort and more like relief: you show up a little steadier after time with them, without either of you doing anything dramatic to make that happen. It's one of the more sustainable dynamics there is, because the support isn't a favor being called in, it's just how the two energies naturally move.\n\nThe one thing worth watching is where the support is actually coming from over time — a generating relationship works best when you're also building your own steadiness alongside it, not quietly outsourcing all of it. Let yourself receive what's genuinely offered, and every so often, check what you're bringing back into the exchange. Used well, this is a relationship that makes both of you more resourced, not just one of you."
+      },
+      "iGenerateOther": {
+        "subheading": "You're the One Feeding This",
+        "text": "In the Five Element cycle, {{my}} generates {{other}} — your energy is the one doing the work here, feeding theirs more often than the reverse. That tends to bring out a genuinely generous version of you: you notice what they need before they ask, you're the one initiating, and it doesn't usually feel like a chore because giving is simply what this energy does. Small doses of this are one of the more rewarding shapes a relationship can take.\n\nWhat's worth tracking is whether the giving stays sustainable — a generating relationship can quietly tip one-sided if it's never checked, not because anyone's being unfair, but because the flow naturally runs one direction unless you both pay attention to it. Say what you actually need occasionally, not just what you're offering. When it's balanced, this is exactly the kind of relationship where your care visibly makes things better."
+      },
+      "otherOvercomesMe": {
+        "subheading": "Real Friction, Real Growth",
+        "text": "In the Five Element cycle, {{other}} overcomes {{my}} — that's the real source of the tension you're probably picking up on, and it's not a warning sign so much as an honest one. Overcoming relationships tend to push rather than soothe, which is exactly why they stay memorable: something about this connection asks more of you than the easy ones do, and that's often where the real growth happens.\n\nThe upside is that friction handled with a little patience tends to teach you more about yourself than a comfortable match ever would — you find out what you're actually capable of when things don't go smoothly. The part that takes real effort is not letting that friction curdle into actual conflict, so it's worth going in with open eyes rather than just curiosity. Communicate a beat more than feels natural here, and this pairing has more to offer than its first impression suggests."
+      },
+      "iOvercomeOther": {
+        "subheading": "You're the Steadying Force",
+        "text": "In the Five Element cycle, {{my}} overcomes {{other}} — which puts you in the steadier, more grounding role in this pairing, whether or not either of you has ever put a name to it. People in this position often become the one who keeps things from spiraling, the calm presence in the room even when nobody explicitly asked for it. It's a genuinely useful instinct, and one worth being proud of rather than downplaying.\n\nThe thing to watch is the line between grounding and taking over — from the inside, both can feel identical, so it's worth deliberately checking in rather than just assuming your read is the right one. Loosen your grip in at least one place, even when everything in you wants to manage the details. Used with a light hand, this steadiness is exactly what makes the relationship work — not because you're in charge, but because you're dependable."
+      }
     },
     "insightTitles": {
       "explanation": "Why This Score",

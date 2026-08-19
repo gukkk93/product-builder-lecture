@@ -90,10 +90,13 @@ export default function IdolMatch() {
     : null;
 
   const memberExplanation = memberCompat
-    ? t(`matchCommon.explanation.${memberCompat.relation}`, {
-        my: t(`elements.${userSaju.dominantElement}`),
-        other: t(`elements.${memberCompat.otherSaju.dominantElement}`),
-      })
+    ? {
+        subheading: t(`matchCommon.explanation.${memberCompat.relation}.subheading`),
+        text: t(`matchCommon.explanation.${memberCompat.relation}.text`, {
+          my: t(`elements.${userSaju.dominantElement}`),
+          other: t(`elements.${memberCompat.otherSaju.dominantElement}`),
+        }),
+      }
     : null;
 
   const pillarTitles = t('matchCommon.pillarTitles', { returnObjects: true });
@@ -102,10 +105,10 @@ export default function IdolMatch() {
   // free, as the "why you were drawn in" teaser; month/day/time are locked.
   const memberInsightSections = memberCompat && memberCopy
     ? [
-        { title: t('matchCommon.insightTitles.explanation'), text: memberExplanation, locked: false },
-        { title: t('matchCommon.insightTitles.goodFit'), text: memberCopy.goodFit, locked: false },
+        { title: t('matchCommon.insightTitles.explanation'), subheading: memberExplanation.subheading, text: memberExplanation.text, locked: false },
+        { title: t('matchCommon.insightTitles.goodFit'), subheading: memberCopy.goodFit.subheading, text: memberCopy.goodFit.text, locked: false },
         ...memberCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
-        { title: t('matchCommon.insightTitles.watchFor'), text: memberCopy.watchFor, locked: true },
+        { title: t('matchCommon.insightTitles.watchFor'), subheading: memberCopy.watchFor.subheading, text: memberCopy.watchFor.text, locked: true },
       ]
     : null;
 
@@ -123,18 +126,21 @@ export default function IdolMatch() {
     : null;
 
   const explanation = best
-    ? t(`matchCommon.explanation.${best.relation}`, {
-        my: t(`elements.${userSaju.dominantElement}`),
-        other: t(`elements.${best.saju.dominantElement}`),
-      })
+    ? {
+        subheading: t(`matchCommon.explanation.${best.relation}.subheading`),
+        text: t(`matchCommon.explanation.${best.relation}.text`, {
+          my: t(`elements.${userSaju.dominantElement}`),
+          other: t(`elements.${best.saju.dominantElement}`),
+        }),
+      }
     : null;
 
   const insightSections = best && compatCopy
     ? [
-        { title: t('matchCommon.insightTitles.explanation'), text: explanation, locked: false },
-        { title: t('matchCommon.insightTitles.goodFit'), text: compatCopy.goodFit, locked: false },
+        { title: t('matchCommon.insightTitles.explanation'), subheading: explanation.subheading, text: explanation.text, locked: false },
+        { title: t('matchCommon.insightTitles.goodFit'), subheading: compatCopy.goodFit.subheading, text: compatCopy.goodFit.text, locked: false },
         ...compatCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
-        { title: t('matchCommon.insightTitles.watchFor'), text: compatCopy.watchFor, locked: true },
+        { title: t('matchCommon.insightTitles.watchFor'), subheading: compatCopy.watchFor.subheading, text: compatCopy.watchFor.text, locked: true },
       ]
     : null;
 
