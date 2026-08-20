@@ -107,6 +107,7 @@ export default function IdolMatch() {
     ? [
         { title: t('matchCommon.insightTitles.explanation'), subheading: memberExplanation.subheading, text: memberExplanation.text, locked: false },
         { title: t('matchCommon.insightTitles.goodFit'), subheading: memberCopy.goodFit.subheading, text: memberCopy.goodFit.text, locked: false },
+        { title: t('idolMatch.meetingScenarioTitle'), subheading: memberCopy.meetingScenario.subheading, text: memberCopy.meetingScenario.text, locked: true },
         ...memberCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
         { title: t('matchCommon.insightTitles.watchFor'), subheading: memberCopy.watchFor.subheading, text: memberCopy.watchFor.text, locked: true },
       ]
@@ -139,6 +140,7 @@ export default function IdolMatch() {
     ? [
         { title: t('matchCommon.insightTitles.explanation'), subheading: explanation.subheading, text: explanation.text, locked: false },
         { title: t('matchCommon.insightTitles.goodFit'), subheading: compatCopy.goodFit.subheading, text: compatCopy.goodFit.text, locked: false },
+        { title: t('idolMatch.meetingScenarioTitle'), subheading: compatCopy.meetingScenario.subheading, text: compatCopy.meetingScenario.text, locked: true },
         ...compatCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
         { title: t('matchCommon.insightTitles.watchFor'), subheading: compatCopy.watchFor.subheading, text: compatCopy.watchFor.text, locked: true },
       ]

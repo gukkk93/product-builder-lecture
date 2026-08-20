@@ -31,7 +31,7 @@ export default function PremiumLock({ product, children }) {
   if (PREVIEW_MODE_UNLOCK_ALL || unlockedProducts[product]) return children;
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', minHeight: 92 }}>
       <div
         style={{ filter: 'blur(6px)', opacity: 0.55, pointerEvents: 'none', userSelect: 'none' }}
         aria-hidden="true"

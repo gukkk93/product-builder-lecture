@@ -92,6 +92,10 @@ export const dramaMatchTemplates = {
         subheading: 'No Justification Needed',
         text: "You'd never have to justify your watchlist to them — their choices basically already match the taste you already have, before you even explain why. No context is needed to enjoy their work with other fans either; the references, the callbacks, all of it lands without explanation.\n\nYou'd never feel like you're talking yourself into liking a project of theirs — the excitement is already there, mutual and immediate. Following their career feels less like keeping up and more like watching your own instincts play out on screen, with no warming-up period required to become a fan.",
       },
+      meetingScenario: {
+        subheading: 'Conversation That Just Flows',
+        text: "With this kind of chemistry, running into them at a premiere would probably feel easy from the first hello — talking about their films or their filmography wouldn't feel forced at all. Your prepared questions would likely lead somewhere natural, and they'd probably react just as comfortably back.",
+      },
       watchFor: {
         subheading: 'Watch With a Slightly More Critical Eye',
         text: "Because everything clicks so easily, it's worth occasionally watching their work with a more critical eye — matching taste can tip into uncritical hype if you let it run unchecked. You might end up agreeing with every casting choice or interview take of theirs by default, which is worth double-checking every so often; make sure it's your own read, not just an echo.\n\nMatching taste like this can make it easy to overlook an actual weak performance, so a little honesty keeps the fandom fun instead of blind. It's also easy to assume you already 'get' their whole career without digging into the earlier, lesser-known work — worth doing the deep cuts too, and worth leaving room in your watchlist for other actors and shows.",
@@ -109,6 +113,10 @@ export const dramaMatchTemplates = {
       goodFit: {
         subheading: 'Comfort Viewing, No Effort Required',
         text: "This actor is the low-effort, high-comfort watch you don't have to work for — their scenes consistently make your evening better without you chasing that feeling. You don't need a big trailer moment to enjoy their work either; their presence in your queue is steady, reliable comfort viewing, no dramatic highs needed.\n\nThis is the actor you return to on a bad night without even thinking about it — familiar, calming, always a safe pick when you need one. Following their career takes almost no effort, since the good feelings show up on their own, and their interviews tend to feel like they already know what fans need.",
+      },
+      meetingScenario: {
+        subheading: 'A Moment That Puts You At Ease',
+        text: "Meeting them in person would probably feel calming before anything else — their screen presence carries over in real life, so any nerves you walked in with would likely fade fast. Even if you blank on what you planned to say, they seem like the type to gently carry the conversation for you.",
       },
       watchFor: {
         subheading: 'Push Past the Easy Picks Occasionally',
@@ -128,6 +136,10 @@ export const dramaMatchTemplates = {
         subheading: 'This Devotion Has Real Purpose',
         text: "Your enthusiasm here is genuine, not performative — this actor tends to bring out a more devoted, more vocal version of your fan self than usual. You're the type to notice their underrated performances before anyone else does, which makes you a genuinely valuable voice in this fandom rather than just another viewer.\n\nThis match gives your viewing energy real purpose — recommending, reviewing, defending their choices tends to leave you feeling more like yourself, not less. Actors notice fans like this too, even indirectly; this kind of devotion rarely goes completely unseen, even from a distance, and it brings out a warmth in your fan behavior that's easy to lose with more casual favorites.",
       },
+      meetingScenario: {
+        subheading: "You'd Bring the Energy",
+        text: "At a premiere, you'd probably be the one pouring energy into the conversation — there's a good chance you'd have more to say about their work than the time allows. They'd likely meet that enthusiasm warmly, which means even a short interaction could end up being one you replay for a while.",
+      },
       watchFor: {
         subheading: 'Keep the Devotion Sustainable',
         text: "Keep an eye on the balance — this match works best when your enthusiasm doesn't come at the cost of your own time or energy in the long run. It's worth checking whether you're watching or reviewing out of habit or genuine excitement, since burnout sneaks up on the most devoted fans first, often before they notice it happening.\n\nGenerosity toward a favorite who never quite reaches you personally can be its own kind of one-sided, so make sure this fandom still feels good, not just dutiful. You may find yourself the loudest defender in every comment section — worth pacing yourself so advocacy doesn't tip into exhaustion, since the same devotion that makes you a great fan can run you thin if it never gives anything back.",
@@ -146,6 +158,10 @@ export const dramaMatchTemplates = {
         subheading: 'The Tension Keeps It Genuinely Exciting',
         text: "The tension here keeps following their career genuinely exciting — you're unlikely to ever feel like you've fully 'figured out' their next move, and that's honestly part of the appeal. This actor pushes you to actually pay attention — line delivery, small choices, subtext — instead of watching passively the way you might with an easier favorite.\n\nThe unpredictability is exactly what turns a casual watch into a years-long favorite, since this kind of pull rarely fades quickly once it takes hold. Obsessing a little over their filmography is part of the fun — the rewatching, the parsing every scene is half the appeal, and it teaches you real things about your own taste along the way.",
       },
+      meetingScenario: {
+        subheading: 'Nervous At First, Memorable After',
+        text: "Meeting them for the first time might come with a flicker of nerves — the kind of actor who makes you pause for a second on how to even start the conversation. That same edge is exactly what tends to make the moment stick, resurfacing in your memory long after the event is over.",
+      },
       watchFor: {
         subheading: 'Pace the Obsession',
         text: "This kind of consuming favorite can eat up more time than casual viewing, so it's worth checking in on balance every so often rather than letting it run unchecked. It's easy to read every ambiguous interview answer or casting rumor as more meaningful than it actually is, so a little healthy skepticism goes a long way here.\n\nObsessive energy like this can tip into parasocial overreach if left unchecked, so it's worth remembering the actual boundary between viewer and actor as this deepens. The unpredictability that makes this actor magnetic can also make following their career emotionally exhausting, so pace yourself — this one rewards curiosity more than certainty, and that restlessness is just part of the deal.",
@@ -163,6 +179,10 @@ export const dramaMatchTemplates = {
       goodFit: {
         subheading: 'Others Look to You for Context',
         text: "You bring a protective, organizing energy to this fandom without even trying — the kind of fan who keeps the comment section civil and the misinformation corrected before it spreads. Your instinct to take charge is genuinely useful here; you're the one other fans end up looking to for context and recommendations when things get confusing.\n\nYou tend to notice miscasting rumors or bad-faith takes before they spread, which makes you a genuinely useful presence in this fanbase rather than just another bystander. This match gives you room to lead within the fandom without being asked to — a role you're probably already comfortable in, and other fans lean on your steadiness more than they say out loud.",
+      },
+      meetingScenario: {
+        subheading: "You'd Set the Tone",
+        text: "In person, you'd likely be the one keeping things easy and grounded — calm enough to open the conversation and put them at ease in return. Even in a short window, that steadiness tends to make for a conversation that flows without either side feeling rushed.",
       },
       watchFor: {
         subheading: 'Leave Room for Other Opinions',
@@ -184,6 +204,10 @@ export const dramaMatchTemplates = {
         subheading: '따로 정당화할 필요가 없는 취향',
         text: "이 배우한테는 내 시청 취향을 따로 설명할 필요가 없어요 — 이미 내 취향이랑 거의 겹치는 선택을 하는 느낌이에요. 다른 팬들과 설명 없이 바로 통하는 콘텐츠가 많은 조합이에요 — 레퍼런스도, 밈도 캡션 없이 바로 이해될 거예요.\n\n이 배우 작품을 억지로 좋아하려고 애쓸 필요가 없어요 — 텐션이 이미 서로 통하는, 즉각적인 반응이에요. 이 배우의 커리어를 따라가는 건 뒤쫓는다는 느낌보다는, 내 감각이 화면 위에서 그대로 재생되는 느낌에 가까워요, 팬 되는 데 적응 기간이 따로 필요 없이요.",
       },
+      meetingScenario: {
+        subheading: '편하게 술술 풀리는 대화',
+        text: "이 케미라면 시사회에서 마주쳐도 대화가 술술 풀릴 확률이 높아요 — 좋아하는 작품 얘기부터 필모 얘기까지 어색할 틈 없이 이어질 거예요. 준비한 질문도 자연스럽게 대화로 이어지고, 배우 쪽에서도 편하게 반응해줄 것 같은 분위기예요.",
+      },
       watchFor: {
         subheading: '가끔은 조금 더 비판적으로 봐도 좋아요',
         text: "다 잘 맞으니까 가끔은 이 배우의 작품을 좀 더 비판적으로 봐도 좋아요 — 완벽한 싱크로율이 무조건적인 하이프로 흘러갈 수 있거든요. 이 배우의 캐스팅이나 인터뷰 발언에 뭐든 다 동의하게 될 수도 있어요 — 진짜 내 생각인지 가끔 점검해보세요.\n\n취향이 잘 맞으면 실제로 약한 연기도 그냥 넘기기 쉬워요 — 솔직한 시선이 오히려 덕질을 더 재밌게 만들어줘요. 이 배우의 커리어를 다 안다고 넘겨짚기 쉬운데, 초반의 덜 알려진 작품들도 챙겨보는 게 의미 있고, 다른 배우나 작품에도 자리를 남겨두는 게 좋아요.",
@@ -201,6 +225,10 @@ export const dramaMatchTemplates = {
       goodFit: {
         subheading: '애쓰지 않아도 되는 힐링 콘텐츠',
         text: "이 배우는 애쓰지 않아도 편하게 즐길 수 있는 최애예요 — 나오는 장면마다 꾸준히 저녁을 조금씩 나아지게 만들어줘요. 이 배우를 즐기는 데 화려한 예고편이 필요 없어요 — 왓치리스트에 떠 있는 것만으로도 편안한 힐링 콘텐츠가 돼요.\n\n힘든 밤 자연스럽게 다시 찾게 되는 배우예요 — 익숙하고, 마음이 놓이고, 늘 믿고 보는 선택이에요. 이 배우의 커리어를 따라가는 데 큰 노력이 필요 없어요 — 화제작을 애써 쫓지 않아도 좋은 기분이 알아서 찾아오고, 인터뷰나 비하인드 콘텐츠도 팬들이 뭘 원하는지 이미 아는 느낌이라 덕질이 힘들지 않고 자연스러워요.",
+      },
+      meetingScenario: {
+        subheading: '마음이 편안해지는 순간',
+        text: "이 배우 앞에서는 긴장보다 편안함이 먼저 찾아올 것 같아요 — 존재감 자체가 마음을 다독여주는 타입이라, 시사회에서 마주쳐도 이상하게 마음이 놓일 거예요. 준비한 말이 다 안 나와도 배우 쪽에서 먼저 편하게 대화를 이끌어줄 것 같은 케미예요.",
       },
       watchFor: {
         subheading: '편한 선택 너머도 가끔은 챙겨보세요',
@@ -220,6 +248,10 @@ export const dramaMatchTemplates = {
         subheading: '이 헌신엔 진짜 의미가 있어요',
         text: "이 배우를 향한 팬심은 억지가 아니라 진심이에요 — 더 헌신적이고 목소리 큰 팬으로서의 내 모습을 끌어내는 조합이에요. 다른 사람보다 먼저 이 배우의 저평가된 연기를 알아채는 편이라, 이 팬덤 안에서 그냥 스쳐가는 목소리가 아니라 은근히 소중한 목소리가 돼요.\n\n이 매치는 시청 활동에 진짜 의미를 부여해줘요 — 추천하고, 리뷰 남기고, 선택을 옹호하는 게 오히려 나를 더 나답게 만들어줘요. 직접적으로 티는 안 나도 배우 쪽에서도 이런 팬을 알아보는 경우가 많고, 여러 배우를 가볍게 좋아할 때는 잘 안 나오는 따뜻한 팬심이 이 배우한테서는 자연스럽게 나와요.",
       },
+      meetingScenario: {
+        subheading: '내가 먼저 에너지를 건네는 순간',
+        text: "시사회 자리라면 내가 먼저 에너지를 쏟아붓는 쪽이 될 것 같아요 — 작품 얘기, 연기 얘기로 하고 싶은 말이 많아서 시간이 순식간에 지나갈 거예요. 배우도 그 텐션을 반갑게 받아줄 것 같아서, 짧은 순간이어도 기억에 남는 대화가 될 확률이 높아요.",
+      },
       watchFor: {
         subheading: '헌신도 지속 가능해야 해요',
         text: "균형을 계속 살펴보세요 — 이 팬심은 내 시간과 에너지를 희생하지 않는 선에서 즐기는 게 제일 오래가요. 습관적으로 챙겨보고 리뷰 남기는 건지, 진짜 신나서 하는 건지 가끔 점검해보세요 — 번아웃은 가장 열심인 팬한테 제일 먼저, 그것도 눈치채기도 전에 찾아와요.\n\n일방적으로 마음만 쓰는 팬심도 있어요 — 이 덕질이 여전히 즐거운지, 그냥 의무처럼 느껴지진 않는지 확인해보세요. 댓글창에서 제일 목소리 큰 방어자가 될 수도 있어요 — 지치지 않게 페이스 조절도 필요해요, 좋은 팬을 만드는 그 헌신이 아무것도 안 돌아오는 상태가 오래되면 나를 지치게 할 수 있으니까요.",
@@ -238,6 +270,10 @@ export const dramaMatchTemplates = {
         subheading: '그 텐션이 진짜 재미를 만들어요',
         text: "이 텐션 덕분에 이 배우의 커리어를 따라가는 게 지루할 틈이 없어요 — 다음 행보를 완전히 다 예측했다는 느낌이 잘 안 들거든요, 그게 오히려 매력이에요. 이 배우는 그냥 스쳐 지나가지 않고 대사 톤, 작은 선택, 서브텍스트까지 실제로 챙겨보게 만들어요.\n\n예측 불가능함이야말로 가벼운 관심을 몇 년짜리 최애로 바꾸는 힘이에요 — 이런 끌림은 쉽게 사그라들지 않아요. 이 배우의 필모에 살짝 집착하는 것도 즐거움의 일부예요 — 다시 보고, 장면 하나 분석하고, 그 과정에서 내 취향에 대해서도 알게 돼요.",
       },
+      meetingScenario: {
+        subheading: '처음엔 긴장, 오래 남는 순간',
+        text: "이 케미면 처음 마주쳤을 때 살짝 긴장될 수 있어요 — 어떻게 말을 걸어야 할지 순간 멈칫하게 되는 그런 배우예요. 하지만 그 어색함이 오히려 더 또렷하게 기억에 남아서, 시간이 지나도 자꾸 떠오르는 순간이 될 거예요.",
+      },
       watchFor: {
         subheading: '몰입에도 페이스 조절이 필요해요',
         text: "이렇게 몰입도 높은 최애는 라이트 시청보다 시간을 더 많이 가져갈 수 있어요 — 가끔은 균형을 점검해보세요. 애매한 인터뷰 발언이나 캐스팅 루머를 실제보다 더 의미 있게 해석하기 쉬워요 — 적당한 거리감도 필요해요.\n\n이런 몰입 에너지가 과도해지면 파라소셜한 착각으로 이어질 수 있어요 — 시청자와 배우 사이의 실제 거리를 잊지 않는 게 중요해요. 이 배우를 자석처럼 끌리게 만드는 그 예측 불가능함이 감정적으로는 조금 지치게 만들 수도 있으니, 확실함보다 궁금증을 계속 자극하는 이 타입의 배우에겐 페이스 조절이 특히 필요해요.",
@@ -255,6 +291,10 @@ export const dramaMatchTemplates = {
       goodFit: {
         subheading: '다들 나를 찾아와요',
         text: "애쓰지 않아도 이 팬덤 안에서 보호자 같은 존재가 돼요 — 댓글창 분위기 지키고, 잘못된 정보 퍼지기 전에 바로잡는 그런 역할이요. 주도하는 성향이 여기서 특히 유용해요 — 팬덤 안에서 다들 맥락이나 추천작을 나한테 물어보게 돼요.\n\n미스캐스팅 루머나 악의적인 반응이 퍼지기 전에 먼저 알아채는 편이라, 이 팬베이스 안에서 진짜 쓸모 있는 존재가 돼요. 이 매치는 팬덤 안에서 부탁받지 않아도 자연스럽게 리드하는 역할을 맡게 해주고, 다른 팬들도 말은 안 해도 내 든든함에 많이 기대는 편이에요.",
+      },
+      meetingScenario: {
+        subheading: '내가 분위기를 편하게 만드는 순간',
+        text: "이 배우 앞에서는 오히려 내가 분위기를 편하게 이끄는 쪽이 될 것 같아요 — 침착하게 대화를 시작하고, 배우가 편하게 반응할 수 있게 만들어주는 타입이에요. 짧은 시간이어도 서로 부담 없이 대화가 이어질 확률이 높아요.",
       },
       watchFor: {
         subheading: '다른 목소리를 위한 자리도 남기세요',
@@ -292,6 +332,7 @@ export function getDramaMatchCopy(lang, relation, seedInput, pillarCompat = []) 
     tier: entry.tier,
     line: entry.lines[idx],
     goodFit: entry.goodFit,
+    meetingScenario: entry.meetingScenario,
     watchFor: entry.watchFor,
     situational: pillarCompat.map(({ pillar, relation: pillarRelation }) => ({
       pillar,

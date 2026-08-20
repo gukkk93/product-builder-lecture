@@ -15,6 +15,11 @@ import PremiumLock from './PremiumLock';
  * line above the body, for sections deep enough to want one; most callers
  * leave it out and just rely on the numbered `title`.
  *
+ * The numbered badge + title always render in full, outside PremiumLock —
+ * only the body (subheading + paragraphs) is wrapped and blurred for a
+ * locked section, so a reader always knows what a locked section is about
+ * even before unlocking it.
+ *
  * `product` is passed straight through to every PremiumLock this renders
  * (see PremiumLock.jsx) — callers specify it once here instead of on every
  * individual section.
@@ -48,8 +53,26 @@ export default function InsightSection({ element, intro, sections, product }) {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
         {sections.map((section, i) => {
-          const card = (
+          const body = (
+            <>
+              {section.subheading && (
+                <p style={{ margin: '0 0 6px', fontSize: 13, fontWeight: 700, color: 'var(--accent)' }}>
+                  {section.subheading}
+                </p>
+              )}
+              {section.text.split('\n\n').map((para, pi) => (
+                <p
+                  key={pi}
+                  style={{ margin: pi === 0 ? 0 : '8px 0 0', fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)' }}
+                >
+                  {para}
+                </p>
+              ))}
+            </>
+          );
+          return (
             <div
+              key={i}
               style={{
                 padding: '14px 16px',
                 borderRadius: 14,
@@ -77,22 +100,9 @@ export default function InsightSection({ element, intro, sections, product }) {
                 </span>
                 <strong style={{ fontSize: 14 }}>{section.title}</strong>
               </div>
-              {section.subheading && (
-                <p style={{ margin: '0 0 6px', fontSize: 13, fontWeight: 700, color: 'var(--accent)' }}>
-                  {section.subheading}
-                </p>
-              )}
-              {section.text.split('\n\n').map((para, pi) => (
-                <p
-                  key={pi}
-                  style={{ margin: pi === 0 ? 0 : '8px 0 0', fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)' }}
-                >
-                  {para}
-                </p>
-              ))}
+              {section.locked ? <PremiumLock product={product}>{body}</PremiumLock> : body}
             </div>
           );
-          return <div key={i}>{section.locked ? <PremiumLock product={product}>{card}</PremiumLock> : card}</div>;
         })}
       </div>
     </div>

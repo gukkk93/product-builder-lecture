@@ -71,6 +71,7 @@ export default function DramaMatch() {
     ? [
         { title: t('matchCommon.insightTitles.explanation'), subheading: explanation.subheading, text: explanation.text, locked: false },
         { title: t('matchCommon.insightTitles.goodFit'), subheading: compatCopy.goodFit.subheading, text: compatCopy.goodFit.text, locked: false },
+        { title: t('dramaMatch.meetingScenarioTitle'), subheading: compatCopy.meetingScenario.subheading, text: compatCopy.meetingScenario.text, locked: true },
         ...compatCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
         { title: t('matchCommon.insightTitles.watchFor'), subheading: compatCopy.watchFor.subheading, text: compatCopy.watchFor.text, locked: true },
       ]

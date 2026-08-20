@@ -117,6 +117,28 @@
 - **잠금 규칙**: 기존에 무료였던 두 총운(연애 스타일, 재물 총운)은 각 도메인 챕터의 1번 항목(총운)만 그대로 `locked:false` 유지 — 이미 잠겨있던 커리어/건강 총운은 안 건드림(그대로 잠금). 이번에 새로 추가되는 서브토픽 12개(도메인 4×3)와 십성/십이운성 챕터 4개는 **전부 `locked:true`**
 - **검증**: (1) `saju.js`에 안 든 별도 스크립트로 `getTenGodProfile`/`getTwelveStageProfile`/`getOvercomingElement`를 처음부터 다시 구현해서, 서로 다른 생년월일 5개(시간 있음/없음 섞어서)에 대해 실제 구현 결과와 전부 대조 — 0건 불일치 (2) Playwright로 같은 5개 생년월일 × en/ko에서 8개 카드(도메인 4 + 십성 1 + 신살 1 + 그 외 기존 카드) 전부의 잠금 상태·항목 개수가 스펙대로 나오는지, 재능/결혼시기조언처럼 조합형 문구가 "undefined" 없이 자연스럽게 이어지는지 DOM 텍스트로 전수 확인 — 전부 일치, 콘솔 에러 0건 (3) 라이트/다크 풀페이지 스크린샷으로 8개 카드가 카드마다 자연스럽게 구분되고, 무료 총운(1번 항목)만 선명하고 나머지 3개는 블러+자물쇠로 일관되게 보이는지 확인
 
+## 3-8. 잠금 UI 구조 개편(제목 상시 노출) + 대운·인생그래프 카드 통합 + 신살/귀인/연운/삼재 콘텐츠 완성
+
+사용자가 "구조 먼저, 콘텐츠 나중" 순서를 명시해서 3단계로 진행함(각 단계 순서가 중요했음).
+
+- **1단계 — `PremiumLock` 적용 위치를 카드 전체에서 본문으로 좁힘**: 기존엔 `InsightSection`이 번호 배지+제목+본문을 통째로 하나의 `card` div로 만들어서 그 전체를 `PremiumLock`으로 감쌌는데(잠기면 제목까지 블러 처리됨), 이제 카드의 헤더 행(배지+제목)은 `PremiumLock` **바깥에** 항상 그대로 렌더링하고, `subheading`+본문 문단만 `PremiumLock`으로 감싼 `body` 프래그먼트로 분리함 — 잠긴 섹션도 "이게 무슨 주제인지"는 항상 보이고, 실제 읽을거리만 블러+자물쇠 처리되는 구조로 바뀜. `PremiumLock.jsx`엔 `minHeight: 92`를 추가해서, 본문만 감싸다 보니 블러 영역이 짧아진 경우에도 자물쇠 아이콘+안내문구+버튼이 들어갈 공간이 항상 확보되도록 함. `saju.premiumLockedNote`("프리미엄에서 확인 가능") 문구 자체는 안 건드림
+- **2단계 — `DaeunTable.jsx`+`LifeScoreChart.jsx`를 한 카드로 통합**: 별도였던 "대운" 카드와 "사주 인생 그래프" 카드를 하나(`saju.daeunLifeHeading`: "대운 & 인생그래프")로 합침. `DaeunTable.jsx`는 삭제하고, `LifeScoreChart.jsx`가 두 컴포넌트의 역할을 전부 흡수 — 막대마다 기존엔 나이만 있던 라벨 아래에 간지(예: "을묘")를 추가로 표시(`getGanZhiLabel(gan, zhi, lang)` 신규 헬퍼, `saju.js` — 한국어는 붙여쓰기, 영문은 띄어쓰기로 조합), 차트 맨 아래엔 원래 `DaeunTable`에 있던 순행/역행 안내 문구(`daeunForward`/`daeunBackward`, 문구 자체는 안 바꿈)를 그대로 유지. `Saju.jsx`에서 `daeun`/`lifeScore` 둘 다 있어야 렌더링되는 조건은 동일(성별 미입력 시 `daeunLifeNeedGender` 안내문 하나로 통합)
+- **3단계 — 신살/귀인/연운/삼재 콘텐츠를 한 줄 프리뷰에서 소제목+1~2문단으로 확장**: `saju.shenshaContent`/`noblemanContent`/`yearLuckContent`/`samjaeContent` 신규 콘텐츠 뱅크(en/ko) 추가
+  - **신살**: 도화살/역마살/화개살 각각 "오해받기 쉬운 부정적 통념 → 실제로는 이런 강점" 구조로 재해석(예: 도화살=매력·인기, 역마살=이동과 새로운 인연에 강한 기운, 화개살=몰입력·예술적 감각) — 전통적으로 부정적으로 읽히기 쉬운 개념들을 절대 불안 유발형으로 쓰지 않는다는 기존 원칙 그대로 적용. 여러 신살이 동시에 있으면(0~3개) `subheading`은 발견된 라벨을 이어붙이고(`shensha.map(s=>s.label).join(' · ')`), `text`는 각 유형의 문단을 `\n\n`로 이어붙임. 하나도 없으면 `noneSubheading`/`noneText`("치우치지 않은 안정형")로 대체
+  - **귀인**: 있음/없음 2가지 — 있으면 "도와줄 사람이 있어요", 없으면 "스스로 길을 개척하는 타입"으로 프레이밍(없다고 나쁜 게 아니라 자립적이라는 강점으로 재해석)
+  - **연운**: 기존엔 올해 한 해만 봤는데, `getYearRelations(saju, currentYear, 2)`(기존 함수 그대로 재사용, 새 계산 없음)로 올해+내년 두 해를 다 봄 — `subheading`은 올해 관계 기준 5종 중 하나, `text`는 올해 문단+내년 문단을 이어붙임(관계가 다르면 자연스럽게 서로 다른 내용이 됨)
+  - **삼재**: 진행중(`current`)/예정(`upcoming`) 2가지 — "삼재 = 나쁜 3년"이 아니라 "변화가 많은 3년, 잘 대비하면 도약의 발판"으로 재해석, 건강·의사결정에 조금 더 신경 쓰라는 건설적 조언으로 마무리
+  - **통합 카드 하단 요약(2단계 결과물에 추가)**: `lifeScore.periods`(이미 계산된 8개 대운 시기 점수) 중 `Math.max`/`Math.min`으로 가장 좋은/조심할 시기 1개씩을 새 계산 없이 골라서, `saju.daeunLifeBestNote`/`daeunLifeCautionNote`(나이+간지 보간)로 짧은 해설 2줄을 차트 바로 아래(같은 `PremiumLock` 안, 즉 그래프와 함께 블러됨)에 추가
+- **검증**: Playwright로 (1) `/saju`의 잠긴 섹션 19개 전부에서 제목(배지+헤딩)이 블러 밖에 있고 본문만 블러 안에 있는지 DOM 스타일 검사로 전수 확인(처음엔 검증 스크립트 자체의 blur 감지 로직이 조상 방향으로만 찾아서 오탐이 났었는데, 자손 방향도 검사하도록 스크립트를 고쳐서 재확인 — 19/19 전부 통과) (2) "대운 & 인생그래프" 헤딩이 1개만 있고 예전 "대운" 단독 헤딩은 더 이상 없는지 확인 (3) 잠금 해제 후 막대 라벨에 나이+간지+점수가 실제로 다 찍히는지, 카드 하단 베스트/케어 문장에 실제 계산된 나이·간지가 보간되는지 확인 (4) 신살/귀인/연운/삼재 4개 섹션이 실제 사주 데이터를 반영한 소제목+문단으로 렌더링되는지(플레이스홀더 아님) 텍스트 내용으로 확인 — en/ko 둘 다 전부 통과, 콘솔 에러 0건
+
+## 3-9. 아이돌/드라마 매치에 "만나면?" 시나리오 섹션 추가 (`meetingScenario`)
+
+기존 6개 인사이트 섹션(설명/좋은 점/기둥별 3개/주의점)에 **"팬미팅에서 만난다면?"**(아이돌, `idolMatch.meetingScenarioTitle`)/**"시사회에서 마주친다면?"**(드라마, `dramaMatch.meetingScenarioTitle`) 섹션을 goodFit 바로 뒤, 기둥별 섹션 앞에 추가해서 총 7개로 늘림 — 실제 존재하는 팬 이벤트(팬미팅/시사회) 상황에서 케미가 어떨지 예측하는 신규 콘텐츠. 연애/결혼 프레이밍은 기존 `pillarSituational`의 "팬-최애 감정 언어 유지, couple/연인 프레이밍 금지" 원칙을 그대로 따름(3-9도 마찬가지로 couple/partner/boyfriend/girlfriend/커플/연인/사귀/결혼 키워드 0건 확인).
+
+- **콘텐츠 뱅크**: `idolMatchTemplates.js`/`dramaMatchTemplates.js`의 관계 5종 각 항목에 `meetingScenario: { subheading, text }` 필드를 `goodFit`과 `watchFor` 사이에 추가(en/ko). `getIdolMatchCopy`/`getDramaMatchCopy` 반환 객체에도 `meetingScenario` 필드 추가 — seed 없이 관계당 고정 1개(기존 `goodFit`/`watchFor`와 같은 패턴). 관계별 톤: `same`=대화가 술술 풀림, `otherGeneratesMe`=긴장보다 편안함이 먼저, `iGenerateOther`=내가 먼저 에너지를 건넴, `otherOvercomesMe`=처음엔 긴장되지만 오래 기억에 남음, `iOvercomeOther`=내가 분위기를 편하게 이끔
+- **섹션 순서**: `IdolMatch.jsx`(베스트매치+그룹모드 둘 다)/`DramaMatch.jsx`의 `insightSections` 배열이 `[explanation, goodFit, meetingScenario, ...situational(3개), watchFor]`로 변경 — `meetingScenario`는 신규 궁금증 유발용 콘텐츠라 `locked: true`로 고정, 기존 6개 섹션의 순서·잠금 상태는 그대로 안 건드림
+- **검증**: Playwright로 아이돌매치/드라마매치 결과 화면에 새 섹션 제목이 정확히 뜨는지, 인사이트 섹션 총 개수가 6→7개로 늘었는지(번호 배지 카운트) en/ko 둘 다 확인. `idolMatchTemplates.js`/`dramaMatchTemplates.js` 전체 텍스트를 정규식으로 스캔해서 금지 키워드(couple/partner/boyfriend/girlfriend/커플/연인/사귀/결혼) 0건 확인(기존 파일 상단 주석에 있던 "couple/partner 프레이밍 금지"라는 설명 문구 자체는 규칙 설명이라 제외하고 판단). 3-8과 동일한 잠금 구조(제목 선명/본문만 블러) 원칙이 새 섹션에도 자동 적용되는지 확인(스크린샷으로 육안 확인). 라이트/다크, 콘솔 에러 0건
+
 ## 4. 라우트/페이지 구조
 
 | 라우트 | 파일 | 내용 |

@@ -125,14 +125,13 @@
       "strong": "Most of your chart supports your day master — your core traits tend to come through clearly and consistently, wherever you are.",
       "weak": "Your day master gets less support from the rest of your chart — your core traits tend to show up more situationally, shaped by who's around you."
     },
-    "daeunHeading": "Major Luck Cycles",
-    "daeunExplain": "Each ~10-year period layers its own Gan/Zhi on top of your base chart, shifting your reading as you move through life.",
-    "daeunNeedGender": "Enter your gender above to see your Major Luck Cycles — the direction they run depends on it.",
+    "daeunLifeHeading": "Major Luck Cycles & Life Score",
+    "daeunLifeExplain": "Each ~10-year period layers its own Gan/Zhi on top of your base chart — see how favorable each one reads against your dominant element, and which age + cycle it lands on.",
+    "daeunLifeNeedGender": "Enter your gender above to see your Major Luck Cycles & Life Score — the direction they run depends on it.",
     "daeunForward": "Running forward (순행) from your month pillar.",
     "daeunBackward": "Running backward (역행) from your month pillar.",
-    "lifeScoreHeading": "Life Score Timeline",
-    "lifeScoreExplain": "How favorable each ~10-year period reads against your dominant element, across your whole Major Luck Cycle timeline.",
-    "lifeScoreNeedGender": "Enter your gender above to see your Life Score Timeline — like Major Luck Cycles, it depends on it.",
+    "daeunLifeBestNote": "Your {{ganzhi}} period, starting around age {{age}}, reads as the most favorable stretch on your timeline — worth leaning into when it comes around.",
+    "daeunLifeCautionNote": "Your {{ganzhi}} period, starting around age {{age}}, reads as the one to move through a little more carefully — nothing to worry over now, just a good stretch to pace yourself and look after the basics.",
     "lifeScoreStages": {
       "early": "Early Life",
       "youth": "Youth",
@@ -144,22 +143,58 @@
     "extraHeading": "Shensha, Nobleman & More",
     "extraIntro": "A few more traditional saju markers layered on top of your chart",
     "shenshaTitle": "Shensha (신살)",
-    "shenshaFoundNote": "Shensha found in your chart: {{labels}}",
-    "shenshaNoneNote": "No notable shensha in this chart",
+    "shenshaContent": {
+      "taohua": "Peach Blossom (도화살) is often misread as a warning about romantic trouble, but it really points to a natural magnetism — the kind of presence that draws people in and keeps a room easy to talk to. You likely make a strong first impression without trying, and people tend to gravitate toward you in social settings.",
+      "yima": "Traveling Horse (역마살) has a reputation for restlessness, but it's really an active energy that isn't afraid of movement or change. New places and new people tend to show up often in your life, and you're the type who actually finds your luck opening up in unfamiliar environments — travel, new cities, new communities.",
+      "hwagae": "Canopy (화개살) is sometimes called a \"lonely\" marker, but it's really a sign of deep focus and artistic sensibility. You draw real energy from time alone, and your actual skill tends to show up most clearly when you're deep in something you genuinely care about.",
+      "noneSubheading": "Balanced, Not Extreme",
+      "noneText": "No shensha stands out sharply in your chart, which points to a steady, well-balanced temperament rather than any dramatic tilt. You're more likely to hold your pace through consistency than through sudden swings."
+    },
     "noblemanTitle": "Nobleman (귀인)",
-    "noblemanFoundNote": "You have a {{label}}",
-    "noblemanNoneNote": "No {{label}} in this chart",
+    "noblemanContent": {
+      "has": {
+        "subheading": "Someone's In Your Corner",
+        "text": "With a Heavenly Nobleman in your chart, you tend to have the right person or opportunity show up right when things get hard. Keeping your relationships with mentors and people above you in good shape now pays off exactly when you need it most."
+      },
+      "none": {
+        "subheading": "You Build It Yourself",
+        "text": "No Heavenly Nobleman in this chart just means your path leans more on your own effort than outside help. You tend to trust your own judgment and push things through yourself — and whatever you build that way is fully, unambiguously yours."
+      }
+    },
     "yearLuckTitle": "{{year}} Year Luck",
-    "yearLuckOneLiner": {
-      "same": "{{year}} moves in step with your own energy.",
-      "otherGeneratesMe": "{{year}} tends to feed and support you.",
-      "iGenerateOther": "{{year}} asks you to give more than you receive.",
-      "otherOvercomesMe": "{{year}} brings more friction than flow.",
-      "iOvercomeOther": "{{year}} puts you in the driver's seat."
+    "yearLuckContent": {
+      "same": {
+        "subheading": "In Step With You",
+        "text": "{{year}} moves in step with your own energy. It's a year for familiar rhythms, so staying consistent with what you're already doing is likely to pay off."
+      },
+      "otherGeneratesMe": {
+        "subheading": "A Year That Fills You Up",
+        "text": "{{year}} tends to feed and support you. Help and opportunity show up around you with less effort than usual, so things are likely to move more smoothly than you'd expect."
+      },
+      "iGenerateOther": {
+        "subheading": "A Year of Giving More",
+        "text": "{{year}} asks you to give more than you receive. What you put in tends to come back as real results, so it's worth pacing yourself while you pour energy into what actually matters to you."
+      },
+      "otherOvercomesMe": {
+        "subheading": "A Year With More Friction",
+        "text": "{{year}} brings more friction than flow. Friction doesn't mean a bad year — it's more likely to be one that toughens you up — so move a little more carefully on big decisions and keep an eye on your health as you go."
+      },
+      "iOvercomeOther": {
+        "subheading": "A Year You're In Charge Of",
+        "text": "{{year}} puts you in the driver's seat. Your judgment and drive are sharper than usual, making it a good year to finally start something you've been putting off."
+      }
     },
     "samjaeTitle": "Samjae (삼재)",
-    "samjaeCurrentNote": "You're currently in a Samjae period ({{start}}-{{end}}).",
-    "samjaeUpcomingNote": "Your next Samjae period: {{start}}-{{end}}.",
+    "samjaeContent": {
+      "current": {
+        "subheading": "You're In It Right Now",
+        "text": "You're currently in a Samjae period ({{start}}-{{end}}). Samjae doesn't mean the years are cursed — it really just means a stretch with more change packed into it than usual. Move a little more carefully on big decisions and pay a bit more attention to your health, and this stretch can end up being the launchpad for what comes after."
+      },
+      "upcoming": {
+        "subheading": "Worth Knowing Ahead of Time",
+        "text": "Your next Samjae period is {{start}}-{{end}}. There's no rush — just worth keeping in mind for later. When it arrives, move a little more carefully on big decisions and take a bit better care of your health."
+      }
+    },
     "distributionHeading": "Element Balance",
     "personalityHeading": "Personality Profile",
     "domainHeading": "More About You",
@@ -272,6 +307,7 @@
     "compatibilityHeading": "You & {{member}}",
     "yourElement": "You",
     "theirElement": "Them",
+    "meetingScenarioTitle": "If You Met at a Fan Meet?",
     "shareCaption": "Ohaeng just found my idol match — find yours:",
     "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Member art is illustrative, not photos."
   },
@@ -281,6 +317,7 @@
     "subtitle": "Enter your birthday and tell us your gender — we'll scan 100 K-drama actors and find your best Five Element match.",
     "findMatchLabel": "Find my match",
     "actorLabel": "K-Drama Actor",
+    "meetingScenarioTitle": "If You Ran Into Them at a Premiere?",
     "shareCaption": "Ohaeng just found my K-drama match — find yours:",
     "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Portraits are illustrative, not photos."
   },

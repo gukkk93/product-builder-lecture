@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getDaeun, getLifeScoreTimeline, getShensha, getNobleman, getYearRelation, getSamjae } from '../utils/saju';
+import { calculateSaju, getDaeun, getLifeScoreTimeline, getShensha, getNobleman, getYearRelations, getSamjae, getGanZhiLabel } from '../utils/saju';
 import { getSajuProfile, getDayMasterLine, getDomainChapter } from '../data/sajuProfileTemplates';
 import { getTenGodChapter } from '../data/sajuTenGodTemplates';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
@@ -15,7 +15,6 @@ import SajuShareCard from '../components/SajuShareCard';
 import LoadingReveal from '../components/LoadingReveal';
 import ElementCharacter from '../components/ElementCharacter';
 import InsightSection from '../components/InsightSection';
-import DaeunTable from '../components/DaeunTable';
 import LifeScoreChart from '../components/LifeScoreChart';
 import PremiumLock from '../components/PremiumLock';
 
@@ -83,6 +82,23 @@ export default function Saju() {
   // Same gender requirement as daeun above, since it's built directly on top of it.
   const lifeScore = gender ? getLifeScoreTimeline(birth, birth.timeKnown, gender, saju.dominantElement) : null;
 
+  // Highlight the best/most-cautious of the 8 already-scored periods — no
+  // new calculation, just picking the max/min out of lifeScore.periods.
+  let daeunLifeBestNote = '';
+  let daeunLifeCautionNote = '';
+  if (lifeScore) {
+    const bestPeriod = lifeScore.periods.reduce((a, b) => (b.score > a.score ? b : a));
+    const cautionPeriod = lifeScore.periods.reduce((a, b) => (b.score < a.score ? b : a));
+    daeunLifeBestNote = t('saju.daeunLifeBestNote', {
+      age: bestPeriod.startAge,
+      ganzhi: getGanZhiLabel(bestPeriod.gan, bestPeriod.zhi, i18n.language),
+    });
+    daeunLifeCautionNote = t('saju.daeunLifeCautionNote', {
+      age: cautionPeriod.startAge,
+      ganzhi: getGanZhiLabel(cautionPeriod.gan, cautionPeriod.zhi, i18n.language),
+    });
+  }
+
   // Each domain chapter is now [총운, sub-topic x3] — every domain's 총운
   // (index 0) stays free as the teaser for that chapter; the 3 subtopics
   // stay locked regardless of domain. wealthStyle's "timing" subtopic is
@@ -105,39 +121,52 @@ export default function Saju() {
   const tenGodChapter = getTenGodChapter(i18n.language, saju, gender);
   tenGodChapter.sections = tenGodChapter.sections.map((section, i) => ({ ...section, locked: i !== 0 }));
 
-  // Shensha/nobleman/year-luck/samjae: calculation-only content (no
-  // personality copy written yet), so each gets just a short one-line
-  // preview behind its own lock rather than a full paragraph.
+  // Shensha/nobleman/year-luck/samjae — each subtopic now has real
+  // subheading+paragraph copy (see the *Content banks in en/ko.json)
+  // instead of a one-line preview. Shensha can have 0-3 types present at
+  // once, so its subheading is the joined list of found labels (or the
+  // "balanced" fallback) and its text joins each found type's paragraph.
+  // Year luck covers this year and next (getYearRelations), one paragraph
+  // each, using whichever relation this year matches for the subheading.
   const currentYear = new Date().getFullYear();
   const shensha = getShensha(saju, i18n.language);
   const nobleman = getNobleman(saju, i18n.language);
-  const yearLuck = getYearRelation(saju, currentYear);
+  const yearRelations = getYearRelations(saju, currentYear, 2);
   const samjae = getSamjae(saju, currentYear);
 
+  const noblemanKey = nobleman.hasNobleman ? 'has' : 'none';
+  const samjaeKey = samjae.isCurrent ? 'current' : 'upcoming';
+
   const extraSections = [
-    {
-      title: t('saju.shenshaTitle'),
-      text: shensha.length > 0
-        ? t('saju.shenshaFoundNote', { labels: shensha.map((s) => s.label).join('·') })
-        : t('saju.shenshaNoneNote'),
-      locked: true,
-    },
+    shensha.length > 0
+      ? {
+          title: t('saju.shenshaTitle'),
+          subheading: shensha.map((s) => s.label).join(' · '),
+          text: shensha.map((s) => t(`saju.shenshaContent.${s.key}`)).join('\n\n'),
+          locked: true,
+        }
+      : {
+          title: t('saju.shenshaTitle'),
+          subheading: t('saju.shenshaContent.noneSubheading'),
+          text: t('saju.shenshaContent.noneText'),
+          locked: true,
+        },
     {
       title: t('saju.noblemanTitle'),
-      text: t(nobleman.hasNobleman ? 'saju.noblemanFoundNote' : 'saju.noblemanNoneNote', { label: nobleman.label }),
+      subheading: t(`saju.noblemanContent.${noblemanKey}.subheading`),
+      text: t(`saju.noblemanContent.${noblemanKey}.text`, { label: nobleman.label }),
       locked: true,
     },
     {
       title: t('saju.yearLuckTitle', { year: currentYear }),
-      text: t(`saju.yearLuckOneLiner.${yearLuck.relation}`, { year: currentYear }),
+      subheading: t(`saju.yearLuckContent.${yearRelations[0].relation}.subheading`),
+      text: yearRelations.map((yr) => t(`saju.yearLuckContent.${yr.relation}.text`, { year: yr.year })).join('\n\n'),
       locked: true,
     },
     {
       title: t('saju.samjaeTitle'),
-      text: t(samjae.isCurrent ? 'saju.samjaeCurrentNote' : 'saju.samjaeUpcomingNote', {
-        start: samjae.years[0],
-        end: samjae.years[2],
-      }),
+      subheading: t(`saju.samjaeContent.${samjaeKey}.subheading`),
+      text: t(`saju.samjaeContent.${samjaeKey}.text`, { start: samjae.years[0], end: samjae.years[2] }),
       locked: true,
     },
   ];
@@ -192,28 +221,20 @@ export default function Saju() {
         </div>
 
         <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
-          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.daeunHeading')}</h2>
-          {daeun ? (
+          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.daeunLifeHeading')}</h2>
+          {daeun && lifeScore ? (
             <>
-              <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.daeunExplain')}</p>
-              <DaeunTable daeun={daeun} />
-            </>
-          ) : (
-            <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{t('saju.daeunNeedGender')}</p>
-          )}
-        </div>
-
-        <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
-          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.lifeScoreHeading')}</h2>
-          {lifeScore ? (
-            <>
-              <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.lifeScoreExplain')}</p>
+              <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.daeunLifeExplain')}</p>
               <PremiumLock product="saju">
-                <LifeScoreChart periods={lifeScore.periods} />
+                <>
+                  <LifeScoreChart periods={lifeScore.periods} forward={lifeScore.forward} />
+                  <p style={{ margin: '14px 0 0', fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>{daeunLifeBestNote}</p>
+                  <p style={{ margin: '8px 0 0', fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>{daeunLifeCautionNote}</p>
+                </>
               </PremiumLock>
             </>
           ) : (
-            <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{t('saju.lifeScoreNeedGender')}</p>
+            <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{t('saju.daeunLifeNeedGender')}</p>
           )}
         </div>
 

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { getGanZhiLabel } from '../utils/saju';
 
 const ELEMENT_VAR = {
   Wood: '--el-wood',
@@ -14,16 +15,20 @@ const MAX_SCORE = 99;
 /**
  * Vertical bar chart of the 8 Major Luck Cycle scores from
  * getLifeScoreTimeline — same plain CSS approach as ElementDistribution
- * (no chart library), just bars going up instead of sideways. Bars are
- * colored by each period's own Gan element, and the 4 life-stage labels
- * below span 2 bars each, matching how the 8 periods group into stages.
+ * (no chart library), bars going up instead of sideways. Bars are colored
+ * by each period's own Gan element, and each one is labeled with both its
+ * score and its age + Gan/Zhi (the info that used to live in the separate
+ * DaeunTable card, before the two were merged into one). The 4 life-stage
+ * labels below span 2 bars each, matching how the 8 periods group into
+ * stages, and the forward/backward note (which direction the cycles run)
+ * closes out the chart, same as it did in the old DaeunTable.
  */
-export default function LifeScoreChart({ periods }) {
-  const { t } = useTranslation();
+export default function LifeScoreChart({ periods, forward }) {
+  const { t, i18n } = useTranslation();
 
   return (
     <div style={{ width: '100%' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 140 }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 150 }}>
         {periods.map((p) => (
           <div
             key={p.startAge}
@@ -40,6 +45,7 @@ export default function LifeScoreChart({ periods }) {
               }}
             />
             <span style={{ fontSize: 10, color: 'var(--text-muted)' }}>{p.startAge}</span>
+            <span style={{ fontSize: 9, color: 'var(--text-muted)' }}>{getGanZhiLabel(p.gan, p.zhi, i18n.language)}</span>
           </div>
         ))}
       </div>
@@ -50,6 +56,9 @@ export default function LifeScoreChart({ periods }) {
           </span>
         ))}
       </div>
+      <p style={{ marginTop: 10, marginBottom: 0, fontSize: 12, color: 'var(--text-muted)' }}>
+        {t(forward ? 'saju.daeunForward' : 'saju.daeunBackward')}
+      </p>
     </div>
   );
 }

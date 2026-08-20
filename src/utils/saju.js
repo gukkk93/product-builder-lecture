@@ -48,6 +48,11 @@ export function getZhiLabel(zhi, lang) {
   return lang === 'ko' ? ZHI_KO[zhi] : zhi;
 }
 
+/** Combined Gan+Zhi display label — no space for Korean compounds ("을묘"), a space for romanized ("Yi Mao"). */
+export function getGanZhiLabel(gan, zhi, lang) {
+  return lang === 'ko' ? `${getGanLabel(gan, lang)}${getZhiLabel(zhi, lang)}` : `${getGanLabel(gan, lang)} ${getZhiLabel(zhi, lang)}`;
+}
+
 // lunar-javascript's English locale doesn't cover getYearShengXiao() either
 // (same gap as Gan/Zhi above) — it always returns the English zodiac name
 // regardless of I18n.setLanguage(), so Korean needs its own table. Keys
