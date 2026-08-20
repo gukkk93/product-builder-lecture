@@ -15,9 +15,13 @@ import PremiumLock from './PremiumLock';
  * line above the body, for sections deep enough to want one; most callers
  * leave it out and just rely on the numbered `title`.
  *
+ * `product` is passed straight through to every PremiumLock this renders
+ * (see PremiumLock.jsx) — callers specify it once here instead of on every
+ * individual section.
+ *
  * `sections`: Array<{ title: string, subheading?: string, text: string, locked?: boolean }>
  */
-export default function InsightSection({ element, intro, sections }) {
+export default function InsightSection({ element, intro, sections, product }) {
   if (!sections || sections.length === 0) return null;
 
   return (
@@ -88,7 +92,7 @@ export default function InsightSection({ element, intro, sections }) {
               ))}
             </div>
           );
-          return <div key={i}>{section.locked ? <PremiumLock>{card}</PremiumLock> : card}</div>;
+          return <div key={i}>{section.locked ? <PremiumLock product={product}>{card}</PremiumLock> : card}</div>;
         })}
       </div>
     </div>

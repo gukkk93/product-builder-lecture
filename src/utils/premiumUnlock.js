@@ -1,18 +1,44 @@
-// Same flat localStorage pattern as ThemeToggle/LanguageToggle — a single
-// boolean flag, not tied to any account (this app has none). PremiumContext
-// wraps this in React state so every locked section on a page updates
-// together the moment the flag flips, without a reload.
+// Per-product premium unlock state, stored as one JSON object in
+// localStorage (same general "flat localStorage value" spirit as
+// theme/language, just holding several booleans instead of one). Each of
+// the app's 5 gated features unlocks independently — buying/trying one
+// doesn't unlock the others. PremiumContext wraps this in React state so
+// every PremiumLock for a given product reacts together instantly.
 //
-// Stripe integration: once real payment is wired up, the Checkout success
-// callback (or the webhook handler, if unlocking should wait for a
-// server-confirmed payment) should call setPremiumUnlocked(true) directly —
-// this file itself needs no changes at that point.
-const STORAGE_KEY = 'premiumUnlocked';
+// Stripe integration: once real payment is wired up, figure out which
+// product key was purchased (from the Checkout session or webhook
+// payload) and call setProductUnlocked(thatKey, true) directly — this
+// file itself needs no changes at that point.
+const STORAGE_KEY = 'premiumUnlockedProducts';
 
-export function isPremiumUnlocked() {
-  return localStorage.getItem(STORAGE_KEY) === 'true';
+export const PRODUCTS = ['saju', 'compatibility', 'idolMatch', 'dramaMatch', 'romance'];
+
+function readAll() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
 }
 
-export function setPremiumUnlocked(value) {
-  localStorage.setItem(STORAGE_KEY, value ? 'true' : 'false');
+/** Every product key mapped to its current unlocked boolean (missing/invalid entries read as false). */
+export function getUnlockedProducts() {
+  const all = readAll();
+  return PRODUCTS.reduce((acc, key) => {
+    acc[key] = all[key] === true;
+    return acc;
+  }, {});
+}
+
+export function isProductUnlocked(productKey) {
+  return readAll()[productKey] === true;
+}
+
+/** Updates a single product's unlocked flag, leaving every other product's stored state untouched. */
+export function setProductUnlocked(productKey, value) {
+  const all = readAll();
+  all[productKey] = value;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
 }

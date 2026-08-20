@@ -208,7 +208,7 @@ export default function Saju() {
           {lifeScore ? (
             <>
               <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.lifeScoreExplain')}</p>
-              <PremiumLock>
+              <PremiumLock product="saju">
                 <LifeScoreChart periods={lifeScore.periods} />
               </PremiumLock>
             </>
@@ -264,19 +264,19 @@ export default function Saju() {
         {domainChapters.map((chapter, i) => (
           <div className="card" key={DOMAINS[i]} style={{ marginBottom: 16, textAlign: 'left' }}>
             <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{chapter.title}</h2>
-            <InsightSection sections={chapter.sections} />
+            <InsightSection sections={chapter.sections} product="saju" />
           </div>
         ))}
 
         <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
           <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{tenGodChapter.title}</h2>
           <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{tenGodChapter.intro}</p>
-          <InsightSection sections={tenGodChapter.sections} />
+          <InsightSection sections={tenGodChapter.sections} product="saju" />
         </div>
 
         <div className="card" style={{ textAlign: 'left' }}>
           <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.extraHeading')}</h2>
-          <InsightSection element={saju.dominantElement} intro={t('saju.extraIntro')} sections={extraSections} />
+          <InsightSection element={saju.dominantElement} intro={t('saju.extraIntro')} sections={extraSections} product="saju" />
         </div>
       </div>
 

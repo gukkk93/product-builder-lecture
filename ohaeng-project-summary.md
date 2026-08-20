@@ -221,6 +221,8 @@
 
 ## 5-5. 유저별 프리미엄 잠금 해제 (`PremiumContext`, `utils/premiumUnlock.js`) — Stripe 연동 전 실사용 흐름
 
+> **[5-6에서 대체됨]** 이 섹션이 설명하는 "단일 boolean(`premiumUnlocked`) 하나로 전체를 잠금/해제"하는 설계는 **5-6에서 상품별 독립 잠금으로 전면 교체됨**(하나 풀면 전부 풀리는 구조적 결함이 있었음). 아래 내용은 그 이전 설계의 기록으로 남겨두고, 현재 실제 동작하는 구조는 5-6을 참고할 것.
+
 5-4에서 만든 `PREVIEW_MODE_UNLOCK_ALL`은 "개발자가 전체 리뷰할 때 잠깐 켜는 스위치"였을 뿐, 실제 방문자에게 노출되는 라이브 흐름이 아니었음. 이번엔 방문자 본인이 잠긴 섹션에서 직접 버튼을 눌러 잠금을 풀 수 있는 **진짜 유저용 흐름**을 만들고, `PREVIEW_MODE_UNLOCK_ALL`은 다시 `false`로 되돌림 — 이제부터 실제로 콘텐츠가 잠겨 보이는 게 기본 상태.
 
 - **`src/utils/premiumUnlock.js`**(신규): `theme`/`language`와 동일한 flat localStorage 패턴 — `isPremiumUnlocked()`(`localStorage.getItem('premiumUnlocked') === 'true'`), `setPremiumUnlocked(value)`. **Stripe 연동 시 재사용 지점**을 파일 최상단 주석에 명시해둠: "Checkout 성공 콜백(또는 서버 확인이 필요하면 webhook 핸들러)에서 이 파일의 `setPremiumUnlocked(true)`를 그대로 호출하면 됨 — 이 파일 자체는 그 시점에 수정 불필요"
@@ -229,6 +231,18 @@
 - **`Footer.jsx`에 재잠금 테스트 링크 추가**: `isPremiumUnlocked`가 true일 때만(잠금 풀린 상태에서만) 푸터 하단에 작은 밑줄 텍스트 버튼(`footer.relockPremium`: "Lock premium content again (testing)"/"프리미엄 잠금 다시 걸기 (테스트용)") 노출 — 클릭하면 `setPremiumUnlocked(false)`. 개발자도구로 매번 localStorage 지우지 않고도 잠금/해제 두 상태를 반복 테스트할 수 있게 하는 용도라고 요청받아 그대로 남겨둠(정식 UX는 아님, 사용자가 "선택, 개발 편의용"이라고 명시)
 - **`config.js`의 `PREVIEW_MODE_UNLOCK_ALL`을 다시 `false`로**: 이제부터 실제 방문자에게는 콘텐츠가 잠긴 채로 보이고, 위 유저별 버튼이 진짜 해제 경로가 됨. 이 값은 앞으로 개발자가 전체 리뷰할 때만 잠깐 `true`로 켰다가 다시 꺼두는 용도로 계속 남겨둠(용도 자체가 5-4와 달라진 걸 주석에도 반영)
 - **검증**: Playwright로 `/saju`(잠긴 섹션 19개짜리 페이지)에서 (1) 잠금 상태에서 잠긴 섹션 수/무료 섹션 수(19/5, 5-4 스펙 그대로)부터 확인 (2) 잠긴 섹션 중 아무 버튼이나 하나 클릭 → **같은 페이지의 다른 18개 잠긴 섹션도 리로드 없이 즉시 다 같이 풀리는지**(0개 잠금으로) 확인 (3) `localStorage.premiumUnlocked === 'true'`로 저장됐는지 확인 (4) 페이지 새로고침 후에도 계속 24개 전부 풀린 상태로 유지되는지 확인 (5) 푸터의 "잠금 다시 걸기" 클릭 → 다시 19/5로 원상복구되고 localStorage도 `'false'`로 바뀌는지 확인 — en/ko 둘 다 전부 일치. 라이트/다크 스크린샷으로 잠금 상태(블러+자물쇠+버튼)와 해제 상태(전체 선명) 둘 다 확인, 콘솔 에러 0건
+
+## 5-6. 프리미엄 잠금을 상품 단위로 독립화 (`saju`/`compatibility`/`idolMatch`/`dramaMatch`/`romance`)
+
+5-5의 단일 boolean 설계는 "하나 풀면 전부 풀린다"는 구조적 결함이 있었음(사용자가 직접 지적) — 사주 콘텐츠를 풀었더니 아이돌매치/궁합/로맨스/드라마매치까지 전부 같이 풀려버리는 게 실제 결제 전환에는 맞지 않는 동작이라, 5개 상품(`saju`/`compatibility`/`idolMatch`/`dramaMatch`/`romance`) 각각 독립적으로 잠기고 풀리도록 전면 재설계함.
+
+- **`src/utils/premiumUnlock.js` 전면 재작성**: flat boolean 하나 대신, localStorage 키 `premiumUnlockedProducts` 하나에 **JSON 객체**로 저장(`{saju, compatibility, idolMatch, dramaMatch, romance}`, 각 boolean). `PRODUCTS` 배열도 이 파일에서 export(5개 키의 단일 소스, `Guide.jsx`가 재사용). `getUnlockedProducts()`(전체 객체, 없는 키는 `false`로 정규화)/`isProductUnlocked(key)`/`setProductUnlocked(key, value)`(그 키만 갱신, 나머지는 그대로 — `JSON.parse` 실패나 저장값 없음은 빈 객체로 안전하게 폴백). **Stripe 연동 재사용 지점**을 파일 최상단 주석에 명시: "나중에 Stripe 결제 성공 시 결제한 상품 키를 알아내서 `setProductUnlocked(그키, true)` 호출하면 됨"
+- **`PremiumContext.jsx` 재작성**: `unlockedProducts`(5개 키 전체 객체) + `unlockProduct(key)`를 제공. 상위 위치(App.jsx, `<Routes>` 바깥)는 그대로라 여러 섹션이 즉시 같이 갱신되는 성질은 유지되지만, 이제 "같이 갱신"되는 범위가 **그 상품 하나로 좁혀짐**. `lockProduct(key)`도 함께 추가함(사용자 스펙엔 명시 안 됐지만, Guide.jsx 재잠금 UI가 상품별로 끌 방법이 필요해서 대칭적으로 추가) — `usePremium()`은 Provider 밖에서 부르면 에러
+- **`PremiumLock.jsx` — `product` prop 필수화**: 잠금 조건이 `PREVIEW_MODE_UNLOCK_ALL || unlockedProducts[product]`로 바뀜. `product`를 안 넘기면 `import.meta.env.DEV`에서 `console.error`(런타임 크래시는 안 시킴, 개발 중 실수 조기 발견용 — 이 레포는 `prop-types` 안 씀). 오버레이 버튼 문구를 상품 한정 느낌으로 조정(`saju.premiumUnlockButton`: "Try this content free"/"이 콘텐츠 무료로 체험하기" — 이전 5-5의 범용 문구 "Try it free now"에서 교체), 클릭 시 `unlockProduct(product)`(그 상품만 풀림)
+- **`InsightSection.jsx`/`MatchResultCard.jsx`로 `product` 전달**: `InsightSection`이 `product` prop을 받아 내부에서 만드는 모든 `PremiumLock`에 그대로 넘김 — 각 페이지는 `InsightSection` 호출 시 `product`를 한 번만 지정하면 되고 섹션 배열 항목마다 따로 안 넣어도 됨. `IdolMatch.jsx`/`DramaMatch.jsx`는 `InsightSection`을 직접 안 부르고 공용 `MatchResultCard.jsx`를 거치므로, `MatchResultCard`에 별도 이름의 pass-through prop `insightProduct`를 추가(`InsightSection` 자신의 `product`와 이름이 겹치지 않도록)
+- **5개 페이지 wiring**: `Saju.jsx`(도메인 4개 카드 + 십성/십이운성 챕터 카드 + 신살·귀인·연운·삼재 카드 + `LifeScoreChart`의 `PremiumLock`까지 전부 `product="saju"`) / `Compatibility.jsx`(`"compatibility"`) / `Romance.jsx`(`"romance"`) / `IdolMatch.jsx`(베스트매치+최애매치 그룹모드 두 `MatchResultCard` 호출부 모두 `insightProduct="idolMatch"`) / `DramaMatch.jsx`(`insightProduct="dramaMatch"`)
+- **개발용 재잠금 UI — Footer.jsx에서 Guide.jsx로 이동**: 5-5의 "잠금 다시 걸기" 링크(전체를 한 번에 껐다 켜던 단일 링크)를 완전히 제거하고, `Footer.jsx`는 원래의 단순한 형태(Privacy/Terms 링크 + 저작권)로 되돌림. 대신 `Guide.jsx` 맨 아래에 새 카드("Premium Unlock Testing"/"프리미엄 잠금 테스트")를 추가해서 5개 상품 각각의 상태(잠김/해제됨)와 "다시 잠그기" 버튼을 한 줄씩 나열 — 해당 상품이 이미 잠긴 상태면 버튼은 비활성화됨. 테스트 중 특정 상품 하나만 재잠금하고 나머지는 그대로 둔 채 반복 검증할 수 있게 하려는 목적(정식 유저 플로우 아님, dev 편의용으로 명시)
+- **검증**: Playwright로 (1) `/saju`에서 "체험하기" 클릭 시 saju 콘텐츠만 풀리고 `/idol-match`/`/compatibility`/`/romance`/`/drama-match`는 그대로 잠긴 채인지 확인 (2) 반대로 idolMatch만 풀었을 때 saju가 안 풀리는지 확인 (3) `/compatibility`가 saju/idolMatch/dramaMatch/romance를 순서대로 전부 풀어나가는 동안에도 계속 "2 locked/2 free"로 변하지 않는지(진짜 독립성 증명) 확인 (4) `localStorage.premiumUnlockedProducts`가 JSON 객체로 정확히 그 상품 키만 갱신되는지 확인 (5) 페이지 새로고침 후에도 상품별 상태가 개별로 유지되는지 확인 (6) `Guide.jsx`의 재잠금 UI로 특정 상품 하나만 다시 잠갔을 때 그 상품만 잠기고 나머지는 안 건드리는지 확인 — en/ko 둘 다 전부 일치, 콘솔 에러 0건. 최초 구현 시 오버레이 버튼 문구를 5-5의 범용 문구 그대로 남겨뒀던 걸(상품 한정 문구로 바꾸라는 스펙을 놓침) 리뷰 중 자체적으로 발견해서 수정한 뒤 전체 재검증 — 통과. `verify-guide-{light,dark}.png`/`verify-locked-overlay-{light,dark}.png` 스크린샷으로 라이트/다크 둘 다 오버레이 문구와 Guide.jsx 새 카드 스타일이 자연스러운지 육안 확인(검증 후 삭제)
 
 ## 6. 아이돌/배우 데이터
 
@@ -331,13 +345,13 @@ theme/language 토글과 동일한 localStorage 패턴(`ThemeToggle.jsx`/`Langua
 - Cloudflare Pages 빌드: Framework preset None, Build command `npm run build`, Output directory `dist`
 - `.claude/settings.json`에 `Bash(npm run build)`, `Bash(npm run dev)`, `PowerShell(git push origin main)` 허용 등록됨 (승인창 감소용)
 - **push 정책**: 사용자가 "계속 자동으로 푸쉬해줘"라고 명시적으로 요청함 → 커밋 후 확인 없이 바로 push하는 게 기본 동작
-- **프리미엄 잠금 — 두 겹 구조(5-4, 5-5 참고)**: (1) `src/config.js`의 `PREVIEW_MODE_UNLOCK_ALL` — **현재 `false`**, 개발자가 전체 리뷰할 때만 잠깐 `true`로 켰다가 다시 꺼두는 용도. (2) `PremiumContext`/`utils/premiumUnlock.js` — 방문자가 잠긴 섹션의 "지금 무료로 체험해보기" 버튼을 눌러 localStorage에 저장하는 **실제 라이브 잠금 해제 흐름**(현재 정식 동작 중). Stripe 연동 시 결제 성공 콜백에서 `setPremiumUnlocked(true)`만 호출하면 되도록 이미 설계해둠 — `premiumUnlock.js` 자체는 그때 수정 불필요
+- **프리미엄 잠금 — 두 겹 구조(5-4, 5-6 참고)**: (1) `src/config.js`의 `PREVIEW_MODE_UNLOCK_ALL` — **현재 `false`**, 개발자가 전체 리뷰할 때만 잠깐 `true`로 켰다가 다시 꺼두는 용도. (2) `PremiumContext`/`utils/premiumUnlock.js` — 방문자가 잠긴 섹션의 "이 콘텐츠 무료로 체험하기" 버튼을 눌러 localStorage(`premiumUnlockedProducts`, 상품별 JSON 객체)에 저장하는 **실제 라이브 잠금 해제 흐름**(현재 정식 동작 중, `saju`/`compatibility`/`idolMatch`/`dramaMatch`/`romance` 5개 상품이 각자 독립적으로 잠기고 풀림). Stripe 연동 시 결제 성공 콜백에서 결제한 상품 키로 `setProductUnlocked(그키, true)`만 호출하면 되도록 이미 설계해둠 — `premiumUnlock.js` 자체는 그때 수정 불필요
 
 ## 11. 아직 안 한 것
 
 - **스페인어**: 구조는 en/ko와 동일하게 확장하면 되지만 미착수
 - **리텐션 — 완료**(9-1 참고). 생년월일(+선택 입력했다면 이름/성별)을 localStorage에 저장해 "내 생일" 폼에 재방문시 자동 채움, 상대방 생일 폼은 저장 대상에서 제외
-- **수익화**: 유료 구독/Stripe 연동 — **실제 Stripe 계정/API 키 필요**, 여기서 막힘. 다만 결제 성공 시 잠금을 풀어주는 쪽(`utils/premiumUnlock.js`의 `setPremiumUnlocked(true)`, 5-5 참고)은 이미 준비돼있어서, Stripe 붙을 때 Checkout 성공 콜백/webhook에서 이 함수 하나만 호출하면 됨
+- **수익화**: 유료 구독/Stripe 연동 — **실제 Stripe 계정/API 키 필요**, 여기서 막힘. 다만 결제 성공 시 해당 상품의 잠금만 풀어주는 쪽(`utils/premiumUnlock.js`의 `setProductUnlocked(productKey, true)`, 5-6 참고)은 이미 준비돼있어서, Stripe 붙을 때 Checkout 성공 콜백/webhook에서 결제한 상품 키를 알아내 이 함수 하나만 호출하면 됨
 - **주간 운세 캘린더**, **로그인/히스토리** — 미착수 (PRD상 우선순위 낮음)
 - **PostHog 실제 키 — 완료**(위 9번 참고). 오토캡처는 확인됐고, 커스텀 이벤트가 대시보드에 실제로 도착하는지는 사용자가 직접 브라우저에서 확인 필요(코드는 검증 완료)
 - 신강/신약을 사주 성격 문구(`sajuProfileTemplates.js`)에도 반영하는 건 스코프 아웃함 (오행 5종만으로 충분하다고 판단)

@@ -127,6 +127,7 @@ export default function DramaMatch() {
           tier={compatCopy.tier}
           line={compatCopy.line}
           insightSections={insightSections}
+          insightProduct="dramaMatch"
           compatibilityHeading={t('idolMatch.compatibilityHeading', { member: actorName })}
           scoreLabel={t('matchCommon.scoreLabel')}
           onShare={() =>

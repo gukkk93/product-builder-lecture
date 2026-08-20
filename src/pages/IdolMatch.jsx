@@ -201,6 +201,7 @@ export default function IdolMatch() {
               tier={memberCopy.tier}
               line={memberCopy.line}
               insightSections={memberInsightSections}
+              insightProduct="idolMatch"
               compatibilityHeading={t('idolMatch.compatibilityHeading', { member: memberName })}
               scoreLabel={t('matchCommon.scoreLabel')}
               onShare={() =>
@@ -332,6 +333,7 @@ export default function IdolMatch() {
           tier={compatCopy.tier}
           line={compatCopy.line}
           insightSections={insightSections}
+          insightProduct="idolMatch"
           compatibilityHeading={t('idolMatch.compatibilityHeading', { member: bestName })}
           scoreLabel={t('matchCommon.scoreLabel')}
           onShare={() =>

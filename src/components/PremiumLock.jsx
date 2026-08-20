@@ -5,21 +5,30 @@ import { usePremium } from '../context/PremiumContext';
 /**
  * Wraps any content with a blurred/dimmed silhouette and a lock overlay —
  * purely visual (no server-verified payment yet), but the unlock itself is
- * real: clicking the button in the overlay flips PremiumContext's state,
- * which is backed by localStorage (see utils/premiumUnlock.js) and shared
- * by every PremiumLock on the page, so they all unlock together instantly.
+ * real: clicking the button in the overlay flips PremiumContext's state
+ * for this specific `product`, which is backed by localStorage (see
+ * utils/premiumUnlock.js) and shared by every PremiumLock for that same
+ * product, so they all unlock together instantly. Unlocking one product
+ * (e.g. "saju") never affects any other product's locked sections.
+ *
+ * `product` is required — one of PRODUCTS in utils/premiumUnlock.js
+ * ('saju' | 'compatibility' | 'idolMatch' | 'dramaMatch' | 'romance').
  *
  * PREVIEW_MODE_UNLOCK_ALL (see config.js) is a separate, coarser override
  * for the developer's own full-app review — while it's on, this renders
- * children directly regardless of the user's unlock state or any caller's
- * `locked` flag. Leave it off in normal operation; the per-user unlock
- * button below is the real live flow.
+ * children directly regardless of any product's unlock state or any
+ * caller's `locked` flag. Leave it off in normal operation; the per-user
+ * unlock button below is the real live flow.
  */
-export default function PremiumLock({ children }) {
+export default function PremiumLock({ product, children }) {
   const { t } = useTranslation();
-  const { isPremiumUnlocked, setPremiumUnlocked } = usePremium();
+  const { unlockedProducts, unlockProduct } = usePremium();
 
-  if (PREVIEW_MODE_UNLOCK_ALL || isPremiumUnlocked) return children;
+  if (import.meta.env.DEV && !product) {
+    console.error('PremiumLock: missing required `product` prop');
+  }
+
+  if (PREVIEW_MODE_UNLOCK_ALL || unlockedProducts[product]) return children;
 
   return (
     <div style={{ position: 'relative' }}>
@@ -50,7 +59,7 @@ export default function PremiumLock({ children }) {
           type="button"
           className="button"
           style={{ padding: '6px 14px', fontSize: 12, marginTop: 4 }}
-          onClick={() => setPremiumUnlocked(true)}
+          onClick={() => unlockProduct(product)}
         >
           {t('saju.premiumUnlockButton')}
         </button>

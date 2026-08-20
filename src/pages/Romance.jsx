@@ -206,7 +206,7 @@ export default function Romance() {
           {closing && (
             <p style={{ fontSize: 15, lineHeight: 1.6, fontWeight: 700, color: 'var(--accent)' }}>{closing}</p>
           )}
-          {insightSections && <InsightSection sections={insightSections} />}
+          {insightSections && <InsightSection sections={insightSections} product="romance" />}
 
           <div className="result-actions">
             <button

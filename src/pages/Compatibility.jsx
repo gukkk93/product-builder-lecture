@@ -227,7 +227,7 @@ export default function Compatibility() {
 
           <strong style={{ color: 'var(--accent)', fontSize: 20 }}>{copy.tier}</strong>
           <p style={{ fontSize: 15, lineHeight: 1.6 }}>{copy.line}</p>
-          {insightSections && <InsightSection sections={insightSections} />}
+          {insightSections && <InsightSection sections={insightSections} product="compatibility" />}
 
           <div className="result-actions">
             <button

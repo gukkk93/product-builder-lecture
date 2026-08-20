@@ -10,8 +10,7 @@
   "footer": {
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
-    "copyright": "© {{year}} Ohaeng. All rights reserved.",
-    "relockPremium": "Lock premium content again (testing)"
+    "copyright": "© {{year}} Ohaeng. All rights reserved."
   },
   "loading": {
     "analyzing": "{{element}} energy is reading your saju..."
@@ -141,7 +140,7 @@
       "late": "Later Life"
     },
     "premiumLockedNote": "Available with Premium",
-    "premiumUnlockButton": "Try it free now",
+    "premiumUnlockButton": "Try this content free",
     "extraHeading": "Shensha, Nobleman & More",
     "extraIntro": "A few more traditional saju markers layered on top of your chart",
     "shenshaTitle": "Shensha (신살)",
@@ -345,7 +344,19 @@
     "strengthHeading": "Strong vs. weak Day Master (신강/신약)",
     "strengthBody": "Your Day Master is the Heavenly Stem of your Day Pillar — the character that represents \"you\" specifically, separate from your overall dominant element. Ohaeng checks how much support that character gets from the rest of your chart: if at least half the other characters share or generate its element, you're a \"strong\" Day Master; otherwise, you're \"weak.\" Strong doesn't mean better and weak doesn't mean worse — it's a read on whether your core traits show up consistently everywhere you go (strong) or shift more with who's around you (weak). You'll see this reflected on every avatar in the app too: a solid ring means a strong Day Master, a dashed ring means a weak one.",
     "featuresHeading": "Group Match & Drama Match",
-    "featuresBody": "Idol Match and Drama Match both work the same way: enter your birthday and gender, and Ohaeng scans the full roster — every idol group, or all 100 K-drama actors — filtered to the opposite gender, and surfaces whoever scores highest against your chart. Group Match works a little differently: pick one group, and instead of a single best match, you get every member ranked by score, so you can see exactly where your bias lands next to the rest of the lineup."
+    "featuresBody": "Idol Match and Drama Match both work the same way: enter your birthday and gender, and Ohaeng scans the full roster — every idol group, or all 100 K-drama actors — filtered to the opposite gender, and surfaces whoever scores highest against your chart. Group Match works a little differently: pick one group, and instead of a single best match, you get every member ranked by score, so you can see exactly where your bias lands next to the rest of the lineup.",
+    "premiumTestHeading": "Premium Unlock Testing",
+    "premiumTestIntro": "Relock a specific product to retest its unlock flow, without clearing your browser storage by hand.",
+    "premiumTestProducts": {
+      "saju": "Saju",
+      "compatibility": "Compatibility",
+      "idolMatch": "Idol Match",
+      "dramaMatch": "Drama Match",
+      "romance": "Romance"
+    },
+    "premiumTestStatusLocked": "Locked",
+    "premiumTestStatusUnlocked": "Unlocked",
+    "premiumTestRelockButton": "Lock again"
   },
   "privacy": {
     "navLabel": "Privacy Policy",
