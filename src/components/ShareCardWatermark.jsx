@@ -23,7 +23,7 @@ export default function ShareCardWatermark({ elements }) {
           height: second ? 320 : 400,
           right: second ? -100 : -120,
           bottom: second ? -90 : -110,
-          opacity: 0.13,
+          opacity: 0.22,
           pointerEvents: 'none',
           objectFit: 'contain',
         }}
@@ -39,7 +39,7 @@ export default function ShareCardWatermark({ elements }) {
             height: 320,
             left: -100,
             top: -90,
-            opacity: 0.13,
+            opacity: 0.22,
             pointerEvents: 'none',
             objectFit: 'contain',
           }}

@@ -1,25 +1,31 @@
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ELEMENT_ICON_SRC } from './ElementBadge';
-import { ELEMENT_GRADIENT } from './ShareCard';
+import { ELEMENT_GRADIENT, truncateForShareCard } from './ShareCard';
 import ShareCardWatermark from './ShareCardWatermark';
 import ShareCardFooter from './ShareCardFooter';
 
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 
 const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
-  { myElement, theirElement, theirName, relationshipLabel, score, tier, line },
+  { myElement, theirElement, theirName, relationshipLabel, score, tier, subheading, text },
   ref
 ) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [from, to] = ELEMENT_GRADIENT[myElement];
+  // "Headline + first paragraph only" — text may carry a second paragraph
+  // (see matchCommon.explanation.* in en/ko.json), but the share card only
+  // ever shows the first one, truncated to a clean ellipsis if it's still
+  // too long for the card (matchCommon.explanation runs 400-460 chars in
+  // English, 200-250 in Korean, well beyond a card-sized teaser).
+  const firstParagraph = truncateForShareCard(text ? text.split('\n\n')[0] : '', i18n.language);
 
   return (
     <div
       ref={ref}
       style={{
         width: 360,
-        height: 640,
+        height: 690,
         position: 'relative',
         overflow: 'hidden',
         background: `linear-gradient(160deg, ${from}, ${to})`,
@@ -104,20 +110,24 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
           )}
           <div style={{ fontSize: 18, fontWeight: 700, opacity: 0.95, wordBreak: 'keep-all' }}>{tier}</div>
 
+          {subheading && (
+            <div style={{ fontSize: 22, fontWeight: 800, marginTop: 4, wordBreak: 'keep-all' }}>{subheading}</div>
+          )}
           <p
             style={{
               fontSize: 15,
               lineHeight: 1.6,
               margin: '4px 0 0',
               maxWidth: 280,
+              textAlign: 'left',
               display: '-webkit-box',
-              WebkitLineClamp: 5,
+              WebkitLineClamp: 7,
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
               wordBreak: 'keep-all',
             }}
           >
-            {line}
+            {firstParagraph}
           </p>
         </div>
 

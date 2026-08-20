@@ -273,7 +273,8 @@ export default function Compatibility() {
           relationshipLabel={relationshipLabel}
           score={score}
           tier={copy.tier}
-          line={copy.line}
+          subheading={explanation.subheading}
+          text={explanation.text}
         />
       </div>
     </main>

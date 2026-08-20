@@ -15,6 +15,26 @@ export const ELEMENT_GRADIENT = {
 
 export const SITE_URL = 'getohaeng.com';
 
+// Cards that show a headline + first-paragraph teaser truncate it to a
+// clean word boundary with a visible "…" — -webkit-line-clamp's own
+// UA-generated ellipsis doesn't survive html-to-image's toPng() export
+// (confirmed by rendering: the clipped line just stops mid-sentence with
+// no dots), so the ellipsis has to be real text content instead. maxLen is
+// language-aware since Hangul syllables are visually wider than Latin
+// letters — the same character count wraps to noticeably more lines in
+// Korean, so it gets a shorter budget to land at a similar line count.
+const TRUNCATE_MAX_LEN = { ko: 150, en: 260 };
+
+export function truncateForShareCard(text, lang) {
+  if (!text) return '';
+  const maxLen = TRUNCATE_MAX_LEN[lang] || TRUNCATE_MAX_LEN.en;
+  if (text.length <= maxLen) return text;
+  const cut = text.slice(0, maxLen);
+  const lastSpace = cut.lastIndexOf(' ');
+  const trimmed = lastSpace > maxLen * 0.6 ? cut.slice(0, lastSpace) : cut;
+  return `${trimmed.trimEnd()}…`;
+}
+
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 
 const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, fandomLine }, ref) {

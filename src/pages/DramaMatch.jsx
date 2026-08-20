@@ -161,7 +161,8 @@ export default function DramaMatch() {
           idolStrength={best.saju.dayGanStrength}
           score={best.score}
           tier={compatCopy.tier}
-          line={compatCopy.line}
+          subheading={compatCopy.meetingScenario.subheading}
+          text={compatCopy.meetingScenario.text}
         />
       </div>
     </main>

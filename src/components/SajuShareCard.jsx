@@ -1,15 +1,19 @@
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ELEMENT_ICON_SRC } from './ElementBadge';
-import { ELEMENT_GRADIENT } from './ShareCard';
+import { ELEMENT_GRADIENT, truncateForShareCard } from './ShareCard';
 import ShareCardWatermark from './ShareCardWatermark';
 import ShareCardFooter from './ShareCardFooter';
 
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
 
 const SajuShareCard = forwardRef(function SajuShareCard({ element, strength, profileTitle, profileLine }, ref) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [from, to] = ELEMENT_GRADIENT[element];
+  // Same fix as the other 3 share cards: -webkit-line-clamp's own
+  // UA-generated ellipsis doesn't survive html-to-image's toPng() export,
+  // so a truncated profileLine needs a real "…" character instead.
+  const truncatedProfileLine = truncateForShareCard(profileLine, i18n.language);
 
   return (
     <div
@@ -76,13 +80,13 @@ const SajuShareCard = forwardRef(function SajuShareCard({ element, strength, pro
               margin: '2px 0 0',
               maxWidth: 280,
               display: '-webkit-box',
-              WebkitLineClamp: 6,
+              WebkitLineClamp: 8,
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
               wordBreak: 'keep-all',
             }}
           >
-            {profileLine}
+            {truncatedProfileLine}
           </p>
         </div>
 

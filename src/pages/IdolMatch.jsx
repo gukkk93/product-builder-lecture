@@ -236,7 +236,8 @@ export default function IdolMatch() {
               idolStrength={memberSaju.dayGanStrength}
               score={memberScore}
               tier={memberCopy.tier}
-              line={memberCopy.line}
+              subheading={memberCopy.meetingScenario.subheading}
+              text={memberCopy.meetingScenario.text}
             />
           </div>
         </main>
@@ -368,7 +369,8 @@ export default function IdolMatch() {
           idolStrength={best.saju.dayGanStrength}
           score={best.score}
           tier={compatCopy.tier}
-          line={compatCopy.line}
+          subheading={compatCopy.meetingScenario.subheading}
+          text={compatCopy.meetingScenario.text}
         />
       </div>
     </main>

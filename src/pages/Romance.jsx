@@ -251,7 +251,8 @@ export default function Romance() {
           relationshipLabel={t(`romance.${situation}.badge`)}
           score={score}
           tier={copy.tier}
-          line={copy.line}
+          subheading={explanation.subheading}
+          text={explanation.text}
         />
       </div>
     </main>
