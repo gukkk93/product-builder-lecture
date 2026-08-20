@@ -10,7 +10,8 @@
   "footer": {
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
-    "copyright": "© {{year}} Ohaeng. All rights reserved."
+    "copyright": "© {{year}} Ohaeng. All rights reserved.",
+    "relockPremium": "Lock premium content again (testing)"
   },
   "loading": {
     "analyzing": "{{element}} energy is reading your saju..."
@@ -140,6 +141,7 @@
       "late": "Later Life"
     },
     "premiumLockedNote": "Available with Premium",
+    "premiumUnlockButton": "Try it free now",
     "extraHeading": "Shensha, Nobleman & More",
     "extraIntro": "A few more traditional saju markers layered on top of your chart",
     "shenshaTitle": "Shensha (신살)",

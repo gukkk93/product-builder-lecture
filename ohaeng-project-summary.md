@@ -219,6 +219,17 @@
   - **`romanceTemplates.js`**: `goodFit`/`watchFor` 확장은 위와 동일한 패턴(상황×관계 15조합 × 고정 1개). `situational`(구체적 순간 5개, 5-2에서 만든 것)과 원래 질문형 성찰 톤은 이번에 안 건드림 — 분량만 늘리고 톤 유지 원칙 그대로 지킴
   - **검증**: `PREVIEW_MODE_UNLOCK_ALL`을 잠깐 `false`로 내린 상태에서 Playwright로 6개 결과 화면(궁합/아이돌매치/드라마매치/로맨스/내사주) × en/ko 전부 DOM 잠금 상태가 "각 챕터 첫 항목만 무료"로 정확히 나오는지 전수 확인 — 전부 일치. 별도 Node 스크립트로 4개 콘텐츠 뱅크 파일의 `goodFit`/`watchFor`가 전부 `{subheading, text}` 형태를 갖췄는지, `getXxxCopy` 함수들이 깨지지 않았는지 구조 검증(전부 통과). en/ko 키 병렬 검증(0건 불일치). 라이트/다크 스크린샷으로 소제목(강조색)+여러 문단이 카드 안에서 자연스럽게 읽히는지, "커플/연인" 뉘앙스가 아이돌/드라마 매치 텍스트에 없는지("couple", "partner", "boyfriend", "girlfriend", "커플", "연인", "사귀" 키워드 검색) 확인 — 전부 클린. 콘솔 에러 0건. 마지막에 `PREVIEW_MODE_UNLOCK_ALL`을 다시 `true`로 복구한 뒤 최종 빌드 확인
 
+## 5-5. 유저별 프리미엄 잠금 해제 (`PremiumContext`, `utils/premiumUnlock.js`) — Stripe 연동 전 실사용 흐름
+
+5-4에서 만든 `PREVIEW_MODE_UNLOCK_ALL`은 "개발자가 전체 리뷰할 때 잠깐 켜는 스위치"였을 뿐, 실제 방문자에게 노출되는 라이브 흐름이 아니었음. 이번엔 방문자 본인이 잠긴 섹션에서 직접 버튼을 눌러 잠금을 풀 수 있는 **진짜 유저용 흐름**을 만들고, `PREVIEW_MODE_UNLOCK_ALL`은 다시 `false`로 되돌림 — 이제부터 실제로 콘텐츠가 잠겨 보이는 게 기본 상태.
+
+- **`src/utils/premiumUnlock.js`**(신규): `theme`/`language`와 동일한 flat localStorage 패턴 — `isPremiumUnlocked()`(`localStorage.getItem('premiumUnlocked') === 'true'`), `setPremiumUnlocked(value)`. **Stripe 연동 시 재사용 지점**을 파일 최상단 주석에 명시해둠: "Checkout 성공 콜백(또는 서버 확인이 필요하면 webhook 핸들러)에서 이 파일의 `setPremiumUnlocked(true)`를 그대로 호출하면 됨 — 이 파일 자체는 그 시점에 수정 불필요"
+- **`src/context/PremiumContext.jsx`**(신규): `premiumUnlock.js`의 값으로 초기화된 React state + `setPremiumUnlocked` 함수를 Context로 제공하는 `PremiumProvider`, 소비용 `usePremium()` 훅. **App.jsx에서 `<Routes>` 바깥을 감싸는 최상위**에 배치(라우트 이동해도 상태 유지) — 이렇게 해야 한 페이지 안에 잠긴 섹션이 여러 개 있어도(`/saju`엔 19개) 버튼 하나 눌렀을 때 전부 같은 React state를 구독하고 있어서 **리로드 없이 즉시 다 같이 풀림**
+- **`PremiumLock.jsx` 수정**: 렌더링 조건이 `PREVIEW_MODE_UNLOCK_ALL` 단독 체크에서 `PREVIEW_MODE_UNLOCK_ALL || isPremiumUnlocked`(Context)로 확장. 잠긴 상태의 오버레이 안에 새 버튼 추가(`saju.premiumUnlockButton`: "Try it free now"/"지금 무료로 체험해보기") — 클릭 시 `setPremiumUnlocked(true)` 호출
+- **`Footer.jsx`에 재잠금 테스트 링크 추가**: `isPremiumUnlocked`가 true일 때만(잠금 풀린 상태에서만) 푸터 하단에 작은 밑줄 텍스트 버튼(`footer.relockPremium`: "Lock premium content again (testing)"/"프리미엄 잠금 다시 걸기 (테스트용)") 노출 — 클릭하면 `setPremiumUnlocked(false)`. 개발자도구로 매번 localStorage 지우지 않고도 잠금/해제 두 상태를 반복 테스트할 수 있게 하는 용도라고 요청받아 그대로 남겨둠(정식 UX는 아님, 사용자가 "선택, 개발 편의용"이라고 명시)
+- **`config.js`의 `PREVIEW_MODE_UNLOCK_ALL`을 다시 `false`로**: 이제부터 실제 방문자에게는 콘텐츠가 잠긴 채로 보이고, 위 유저별 버튼이 진짜 해제 경로가 됨. 이 값은 앞으로 개발자가 전체 리뷰할 때만 잠깐 `true`로 켰다가 다시 꺼두는 용도로 계속 남겨둠(용도 자체가 5-4와 달라진 걸 주석에도 반영)
+- **검증**: Playwright로 `/saju`(잠긴 섹션 19개짜리 페이지)에서 (1) 잠금 상태에서 잠긴 섹션 수/무료 섹션 수(19/5, 5-4 스펙 그대로)부터 확인 (2) 잠긴 섹션 중 아무 버튼이나 하나 클릭 → **같은 페이지의 다른 18개 잠긴 섹션도 리로드 없이 즉시 다 같이 풀리는지**(0개 잠금으로) 확인 (3) `localStorage.premiumUnlocked === 'true'`로 저장됐는지 확인 (4) 페이지 새로고침 후에도 계속 24개 전부 풀린 상태로 유지되는지 확인 (5) 푸터의 "잠금 다시 걸기" 클릭 → 다시 19/5로 원상복구되고 localStorage도 `'false'`로 바뀌는지 확인 — en/ko 둘 다 전부 일치. 라이트/다크 스크린샷으로 잠금 상태(블러+자물쇠+버튼)와 해제 상태(전체 선명) 둘 다 확인, 콘솔 에러 0건
+
 ## 6. 아이돌/배우 데이터
 
 - **`src/data/idols.js`**: **31개 그룹, 197명** (남 16개 그룹/여 15개 그룹). 기존 10개(BTS, BLACKPINK, NewJeans, SEVENTEEN, Stray Kids, TWICE, EXO(활동 중인 6명만), TXT, aespa, ATEEZ)에 21개 그룹 추가: ENHYPEN, THE BOYZ, ZEROBASEONE, RIIZE, NCT DREAM, NCT 127, MONSTA X, GOT7, TREASURE, BOYNEXTDOOR(남), IVE, LE SSERAFIM, ITZY, (G)I-DLE, Red Velvet, MAMAMOO, Kep1er, STAYC, fromis_9, NMIXX, VIVIZ(여). 그룹마다 `gender: 'M'|'F'` 필드 추가(베스트매치 성별 필터링용)
@@ -320,13 +331,13 @@ theme/language 토글과 동일한 localStorage 패턴(`ThemeToggle.jsx`/`Langua
 - Cloudflare Pages 빌드: Framework preset None, Build command `npm run build`, Output directory `dist`
 - `.claude/settings.json`에 `Bash(npm run build)`, `Bash(npm run dev)`, `PowerShell(git push origin main)` 허용 등록됨 (승인창 감소용)
 - **push 정책**: 사용자가 "계속 자동으로 푸쉬해줘"라고 명시적으로 요청함 → 커밋 후 확인 없이 바로 push하는 게 기본 동작
-- **프리미엄 잠금 전역 스위치(`src/config.js`의 `PREVIEW_MODE_UNLOCK_ALL`, 5-4 참고)**: 마케팅 전 프리뷰 기간엔 `true`(전체 콘텐츠 시각적으로 열려 보임) — **실제 결제 연동 붙이는 시점에 이 값만 `false`로 바꾸면 됨**, 페이지별 `locked` 플래그는 안 건드려도 그대로 복원됨. 다음 세션에서 잠금 관련 작업할 땐 이 값이 지금 뭘로 켜져 있는지 먼저 확인할 것
+- **프리미엄 잠금 — 두 겹 구조(5-4, 5-5 참고)**: (1) `src/config.js`의 `PREVIEW_MODE_UNLOCK_ALL` — **현재 `false`**, 개발자가 전체 리뷰할 때만 잠깐 `true`로 켰다가 다시 꺼두는 용도. (2) `PremiumContext`/`utils/premiumUnlock.js` — 방문자가 잠긴 섹션의 "지금 무료로 체험해보기" 버튼을 눌러 localStorage에 저장하는 **실제 라이브 잠금 해제 흐름**(현재 정식 동작 중). Stripe 연동 시 결제 성공 콜백에서 `setPremiumUnlocked(true)`만 호출하면 되도록 이미 설계해둠 — `premiumUnlock.js` 자체는 그때 수정 불필요
 
 ## 11. 아직 안 한 것
 
 - **스페인어**: 구조는 en/ko와 동일하게 확장하면 되지만 미착수
 - **리텐션 — 완료**(9-1 참고). 생년월일(+선택 입력했다면 이름/성별)을 localStorage에 저장해 "내 생일" 폼에 재방문시 자동 채움, 상대방 생일 폼은 저장 대상에서 제외
-- **수익화**: 유료 구독/Stripe 연동 — **실제 Stripe 계정/API 키 필요**, 여기서 막힘
+- **수익화**: 유료 구독/Stripe 연동 — **실제 Stripe 계정/API 키 필요**, 여기서 막힘. 다만 결제 성공 시 잠금을 풀어주는 쪽(`utils/premiumUnlock.js`의 `setPremiumUnlocked(true)`, 5-5 참고)은 이미 준비돼있어서, Stripe 붙을 때 Checkout 성공 콜백/webhook에서 이 함수 하나만 호출하면 됨
 - **주간 운세 캘린더**, **로그인/히스토리** — 미착수 (PRD상 우선순위 낮음)
 - **PostHog 실제 키 — 완료**(위 9번 참고). 오토캡처는 확인됐고, 커스텀 이벤트가 대시보드에 실제로 도착하는지는 사용자가 직접 브라우저에서 확인 필요(코드는 검증 완료)
 - 신강/신약을 사주 성격 문구(`sajuProfileTemplates.js`)에도 반영하는 건 스코프 아웃함 (오행 5종만으로 충분하다고 판단)
