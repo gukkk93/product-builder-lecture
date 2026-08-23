@@ -360,7 +360,9 @@
       "conflictStyle": "싸울 확률과 화해 방식",
       "dailyMoment": "야식 고민하는 밤",
       "stagePresence": "무대 위에서는",
-      "offstage": "무대 밖에서는"
+      "offstage": "무대 밖에서는",
+      "chemistryPoints": "우리 둘의 케미 포인트",
+      "noblemanBonus": "귀인 케미"
     },
     "relationshipMode": {
       "friend": "친구",

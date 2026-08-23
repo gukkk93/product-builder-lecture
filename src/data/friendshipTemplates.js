@@ -28,8 +28,8 @@ export const friendshipTemplates = {
         text: "From your bias's side, you probably read as an easy, no-explanation-required kind of friend. You give off the vibe of someone they don't need to be formal around, someone who'd take whatever they say at face value without judging it. Even if they're guarded around other fans or acquaintances, this telepathic-friend energy is probably exactly the kind of presence that lets them actually relax.",
       },
       watchFor: {
-        subheading: 'Make Room for a Different Opinion Now and Then',
-        text: "When two people click this easily, it can get harder to actually challenge or surprise each other. Trading only expected reactions and familiar takes can quietly turn comfort into boredom if you let it. Deliberately floating a different opinion once in a while, or picking a destination neither of you would normally choose, is a good way to keep this chemistry from going stale.",
+        subheading: 'Try Throwing In a Different Opinion Sometimes',
+        text: "With a match this easy, tossing in a different opinion every once in a while can actually make things more fun. Creating the occasional \"wait, I didn't see that coming\" moment, instead of only trading expected reactions, keeps things lively. Picking a destination neither of you would normally choose could be a fun way to add a new flavor to this easy chemistry.",
       },
     },
     otherGeneratesMe: {
@@ -52,8 +52,8 @@ export const friendshipTemplates = {
         text: "From their side, you probably read as a friend they don't have to perform energy for. Not the flashiest presence, but somehow reassuring just by being there. Even if they're a little tense around other people, this friendship probably lets their shoulders drop without either of you trying.",
       },
       watchFor: {
-        subheading: 'Give Back Sometimes, Not Just Receive',
-        text: "This kind of ease can quietly slide into you always being the one who receives without noticing it. Being the one to reach out first, or take care of them for once, keeps this friendship healthy over the long run. Just noticing the comfort they give you, instead of treating it as a given, already makes the bond stronger.",
+        subheading: 'Reaching Out First Sometimes Could Be Fun',
+        text: "It's easy to settle into always being the one who receives in this kind of ease, so surprising them by reaching out first every once in a while could be a fun change of pace. Bringing them something you know they'd love, without being asked, adds a nice new flavor to this friendship too.",
       },
     },
     iGenerateOther: {
@@ -76,8 +76,8 @@ export const friendshipTemplates = {
         text: "From their side, you probably read as the reliable one who steps up and takes care of things. There's a good chance you're the one they remember reaching out first during a hard moment. Sides of themselves they rarely show other people, they're probably more willing to show around a friend who looks out for them the way you do.",
       },
       watchFor: {
-        subheading: 'Remember That Caring Takes Energy Too',
-        text: "Because looking out for people comes so naturally to you, it's easy to hide it when you're the one running on empty. For this friendship to last, it helps to give yourself permission to actually be cared for sometimes. Building a deliberate back-and-forth, instead of a one-way flow of giving, keeps it sustainable.",
+        subheading: 'Let Yourself Be Looked After Sometimes',
+        text: "Since looking out for people comes so naturally to you, playfully asking them to take care of you for once could be a fun experiment. They might actually light up at the chance — people often do. Swapping roles every so often adds a nice new layer to this friendship.",
       },
     },
     otherOvercomesMe: {
@@ -100,8 +100,8 @@ export const friendshipTemplates = {
         text: "From their side, you probably read as someone hard to define in one sentence — and exactly because of that, someone who sticks in their mind. Surrounded by people who react in predictable ways, your unexpected side probably leaves a real impression. Not easy, maybe, but memorable in a way most friendships aren't.",
       },
       watchFor: {
-        subheading: "Enjoy the Tension, But Don't Let It Run Forever",
-        text: "The appeal here is unpredictability, but too much of it too often can shift into exhaustion. It's worth deliberately building in some stable, low-key moments together every so often. Enjoy the tension itself, but make sure trust gets built separately and consistently underneath it.",
+        subheading: 'Try a Predictable Day Every Once in a While',
+        text: "Unpredictability is the charm here, but a low-key, plans-free day together could be surprisingly fun too. Slipping in one of those ordinary days between all the tension-filled moments might actually be what makes this chemistry last even longer.",
       },
     },
     iOvercomeOther: {
@@ -124,9 +124,45 @@ export const friendshipTemplates = {
         text: "From their side, you probably read as someone who'd stay calm and handle it no matter what happens. They might not say it out loud, but they probably feel more at ease with you around than they'd admit. Someone who usually has to hold everything together in front of other people might be learning, around you, that it's okay to lean on someone for once.",
       },
       watchFor: {
-        subheading: 'Don’t Carry It All — Lean On Them Sometimes Too',
-        text: "Always being the one who steps up can leave you without much space to lean on anyone yourself. For this friendship to stay balanced, it helps to be the one who asks for help every once in a while too. Being the reliable one doesn't mean you always have to handle everything perfectly — worth reminding yourself of that too.",
+        subheading: 'Leaning On Them for Once Could Be Fun Too',
+        text: "Since you're usually the one taking the lead, flipping the script and leaning on them for once could be a fun change of pace. Handing over the decision with a \"you pick this time\" is a good way to try it. Trading off who leads and who leans makes this steady chemistry even more colorful.",
       },
+    },
+    // Independent of the 5 Five Element relations above — compares each
+    // person's dominant Ten God category (getTenGodProfile in
+    // utils/saju.js) instead, so it's a genuinely separate axis of
+    // variety layered on top of the relation-based sections.
+    chemistryPoints: {
+      same: {
+        companion: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Companion energy, so your sense of treating each other as equals matches from the start. You find comfort in the same kinds of moments, which is why conversation tends to skip the small talk and go straight to what actually matters.",
+        },
+        output: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Output energy, so your expressive, playful charm overlaps directly. Being together, your energy just naturally clicks, and you never really have to explain your sense of humor to each other.",
+        },
+        wealth: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Wealth energy, so your practical, resourceful instincts line up well. When it's time to plan something or take care of business, you tend to already move the same way without needing to adjust for each other.",
+        },
+        officer: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Officer energy, so your responsible, deliberate charm mirrors each other's. Keeping promises and taking things seriously both come naturally to you two, and neither has to explain that instinct to the other.",
+        },
+        resource: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Resource energy, so your warm, considerate charm mirrors each other's. Being together, you both put each other at ease in a similar way, which means that warmth ends up doubled instead of just shared.",
+        },
+      },
+      different: {
+        subheading: 'Two Different Kinds of Charm Meeting',
+        text: "By Ten God profile, your standout traits actually run in different directions, which means there's a real chance to notice something new in each other. They tend to fill in whatever you don't naturally have, so being around them has a way of quietly widening your own view.",
+      },
+    },
+    noblemanBonus: {
+      subheading: 'This Friendship Might Be Part of Your Nobleman Luck',
+      text: "One of your charts carries the Heavenly Nobleman (天乙貴人) — traditionally a sign that good connections show up in your life. Meeting this friend at all might be one of those good connections you could've easily missed.",
     },
   },
   ko: {
@@ -150,8 +186,8 @@ export const friendshipTemplates = {
         text: '최애 입장에서 당신은 별다른 설명 없이도 통하는, 붙임성 좋은 친구로 느껴질 확률이 높아요. 격식 차리지 않아도 되는 사람, 어떤 얘기를 해도 있는 그대로 받아줄 것 같은 사람이라는 인상을 은근히 주고 있을 거예요. 다른 팬이나 지인들에게 조심스러운 모습을 보이다가도, 이런 텔레파시형 친구 앞에서는 오히려 편하게 마음을 놓을 것 같은 상대예요.',
       },
       watchFor: {
-        subheading: '가끔은 다른 의견도 반가워하기',
-        text: '너무 잘 맞으면 오히려 서로에게 새로운 자극을 주기가 어려워질 수 있어요. 다 아는 얘기, 다 예상되는 반응만 주고받다 보면 편안함이 지루함으로 슬쩍 바뀔 수도 있고요. 가끔은 일부러라도 서로 다른 의견을 얘기해보고, 안 가본 곳으로 여행을 떠나보는 것도 이 케미를 오래 신선하게 유지하는 방법이에요.',
+        subheading: '가끔은 일부러 다른 의견도 던져보기',
+        text: '이렇게 잘 맞는 사이일수록, 가끔 서로 다른 의견을 던져보면 오히려 더 재밌어질 수 있어요. 늘 예상되는 반응 대신 "어? 이건 좀 의외인데" 싶은 순간을 만들어보는 것도 좋고요. 안 가본 곳으로 무작정 여행을 떠나보는 것도, 이 편안한 케미에 색다른 재미를 더해줄 거예요.',
       },
     },
     otherGeneratesMe: {
@@ -174,8 +210,8 @@ export const friendshipTemplates = {
         text: '최애 입장에서 당신은 애써 텐션을 맞추지 않아도 되는, 마음 편한 친구로 느껴질 확률이 높아요. 화려하게 챙겨주는 친구는 아니어도, 옆에 있으면 이상하게 안심되는 그런 존재로 기억될 거예요. 다른 사람들 앞에서는 조금 긴장하고 있던 최애도, 이 친구 앞에서는 자연스럽게 어깨에 힘을 빼게 될 확률이 높아요.',
       },
       watchFor: {
-        subheading: '받기만 하지 말고 가끔은 먼저 챙기기',
-        text: '이 조합은 편안함이 익숙해지다 보면, 나도 모르게 계속 받기만 하는 쪽이 될 수 있어요. 가끔은 먼저 연락하고, 먼저 챙기는 쪽이 되어보는 것도 이 관계를 더 오래, 더 건강하게 유지하는 방법이에요. 받은 편안함을 당연하게 여기지 않고 알아채 주는 것만으로도 관계는 훨씬 단단해져요.',
+        subheading: '가끔은 내가 먼저 연락해보는 것도 재밌을 거예요',
+        text: '이 편안함에 익숙해지다 보면 계속 받는 쪽에만 머물기 쉬운데, 가끔은 내가 먼저 연락해서 깜짝 놀라게 해주는 것도 재밌을 거예요. 상대가 좋아할 만한 걸 먼저 챙겨서 건네보는 것도, 이 관계에 또 다른 즐거움을 더해줄 수 있고요.',
       },
     },
     iGenerateOther: {
@@ -198,8 +234,8 @@ export const friendshipTemplates = {
         text: '최애 입장에서 당신은 먼저 나서서 챙겨주는, 든든한 친구로 느껴질 확률이 높아요. 힘든 순간에 먼저 손 내밀어준 사람으로 기억될 가능성이 크고요. 다른 사람들에겐 잘 안 보여주는 여린 모습도, 이렇게 먼저 챙겨주는 친구 앞에서는 조금 더 편하게 내보이게 될 거예요.',
       },
       watchFor: {
-        subheading: '챙기는 것도 에너지가 필요하다는 걸 잊지 않기',
-        text: '먼저 챙기는 게 자연스러운 만큼, 정작 내가 지쳤을 때는 티를 안 내고 넘어가기 쉬워요. 이 관계가 오래가려면, 가끔은 나도 챙김을 받아도 괜찮다는 걸 스스로 허락하는 게 필요해요. 일방적으로 주기만 하는 관계가 아니라, 서로 주고받는 균형을 의식적으로 만들어가는 게 좋아요.',
+        subheading: '가끔은 나도 챙김을 받아보는 것도 좋을 거예요',
+        text: '먼저 챙기는 게 자연스러운 만큼, 가끔은 반대로 나를 챙겨달라고 슬쩍 부탁해보는 것도 재밌는 시도예요. 의외로 상대가 그럴 때 더 좋아하며 나설 수도 있고요. 주고받는 역할을 한 번씩 바꿔보는 것도, 이 케미를 더 풍성하게 만들어줘요.',
       },
     },
     otherOvercomesMe: {
@@ -222,8 +258,8 @@ export const friendshipTemplates = {
         text: '최애 입장에서 당신은 한마디로 정의하기 어려운, 그런데 자꾸 신경 쓰이는 친구로 느껴질 확률이 높아요. 예측 가능한 반응만 보이는 사람들 사이에서, 당신의 예상 밖 매력이 오히려 인상 깊게 남을 거예요. 편하다고는 못 해도, 잊히지 않는 친구로 기억될 가능성이 커요.',
       },
       watchFor: {
-        subheading: '긴장을 즐기되 너무 오래 끌지는 않기',
-        text: '이 관계의 매력은 예측 불가능함이지만, 그게 너무 잦아지면 피로감으로 바뀔 수도 있어요. 가끔은 서로에게 안정적인 순간을 의도적으로 만들어주는 것도 필요해요. 긴장감 자체를 즐기되, 관계의 기반이 되는 신뢰는 따로 꾸준히 쌓아가는 게 좋아요.',
+        subheading: '가끔은 예측 가능한 하루도 즐겨보기',
+        text: '예측 불가능함이 이 관계의 매력이지만, 가끔은 아무 계획 없이 그냥 편하게 뒹구는 하루도 은근히 재밌을 거예요. 긴장감 넘치는 순간들 사이사이에 그런 평범한 하루를 끼워 넣어보면, 오히려 이 케미가 더 오래갈 거예요.',
       },
     },
     iOvercomeOther: {
@@ -246,13 +282,57 @@ export const friendshipTemplates = {
         text: '최애 입장에서 당신은 무슨 일이 생겨도 침착하게 정리해줄 것 같은, 든든한 친구로 느껴질 확률이 높아요. 겉으로 티는 안 내도, 당신이 옆에 있으면 알게 모르게 마음이 놓인다는 걸 스스로도 느끼고 있을 거예요. 다른 사람들 앞에서는 스스로 다 챙겨야 했던 최애도, 이 친구 앞에서는 잠깐 기대도 괜찮다는 걸 배우게 될 확률이 높아요.',
       },
       watchFor: {
-        subheading: '다 떠안지 말고 가끔은 기대도 보기',
-        text: '늘 앞장서다 보면 정작 내가 기댈 자리는 못 만들 때가 많아요. 이 관계가 일방적으로 챙기기만 하는 관계가 되지 않으려면, 가끔은 당신도 먼저 도움을 요청해보는 게 필요해요. 든든한 사람이라고 해서 늘 완벽하게 다 해내야 하는 건 아니라는 걸 스스로에게도 알려주세요.',
+        subheading: '가끔은 나도 기대보는 것도 재밌을 거예요',
+        text: '늘 앞장서는 쪽이다 보니, 가끔은 반대로 상대에게 기대보는 것도 새로운 재미가 될 수 있어요. "이번엔 네가 정해봐" 하고 슬쩍 넘겨보는 것도 좋고요. 이끄는 역할과 기대는 역할을 번갈아 해보면, 이 든든한 케미가 훨씬 다채로워져요.',
       },
+    },
+    chemistryPoints: {
+      same: {
+        companion: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 비겁 기운이 강한 편이라, 서로를 대등하게 대하는 감각 자체가 비슷해요. 같은 포인트에서 편안함을 느끼는 사이라, 대화가 유난히 겉돌지 않고 바로 핵심으로 들어가는 편이에요.',
+        },
+        output: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 식상 기운이 강한 편이라, 표현하고 장난치는 매력 포인트가 서로 겹쳐요. 그래서 같이 있으면 텐션이 자연스럽게 맞아떨어지고, 서로의 유머 코드를 굳이 설명할 필요가 없어요.',
+        },
+        wealth: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 재성 기운이 강한 편이라, 현실적이고 실속 있는 감각이 서로 잘 맞아요. 계획을 세우거나 뭔가를 챙길 때, 굳이 맞춰가지 않아도 이미 같은 방식으로 움직이는 편이에요.',
+        },
+        officer: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 관성 기운이 강한 편이라, 책임감 있고 신중한 매력 포인트가 서로 닮아 있어요. 약속을 지키는 것도, 진지하게 임하는 태도도 서로 자연스럽게 이해가 되는 사이예요.',
+        },
+        resource: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 인성 기운이 강한 편이라, 다정하고 배려 깊은 매력 포인트가 서로 닮아 있어요. 같이 있으면 서로를 편안하게 해주는 방식 자체가 비슷해서, 그 다정함이 자연스럽게 두 배가 돼요.',
+        },
+      },
+      different: {
+        subheading: '서로 다른 매력이 만나는 조합',
+        text: '십성으로 보면 서로 강조되는 매력 포인트가 다른 편이라, 각자 가진 게 다른 만큼 서로에게서 새로운 면을 발견하는 재미가 있어요. 나한테 없는 결을 상대가 채워주는 느낌이라, 같이 있으면 시야가 조금씩 넓어지는 조합이에요.',
+      },
+    },
+    noblemanBonus: {
+      subheading: '이 만남 자체가 귀인 기운의 일부일 수도 있어요',
+      text: '둘 중 한쪽 사주에 천을귀인이 있는 조합이에요 — 전통적으로 좋은 인연이 따라오는 자리로 읽혀요. 이 친구를 만난 것 자체가, 인생에서 그냥 지나칠 수도 있었던 좋은 인연 중 하나일 수 있어요.',
     },
   },
 };
 
 export function getFriendshipCopy(lang, relation) {
   return (friendshipTemplates[lang] || friendshipTemplates.en)[relation];
+}
+
+/** Independent of `relation` — compares each person's dominant Ten God
+ * category (getTenGodProfile) and picks the matching or "different" copy. */
+export function getChemistryPoints(lang, myCategory, otherCategory) {
+  const bank = (friendshipTemplates[lang] || friendshipTemplates.en).chemistryPoints;
+  return myCategory === otherCategory ? bank.same[myCategory] : bank.different;
+}
+
+/** Shown only when at least one of the two charts has the Heavenly Nobleman. */
+export function getNoblemanBonus(lang) {
+  return (friendshipTemplates[lang] || friendshipTemplates.en).noblemanBonus;
 }

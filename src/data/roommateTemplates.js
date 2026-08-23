@@ -26,8 +26,8 @@ export const roommateTemplates = {
         text: "Around 11pm, standing in front of the fridge weighing whether to order food — there's a good chance you'll catch your roommate mid-thought doing the exact same thing. You probably don't even need to ask what the other wants, which makes deciding on late-night food quick and painless. Small moments like this add up to a comfort that goes well beyond just sharing an address.",
       },
       watchFor: {
-        subheading: "Don't Let the Ease Turn Into Neglect",
-        text: "Because things run so smoothly, you might stop feeling the need to check in on each other at all. Even in an easy roommate relationship, it's worth deliberately asking how the other's doing and sharing the small stuff now and then. Leaning on familiarity alone can get stale — trying something new together every so often keeps this pairing feeling fresh.",
+        subheading: 'Add Some Fun With New Experiments Now and Then',
+        text: "Living together runs so smoothly that it's easy to fall into the exact same routine every day, so trying an unfamiliar recipe together or exploring a neighborhood you've never been to could be a great spark. Layering a new experience on top of the familiar makes this easy roommate life even more enjoyable.",
       },
     },
     otherGeneratesMe: {
@@ -50,8 +50,8 @@ export const roommateTemplates = {
         text: 'When you\'re craving something at night but can\'t quite decide alone, they\'re probably the one who asks first — "want to order something?" That one small gesture tends to melt away a surprising amount of the day\'s exhaustion. Small moments like this are exactly why living with this roommate feels unusually easy.',
       },
       watchFor: {
-        subheading: 'Getting Used to Receiving? Take a Turn Giving Back',
-        text: "Because they accommodate you so well, you might get used to always being the one who receives without noticing. Suggesting late-night food first sometimes, or looking out for them on a night they get home late, helps balance things out. Just occasionally showing you don't take that comfort for granted makes the relationship even sturdier.",
+        subheading: 'Suggesting Late-Night Food First Could Be a Fun Twist',
+        text: 'Since they take such good care of things, it\'s easy to get used to being the one who receives — so suggesting the late-night order first with a "how about this tonight?" could be a nice twist. Waiting up and opening the door for them on a night they get home late adds a small spark of its own to this easy living situation.',
       },
     },
     iGenerateOther: {
@@ -74,8 +74,8 @@ export const roommateTemplates = {
         text: 'Noticing them looking hungry at night, you\'re probably the one who asks first — "want to order something?" You\'ve probably quietly remembered their favorite order and suggested it before they even said anything. Small moments of care like that end up playing a bigger role than you\'d think in making this place feel comfortable for them.',
       },
       watchFor: {
-        subheading: "Check In Now and Then So the Care Doesn't Get Taken for Granted",
-        text: "Because looking after things comes so naturally to you, there's a real risk that effort just gets taken for granted. It's worth checking whether they actually notice it, and letting them know you sometimes want to be looked after too. To avoid burning out as the household's default caretaker, give yourself permission to lean on them sometimes as well.",
+        subheading: 'Splitting the Chores 50/50 Sometimes Could Be Fun',
+        text: 'Taking care of things comes naturally to you, but declaring "your turn today" and splitting the chores could be a fun experiment. Watching them fumble their way through cooking is honestly its own kind of entertaining. Swapping roles every so often makes this caretaker chemistry a lot more colorful.',
       },
     },
     otherOvercomesMe: {
@@ -98,8 +98,8 @@ export const roommateTemplates = {
         text: "Even picking a late-night order can turn into a small standoff — one of you wants spicy, the other wants mild. But that back-and-forth usually ends in the fun compromise of just ordering both and splitting it. Compared to living with someone who orders the exact same thing every time, this makes for a much more varied set of memories.",
       },
       watchFor: {
-        subheading: "Enjoy the Friction, But Don't Let It Tip Into Real Hurt",
-        text: "The bickering is part of the charm here, but every so often it can genuinely tip into hurt feelings. It helps to stay aware of the line between joking and something real, and to be able to just say \"that actually stung\" when it matters. The more a relationship runs on this kind of friction, the more it needs solid trust underneath to actually last.",
+        subheading: 'Turn the Bickering Into a Game',
+        text: 'Since the back-and-forth over what to order is half the charm here, taking turns with a "you pick this time, I\'ll pick next" could make it even more fun. Trading off like that ends up teaching you each other\'s taste one order at a time. Leaning into the bickering itself is honestly the secret to making this living situation last.',
       },
     },
     iOvercomeOther: {
@@ -122,9 +122,44 @@ export const roommateTemplates = {
         text: 'Even ordering late-night food, you probably lead with a quick "how about this?" and get things decided fast. They tend to go along comfortably with your suggestion, which noticeably cuts down the energy spent on small decisions. Little moments like this add up to you feeling like a genuinely steadying presence for them.',
       },
       watchFor: {
-        subheading: "Don't Decide Everything — Ask Sometimes",
-        text: 'Once leading decisions becomes second nature, it\'s easy to forget to actually ask what they want. Occasionally asking "what do you feel like doing?" first makes this relationship feel more balanced. Being the reliable one is great, but regularly leaving room for them to choose is what makes it last.',
+        subheading: 'Handing Over the Decision Sometimes Could Be Fun',
+        text: 'Since leading decisions comes so naturally, handing the whole thing over with a "you choose today" could be a fun experiment. They might surprise you with a choice you wouldn\'t have expected. Setting the lead role down for a moment makes this steady living situation more balanced and more fun.',
       },
+    },
+    // See friendshipTemplates.js for the full explanation — same idea,
+    // roommate-flavored: an axis independent of the 5 Five Element
+    // relations, comparing each person's dominant Ten God category.
+    chemistryPoints: {
+      same: {
+        companion: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Companion energy, so your sense of treating each other as equals already matches. Splitting chores tends to balance itself out naturally without either of you having to negotiate it.",
+        },
+        output: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Output energy, so the apartment has a good chance of being an unusually lively, laughter-filled space. Turning even small mishaps into a fun story is an instinct you both already share.",
+        },
+        wealth: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Wealth energy, so your sense for handling the practical stuff — rent, bills, groceries — already lines up well. The way you run the household frugally and sensibly tends to already match.",
+        },
+        officer: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Officer energy, so your instinct for keeping house rules and being considerate of each other already matches. There's rarely much need to nag about following through on the basics.",
+        },
+        resource: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Resource energy, so the way you put each other at ease already matches. You both already carry that warm instinct that makes an apartment feel like an actual home.",
+        },
+      },
+      different: {
+        subheading: 'Two Different Kinds of Charm Meeting',
+        text: "By Ten God profile, your standout traits run in different directions, so your instincts around housekeeping might differ a bit too. But that difference tends to end up covering exactly the spots the other one would've missed.",
+      },
+    },
+    noblemanBonus: {
+      subheading: 'This Living Situation Might Be Part of Your Nobleman Luck',
+      text: "One of your charts carries the Heavenly Nobleman (天乙貴人) — traditionally a sign that good connections follow you. Ending up as roommates with this person might be one of those good connections you could've easily missed.",
     },
   },
   ko: {
@@ -148,8 +183,8 @@ export const roommateTemplates = {
         text: '밤 11시쯤 냉장고 앞에서 "먹을까 말까" 고민하다가, 마침 상대도 같은 생각으로 나와서 눈이 마주치는 그런 순간이 자주 생길 확률이 높아요. 굳이 물어보지 않아도 서로 뭘 원하는지 대충 알아서, 야식 메뉴 정하는 데 걸리는 시간도 짧은 편이고요. 이런 사소한 순간들이 쌓여서, 같이 사는 사람 이상의 편안함을 만들어주는 조합이에요.',
       },
       watchFor: {
-        subheading: '너무 편해서 서로에게 소홀해지지 않기',
-        text: '생활이 워낙 잘 맞다 보니, 오히려 서로에게 굳이 신경 쓸 필요를 못 느끼게 될 수도 있어요. 편한 사이일수록 가끔은 의식적으로 안부를 묻고, 사소한 것도 나눠보는 노력이 필요해요. 익숙함에 기대기만 하지 않고, 가끔은 새로운 걸 같이 시도해보는 것도 이 조합을 계속 신선하게 만들어줘요.',
+        subheading: '가끔은 새로운 시도로 재미를 더해보기',
+        text: '생활이 워낙 잘 맞다 보니 오히려 매번 똑같이 흘러가기 쉬운데, 가끔은 안 해본 음식을 같이 만들어보거나 낯선 동네를 함께 산책해보는 것도 좋은 자극이 될 거예요. 익숙함 위에 새로운 경험을 살짝 얹어보면, 이 편안한 동거가 훨씬 더 즐거워져요.',
       },
     },
     otherGeneratesMe: {
@@ -172,8 +207,8 @@ export const roommateTemplates = {
         text: '밤에 뭔가 먹고 싶은데 혼자 결정하기 애매할 때, 상대가 먼저 "뭐 시켜 먹을까?" 하고 물어봐 주는 경우가 많을 거예요. 그 사소한 배려 하나가 하루의 피로를 꽤 많이 풀어주는 편이고요. 이런 작은 순간들이 쌓여서, 이 룸메이트와 사는 게 유난히 편안하게 느껴지는 이유가 돼요.',
       },
       watchFor: {
-        subheading: '받는 게 익숙해져도 가끔은 먼저 챙겨보기',
-        text: '상대가 워낙 잘 맞춰주다 보니, 나도 모르게 계속 받는 쪽에만 익숙해질 수 있어요. 가끔은 내가 먼저 야식을 제안하거나, 상대가 늦게 들어오는 날 먼저 챙겨주는 식으로 균형을 맞춰보는 게 좋아요. 편안함이 당연한 게 아니라는 걸 가끔 표현해주는 것만으로도 관계가 더 단단해져요.',
+        subheading: '가끔은 먼저 야식을 제안해보는 것도 좋을 거예요',
+        text: '상대가 워낙 잘 챙겨주다 보니 받는 쪽에 익숙해지기 쉬운데, 가끔은 내가 먼저 "오늘은 이거 어때?" 하고 야식을 제안해보는 것도 좋은 반전이 될 거예요. 늦게 들어오는 날 먼저 문 열어주며 기다려주는 것도, 이 편안한 동거에 작은 설렘을 더해줘요.',
       },
     },
     iGenerateOther: {
@@ -196,8 +231,8 @@ export const roommateTemplates = {
         text: '밤에 출출해 보이는 상대를 보면 먼저 "뭐 시켜 먹을까?" 하고 물어보는 쪽이 되기 쉬워요. 상대가 좋아하는 메뉴를 은근히 기억해뒀다가 먼저 제안하는 것도 자연스러운 일이고요. 그런 사소한 챙김들이 쌓여서, 이 집이 상대에게 편안한 공간으로 느껴지는 데 은근히 큰 역할을 하게 돼요.',
       },
       watchFor: {
-        subheading: '챙기는 게 당연해지지 않게 가끔 확인하기',
-        text: '내가 먼저 챙기는 게 자연스럽다 보니, 정작 그 노력이 당연하게 여겨질 위험도 있어요. 가끔은 그 챙김을 상대가 알아채고 있는지, 그리고 나도 챙김을 받고 싶을 때가 있다는 걸 표현해보는 게 좋아요. 일방적인 살림꾼 역할에 지치지 않으려면, 가끔은 나도 기대도 된다는 걸 스스로에게 허락해주세요.',
+        subheading: '가끔은 살림을 반씩 나눠보는 것도 재밌을 거예요',
+        text: '챙기는 게 자연스러운 편이지만, 가끔은 "오늘은 네 차례" 하고 살림을 반씩 나눠보는 것도 재밌는 시도예요. 상대가 서투르게 요리하는 모습을 구경하는 것도 은근히 즐거운 볼거리가 되고요. 역할을 가끔 바꿔보면 이 살림꾼 케미가 훨씬 다채로워져요.',
       },
     },
     otherOvercomesMe: {
@@ -220,8 +255,8 @@ export const roommateTemplates = {
         text: '야식 메뉴 하나를 정할 때도 취향이 갈려서 은근한 신경전이 벌어질 수 있어요 — 한쪽은 매운 걸, 한쪽은 순한 걸 원하는 식으로요. 그런데 그렇게 티격태격하다가 결국 둘 다 시켜서 나눠 먹는 쪽으로 타협하게 되는, 그런 유쾌한 결말이 많은 편이에요. 매번 똑같은 메뉴만 시키는 동거보다, 이 쪽이 훨씬 다채로운 추억을 만들어줘요.',
       },
       watchFor: {
-        subheading: '마찰을 즐기되 진짜 서운함으로 넘어가지 않게',
-        text: '티격태격하는 게 이 조합의 매력이지만, 가끔은 그게 진짜 서운함으로 넘어갈 수도 있어요. 장난과 진심의 경계를 서로 잘 알아채는 게 중요하고, 필요하면 솔직하게 "그건 좀 서운했어"라고 말할 수 있는 사이가 되는 게 좋아요. 마찰 자체를 즐기는 관계일수록, 그 밑바탕에는 확실한 신뢰가 깔려 있어야 오래가요.',
+        subheading: '티격태격도 재료로 쓰면 더 재밌어짐',
+        text: '매번 다른 메뉴로 신경전 벌이는 게 이 조합의 매력이니, 아예 "이번엔 네가 골라, 다음엔 내가 고를게" 하고 순서를 정해보는 것도 재밌을 거예요. 그렇게 번갈아 고르다 보면 서로의 취향까지 하나씩 알아가는 재미가 생기고요. 이 티키타카 자체를 즐기는 게, 이 동거를 훨씬 오래가게 하는 비결이에요.',
       },
     },
     iOvercomeOther: {
@@ -244,13 +279,54 @@ export const roommateTemplates = {
         text: '야식 메뉴를 정할 때도 큰 고민 없이 "이거 어때?" 하고 먼저 제안해서 결정을 빠르게 이끄는 편이에요. 상대는 그 제안에 편하게 따라오는 경우가 많고, 그 덕분에 사소한 결정에 드는 에너지가 확실히 줄어들어요. 이런 작은 순간들이 쌓여서, 상대에게는 당신이 있는 게 꽤 든든하게 느껴질 거예요.',
       },
       watchFor: {
-        subheading: '다 정해주지 말고 가끔은 물어보기',
-        text: '결정을 이끄는 게 익숙해지다 보면, 상대의 의견을 물어보는 걸 깜빡할 때가 있어요. 가끔은 "너는 뭐 하고 싶어?" 하고 먼저 물어봐 주는 게, 이 관계를 더 균형 잡히게 만들어줘요. 든든한 리더 역할도 좋지만, 상대에게도 선택할 기회를 자주 열어주는 게 오래가는 비결이에요.',
+        subheading: '가끔은 상대에게 결정을 넘겨보는 것도 재밌을 거예요',
+        text: '결정을 이끄는 게 익숙하다 보니, 가끔은 "오늘은 네가 골라봐" 하고 결정을 통째로 넘겨보는 것도 재밌는 시도예요. 상대가 의외의 선택을 해서 놀라게 될 수도 있고요. 이끄는 역할을 잠깐 내려놓아 보면, 이 든든한 동거가 더 균형 잡히고 즐거워져요.',
       },
+    },
+    chemistryPoints: {
+      same: {
+        companion: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 비겁 기운이 강한 편이라, 서로를 대등하게 존중하는 감각이 이미 비슷해요. 집안일을 나눌 때도 굳이 정하지 않아도 자연스럽게 균형이 맞춰지는 편이에요.',
+        },
+        output: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 식상 기운이 강한 편이라, 집이 유난히 활기차고 웃음 많은 공간이 될 확률이 높아요. 같이 있으면 사소한 일도 재밌는 에피소드로 만드는 감각이 서로 닮아 있어요.',
+        },
+        wealth: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 재성 기운이 강한 편이라, 생활비나 공과금 같은 현실적인 부분을 챙기는 감각이 서로 잘 맞아요. 살림을 알뜰하게 꾸려가는 방식 자체가 이미 비슷한 편이에요.',
+        },
+        officer: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 관성 기운이 강한 편이라, 집안 규칙을 지키고 서로를 배려하는 감각이 이미 닮아 있어요. 정해진 걸 지키는 데 있어서는 굳이 잔소리할 일이 별로 없는 조합이에요.',
+        },
+        resource: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 인성 기운이 강한 편이라, 서로를 편안하게 해주는 방식이 닮아 있어요. 집이 쉼터처럼 느껴지게 만드는 다정한 감각을, 둘 다 이미 갖고 있는 셈이에요.',
+        },
+      },
+      different: {
+        subheading: '서로 다른 매력이 만나는 조합',
+        text: '십성으로 보면 서로 강조되는 매력 포인트가 다른 편이라, 살림을 대하는 방식도 조금씩 다를 수 있어요. 그런데 그 다름이 오히려 서로 놓치기 쉬운 부분을 채워주는 역할을 해줘요.',
+      },
+    },
+    noblemanBonus: {
+      subheading: '이 동거 자체가 귀인 기운의 일부일 수도 있어요',
+      text: '둘 중 한쪽 사주에 천을귀인이 있는 조합이에요 — 전통적으로 좋은 인연이 따라오는 자리로 읽혀요. 이 사람과 살게 된 것 자체가, 그냥 지나칠 수도 있었던 좋은 인연일 수 있어요.',
     },
   },
 };
 
 export function getRoommateCopy(lang, relation) {
   return (roommateTemplates[lang] || roommateTemplates.en)[relation];
+}
+
+export function getChemistryPoints(lang, myCategory, otherCategory) {
+  const bank = (roommateTemplates[lang] || roommateTemplates.en).chemistryPoints;
+  return myCategory === otherCategory ? bank.same[myCategory] : bank.different;
+}
+
+export function getNoblemanBonus(lang) {
+  return (roommateTemplates[lang] || roommateTemplates.en).noblemanBonus;
 }

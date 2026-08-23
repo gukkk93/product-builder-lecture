@@ -1,3 +1,10 @@
+// NOTE (kept, not deleted, per user request): as of the relationshipMode
+// rework, IdolMatch.jsx no longer imports this file — the on-screen
+// insight sections now come from friendshipTemplates.js/roommateTemplates.js/
+// groupChemistryTemplates.js instead (see MODE_CONFIG in IdolMatch.jsx).
+// This bank's `tier`/`line`/`goodFit`/`meetingScenario`/`watchFor` content
+// is unused by any page right now.
+//
 // Compatibility copy bank, keyed by the same Five Element relationship
 // values getElementRelation() returns (see src/utils/saju.js), just applied
 // to "user vs. idol" instead of "user vs. today". Keyed by language so a
@@ -192,6 +199,43 @@ export const idolMatchTemplates = {
         text: "Watch that protective energy doesn't slide into gatekeeping — not every fan engages the way you do, and that's genuinely fine, not a problem to correct. Because you're comfortable taking charge in group chats and fan spaces, it's worth deliberately making room for other perspectives too, even when your read feels obviously right.\n\nBeing the 'responsible' fan all the time is its own kind of tiring, so it's okay to just enjoy this bias sometimes without moderating everyone else's experience. Your opinions carry real weight in this fandom, which means offhand takes can land harder than intended — worth being a little more deliberate, and worth checking occasionally whether you're advocating for the idol or just enjoying being right in fandom debates.",
       },
     },
+    // Currently unused — see the NOTE at the top of this file. Kept in
+    // sync with friendshipTemplates.js/roommateTemplates.js/
+    // groupChemistryTemplates.js/dramaMatchTemplates.js's chemistryPoints/
+    // noblemanBonus additions for consistency, even though no page reads
+    // them yet.
+    chemistryPoints: {
+      same: {
+        companion: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Companion energy, so the sense of an equal, peer-like closeness between you and your bias runs deep. The comfort you feel as a fan and the way they treat fans both likely come from the same place.",
+        },
+        output: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Output energy, so your expressive, energetic charm overlaps directly. The fun you get from their stages or content and the way you enjoy things tend to line up unusually well.",
+        },
+        wealth: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Wealth energy, so your practical, grounded charm mirrors each other's. Their meticulous side probably earns your trust a little more than you'd expect.",
+        },
+        officer: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Officer energy, so your responsible, serious charm mirrors each other's. Their professionalism probably draws out a similarly serious kind of support from you.",
+        },
+        resource: {
+          subheading: 'The Same Kind of Charm, Twice',
+          text: "You both run heavy on Resource energy, so your warm, comforting charm mirrors each other's. The ease you feel watching them might not just be taste — it could be your energy actually matching.",
+        },
+      },
+      different: {
+        subheading: 'Two Different Kinds of Charm Meeting',
+        text: "By Ten God profile, your standout traits run in different directions, which means there's real fun in discovering a charm in them that you don't naturally have yourself. That difference might be exactly what keeps you watching.",
+      },
+    },
+    noblemanBonus: {
+      subheading: 'Finding This Bias Might Be Part of Your Nobleman Luck',
+      text: "One of your charts carries the Heavenly Nobleman (天乙貴人) — traditionally a sign that good connections follow you. Out of every idol out there, ending up with this particular bias might be one of those good connections worth noticing.",
+    },
   },
   ko: {
     same: {
@@ -304,6 +348,38 @@ export const idolMatchTemplates = {
         text: "보호하려는 마음이 선 넘는 검열로 흐르지 않게 조심하세요 — 모든 팬이 나처럼 덕질하는 건 아니고, 그래도 괜찮아요. 단톡방이나 팬 커뮤니티에서 주도하는 게 편하다 보니, 일부러라도 다른 의견이 들어올 자리를 남겨두는 게 좋아요.\n\n항상 '책임감 있는' 팬으로 있는 것도 나름 피곤한 일이에요 — 남들 덕질까지 관리하지 않고 그냥 즐기기만 해도 괜찮아요. 이 팬덤 안에서 내 의견은 꽤 무게가 있어서, 무심코 한 말도 예상보다 크게 받아들여질 수 있어요 — 내가 최애를 위해 나서는 건지, 논쟁에서 이기고 싶은 건지 가끔 스스로 점검해보세요.",
       },
     },
+    chemistryPoints: {
+      same: {
+        companion: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 비겁 기운이 강한 편이라, 최애랑 나 사이에 대등한 동료 같은 감각이 비슷하게 흘러요. 팬으로서 느끼는 편안함도, 최애가 팬을 대하는 방식도 같은 결일 확률이 높아요.',
+        },
+        output: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 식상 기운이 강한 편이라, 표현하고 텐션 올리는 매력 포인트가 서로 겹쳐요. 최애의 무대나 콘텐츠에서 느끼는 재미와, 내가 좋아하는 방식이 유난히 잘 맞아떨어져요.',
+        },
+        wealth: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 재성 기운이 강한 편이라, 현실적이고 알찬 매력 포인트가 서로 닮아 있어요. 최애가 보여주는 꼼꼼한 면모에, 나도 모르게 더 신뢰가 가는 조합이에요.',
+        },
+        officer: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 관성 기운이 강한 편이라, 책임감 있고 진지한 매력 포인트가 서로 닮아 있어요. 최애의 프로페셔널한 모습에, 나도 비슷한 결로 응원하게 되는 조합이에요.',
+        },
+        resource: {
+          subheading: '같은 결의 매력을 가진 둘',
+          text: '둘 다 인성 기운이 강한 편이라, 다정하고 편안한 매력 포인트가 서로 닮아 있어요. 최애를 볼 때 느끼는 편안함이, 그냥 취향이 아니라 기운 자체가 닮아서 그런 걸 수도 있어요.',
+        },
+      },
+      different: {
+        subheading: '서로 다른 매력이 만나는 조합',
+        text: '십성으로 보면 서로 강조되는 매력 포인트가 다른 편이라, 최애한테서 나한테 없는 매력을 발견하는 재미가 있는 조합이에요. 그 다름이 바로, 이 최애를 계속 보게 만드는 이유 중 하나일 수 있어요.',
+      },
+    },
+    noblemanBonus: {
+      subheading: '이 최애를 만난 것도 귀인 기운의 일부일 수 있어요',
+      text: '둘 중 한쪽 사주에 천을귀인이 있는 조합이에요 — 전통적으로 좋은 인연이 따라오는 자리로 읽혀요. 수많은 아이돌 중에 이 최애를 만난 것 자체가, 그냥 지나칠 수도 있었던 좋은 인연일 수 있어요.',
+    },
   },
 };
 
@@ -347,4 +423,13 @@ export function getIdolMatchCopy(lang, relation, seedInput, pillarCompat = []) {
       text: pillarBank[pillar][pillarRelation],
     })),
   };
+}
+
+export function getChemistryPoints(lang, myCategory, otherCategory) {
+  const bank = (idolMatchTemplates[lang] || idolMatchTemplates.en).chemistryPoints;
+  return myCategory === otherCategory ? bank.same[myCategory] : bank.different;
+}
+
+export function getNoblemanBonus(lang) {
+  return (idolMatchTemplates[lang] || idolMatchTemplates.en).noblemanBonus;
 }

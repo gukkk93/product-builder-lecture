@@ -1,11 +1,23 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
+import { calculateSaju, getCompatibility, getCompatibilityScore, getTenGodProfile, getNobleman } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
-import { getFriendshipCopy } from '../data/friendshipTemplates';
-import { getRoommateCopy } from '../data/roommateTemplates';
-import { getGroupChemistryCopy } from '../data/groupChemistryTemplates';
+import {
+  getFriendshipCopy,
+  getChemistryPoints as getFriendChemistryPoints,
+  getNoblemanBonus as getFriendNoblemanBonus,
+} from '../data/friendshipTemplates';
+import {
+  getRoommateCopy,
+  getChemistryPoints as getRoommateChemistryPoints,
+  getNoblemanBonus as getRoommateNoblemanBonus,
+} from '../data/roommateTemplates';
+import {
+  getGroupChemistryCopy,
+  getChemistryPoints as getGroupChemistryChemistryPoints,
+  getNoblemanBonus as getGroupChemistryNoblemanBonus,
+} from '../data/groupChemistryTemplates';
 import { idolGroups, getMemberName } from '../data/idols';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
@@ -23,18 +35,46 @@ import LoadingReveal from '../components/LoadingReveal';
 // names them, in display order); groupChemistry only has 2 (stage vs.
 // off-stage is a deliberate contrast pair) where friend/roommate have 3.
 const MODE_CONFIG = {
-  friend: { getCopy: getFriendshipCopy, sections: ['travelStyle', 'cafeChemistry', 'howTheySeeYou'] },
-  roommate: { getCopy: getRoommateCopy, sections: ['livingPattern', 'conflictStyle', 'dailyMoment'] },
-  groupChemistry: { getCopy: getGroupChemistryCopy, sections: ['stagePresence', 'offstage'] },
+  friend: {
+    getCopy: getFriendshipCopy,
+    getChemistryPoints: getFriendChemistryPoints,
+    getNoblemanBonus: getFriendNoblemanBonus,
+    sections: ['travelStyle', 'cafeChemistry', 'howTheySeeYou'],
+  },
+  roommate: {
+    getCopy: getRoommateCopy,
+    getChemistryPoints: getRoommateChemistryPoints,
+    getNoblemanBonus: getRoommateNoblemanBonus,
+    sections: ['livingPattern', 'conflictStyle', 'dailyMoment'],
+  },
+  groupChemistry: {
+    getCopy: getGroupChemistryCopy,
+    getChemistryPoints: getGroupChemistryChemistryPoints,
+    getNoblemanBonus: getGroupChemistryNoblemanBonus,
+    sections: ['stagePresence', 'offstage'],
+  },
 };
 const RELATIONSHIP_MODES = ['friend', 'roommate', 'groupChemistry'];
 
 // Only the explanation section (the "why") stays free as a teaser; the
-// mode-specific sections and watchFor are all locked.
-function buildInsightSections(t, modeKey, modeCopy) {
+// chemistry-points/nobleman-bonus/mode-specific sections and watchFor are
+// all locked. chemistryPoints/noblemanBonus are a second axis of variety
+// independent of the Five Element relation — see getTenGodProfile/
+// getNobleman in utils/saju.js — so they're computed from the two
+// people's charts directly rather than coming from modeCopy.
+// noblemanBonus only appears when at least one chart has it.
+function buildInsightSections(t, lang, modeKey, modeCopy, { myTenGod, otherTenGod, hasNobleman }) {
   const config = MODE_CONFIG[modeKey];
-  return [
+  const chemistryPoints = config.getChemistryPoints(lang, myTenGod, otherTenGod);
+  const sections = [
     { title: t('matchCommon.insightTitles.explanation'), subheading: modeCopy.explanation.subheading, text: modeCopy.explanation.text, locked: false },
+    { title: t('matchCommon.insightTitles.chemistryPoints'), subheading: chemistryPoints.subheading, text: chemistryPoints.text, locked: true },
+  ];
+  if (hasNobleman) {
+    const noblemanBonus = config.getNoblemanBonus(lang);
+    sections.push({ title: t('matchCommon.insightTitles.noblemanBonus'), subheading: noblemanBonus.subheading, text: noblemanBonus.text, locked: true });
+  }
+  sections.push(
     ...config.sections.map((key) => ({
       title: t(`matchCommon.insightTitles.${key}`),
       subheading: modeCopy[key].subheading,
@@ -42,7 +82,8 @@ function buildInsightSections(t, modeKey, modeCopy) {
       locked: true,
     })),
     { title: t('matchCommon.insightTitles.watchFor'), subheading: modeCopy.watchFor.subheading, text: modeCopy.watchFor.text, locked: true },
-  ];
+  );
+  return sections;
 }
 
 export default function IdolMatch() {
@@ -136,7 +177,11 @@ export default function IdolMatch() {
   const memberCopy = memberCompat ? MODE_CONFIG[relationshipMode].getCopy(i18n.language, memberCompat.relation) : null;
 
   const memberInsightSections = memberCompat && memberCopy
-    ? buildInsightSections(t, relationshipMode, memberCopy)
+    ? buildInsightSections(t, i18n.language, relationshipMode, memberCopy, {
+        myTenGod: getTenGodProfile(userSaju),
+        otherTenGod: getTenGodProfile(memberCompat.otherSaju),
+        hasNobleman: getNobleman(userSaju, i18n.language).hasNobleman || getNobleman(memberCompat.otherSaju, i18n.language).hasNobleman,
+      })
     : null;
 
   const best = useMemo(() => {
@@ -149,7 +194,11 @@ export default function IdolMatch() {
   const compatCopy = best ? MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation) : null;
 
   const insightSections = best && compatCopy
-    ? buildInsightSections(t, relationshipMode, compatCopy)
+    ? buildInsightSections(t, i18n.language, relationshipMode, compatCopy, {
+        myTenGod: getTenGodProfile(userSaju),
+        otherTenGod: getTenGodProfile(best.saju),
+        hasNobleman: getNobleman(userSaju, i18n.language).hasNobleman || getNobleman(best.saju, i18n.language).hasNobleman,
+      })
     : null;
 
   useEffect(() => {

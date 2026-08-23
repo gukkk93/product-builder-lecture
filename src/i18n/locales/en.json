@@ -360,7 +360,9 @@
       "conflictStyle": "Conflict & Making Up",
       "dailyMoment": "A Late-Night Moment",
       "stagePresence": "On Stage",
-      "offstage": "Off Stage"
+      "offstage": "Off Stage",
+      "chemistryPoints": "Our Chemistry Point",
+      "noblemanBonus": "Nobleman Chemistry"
     },
     "relationshipMode": {
       "friend": "Friend",

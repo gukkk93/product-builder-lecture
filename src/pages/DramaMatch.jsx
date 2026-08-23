@@ -1,11 +1,23 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju } from '../utils/saju';
+import { calculateSaju, getTenGodProfile, getNobleman } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
-import { getFriendshipCopy } from '../data/friendshipTemplates';
-import { getRoommateCopy } from '../data/roommateTemplates';
-import { getGroupChemistryCopy } from '../data/groupChemistryTemplates';
+import {
+  getFriendshipCopy,
+  getChemistryPoints as getFriendChemistryPoints,
+  getNoblemanBonus as getFriendNoblemanBonus,
+} from '../data/friendshipTemplates';
+import {
+  getRoommateCopy,
+  getChemistryPoints as getRoommateChemistryPoints,
+  getNoblemanBonus as getRoommateNoblemanBonus,
+} from '../data/roommateTemplates';
+import {
+  getGroupChemistryCopy,
+  getChemistryPoints as getGroupChemistryChemistryPoints,
+  getNoblemanBonus as getGroupChemistryNoblemanBonus,
+} from '../data/groupChemistryTemplates';
 import { kdramaActors, getActorName } from '../data/kdramaActors';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
@@ -20,16 +32,39 @@ import LoadingReveal from '../components/LoadingReveal';
 // kept identical here since friendshipTemplates.js/roommateTemplates.js/
 // groupChemistryTemplates.js are shared, product-agnostic content banks.
 const MODE_CONFIG = {
-  friend: { getCopy: getFriendshipCopy, sections: ['travelStyle', 'cafeChemistry', 'howTheySeeYou'] },
-  roommate: { getCopy: getRoommateCopy, sections: ['livingPattern', 'conflictStyle', 'dailyMoment'] },
-  groupChemistry: { getCopy: getGroupChemistryCopy, sections: ['stagePresence', 'offstage'] },
+  friend: {
+    getCopy: getFriendshipCopy,
+    getChemistryPoints: getFriendChemistryPoints,
+    getNoblemanBonus: getFriendNoblemanBonus,
+    sections: ['travelStyle', 'cafeChemistry', 'howTheySeeYou'],
+  },
+  roommate: {
+    getCopy: getRoommateCopy,
+    getChemistryPoints: getRoommateChemistryPoints,
+    getNoblemanBonus: getRoommateNoblemanBonus,
+    sections: ['livingPattern', 'conflictStyle', 'dailyMoment'],
+  },
+  groupChemistry: {
+    getCopy: getGroupChemistryCopy,
+    getChemistryPoints: getGroupChemistryChemistryPoints,
+    getNoblemanBonus: getGroupChemistryNoblemanBonus,
+    sections: ['stagePresence', 'offstage'],
+  },
 };
 const RELATIONSHIP_MODES = ['friend', 'roommate', 'groupChemistry'];
 
-function buildInsightSections(t, modeKey, modeCopy) {
+function buildInsightSections(t, lang, modeKey, modeCopy, { myTenGod, otherTenGod, hasNobleman }) {
   const config = MODE_CONFIG[modeKey];
-  return [
+  const chemistryPoints = config.getChemistryPoints(lang, myTenGod, otherTenGod);
+  const sections = [
     { title: t('matchCommon.insightTitles.explanation'), subheading: modeCopy.explanation.subheading, text: modeCopy.explanation.text, locked: false },
+    { title: t('matchCommon.insightTitles.chemistryPoints'), subheading: chemistryPoints.subheading, text: chemistryPoints.text, locked: true },
+  ];
+  if (hasNobleman) {
+    const noblemanBonus = config.getNoblemanBonus(lang);
+    sections.push({ title: t('matchCommon.insightTitles.noblemanBonus'), subheading: noblemanBonus.subheading, text: noblemanBonus.text, locked: true });
+  }
+  sections.push(
     ...config.sections.map((key) => ({
       title: t(`matchCommon.insightTitles.${key}`),
       subheading: modeCopy[key].subheading,
@@ -37,7 +72,8 @@ function buildInsightSections(t, modeKey, modeCopy) {
       locked: true,
     })),
     { title: t('matchCommon.insightTitles.watchFor'), subheading: modeCopy.watchFor.subheading, text: modeCopy.watchFor.text, locked: true },
-  ];
+  );
+  return sections;
 }
 
 /** Same "best match" mechanic as IdolMatch, run against the K-drama actor pool instead of idols. */
@@ -95,7 +131,11 @@ export default function DramaMatch() {
   const compatCopy = best ? MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation) : null;
 
   const insightSections = best && compatCopy
-    ? buildInsightSections(t, relationshipMode, compatCopy)
+    ? buildInsightSections(t, i18n.language, relationshipMode, compatCopy, {
+        myTenGod: getTenGodProfile(userSaju),
+        otherTenGod: getTenGodProfile(best.saju),
+        hasNobleman: getNobleman(userSaju, i18n.language).hasNobleman || getNobleman(best.saju, i18n.language).hasNobleman,
+      })
     : null;
 
   const actorName = best ? getActorName(best.candidate, i18n.language) : '';
