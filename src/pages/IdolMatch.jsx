@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getCompatibility, getCompatibilityScore, getPillarCompatibility } from '../utils/saju';
+import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
-import { getIdolMatchCopy } from '../data/idolMatchTemplates';
+import { getFriendshipCopy } from '../data/friendshipTemplates';
+import { getRoommateCopy } from '../data/roommateTemplates';
+import { getGroupChemistryCopy } from '../data/groupChemistryTemplates';
 import { idolGroups, getMemberName } from '../data/idols';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
@@ -14,6 +16,35 @@ import GenderSelect from '../components/GenderSelect';
 import MatchResultCard from '../components/MatchResultCard';
 import LoadingReveal from '../components/LoadingReveal';
 
+// Non-romantic "what would this actually feel like" lenses on the same
+// compatibility reading — friend/roommate/group-chemistry, picked via
+// the relationshipMode tabs. Each mode's content bank has its own
+// explanation/watchFor plus 2-3 mode-specific sections (`sections` below
+// names them, in display order); groupChemistry only has 2 (stage vs.
+// off-stage is a deliberate contrast pair) where friend/roommate have 3.
+const MODE_CONFIG = {
+  friend: { getCopy: getFriendshipCopy, sections: ['travelStyle', 'cafeChemistry', 'howTheySeeYou'] },
+  roommate: { getCopy: getRoommateCopy, sections: ['livingPattern', 'conflictStyle', 'dailyMoment'] },
+  groupChemistry: { getCopy: getGroupChemistryCopy, sections: ['stagePresence', 'offstage'] },
+};
+const RELATIONSHIP_MODES = ['friend', 'roommate', 'groupChemistry'];
+
+// Only the explanation section (the "why") stays free as a teaser; the
+// mode-specific sections and watchFor are all locked.
+function buildInsightSections(t, modeKey, modeCopy) {
+  const config = MODE_CONFIG[modeKey];
+  return [
+    { title: t('matchCommon.insightTitles.explanation'), subheading: modeCopy.explanation.subheading, text: modeCopy.explanation.text, locked: false },
+    ...config.sections.map((key) => ({
+      title: t(`matchCommon.insightTitles.${key}`),
+      subheading: modeCopy[key].subheading,
+      text: modeCopy[key].text,
+      locked: true,
+    })),
+    { title: t('matchCommon.insightTitles.watchFor'), subheading: modeCopy.watchFor.subheading, text: modeCopy.watchFor.text, locked: true },
+  ];
+}
+
 export default function IdolMatch() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
@@ -21,7 +52,26 @@ export default function IdolMatch() {
   const mode = params.get('mode'); // undefined | 'group'
   const [groupId, setGroupId] = useState(mode === 'group' ? params.get('group') || '' : '');
   const [gender, setGender] = useState(params.get('gender') === 'M' ? 'M' : 'F');
+  const [relationshipMode, setRelationshipMode] = useState('friend');
   const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
+
+  const relationshipModeTabs = (
+    <div className="select-row" role="tablist" style={{ marginBottom: 16 }}>
+      {RELATIONSHIP_MODES.map((key) => (
+        <button
+          key={key}
+          type="button"
+          role="tab"
+          aria-selected={relationshipMode === key}
+          className={`button ${relationshipMode === key ? '' : 'secondary'}`}
+          style={{ padding: '8px 16px', fontSize: 13 }}
+          onClick={() => setRelationshipMode(key)}
+        >
+          {t(`matchCommon.relationshipMode.${key}`)}
+        </button>
+      ))}
+    </div>
+  );
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -83,34 +133,10 @@ export default function IdolMatch() {
       )
     : null;
 
-  const memberPillarCompat = memberCompat ? getPillarCompatibility(userSaju, memberCompat.otherSaju) : null;
+  const memberCopy = memberCompat ? MODE_CONFIG[relationshipMode].getCopy(i18n.language, memberCompat.relation) : null;
 
-  const memberCopy = memberCompat
-    ? getIdolMatchCopy(i18n.language, memberCompat.relation, `${birth.year}-${birth.month}-${birth.day}-${selectedMember.id}`, memberPillarCompat)
-    : null;
-
-  const memberExplanation = memberCompat
-    ? {
-        subheading: t(`matchCommon.explanation.${memberCompat.relation}.subheading`),
-        text: t(`matchCommon.explanation.${memberCompat.relation}.text`, {
-          my: t(`elements.${userSaju.dominantElement}`),
-          other: t(`elements.${memberCompat.otherSaju.dominantElement}`),
-        }),
-      }
-    : null;
-
-  const pillarTitles = t('matchCommon.pillarTitles', { returnObjects: true });
-
-  // Only the year pillar (always index 0 — see getPillarCompatibility) stays
-  // free, as the "why you were drawn in" teaser; month/day/time are locked.
   const memberInsightSections = memberCompat && memberCopy
-    ? [
-        { title: t('matchCommon.insightTitles.explanation'), subheading: memberExplanation.subheading, text: memberExplanation.text, locked: false },
-        { title: t('matchCommon.insightTitles.goodFit'), subheading: memberCopy.goodFit.subheading, text: memberCopy.goodFit.text, locked: false },
-        { title: t('idolMatch.meetingScenarioTitle'), subheading: memberCopy.meetingScenario.subheading, text: memberCopy.meetingScenario.text, locked: true },
-        ...memberCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
-        { title: t('matchCommon.insightTitles.watchFor'), subheading: memberCopy.watchFor.subheading, text: memberCopy.watchFor.text, locked: true },
-      ]
+    ? buildInsightSections(t, relationshipMode, memberCopy)
     : null;
 
   const best = useMemo(() => {
@@ -120,30 +146,10 @@ export default function IdolMatch() {
 
   const bestName = best ? getMemberName(best.candidate, i18n.language) : '';
 
-  const bestPillarCompat = best ? getPillarCompatibility(userSaju, best.saju) : null;
-
-  const compatCopy = best
-    ? getIdolMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`, bestPillarCompat)
-    : null;
-
-  const explanation = best
-    ? {
-        subheading: t(`matchCommon.explanation.${best.relation}.subheading`),
-        text: t(`matchCommon.explanation.${best.relation}.text`, {
-          my: t(`elements.${userSaju.dominantElement}`),
-          other: t(`elements.${best.saju.dominantElement}`),
-        }),
-      }
-    : null;
+  const compatCopy = best ? MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation) : null;
 
   const insightSections = best && compatCopy
-    ? [
-        { title: t('matchCommon.insightTitles.explanation'), subheading: explanation.subheading, text: explanation.text, locked: false },
-        { title: t('matchCommon.insightTitles.goodFit'), subheading: compatCopy.goodFit.subheading, text: compatCopy.goodFit.text, locked: false },
-        { title: t('idolMatch.meetingScenarioTitle'), subheading: compatCopy.meetingScenario.subheading, text: compatCopy.meetingScenario.text, locked: true },
-        ...compatCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
-        { title: t('matchCommon.insightTitles.watchFor'), subheading: compatCopy.watchFor.subheading, text: compatCopy.watchFor.text, locked: true },
-      ]
+    ? buildInsightSections(t, relationshipMode, compatCopy)
     : null;
 
   useEffect(() => {
@@ -190,6 +196,7 @@ export default function IdolMatch() {
             </button>
 
             <h1>{t('idolMatch.groupTitle')}</h1>
+            {relationshipModeTabs}
 
             <MatchResultCard
               name={memberName}
@@ -236,8 +243,8 @@ export default function IdolMatch() {
               idolStrength={memberSaju.dayGanStrength}
               score={memberScore}
               tier={memberCopy.tier}
-              subheading={memberCopy.meetingScenario.subheading}
-              text={memberCopy.meetingScenario.text}
+              subheading={memberCopy.explanation.subheading}
+              text={memberCopy.explanation.text}
             />
           </div>
         </main>
@@ -323,6 +330,7 @@ export default function IdolMatch() {
       <div className="page-content">
         <h1>{t('idolMatch.title')}</h1>
         <p className="subtitle">{t('idolMatch.subtitle')}</p>
+        {relationshipModeTabs}
 
         <MatchResultCard
           name={bestName}
@@ -369,8 +377,8 @@ export default function IdolMatch() {
           idolStrength={best.saju.dayGanStrength}
           score={best.score}
           tier={compatCopy.tier}
-          subheading={compatCopy.meetingScenario.subheading}
-          text={compatCopy.meetingScenario.text}
+          subheading={compatCopy.explanation.subheading}
+          text={compatCopy.explanation.text}
         />
       </div>
     </main>

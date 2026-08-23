@@ -352,7 +352,20 @@
       "explanation": "이 점수가 나온 이유",
       "goodFit": "잘 맞는 부분",
       "watchFor": "관계에서 챙길 점",
-      "strengthMatch": "신강신약 궁합"
+      "strengthMatch": "신강신약 궁합",
+      "travelStyle": "여행 스타일",
+      "cafeChemistry": "카페 케미",
+      "howTheySeeYou": "이 사람 눈에 비친 나",
+      "livingPattern": "생활 패턴",
+      "conflictStyle": "싸울 확률과 화해 방식",
+      "dailyMoment": "야식 고민하는 밤",
+      "stagePresence": "무대 위에서는",
+      "offstage": "무대 밖에서는"
+    },
+    "relationshipMode": {
+      "friend": "친구",
+      "roommate": "룸메이트",
+      "groupChemistry": "그룹케미"
     },
     "pillarTitles": {
       "year": "끌린 이유",

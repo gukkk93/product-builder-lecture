@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getPillarCompatibility } from '../utils/saju';
+import { calculateSaju } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
-import { getDramaMatchCopy } from '../data/dramaMatchTemplates';
+import { getFriendshipCopy } from '../data/friendshipTemplates';
+import { getRoommateCopy } from '../data/roommateTemplates';
+import { getGroupChemistryCopy } from '../data/groupChemistryTemplates';
 import { kdramaActors, getActorName } from '../data/kdramaActors';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
@@ -14,13 +16,56 @@ import GenderSelect from '../components/GenderSelect';
 import MatchResultCard from '../components/MatchResultCard';
 import LoadingReveal from '../components/LoadingReveal';
 
+// See IdolMatch.jsx for the full explanation of this dispatch table —
+// kept identical here since friendshipTemplates.js/roommateTemplates.js/
+// groupChemistryTemplates.js are shared, product-agnostic content banks.
+const MODE_CONFIG = {
+  friend: { getCopy: getFriendshipCopy, sections: ['travelStyle', 'cafeChemistry', 'howTheySeeYou'] },
+  roommate: { getCopy: getRoommateCopy, sections: ['livingPattern', 'conflictStyle', 'dailyMoment'] },
+  groupChemistry: { getCopy: getGroupChemistryCopy, sections: ['stagePresence', 'offstage'] },
+};
+const RELATIONSHIP_MODES = ['friend', 'roommate', 'groupChemistry'];
+
+function buildInsightSections(t, modeKey, modeCopy) {
+  const config = MODE_CONFIG[modeKey];
+  return [
+    { title: t('matchCommon.insightTitles.explanation'), subheading: modeCopy.explanation.subheading, text: modeCopy.explanation.text, locked: false },
+    ...config.sections.map((key) => ({
+      title: t(`matchCommon.insightTitles.${key}`),
+      subheading: modeCopy[key].subheading,
+      text: modeCopy[key].text,
+      locked: true,
+    })),
+    { title: t('matchCommon.insightTitles.watchFor'), subheading: modeCopy.watchFor.subheading, text: modeCopy.watchFor.text, locked: true },
+  ];
+}
+
 /** Same "best match" mechanic as IdolMatch, run against the K-drama actor pool instead of idols. */
 export default function DramaMatch() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const [gender, setGender] = useState(params.get('gender') === 'M' ? 'M' : 'F');
+  const [relationshipMode, setRelationshipMode] = useState('friend');
   const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
+
+  const relationshipModeTabs = (
+    <div className="select-row" role="tablist" style={{ marginBottom: 16 }}>
+      {RELATIONSHIP_MODES.map((key) => (
+        <button
+          key={key}
+          type="button"
+          role="tab"
+          aria-selected={relationshipMode === key}
+          className={`button ${relationshipMode === key ? '' : 'secondary'}`}
+          style={{ padding: '8px 16px', fontSize: 13 }}
+          onClick={() => setRelationshipMode(key)}
+        >
+          {t(`matchCommon.relationshipMode.${key}`)}
+        </button>
+      ))}
+    </div>
+  );
 
   const birth = useMemo(() => {
     const y = Number(params.get('y'));
@@ -47,34 +92,10 @@ export default function DramaMatch() {
     return findBestMatch(kdramaActors, userSaju, gender);
   }, [userSaju, gender]);
 
-  const pillarCompat = best ? getPillarCompatibility(userSaju, best.saju) : null;
+  const compatCopy = best ? MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation) : null;
 
-  const compatCopy = best
-    ? getDramaMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`, pillarCompat)
-    : null;
-
-  const explanation = best
-    ? {
-        subheading: t(`matchCommon.explanation.${best.relation}.subheading`),
-        text: t(`matchCommon.explanation.${best.relation}.text`, {
-          my: t(`elements.${userSaju.dominantElement}`),
-          other: t(`elements.${best.saju.dominantElement}`),
-        }),
-      }
-    : null;
-
-  const pillarTitles = t('matchCommon.pillarTitles', { returnObjects: true });
-
-  // Only the year pillar (always index 0 — see getPillarCompatibility) stays
-  // free, as the "why you were drawn in" teaser; month/day/time are locked.
   const insightSections = best && compatCopy
-    ? [
-        { title: t('matchCommon.insightTitles.explanation'), subheading: explanation.subheading, text: explanation.text, locked: false },
-        { title: t('matchCommon.insightTitles.goodFit'), subheading: compatCopy.goodFit.subheading, text: compatCopy.goodFit.text, locked: false },
-        { title: t('dramaMatch.meetingScenarioTitle'), subheading: compatCopy.meetingScenario.subheading, text: compatCopy.meetingScenario.text, locked: true },
-        ...compatCopy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
-        { title: t('matchCommon.insightTitles.watchFor'), subheading: compatCopy.watchFor.subheading, text: compatCopy.watchFor.text, locked: true },
-      ]
+    ? buildInsightSections(t, relationshipMode, compatCopy)
     : null;
 
   const actorName = best ? getActorName(best.candidate, i18n.language) : '';
@@ -115,6 +136,7 @@ export default function DramaMatch() {
       <div className="page-content">
         <h1>{t('dramaMatch.title')}</h1>
         <p className="subtitle">{t('dramaMatch.subtitle')}</p>
+        {relationshipModeTabs}
 
         <MatchResultCard
           name={actorName}
@@ -161,8 +183,8 @@ export default function DramaMatch() {
           idolStrength={best.saju.dayGanStrength}
           score={best.score}
           tier={compatCopy.tier}
-          subheading={compatCopy.meetingScenario.subheading}
-          text={compatCopy.meetingScenario.text}
+          subheading={compatCopy.explanation.subheading}
+          text={compatCopy.explanation.text}
         />
       </div>
     </main>

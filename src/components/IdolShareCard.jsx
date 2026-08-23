@@ -13,10 +13,11 @@ const IdolShareCard = forwardRef(function IdolShareCard(
 ) {
   const { t, i18n } = useTranslation();
   const [from, to] = ELEMENT_GRADIENT[idolElement];
-  // "Headline + first paragraph only" — text may carry a second paragraph
-  // (see meetingScenario copy in idolMatchTemplates.js/dramaMatchTemplates.js),
-  // but the share card only ever shows the first one, truncated to a clean
-  // ellipsis if it's still too long for the card.
+  // "Headline + first paragraph only" — callers pass the current
+  // relationshipMode's `explanation` (see friendshipTemplates.js/
+  // roommateTemplates.js/groupChemistryTemplates.js), whose text may carry
+  // a second paragraph, but the share card only ever shows the first one,
+  // truncated to a clean ellipsis if it's still too long for the card.
   const firstParagraph = truncateForShareCard(text ? text.split('\n\n')[0] : '', i18n.language);
 
   return (

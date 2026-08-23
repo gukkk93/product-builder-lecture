@@ -352,7 +352,20 @@
       "explanation": "Why This Score",
       "goodFit": "What Works Well",
       "watchFor": "What To Watch For",
-      "strengthMatch": "Your Strength Dynamic"
+      "strengthMatch": "Your Strength Dynamic",
+      "travelStyle": "Travel Style",
+      "cafeChemistry": "Cafe Chemistry",
+      "howTheySeeYou": "How They See You",
+      "livingPattern": "Living Pattern",
+      "conflictStyle": "Conflict & Making Up",
+      "dailyMoment": "A Late-Night Moment",
+      "stagePresence": "On Stage",
+      "offstage": "Off Stage"
+    },
+    "relationshipMode": {
+      "friend": "Friend",
+      "roommate": "Roommate",
+      "groupChemistry": "Group Chemistry"
     },
     "pillarTitles": {
       "year": "Why You Were Drawn In",
