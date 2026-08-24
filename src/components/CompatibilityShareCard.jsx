@@ -1,8 +1,7 @@
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ELEMENT_ICON_SRC } from './ElementBadge';
-import { ELEMENT_GRADIENT, truncateForShareCard } from './ShareCard';
-import ShareCardWatermark from './ShareCardWatermark';
+import { ELEMENT_GRADIENT, getSharePatternStyle, truncateForShareCard } from './ShareCard';
+import ElementCharacter from './ElementCharacter';
 import ShareCardFooter from './ShareCardFooter';
 
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
@@ -35,7 +34,7 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
         textAlign: 'center',
       }}
     >
-      <ShareCardWatermark elements={[myElement, theirElement]} />
+      <div style={getSharePatternStyle(to)} />
 
       <div
         style={{
@@ -54,56 +53,30 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
           {t('app.name')}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
           {theirName && (
             <div>
               <div style={{ fontSize: 20, fontWeight: 800, wordBreak: 'keep-all' }}>{t('idolMatch.yourElement')} × {theirName}</div>
-              {relationshipLabel && <div style={{ fontSize: 12, opacity: 0.8, wordBreak: 'keep-all' }}>{relationshipLabel}</div>}
+              {relationshipLabel && <div style={{ fontSize: 12, opacity: 0.65, wordBreak: 'keep-all' }}>{relationshipLabel}</div>}
             </div>
           )}
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-              <img
-                src={ELEMENT_ICON_SRC[myElement]}
-                alt=""
-                style={{
-                  width: 72,
-                  height: 72,
-                  padding: 12,
-                  boxSizing: 'border-box',
-                  borderRadius: '50%',
-                  border: '2px solid rgba(255,255,255,0.6)',
-                  background: 'rgba(255,255,255,0.15)',
-                  objectFit: 'contain',
-                }}
-              />
-              <span style={{ fontSize: 12, opacity: 0.85, wordBreak: 'keep-all' }}>{t('idolMatch.yourElement')}: {t(`elements.${myElement}`)}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '2px 0' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+              <ElementCharacter element={myElement} size={120} />
+              <span style={{ fontSize: 10, opacity: 0.65, wordBreak: 'keep-all' }}>{t('idolMatch.yourElement')}: {t(`elements.${myElement}`)}</span>
             </div>
             <div style={{ fontSize: 24, opacity: 0.7 }}>×</div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-              <img
-                src={ELEMENT_ICON_SRC[theirElement]}
-                alt=""
-                style={{
-                  width: 72,
-                  height: 72,
-                  padding: 12,
-                  boxSizing: 'border-box',
-                  borderRadius: '50%',
-                  border: '2px solid rgba(255,255,255,0.6)',
-                  background: 'rgba(255,255,255,0.15)',
-                  objectFit: 'contain',
-                }}
-              />
-              <span style={{ fontSize: 12, opacity: 0.85, wordBreak: 'keep-all' }}>{theirName || t('idolMatch.theirElement')}: {t(`elements.${theirElement}`)}</span>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+              <ElementCharacter element={theirElement} size={120} />
+              <span style={{ fontSize: 10, opacity: 0.65, wordBreak: 'keep-all' }}>{theirName || t('idolMatch.theirElement')}: {t(`elements.${theirElement}`)}</span>
             </div>
           </div>
 
           {score != null && (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
               <div style={{ fontSize: 64, fontWeight: 800, lineHeight: 1 }}>{score}%</div>
-              <div style={{ fontSize: 12, letterSpacing: 1.5, opacity: 0.8, textTransform: 'uppercase', marginTop: 4 }}>
+              <div style={{ fontSize: 12, letterSpacing: 1.5, opacity: 0.65, textTransform: 'uppercase', marginTop: 4 }}>
                 {t('matchCommon.scoreLabel')}
               </div>
             </div>
@@ -111,7 +84,7 @@ const CompatibilityShareCard = forwardRef(function CompatibilityShareCard(
           <div style={{ fontSize: 18, fontWeight: 700, opacity: 0.95, wordBreak: 'keep-all' }}>{tier}</div>
 
           {subheading && (
-            <div style={{ fontSize: 22, fontWeight: 800, marginTop: 4, wordBreak: 'keep-all' }}>{subheading}</div>
+            <div style={{ fontSize: 24, fontWeight: 800, marginTop: 4, wordBreak: 'keep-all' }}>{subheading}</div>
           )}
           <p
             style={{

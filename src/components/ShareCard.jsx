@@ -1,8 +1,7 @@
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ELEMENT_ICON_SRC } from './ElementBadge';
 import { getZodiacLabel } from '../utils/saju';
-import ShareCardWatermark from './ShareCardWatermark';
+import ElementCharacter from './ElementCharacter';
 import ShareCardFooter from './ShareCardFooter';
 
 export const ELEMENT_GRADIENT = {
@@ -14,6 +13,34 @@ export const ELEMENT_GRADIENT = {
 };
 
 export const SITE_URL = 'getohaeng.com';
+
+function hexToRgb(hex) {
+  const h = hex.replace('#', '');
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+
+// Subtle geometric texture (two soft ripples + a diagonal stripe repeat)
+// layered full-bleed behind every share card's content, tinted from that
+// card's own accent color (the lighter half of ELEMENT_GRADIENT) so it
+// always matches the card's palette. Pure CSS background-image — no
+// pattern/chart library — meant to replace flat gradient-only backgrounds
+// with a bit of texture. Render as the first child of the card's
+// `position: relative; overflow: hidden` root, before the z-indexed
+// content wrapper.
+export function getSharePatternStyle(toColor) {
+  const [r, g, b] = hexToRgb(toColor);
+  const rgba = (a) => `rgba(${r}, ${g}, ${b}, ${a})`;
+  return {
+    position: 'absolute',
+    inset: 0,
+    backgroundImage: [
+      `radial-gradient(circle at 18% 14%, ${rgba(0.24)}, transparent 34%)`,
+      `radial-gradient(circle at 88% 84%, ${rgba(0.2)}, transparent 38%)`,
+      `repeating-linear-gradient(135deg, ${rgba(0.07)} 0px, ${rgba(0.07)} 2px, transparent 2px, transparent 26px)`,
+    ].join(', '),
+    pointerEvents: 'none',
+  };
+}
 
 // Cards that show a headline + first-paragraph teaser truncate it to a
 // clean word boundary with a visible "…" — -webkit-line-clamp's own
@@ -56,7 +83,7 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
         textAlign: 'center',
       }}
     >
-      <ShareCardWatermark elements={[element]} />
+      <div style={getSharePatternStyle(to)} />
 
       <div
         style={{
@@ -75,23 +102,10 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
           {t('app.name')}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-          <img
-            src={ELEMENT_ICON_SRC[element]}
-            alt=""
-            style={{
-              width: 96,
-              height: 96,
-              padding: 16,
-              boxSizing: 'border-box',
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.15)',
-              border: '2px solid rgba(255,255,255,0.6)',
-              objectFit: 'contain',
-            }}
-          />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+          <ElementCharacter element={element} size={140} />
           <div style={{ fontSize: 30, fontWeight: 800, wordBreak: 'keep-all' }}>{t(`elements.${element}`)}</div>
-          <div style={{ fontSize: 14, opacity: 0.85, wordBreak: 'keep-all' }}>
+          <div style={{ fontSize: 13, opacity: 0.65, wordBreak: 'keep-all' }}>
             {t('result.zodiacLabel')}: {getZodiacLabel(zodiac, i18n.language)}
           </div>
 
@@ -99,7 +113,7 @@ const ShareCard = forwardRef(function ShareCard({ element, zodiac, overallLine, 
             {overallLine}
           </p>
 
-          <p style={{ fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 280, opacity: 0.9, wordBreak: 'keep-all' }}>
+          <p style={{ fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 280, opacity: 0.8, wordBreak: 'keep-all' }}>
             ✨ {fandomLine}
           </p>
         </div>

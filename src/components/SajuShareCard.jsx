@@ -1,8 +1,7 @@
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ELEMENT_ICON_SRC } from './ElementBadge';
-import { ELEMENT_GRADIENT, truncateForShareCard } from './ShareCard';
-import ShareCardWatermark from './ShareCardWatermark';
+import { ELEMENT_GRADIENT, getSharePatternStyle, truncateForShareCard } from './ShareCard';
+import ElementCharacter from './ElementCharacter';
 import ShareCardFooter from './ShareCardFooter';
 
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
@@ -30,7 +29,7 @@ const SajuShareCard = forwardRef(function SajuShareCard({ element, strength, pro
         textAlign: 'center',
       }}
     >
-      <ShareCardWatermark elements={[element]} />
+      <div style={getSharePatternStyle(to)} />
 
       <div
         style={{
@@ -49,29 +48,16 @@ const SajuShareCard = forwardRef(function SajuShareCard({ element, strength, pro
           {t('app.name')}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-          <img
-            src={ELEMENT_ICON_SRC[element]}
-            alt=""
-            style={{
-              width: 92,
-              height: 92,
-              padding: 15,
-              boxSizing: 'border-box',
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.15)',
-              border: '2px solid rgba(255,255,255,0.6)',
-              objectFit: 'contain',
-            }}
-          />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+          <ElementCharacter element={element} size={140} />
           <div>
             <div style={{ fontSize: 28, fontWeight: 800, wordBreak: 'keep-all' }}>{t(`elements.${element}`)}</div>
-            <div style={{ fontSize: 12, letterSpacing: 1.5, opacity: 0.85, textTransform: 'uppercase', marginTop: 4, wordBreak: 'keep-all' }}>
+            <div style={{ fontSize: 11, letterSpacing: 1.5, opacity: 0.65, textTransform: 'uppercase', marginTop: 4, wordBreak: 'keep-all' }}>
               {t(`saju.strengthLabel.${strength}`)}
             </div>
           </div>
 
-          <div style={{ fontSize: 21, fontWeight: 800, marginTop: 6, wordBreak: 'keep-all' }}>{profileTitle}</div>
+          <div style={{ fontSize: 24, fontWeight: 800, marginTop: 6, wordBreak: 'keep-all' }}>{profileTitle}</div>
 
           <p
             style={{

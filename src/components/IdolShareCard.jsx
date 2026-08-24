@@ -1,8 +1,7 @@
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ELEMENT_ICON_SRC } from './ElementBadge';
-import { ELEMENT_GRADIENT, truncateForShareCard } from './ShareCard';
-import ShareCardWatermark from './ShareCardWatermark';
+import { ELEMENT_GRADIENT, getSharePatternStyle, truncateForShareCard } from './ShareCard';
+import ElementCharacter from './ElementCharacter';
 import ShareCardFooter from './ShareCardFooter';
 
 const CARD_FONT = "'Pretendard', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
@@ -35,7 +34,7 @@ const IdolShareCard = forwardRef(function IdolShareCard(
         textAlign: 'center',
       }}
     >
-      <ShareCardWatermark elements={[userElement, idolElement]} />
+      <div style={getSharePatternStyle(to)} />
 
       <div
         style={{
@@ -57,51 +56,25 @@ const IdolShareCard = forwardRef(function IdolShareCard(
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
           <div>
             <div style={{ fontSize: 27, fontWeight: 800, wordBreak: 'keep-all' }}>{memberName}</div>
-            <div style={{ fontSize: 12, opacity: 0.8, wordBreak: 'keep-all' }}>{groupName}</div>
+            <div style={{ fontSize: 12, opacity: 0.65, wordBreak: 'keep-all' }}>{groupName}</div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, margin: '4px 0' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-              <img
-                src={ELEMENT_ICON_SRC[userElement]}
-                alt=""
-                style={{
-                  width: 46,
-                  height: 46,
-                  padding: 8,
-                  boxSizing: 'border-box',
-                  borderRadius: '50%',
-                  border: '2px solid rgba(255,255,255,0.6)',
-                  background: 'rgba(255,255,255,0.15)',
-                  objectFit: 'contain',
-                }}
-              />
-              <span style={{ fontSize: 10, opacity: 0.85, wordBreak: 'keep-all' }}>{t('idolMatch.yourElement')}: {t(`elements.${userElement}`)}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '2px 0' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+              <ElementCharacter element={userElement} size={118} />
+              <span style={{ fontSize: 9, opacity: 0.65, wordBreak: 'keep-all' }}>{t('idolMatch.yourElement')}: {t(`elements.${userElement}`)}</span>
             </div>
             <div style={{ fontSize: 20, opacity: 0.7 }}>×</div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-              <img
-                src={ELEMENT_ICON_SRC[idolElement]}
-                alt=""
-                style={{
-                  width: 46,
-                  height: 46,
-                  padding: 8,
-                  boxSizing: 'border-box',
-                  borderRadius: '50%',
-                  border: '2px solid rgba(255,255,255,0.6)',
-                  background: 'rgba(255,255,255,0.15)',
-                  objectFit: 'contain',
-                }}
-              />
-              <span style={{ fontSize: 10, opacity: 0.85, wordBreak: 'keep-all' }}>{memberName}: {t(`elements.${idolElement}`)}</span>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+              <ElementCharacter element={idolElement} size={118} />
+              <span style={{ fontSize: 9, opacity: 0.65, wordBreak: 'keep-all' }}>{memberName}: {t(`elements.${idolElement}`)}</span>
             </div>
           </div>
 
           {score != null && (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
               <div style={{ fontSize: 54, fontWeight: 800, lineHeight: 1 }}>{score}%</div>
-              <div style={{ fontSize: 11, letterSpacing: 1.5, opacity: 0.8, textTransform: 'uppercase', marginTop: 4 }}>
+              <div style={{ fontSize: 11, letterSpacing: 1.5, opacity: 0.65, textTransform: 'uppercase', marginTop: 4 }}>
                 {t('matchCommon.scoreLabel')}
               </div>
             </div>
@@ -109,7 +82,7 @@ const IdolShareCard = forwardRef(function IdolShareCard(
           <div style={{ fontSize: 17, fontWeight: 700, opacity: 0.95, wordBreak: 'keep-all' }}>{tier}</div>
 
           {subheading && (
-            <div style={{ fontSize: 21, fontWeight: 800, marginTop: 4, wordBreak: 'keep-all' }}>{subheading}</div>
+            <div style={{ fontSize: 24, fontWeight: 800, marginTop: 4, wordBreak: 'keep-all' }}>{subheading}</div>
           )}
           <p
             style={{

@@ -395,6 +395,15 @@
 - **`ShareCardWatermark` 워터마크 가시성 개선**: 캐릭터 워터마크 opacity를 0.13→0.22로 올려서(1명/2명 케이스 동일 비율 적용) 배경에서 실제로 인지 가능한 수준으로 눈에 띄게 함 — `ShareCard.jsx`(Result)/`SajuShareCard.jsx`도 같은 컴포넌트를 공유하므로 이 변경은 4개 카드 전부에 자동 적용됨(콘텐츠 변경 없이 순수 표현 방식 개선)
 - **검증**: 실제 헤드리스 브라우저로 4개 카드 전부(`/result`, `/saju`, `/idol-match`, `/drama-match`, `/compatibility`, `/romance` — `IdolShareCard`/`CompatibilityShareCard`는 페이지 2개씩 공유) "이미지로 저장" 버튼을 실제로 클릭해서 **다운로드된 PNG 파일을 직접 열어 확인**(오프스크린 요소를 그냥 스크린샷하는 방식은 `position: fixed; top/left: -9999px` 레이아웃 때문에 엉뚱한 요소가 찍히는 촬영 아티팩트가 있어서 폐기하고, 실제 다운로드 플로우로 재검증함) — en/ko 각 카드마다 헤드라인이 굵게 강조되고, 첫 문단이 좌측 정렬로 자연스럽게 읽히며, 길이가 넘치면 "…"로 깔끔하게 끊기는지, 워터마크 캐릭터가 실제로 눈에 띄는지 육안 확인. 라이트/다크 사이트 테마는 카드 자체 그라디언트 배경과 무관하다는 것도 다크모드 다운로드로 재확인. 콘솔 에러 0건
 
+## 7-5. 공유카드 4개 비주얼 리프레시 — 캐릭터를 배경 워터마크에서 주인공으로, 패턴 배경, 타이포 위계 강화
+
+콘텐츠/데이터 로직은 전혀 안 건드리고 4개 공유카드(`ShareCard.jsx`=Result, `SajuShareCard.jsx`, `IdolShareCard.jsx`=아이돌·드라마매치 공용, `CompatibilityShareCard.jsx`=궁합·로맨스 공용)의 순수 시각 디자인만 리프레시.
+
+- **캐릭터가 배경 워터마크 → 카드의 주인공으로**: 7-4에서 가시성 개선까지 했던 `ShareCardWatermark`(22% 불투명도로 카드 모서리에 걸치던 배경 장식)를 완전히 제거하고 컴포넌트 파일 자체를 삭제(사용처가 이 4개뿐이라 안전하게 삭제). 대신 기존에 쓰던 작은 원형 `ELEMENT_ICON_SRC` 아이콘(46~96px)을 전부 `ElementCharacter`(전신 일러스트) 100% 불투명 렌더링으로 교체 — 1인 카드(Result/Saju)는 140px로 카드 상단에 크게, 2인 매치 카드(Idol/Compatibility)는 118~120px 캐릭터 두 마리를 "×" 사이에 두고 나란히 배치. 각 캐릭터 밑의 오행 라벨(예: "You: Earth")은 유지하되 타이포 위계 조정 대상(아래 참고)으로 같이 축소함
+- **배경 패턴 추가**: `ShareCard.jsx`에 신규 export `getSharePatternStyle(toColor)` — 카드의 `ELEMENT_GRADIENT` 중 밝은 쪽(`to`) 색상을 hex→rgb 변환해서, 같은 색조의 낮은 알파 원형 리플 2개(`radial-gradient`) + 대각선 스트라이프(`repeating-linear-gradient`)를 합성한 배경 이미지를 반환. 차트/패턴 라이브러리 없이 순수 CSS 그라디언트 조합이며, 카드마다 자기 오행 색상을 그대로 물려받아 패턴 색이 항상 카드 팔레트와 맞음. 4개 카드 전부 콘텐츠 wrapper(`zIndex:1`)보다 먼저 렌더되는 절대위치 레이어로 삽입(예전 워터마크가 있던 자리를 대체)
+- **타이포그래피 위계 강화**: 점수(기존 그대로 IdolShareCard 54px/CompatibilityShareCard 64px, 안 건드림) 다음으로 중요한 헤드라인(`subheading`/`profileTitle`)을 21~22px → **24px**로 통일 상향(IdolShareCard/CompatibilityShareCard/SajuShareCard 3곳). 반대로 부가정보(오행 라벨, 그룹명, 관계 라벨, 신강/신약 배지, MATCH SCORE/졸디악 캡션 등)는 전부 opacity를 기존 0.8~0.85 → **0.65**로 낮춰서 "점수 → 헤드라인 → 본문 → 부가정보" 순으로 시선이 가도록 재정렬. 앱 이름(`OHAENG`) 브랜드 마크는 콘텐츠 위계가 아니라 상시 브랜딩이라 opacity 그대로 유지
+- **검증**: Playwright로 헤드리스 브라우저 스크린샷 — 7-4에서 남겼던 "오프스크린 요소를 직접 스크린샷하면 `position:fixed; top/left:-9999px` 때문에 엉뚱한 화면이 찍힌다"는 한계를, 이번엔 `page.addStyleTag`로 `.share-card-offscreen`에 `position: static !important`를 테스트 세션에만 주입해서 해결(실제 다운로드 없이도 정확한 카드만 캡처 가능해짐 — 향후 공유카드 검증에 재사용 가능한 방법). 4개 카드 × en/ko × light/dark 사이트 테마 8장 스크린샷으로 캐릭터가 실제로 크고 선명하게 주인공 역할을 하는지, 매치 카드의 캐릭터 2마리가 서로 다른 오행일 때 시각적으로 잘 구분되는지, 헤드라인이 24px로 도드라지고 부가정보가 흐려져 위계가 명확한지 육안 확인 — 전부 의도대로 렌더링됨. 콘솔 에러 0건. 카드 자체 그라디언트 배경은 사이트 라이트/다크 테마와 무관하다는 것도 재확인.
+
 ## 8. 다국어 (i18n)
 
 - `src/i18n/locales/{en,ko}.json` — **완전 병렬 구조** (키 하나도 안 빠짐, 스크립트로 검증함)
