@@ -132,32 +132,124 @@ export const friendshipTemplates = {
     // person's dominant Ten God category (getTenGodProfile in
     // utils/saju.js) instead, so it's a genuinely separate axis of
     // variety layered on top of the relation-based sections.
+    // Full 5x5 Ten God category matrix — the 5 diagonal cells (same
+    // category both sides) keep the original "mirrored charm" framing;
+    // the 20 off-diagonal cells describe the pairing itself rather than
+    // assigning "my role" vs "their role", so each of the 10 unordered
+    // pairs (companion-output, companion-wealth, ...) uses one shared
+    // text reused for both directions — the description of what two
+    // energies bring out in each other doesn't change based on which
+    // person is "me".
     chemistryPoints: {
-      same: {
+      companion: {
         companion: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Companion energy, so your sense of treating each other as equals matches from the start. You find comfort in the same kinds of moments, which is why conversation tends to skip the small talk and go straight to what actually matters.",
+        },
+        output: {
+          subheading: 'Ease Meets Spark',
+          text: "One of you runs on Companion energy, the other on Output — an easy, equal footing with a spark of expressiveness layered on top. Comfortable, but never boring.",
+        },
+        wealth: {
+          subheading: 'Ease Meets Care',
+          text: "One of you runs on Companion energy, the other on Wealth — an equal-footing kind of ease meeting someone who actually takes care of things. Comfort and practicality both get covered.",
+        },
+        officer: {
+          subheading: 'Ease Meets Seriousness',
+          text: "One of you runs on Companion energy, the other on Officer — easy rapport meeting someone who leads with real seriousness. Even in a relaxed vibe, there's a quiet sense of direction.",
+        },
+        resource: {
+          subheading: 'Ease Meets Warmth',
+          text: "One of you runs on Companion energy, the other on Resource — easy rapport meeting someone genuinely nurturing. No formality needed for either of you to feel comforted by the other.",
+        },
+      },
+      output: {
+        companion: {
+          subheading: 'Ease Meets Spark',
+          text: "One of you runs on Companion energy, the other on Output — an easy, equal footing with a spark of expressiveness layered on top. Comfortable, but never boring.",
         },
         output: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Output energy, so your expressive, playful charm overlaps directly. Being together, your energy just naturally clicks, and you never really have to explain your sense of humor to each other.",
         },
         wealth: {
+          subheading: 'Spark Meets Practicality',
+          text: "One of you runs on Output energy, the other on Wealth — someone who lifts the mood meeting someone who handles the practical side. The fun stays alive while the details quietly get handled.",
+        },
+        officer: {
+          subheading: 'Spark Meets Discipline',
+          text: "One of you runs on Output energy, the other on Officer — free expression meeting someone who keeps things grounded. Right when the energy threatens to spin out, the other one steadies it.",
+        },
+        resource: {
+          subheading: 'Spark Meets Warmth',
+          text: "One of you runs on Output energy, the other on Resource — someone who brings the spark meeting someone genuinely comforting. Fun turns into real ease by the end of it.",
+        },
+      },
+      wealth: {
+        companion: {
+          subheading: 'Ease Meets Care',
+          text: "One of you runs on Companion energy, the other on Wealth — an equal-footing kind of ease meeting someone who actually takes care of things. Comfort and practicality both get covered.",
+        },
+        output: {
+          subheading: 'Spark Meets Practicality',
+          text: "One of you runs on Output energy, the other on Wealth — someone who lifts the mood meeting someone who handles the practical side. The fun stays alive while the details quietly get handled.",
+        },
+        wealth: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Wealth energy, so your practical, resourceful instincts line up well. When it's time to plan something or take care of business, you tend to already move the same way without needing to adjust for each other.",
+        },
+        officer: {
+          subheading: 'Practicality Meets Discipline',
+          text: "One of you runs on Wealth energy, the other on Officer — both practical, both dependable in their own way. Whether it's planning something or keeping a promise, neither of you gives the other much to worry about.",
+        },
+        resource: {
+          subheading: 'Practicality Meets Warmth',
+          text: "One of you runs on Wealth energy, the other on Resource — someone practical meeting someone genuinely nurturing. Both the practical stuff and the warmth get covered, quietly.",
+        },
+      },
+      officer: {
+        companion: {
+          subheading: 'Ease Meets Seriousness',
+          text: "One of you runs on Companion energy, the other on Officer — easy rapport meeting someone who leads with real seriousness. Even in a relaxed vibe, there's a quiet sense of direction.",
+        },
+        output: {
+          subheading: 'Spark Meets Discipline',
+          text: "One of you runs on Output energy, the other on Officer — free expression meeting someone who keeps things grounded. Right when the energy threatens to spin out, the other one steadies it.",
+        },
+        wealth: {
+          subheading: 'Practicality Meets Discipline',
+          text: "One of you runs on Wealth energy, the other on Officer — both practical, both dependable in their own way. Whether it's planning something or keeping a promise, neither of you gives the other much to worry about.",
         },
         officer: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Officer energy, so your responsible, deliberate charm mirrors each other's. Keeping promises and taking things seriously both come naturally to you two, and neither has to explain that instinct to the other.",
         },
         resource: {
+          subheading: 'Discipline Meets Warmth',
+          text: "One of you runs on Officer energy, the other on Resource — someone who leads responsibly meeting someone genuinely warm. Serious and comforting at once, dependable without feeling heavy.",
+        },
+      },
+      resource: {
+        companion: {
+          subheading: 'Ease Meets Warmth',
+          text: "One of you runs on Companion energy, the other on Resource — easy rapport meeting someone genuinely nurturing. No formality needed for either of you to feel comforted by the other.",
+        },
+        output: {
+          subheading: 'Spark Meets Warmth',
+          text: "One of you runs on Output energy, the other on Resource — someone who brings the spark meeting someone genuinely comforting. Fun turns into real ease by the end of it.",
+        },
+        wealth: {
+          subheading: 'Practicality Meets Warmth',
+          text: "One of you runs on Wealth energy, the other on Resource — someone practical meeting someone genuinely nurturing. Both the practical stuff and the warmth get covered, quietly.",
+        },
+        officer: {
+          subheading: 'Discipline Meets Warmth',
+          text: "One of you runs on Officer energy, the other on Resource — someone who leads responsibly meeting someone genuinely warm. Serious and comforting at once, dependable without feeling heavy.",
+        },
+        resource: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Resource energy, so your warm, considerate charm mirrors each other's. Being together, you both put each other at ease in a similar way, which means that warmth ends up doubled instead of just shared.",
         },
-      },
-      different: {
-        subheading: 'Two Different Kinds of Charm Meeting',
-        text: "By Ten God profile, your standout traits actually run in different directions, which means there's a real chance to notice something new in each other. They tend to fill in whatever you don't naturally have, so being around them has a way of quietly widening your own view.",
       },
     },
     noblemanBonus: {
@@ -287,31 +379,115 @@ export const friendshipTemplates = {
       },
     },
     chemistryPoints: {
-      same: {
+      companion: {
         companion: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 비겁 기운이 강한 편이라, 서로를 대등하게 대하는 감각 자체가 비슷해요. 같은 포인트에서 편안함을 느끼는 사이라, 대화가 유난히 겉돌지 않고 바로 핵심으로 들어가는 편이에요.',
+        },
+        output: {
+          subheading: '편안함과 텐션이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 식상 기운이 강한 조합이라, 편하게 통하는 기반 위에 텐션까지 얹어지는 사이예요. 대등하게 편한데 심심할 틈은 없는, 그런 친구 케미예요.',
+        },
+        wealth: {
+          subheading: '대등함과 챙김이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 재성 기운이 강한 조합이라, 대등하게 통하는 사람과 현실적으로 챙겨주는 사람이 만나는 케미예요. 편한 건 편한 대로, 실속은 실속대로 챙겨지는 사이예요.',
+        },
+        officer: {
+          subheading: '편안함과 진지함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 관성 기운이 강한 조합이라, 편하게 통하는 사람과 진지하게 이끄는 사람이 만나는 케미예요. 가벼운 텐션 속에서도 은근히 중심이 잡히는 사이예요.',
+        },
+        resource: {
+          subheading: '편안함과 다정함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 인성 기운이 강한 조합이라, 편하게 통하는 사람과 다정하게 품어주는 사람이 만나는 케미예요. 격식 없이도 서로에게 위안이 되는 사이예요.',
+        },
+      },
+      output: {
+        companion: {
+          subheading: '편안함과 텐션이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 식상 기운이 강한 조합이라, 편하게 통하는 기반 위에 텐션까지 얹어지는 사이예요. 대등하게 편한데 심심할 틈은 없는, 그런 친구 케미예요.',
         },
         output: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 식상 기운이 강한 편이라, 표현하고 장난치는 매력 포인트가 서로 겹쳐요. 그래서 같이 있으면 텐션이 자연스럽게 맞아떨어지고, 서로의 유머 코드를 굳이 설명할 필요가 없어요.',
         },
         wealth: {
+          subheading: '텐션과 현실 감각이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 재성 기운이 강한 조합이라, 분위기를 살리는 사람과 현실을 챙기는 사람이 만나는 케미예요. 텐션은 텐션대로 살아있으면서, 뒷정리는 알아서 되는 사이예요.',
+        },
+        officer: {
+          subheading: '자유로움과 책임감이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 관성 기운이 강한 조합이라, 자유롭게 표현하는 사람과 진지하게 다잡아주는 사람이 만나는 케미예요. 텐션이 붕 뜰 때쯤 한쪽이 슬쩍 중심을 잡아주는 사이예요.',
+        },
+        resource: {
+          subheading: '텐션과 다정함이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 인성 기운이 강한 조합이라, 텐션을 올려주는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 재밌게 놀다가도 결국 마음까지 편해지는 사이예요.',
+        },
+      },
+      wealth: {
+        companion: {
+          subheading: '대등함과 챙김이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 재성 기운이 강한 조합이라, 대등하게 통하는 사람과 현실적으로 챙겨주는 사람이 만나는 케미예요. 편한 건 편한 대로, 실속은 실속대로 챙겨지는 사이예요.',
+        },
+        output: {
+          subheading: '텐션과 현실 감각이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 재성 기운이 강한 조합이라, 분위기를 살리는 사람과 현실을 챙기는 사람이 만나는 케미예요. 텐션은 텐션대로 살아있으면서, 뒷정리는 알아서 되는 사이예요.',
+        },
+        wealth: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 재성 기운이 강한 편이라, 현실적이고 실속 있는 감각이 서로 잘 맞아요. 계획을 세우거나 뭔가를 챙길 때, 굳이 맞춰가지 않아도 이미 같은 방식으로 움직이는 편이에요.',
+        },
+        officer: {
+          subheading: '현실 감각과 책임감이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 관성 기운이 강한 조합이라, 둘 다 현실적이고 믿음직한 매력을 가진 사이예요. 계획을 세우든 약속을 지키든, 서로에게 딱히 불안할 일이 없는 케미예요.',
+        },
+        resource: {
+          subheading: '현실 감각과 다정함이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 인성 기운이 강한 조합이라, 현실적으로 챙기는 사람과 다정하게 품어주는 사람이 만나는 케미예요. 실속과 다정함이 같이 채워지는, 은근히 든든한 사이예요.',
+        },
+      },
+      officer: {
+        companion: {
+          subheading: '편안함과 진지함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 관성 기운이 강한 조합이라, 편하게 통하는 사람과 진지하게 이끄는 사람이 만나는 케미예요. 가벼운 텐션 속에서도 은근히 중심이 잡히는 사이예요.',
+        },
+        output: {
+          subheading: '자유로움과 책임감이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 관성 기운이 강한 조합이라, 자유롭게 표현하는 사람과 진지하게 다잡아주는 사람이 만나는 케미예요. 텐션이 붕 뜰 때쯤 한쪽이 슬쩍 중심을 잡아주는 사이예요.',
+        },
+        wealth: {
+          subheading: '현실 감각과 책임감이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 관성 기운이 강한 조합이라, 둘 다 현실적이고 믿음직한 매력을 가진 사이예요. 계획을 세우든 약속을 지키든, 서로에게 딱히 불안할 일이 없는 케미예요.',
         },
         officer: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 관성 기운이 강한 편이라, 책임감 있고 신중한 매력 포인트가 서로 닮아 있어요. 약속을 지키는 것도, 진지하게 임하는 태도도 서로 자연스럽게 이해가 되는 사이예요.',
         },
         resource: {
+          subheading: '책임감과 다정함이 만나는 조합',
+          text: '한쪽은 관성, 한쪽은 인성 기운이 강한 조합이라, 책임감 있게 이끄는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 진지함과 다정함이 같이 있어서, 믿음직하면서도 편안한 사이예요.',
+        },
+      },
+      resource: {
+        companion: {
+          subheading: '편안함과 다정함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 인성 기운이 강한 조합이라, 편하게 통하는 사람과 다정하게 품어주는 사람이 만나는 케미예요. 격식 없이도 서로에게 위안이 되는 사이예요.',
+        },
+        output: {
+          subheading: '텐션과 다정함이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 인성 기운이 강한 조합이라, 텐션을 올려주는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 재밌게 놀다가도 결국 마음까지 편해지는 사이예요.',
+        },
+        wealth: {
+          subheading: '현실 감각과 다정함이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 인성 기운이 강한 조합이라, 현실적으로 챙기는 사람과 다정하게 품어주는 사람이 만나는 케미예요. 실속과 다정함이 같이 채워지는, 은근히 든든한 사이예요.',
+        },
+        officer: {
+          subheading: '책임감과 다정함이 만나는 조합',
+          text: '한쪽은 관성, 한쪽은 인성 기운이 강한 조합이라, 책임감 있게 이끄는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 진지함과 다정함이 같이 있어서, 믿음직하면서도 편안한 사이예요.',
+        },
+        resource: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 인성 기운이 강한 편이라, 다정하고 배려 깊은 매력 포인트가 서로 닮아 있어요. 같이 있으면 서로를 편안하게 해주는 방식 자체가 비슷해서, 그 다정함이 자연스럽게 두 배가 돼요.',
         },
-      },
-      different: {
-        subheading: '서로 다른 매력이 만나는 조합',
-        text: '십성으로 보면 서로 강조되는 매력 포인트가 다른 편이라, 각자 가진 게 다른 만큼 서로에게서 새로운 면을 발견하는 재미가 있어요. 나한테 없는 결을 상대가 채워주는 느낌이라, 같이 있으면 시야가 조금씩 넓어지는 조합이에요.',
       },
     },
     noblemanBonus: {
@@ -326,10 +502,11 @@ export function getFriendshipCopy(lang, relation) {
 }
 
 /** Independent of `relation` — compares each person's dominant Ten God
- * category (getTenGodProfile) and picks the matching or "different" copy. */
+ * category (getTenGodProfile) and looks up the full 5x5 matrix entry for
+ * this specific myCategory/otherCategory pair. */
 export function getChemistryPoints(lang, myCategory, otherCategory) {
   const bank = (friendshipTemplates[lang] || friendshipTemplates.en).chemistryPoints;
-  return myCategory === otherCategory ? bank.same[myCategory] : bank.different;
+  return bank[myCategory][otherCategory];
 }
 
 /** Shown only when at least one of the two charts has the Heavenly Nobleman. */

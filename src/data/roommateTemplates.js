@@ -129,32 +129,120 @@ export const roommateTemplates = {
     // See friendshipTemplates.js for the full explanation — same idea,
     // roommate-flavored: an axis independent of the 5 Five Element
     // relations, comparing each person's dominant Ten God category.
+    // See friendshipTemplates.js for the full explanation of this 5x5
+    // matrix design — diagonal cells keep the "mirrored charm" framing,
+    // the 10 unordered off-diagonal pairs each get one shared text reused
+    // for both directions.
     chemistryPoints: {
-      same: {
+      companion: {
         companion: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Companion energy, so your sense of treating each other as equals already matches. Splitting chores tends to balance itself out naturally without either of you having to negotiate it.",
+        },
+        output: {
+          subheading: 'Ease Meets Spark',
+          text: "One of you runs on Companion energy, the other on Output — an easy roommate dynamic with laughter layered on top. Comfortable, and the apartment never goes quiet.",
+        },
+        wealth: {
+          subheading: 'Ease Meets Care',
+          text: "One of you runs on Companion energy, the other on Wealth — an easy roommate rapport where the practical stuff still gets handled. Low-pressure, but quietly well-managed.",
+        },
+        officer: {
+          subheading: 'Ease Meets Seriousness',
+          text: "One of you runs on Companion energy, the other on Officer — a relaxed dynamic where house rules still somehow hold. Easygoing, without the household falling apart.",
+        },
+        resource: {
+          subheading: 'Ease Meets Warmth',
+          text: "One of you runs on Companion energy, the other on Resource — easy living with genuine warmth woven in. No formality needed for the apartment to feel like a rest stop for both of you.",
+        },
+      },
+      output: {
+        companion: {
+          subheading: 'Ease Meets Spark',
+          text: "One of you runs on Companion energy, the other on Output — an easy roommate dynamic with laughter layered on top. Comfortable, and the apartment never goes quiet.",
         },
         output: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Output energy, so the apartment has a good chance of being an unusually lively, laughter-filled space. Turning even small mishaps into a fun story is an instinct you both already share.",
         },
         wealth: {
+          subheading: 'Spark Meets Practicality',
+          text: "One of you runs on Output energy, the other on Wealth — someone who keeps the mood lively meeting someone who handles the household practically. Fun stays alive while the finances quietly stay in order.",
+        },
+        officer: {
+          subheading: 'Spark Meets Discipline',
+          text: "One of you runs on Output energy, the other on Officer — a free-flowing mood balanced with real household structure. Right when things get a little too loose, the other one gently reins it in.",
+        },
+        resource: {
+          subheading: 'Spark Meets Warmth',
+          text: "One of you runs on Output energy, the other on Resource — someone who makes things fun meeting someone genuinely caring. Laughing together ends up leaving you both more at ease, not less.",
+        },
+      },
+      wealth: {
+        companion: {
+          subheading: 'Ease Meets Care',
+          text: "One of you runs on Companion energy, the other on Wealth — an easy roommate rapport where the practical stuff still gets handled. Low-pressure, but quietly well-managed.",
+        },
+        output: {
+          subheading: 'Spark Meets Practicality',
+          text: "One of you runs on Output energy, the other on Wealth — someone who keeps the mood lively meeting someone who handles the household practically. Fun stays alive while the finances quietly stay in order.",
+        },
+        wealth: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Wealth energy, so your sense for handling the practical stuff — rent, bills, groceries — already lines up well. The way you run the household frugally and sensibly tends to already match.",
+        },
+        officer: {
+          subheading: 'Practicality Meets Discipline',
+          text: "One of you runs on Wealth energy, the other on Officer — both of you run the household practically and responsibly. Bills, chores, whatever it is, neither of you gives the other much to worry about.",
+        },
+        resource: {
+          subheading: 'Practicality Meets Warmth',
+          text: "One of you runs on Wealth energy, the other on Resource — someone practical meeting someone genuinely warm. The household runs smoothly and feels warm at the same time.",
+        },
+      },
+      officer: {
+        companion: {
+          subheading: 'Ease Meets Seriousness',
+          text: "One of you runs on Companion energy, the other on Officer — a relaxed dynamic where house rules still somehow hold. Easygoing, without the household falling apart.",
+        },
+        output: {
+          subheading: 'Spark Meets Discipline',
+          text: "One of you runs on Output energy, the other on Officer — a free-flowing mood balanced with real household structure. Right when things get a little too loose, the other one gently reins it in.",
+        },
+        wealth: {
+          subheading: 'Practicality Meets Discipline',
+          text: "One of you runs on Wealth energy, the other on Officer — both of you run the household practically and responsibly. Bills, chores, whatever it is, neither of you gives the other much to worry about.",
         },
         officer: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Officer energy, so your instinct for keeping house rules and being considerate of each other already matches. There's rarely much need to nag about following through on the basics.",
         },
         resource: {
+          subheading: 'Discipline Meets Warmth',
+          text: "One of you runs on Officer energy, the other on Resource — someone who keeps things in order meeting someone genuinely warm. Steady and warm at once, a well-balanced way to live together.",
+        },
+      },
+      resource: {
+        companion: {
+          subheading: 'Ease Meets Warmth',
+          text: "One of you runs on Companion energy, the other on Resource — easy living with genuine warmth woven in. No formality needed for the apartment to feel like a rest stop for both of you.",
+        },
+        output: {
+          subheading: 'Spark Meets Warmth',
+          text: "One of you runs on Output energy, the other on Resource — someone who makes things fun meeting someone genuinely caring. Laughing together ends up leaving you both more at ease, not less.",
+        },
+        wealth: {
+          subheading: 'Practicality Meets Warmth',
+          text: "One of you runs on Wealth energy, the other on Resource — someone practical meeting someone genuinely warm. The household runs smoothly and feels warm at the same time.",
+        },
+        officer: {
+          subheading: 'Discipline Meets Warmth',
+          text: "One of you runs on Officer energy, the other on Resource — someone who keeps things in order meeting someone genuinely warm. Steady and warm at once, a well-balanced way to live together.",
+        },
+        resource: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Resource energy, so the way you put each other at ease already matches. You both already carry that warm instinct that makes an apartment feel like an actual home.",
         },
-      },
-      different: {
-        subheading: 'Two Different Kinds of Charm Meeting',
-        text: "By Ten God profile, your standout traits run in different directions, so your instincts around housekeeping might differ a bit too. But that difference tends to end up covering exactly the spots the other one would've missed.",
       },
     },
     noblemanBonus: {
@@ -284,31 +372,115 @@ export const roommateTemplates = {
       },
     },
     chemistryPoints: {
-      same: {
+      companion: {
         companion: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 비겁 기운이 강한 편이라, 서로를 대등하게 존중하는 감각이 이미 비슷해요. 집안일을 나눌 때도 굳이 정하지 않아도 자연스럽게 균형이 맞춰지는 편이에요.',
+        },
+        output: {
+          subheading: '편안함과 텐션이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 식상 기운이 강한 조합이라, 편하게 지내는 룸메이트 사이에 웃음까지 끊이지 않는 케미예요. 대등하게 편한데 집안 분위기까지 늘 살아있는 사이예요.',
+        },
+        wealth: {
+          subheading: '대등함과 챙김이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 재성 기운이 강한 조합이라, 편하게 지내면서도 생활비나 살림은 알아서 챙겨지는 케미예요. 부담 없는 사이인데 은근히 실속도 있는 조합이에요.',
+        },
+        officer: {
+          subheading: '편안함과 진지함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 관성 기운이 강한 조합이라, 편한 분위기 속에서도 집안 규칙은 은근히 잘 지켜지는 케미예요. 부담 없이 지내면서도 생활이 흐트러지지 않는 사이예요.',
+        },
+        resource: {
+          subheading: '편안함과 다정함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 인성 기운이 강한 조합이라, 편하게 지내는 사이에 다정한 배려까지 자연스럽게 스며드는 케미예요. 격식 없이도 서로에게 쉼이 되는 룸메이트예요.',
+        },
+      },
+      output: {
+        companion: {
+          subheading: '편안함과 텐션이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 식상 기운이 강한 조합이라, 편하게 지내는 룸메이트 사이에 웃음까지 끊이지 않는 케미예요. 대등하게 편한데 집안 분위기까지 늘 살아있는 사이예요.',
         },
         output: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 식상 기운이 강한 편이라, 집이 유난히 활기차고 웃음 많은 공간이 될 확률이 높아요. 같이 있으면 사소한 일도 재밌는 에피소드로 만드는 감각이 서로 닮아 있어요.',
         },
         wealth: {
+          subheading: '텐션과 현실 감각이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 재성 기운이 강한 조합이라, 집안 분위기를 살리는 사람과 생활을 현실적으로 챙기는 사람이 만나는 케미예요. 재밌게 지내면서도 통장은 알아서 지켜지는 사이예요.',
+        },
+        officer: {
+          subheading: '자유로움과 책임감이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 관성 기운이 강한 조합이라, 자유로운 분위기와 생활 규칙이 균형 있게 섞이는 케미예요. 즐거움이 과해질 때쯤 한쪽이 슬쩍 브레이크를 걸어주는 사이예요.',
+        },
+        resource: {
+          subheading: '텐션과 다정함이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 인성 기운이 강한 조합이라, 재밌게 만들어주는 사람과 다정하게 챙겨주는 사람이 만나는 케미예요. 웃고 떠들다가도 결국 마음까지 편안해지는 동거예요.',
+        },
+      },
+      wealth: {
+        companion: {
+          subheading: '대등함과 챙김이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 재성 기운이 강한 조합이라, 편하게 지내면서도 생활비나 살림은 알아서 챙겨지는 케미예요. 부담 없는 사이인데 은근히 실속도 있는 조합이에요.',
+        },
+        output: {
+          subheading: '텐션과 현실 감각이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 재성 기운이 강한 조합이라, 집안 분위기를 살리는 사람과 생활을 현실적으로 챙기는 사람이 만나는 케미예요. 재밌게 지내면서도 통장은 알아서 지켜지는 사이예요.',
+        },
+        wealth: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 재성 기운이 강한 편이라, 생활비나 공과금 같은 현실적인 부분을 챙기는 감각이 서로 잘 맞아요. 살림을 알뜰하게 꾸려가는 방식 자체가 이미 비슷한 편이에요.',
+        },
+        officer: {
+          subheading: '현실 감각과 책임감이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 관성 기운이 강한 조합이라, 둘 다 생활을 현실적이고 책임감 있게 꾸려가는 편이에요. 공과금이든 집안일이든, 서로에게 딱히 불안할 일이 없는 동거예요.',
+        },
+        resource: {
+          subheading: '현실 감각과 다정함이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 인성 기운이 강한 조합이라, 현실적으로 챙기는 사람과 다정하게 품어주는 사람이 만나는 케미예요. 살림도 마음도 같이 채워지는, 은근히 든든한 동거예요.',
+        },
+      },
+      officer: {
+        companion: {
+          subheading: '편안함과 진지함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 관성 기운이 강한 조합이라, 편한 분위기 속에서도 집안 규칙은 은근히 잘 지켜지는 케미예요. 부담 없이 지내면서도 생활이 흐트러지지 않는 사이예요.',
+        },
+        output: {
+          subheading: '자유로움과 책임감이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 관성 기운이 강한 조합이라, 자유로운 분위기와 생활 규칙이 균형 있게 섞이는 케미예요. 즐거움이 과해질 때쯤 한쪽이 슬쩍 브레이크를 걸어주는 사이예요.',
+        },
+        wealth: {
+          subheading: '현실 감각과 책임감이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 관성 기운이 강한 조합이라, 둘 다 생활을 현실적이고 책임감 있게 꾸려가는 편이에요. 공과금이든 집안일이든, 서로에게 딱히 불안할 일이 없는 동거예요.',
         },
         officer: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 관성 기운이 강한 편이라, 집안 규칙을 지키고 서로를 배려하는 감각이 이미 닮아 있어요. 정해진 걸 지키는 데 있어서는 굳이 잔소리할 일이 별로 없는 조합이에요.',
         },
         resource: {
+          subheading: '책임감과 다정함이 만나는 조합',
+          text: '한쪽은 관성, 한쪽은 인성 기운이 강한 조합이라, 규칙을 지키는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 든든하면서도 따뜻한, 균형 잡힌 동거예요.',
+        },
+      },
+      resource: {
+        companion: {
+          subheading: '편안함과 다정함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 인성 기운이 강한 조합이라, 편하게 지내는 사이에 다정한 배려까지 자연스럽게 스며드는 케미예요. 격식 없이도 서로에게 쉼이 되는 룸메이트예요.',
+        },
+        output: {
+          subheading: '텐션과 다정함이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 인성 기운이 강한 조합이라, 재밌게 만들어주는 사람과 다정하게 챙겨주는 사람이 만나는 케미예요. 웃고 떠들다가도 결국 마음까지 편안해지는 동거예요.',
+        },
+        wealth: {
+          subheading: '현실 감각과 다정함이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 인성 기운이 강한 조합이라, 현실적으로 챙기는 사람과 다정하게 품어주는 사람이 만나는 케미예요. 살림도 마음도 같이 채워지는, 은근히 든든한 동거예요.',
+        },
+        officer: {
+          subheading: '책임감과 다정함이 만나는 조합',
+          text: '한쪽은 관성, 한쪽은 인성 기운이 강한 조합이라, 규칙을 지키는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 든든하면서도 따뜻한, 균형 잡힌 동거예요.',
+        },
+        resource: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 인성 기운이 강한 편이라, 서로를 편안하게 해주는 방식이 닮아 있어요. 집이 쉼터처럼 느껴지게 만드는 다정한 감각을, 둘 다 이미 갖고 있는 셈이에요.',
         },
-      },
-      different: {
-        subheading: '서로 다른 매력이 만나는 조합',
-        text: '십성으로 보면 서로 강조되는 매력 포인트가 다른 편이라, 살림을 대하는 방식도 조금씩 다를 수 있어요. 그런데 그 다름이 오히려 서로 놓치기 쉬운 부분을 채워주는 역할을 해줘요.',
       },
     },
     noblemanBonus: {
@@ -324,7 +496,7 @@ export function getRoommateCopy(lang, relation) {
 
 export function getChemistryPoints(lang, myCategory, otherCategory) {
   const bank = (roommateTemplates[lang] || roommateTemplates.en).chemistryPoints;
-  return myCategory === otherCategory ? bank.same[myCategory] : bank.different;
+  return bank[myCategory][otherCategory];
 }
 
 export function getNoblemanBonus(lang) {

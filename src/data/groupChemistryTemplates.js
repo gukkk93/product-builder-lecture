@@ -136,32 +136,118 @@ export const groupChemistryTemplates = {
     // See friendshipTemplates.js for the full explanation — same idea,
     // team/stage-flavored: an axis independent of the 5 Five Element
     // relations, comparing each person's dominant Ten God category.
+    // See friendshipTemplates.js for the full explanation of this 5x5
+    // matrix design.
     chemistryPoints: {
-      same: {
+      companion: {
         companion: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Companion energy, so the sense of treating each other as equal partners on stage already matches. On the same team, the natural picture would've been standing side by side rather than either of you outshining the other.",
+        },
+        output: {
+          subheading: 'Ease Meets Spark',
+          text: "One of you runs on Companion energy, the other on Output — equal-footing partnership with a spark of stage energy layered on top. On the same team, you'd have been the easy pairing that never felt flat.",
+        },
+        wealth: {
+          subheading: 'Ease Meets Care',
+          text: "One of you runs on Companion energy, the other on Wealth — equal-footing partnership meeting a practical sense for running things. On the same team, the relationship would've stayed easy while the logistics quietly got handled.",
+        },
+        officer: {
+          subheading: 'Ease Meets Seriousness',
+          text: "One of you runs on Companion energy, the other on Officer — easy partnership meeting real leadership. On the same team, the relationship would've stayed relaxed while the performance itself never fell apart.",
+        },
+        resource: {
+          subheading: 'Ease Meets Warmth',
+          text: "One of you runs on Companion energy, the other on Resource — easy partnership meeting genuine care. On the same team, you'd have been relaxed with each other while still being each other's comfort.",
+        },
+      },
+      output: {
+        companion: {
+          subheading: 'Ease Meets Spark',
+          text: "One of you runs on Companion energy, the other on Output — equal-footing partnership with a spark of stage energy layered on top. On the same team, you'd have been the easy pairing that never felt flat.",
         },
         output: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Output energy, so the expressiveness and energy you each bring to the stage overlap directly. On the same team, the segments you shared would've probably gotten cut into the liveliest, most energetic parts.",
         },
         wealth: {
+          subheading: 'Spark Meets Practicality',
+          text: "One of you runs on Output energy, the other on Wealth — stage-lifting energy meeting a practical sense for running the team. On the same team, the stage would've stayed hot while the details quietly got covered.",
+        },
+        officer: {
+          subheading: 'Spark Meets Discipline',
+          text: "One of you runs on Output energy, the other on Officer — free-flowing stage energy meeting responsible leadership. On the same team, right when the energy threatened to spin out, the other one would've reined the stage back in.",
+        },
+        resource: {
+          subheading: 'Spark Meets Warmth',
+          text: "One of you runs on Output energy, the other on Resource — stage-lifting energy meeting genuine care. On the same team, behind the flashy performance, you'd have been the two quietly looking out for each other.",
+        },
+      },
+      wealth: {
+        companion: {
+          subheading: 'Ease Meets Care',
+          text: "One of you runs on Companion energy, the other on Wealth — equal-footing partnership meeting a practical sense for running things. On the same team, the relationship would've stayed easy while the logistics quietly got handled.",
+        },
+        output: {
+          subheading: 'Spark Meets Practicality',
+          text: "One of you runs on Output energy, the other on Wealth — stage-lifting energy meeting a practical sense for running the team. On the same team, the stage would've stayed hot while the details quietly got covered.",
+        },
+        wealth: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Wealth energy, so your instinct for handling the practical side of being on a team — schedules, logistics — already matches. Whichever one of you was managing things, the other would've handled it the same capable way.",
+        },
+        officer: {
+          subheading: 'Practicality Meets Discipline',
+          text: "One of you runs on Wealth energy, the other on Officer — both practical and responsible when it comes to running the team. On the same team, whether it was scheduling or prep, neither of you would've given the other much to worry about.",
+        },
+        resource: {
+          subheading: 'Practicality Meets Warmth',
+          text: "One of you runs on Wealth energy, the other on Resource — someone practical meeting someone genuinely warm. On the same team, the logistics and the warmth would've both been covered.",
+        },
+      },
+      officer: {
+        companion: {
+          subheading: 'Ease Meets Seriousness',
+          text: "One of you runs on Companion energy, the other on Officer — easy partnership meeting real leadership. On the same team, the relationship would've stayed relaxed while the performance itself never fell apart.",
+        },
+        output: {
+          subheading: 'Spark Meets Discipline',
+          text: "One of you runs on Output energy, the other on Officer — free-flowing stage energy meeting responsible leadership. On the same team, right when the energy threatened to spin out, the other one would've reined the stage back in.",
+        },
+        wealth: {
+          subheading: 'Practicality Meets Discipline',
+          text: "One of you runs on Wealth energy, the other on Officer — both practical and responsible when it comes to running the team. On the same team, whether it was scheduling or prep, neither of you would've given the other much to worry about.",
         },
         officer: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Officer energy, so your responsible, serious approach to the stage already matches. On the same team, your shared instinct for showing up fully prepared would've clicked easily.",
         },
         resource: {
+          subheading: 'Discipline Meets Warmth',
+          text: "One of you runs on Officer energy, the other on Resource — someone who leads responsibly meeting someone genuinely warm. On the same team, you'd have been the steady, warm center the rest of the group leaned on.",
+        },
+      },
+      resource: {
+        companion: {
+          subheading: 'Ease Meets Warmth',
+          text: "One of you runs on Companion energy, the other on Resource — easy partnership meeting genuine care. On the same team, you'd have been relaxed with each other while still being each other's comfort.",
+        },
+        output: {
+          subheading: 'Spark Meets Warmth',
+          text: "One of you runs on Output energy, the other on Resource — stage-lifting energy meeting genuine care. On the same team, behind the flashy performance, you'd have been the two quietly looking out for each other.",
+        },
+        wealth: {
+          subheading: 'Practicality Meets Warmth',
+          text: "One of you runs on Wealth energy, the other on Resource — someone practical meeting someone genuinely warm. On the same team, the logistics and the warmth would've both been covered.",
+        },
+        officer: {
+          subheading: 'Discipline Meets Warmth',
+          text: "One of you runs on Officer energy, the other on Resource — someone who leads responsibly meeting someone genuinely warm. On the same team, you'd have been the steady, warm center the rest of the group leaned on.",
+        },
+        resource: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Resource energy, so your instinct for comforting and looking out for teammates already matches. On the same team, the two of you would've likely carried the emotional steadiness of the whole group together.",
         },
-      },
-      different: {
-        subheading: 'Two Different Kinds of Charm Meeting',
-        text: "By Ten God profile, your standout traits run in different directions, so you'd probably show different colors on stage too. That difference is exactly what would've made the team's overall chemistry feel more varied.",
       },
     },
     noblemanBonus: {
@@ -271,31 +357,115 @@ export const groupChemistryTemplates = {
       },
     },
     chemistryPoints: {
-      same: {
+      companion: {
         companion: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 비겁 기운이 강한 편이라, 무대 위에서도 서로를 대등한 파트너로 여기는 감각이 비슷해요. 같은 팀이었다면 어느 한쪽이 튀기보다, 나란히 서 있는 그림이 훨씬 자연스러웠을 거예요.',
+        },
+        output: {
+          subheading: '편안함과 텐션이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 식상 기운이 강한 조합이라, 대등한 파트너십 위에 무대의 텐션까지 얹어지는 케미예요. 같은 팀이었다면 편안하면서도 유난히 생동감 넘치는 조합이었을 거예요.',
+        },
+        wealth: {
+          subheading: '대등함과 챙김이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 재성 기운이 강한 조합이라, 대등한 파트너십과 현실적인 팀 살림 감각이 만나는 케미예요. 같은 팀이었다면 편안한 관계 속에서도 실속은 확실히 챙겨졌을 거예요.',
+        },
+        officer: {
+          subheading: '편안함과 진지함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 관성 기운이 강한 조합이라, 편안한 파트너십과 진지한 리더십이 만나는 케미예요. 같은 팀이었다면 부담 없는 사이인데도 무대는 흐트러지지 않았을 거예요.',
+        },
+        resource: {
+          subheading: '편안함과 다정함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 인성 기운이 강한 조합이라, 편안한 파트너십과 다정한 케어가 만나는 케미예요. 같은 팀이었다면 부담 없이 지내면서도 서로에게 위안이 되는 관계였을 거예요.',
+        },
+      },
+      output: {
+        companion: {
+          subheading: '편안함과 텐션이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 식상 기운이 강한 조합이라, 대등한 파트너십 위에 무대의 텐션까지 얹어지는 케미예요. 같은 팀이었다면 편안하면서도 유난히 생동감 넘치는 조합이었을 거예요.',
         },
         output: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 식상 기운이 강한 편이라, 무대에서 뿜어내는 표현력과 텐션이 서로 겹쳐요. 같은 팀이었다면 둘이 함께 있는 파트가 유난히 생동감 넘치는 구간으로 편집됐을 거예요.',
         },
         wealth: {
+          subheading: '텐션과 현실 감각이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 재성 기운이 강한 조합이라, 무대를 살리는 텐션과 팀을 현실적으로 챙기는 감각이 만나는 케미예요. 같은 팀이었다면 무대는 무대대로 뜨겁고, 뒷정리는 알아서 되는 조합이었을 거예요.',
+        },
+        officer: {
+          subheading: '자유로움과 책임감이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 관성 기운이 강한 조합이라, 자유로운 무대 텐션과 책임감 있는 리더십이 만나는 케미예요. 같은 팀이었다면 텐션이 과해질 때쯤 한쪽이 무대를 다잡아줬을 거예요.',
+        },
+        resource: {
+          subheading: '텐션과 다정함이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 인성 기운이 강한 조합이라, 무대를 띄우는 텐션과 다정하게 다독여주는 케어가 만나는 케미예요. 같은 팀이었다면 화려한 무대 뒤에서 서로를 챙기는 관계였을 거예요.',
+        },
+      },
+      wealth: {
+        companion: {
+          subheading: '대등함과 챙김이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 재성 기운이 강한 조합이라, 대등한 파트너십과 현실적인 팀 살림 감각이 만나는 케미예요. 같은 팀이었다면 편안한 관계 속에서도 실속은 확실히 챙겨졌을 거예요.',
+        },
+        output: {
+          subheading: '텐션과 현실 감각이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 재성 기운이 강한 조합이라, 무대를 살리는 텐션과 팀을 현실적으로 챙기는 감각이 만나는 케미예요. 같은 팀이었다면 무대는 무대대로 뜨겁고, 뒷정리는 알아서 되는 조합이었을 거예요.',
+        },
+        wealth: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 재성 기운이 강한 편이라, 무대 밖에서 현실적으로 팀을 챙기는 감각이 서로 닮아 있어요. 스케줄 관리든 팀 살림이든, 같은 방식으로 야무지게 챙겼을 조합이에요.',
+        },
+        officer: {
+          subheading: '현실 감각과 책임감이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 관성 기운이 강한 조합이라, 둘 다 팀을 현실적이고 책임감 있게 챙기는 편이에요. 같은 팀이었다면 스케줄이든 준비든, 서로에게 딱히 불안할 일이 없었을 거예요.',
+        },
+        resource: {
+          subheading: '현실 감각과 다정함이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 인성 기운이 강한 조합이라, 팀을 현실적으로 챙기는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 같은 팀이었다면 실속과 다정함이 같이 채워지는 관계였을 거예요.',
+        },
+      },
+      officer: {
+        companion: {
+          subheading: '편안함과 진지함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 관성 기운이 강한 조합이라, 편안한 파트너십과 진지한 리더십이 만나는 케미예요. 같은 팀이었다면 부담 없는 사이인데도 무대는 흐트러지지 않았을 거예요.',
+        },
+        output: {
+          subheading: '자유로움과 책임감이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 관성 기운이 강한 조합이라, 자유로운 무대 텐션과 책임감 있는 리더십이 만나는 케미예요. 같은 팀이었다면 텐션이 과해질 때쯤 한쪽이 무대를 다잡아줬을 거예요.',
+        },
+        wealth: {
+          subheading: '현실 감각과 책임감이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 관성 기운이 강한 조합이라, 둘 다 팀을 현실적이고 책임감 있게 챙기는 편이에요. 같은 팀이었다면 스케줄이든 준비든, 서로에게 딱히 불안할 일이 없었을 거예요.',
         },
         officer: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 관성 기운이 강한 편이라, 책임감 있고 진지하게 무대를 대하는 감각이 서로 닮아 있어요. 같은 팀이었다면 연습부터 완벽하게 준비하는 태도가 서로 잘 통했을 거예요.',
         },
         resource: {
+          subheading: '책임감과 다정함이 만나는 조합',
+          text: '한쪽은 관성, 한쪽은 인성 기운이 강한 조합이라, 책임감 있게 이끄는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 같은 팀이었다면 든든하면서도 따뜻한, 팀의 중심이 되는 관계였을 거예요.',
+        },
+      },
+      resource: {
+        companion: {
+          subheading: '편안함과 다정함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 인성 기운이 강한 조합이라, 편안한 파트너십과 다정한 케어가 만나는 케미예요. 같은 팀이었다면 부담 없이 지내면서도 서로에게 위안이 되는 관계였을 거예요.',
+        },
+        output: {
+          subheading: '텐션과 다정함이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 인성 기운이 강한 조합이라, 무대를 띄우는 텐션과 다정하게 다독여주는 케어가 만나는 케미예요. 같은 팀이었다면 화려한 무대 뒤에서 서로를 챙기는 관계였을 거예요.',
+        },
+        wealth: {
+          subheading: '현실 감각과 다정함이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 인성 기운이 강한 조합이라, 팀을 현실적으로 챙기는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 같은 팀이었다면 실속과 다정함이 같이 채워지는 관계였을 거예요.',
+        },
+        officer: {
+          subheading: '책임감과 다정함이 만나는 조합',
+          text: '한쪽은 관성, 한쪽은 인성 기운이 강한 조합이라, 책임감 있게 이끄는 사람과 다정하게 다독여주는 사람이 만나는 케미예요. 같은 팀이었다면 든든하면서도 따뜻한, 팀의 중심이 되는 관계였을 거예요.',
+        },
+        resource: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 인성 기운이 강한 편이라, 팀 안에서 서로를 다독이고 챙기는 감각이 닮아 있어요. 같은 팀이었다면 팀 전체의 정서적 안정감을 둘이 함께 책임졌을 확률이 높아요.',
         },
-      },
-      different: {
-        subheading: '서로 다른 매력이 만나는 조합',
-        text: '십성으로 보면 서로 강조되는 매력 포인트가 다른 편이라, 무대 위에서도 서로 다른 색깔을 보여줬을 조합이에요. 그 다름이 오히려 팀 전체의 케미를 더 다채롭게 만들어줬을 거예요.',
       },
     },
     noblemanBonus: {
@@ -311,7 +481,7 @@ export function getGroupChemistryCopy(lang, relation) {
 
 export function getChemistryPoints(lang, myCategory, otherCategory) {
   const bank = (groupChemistryTemplates[lang] || groupChemistryTemplates.en).chemistryPoints;
-  return myCategory === otherCategory ? bank.same[myCategory] : bank.different;
+  return bank[myCategory][otherCategory];
 }
 
 export function getNoblemanBonus(lang) {

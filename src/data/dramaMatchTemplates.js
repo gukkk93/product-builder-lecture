@@ -196,32 +196,118 @@ export const dramaMatchTemplates = {
         text: "Watch that protective energy doesn't slide into gatekeeping — not every fan engages the way you do, and that's genuinely fine, not a problem to correct. Because you're comfortable taking charge in fan spaces, it's worth deliberately making room for other opinions too, even when your read feels obviously right.\n\nBeing the 'responsible' fan all the time is its own kind of tiring, so it's okay to just enjoy their work sometimes without moderating everyone else's experience. Your opinions carry real weight in this fandom, which means offhand takes can land harder than intended — worth being a little more deliberate, and worth checking occasionally whether you're advocating for the actor or just enjoying being right in fandom debates.",
       },
     },
+    // See friendshipTemplates.js for the full explanation of this 5x5
+    // matrix design.
     chemistryPoints: {
-      same: {
+      companion: {
         companion: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Companion energy, so the sense of an equal, peer-like closeness between you and this actor runs deep. The comfort you feel as a fan probably lines up with their own down-to-earth charm.",
+        },
+        output: {
+          subheading: 'Ease Meets Spark',
+          text: "One of you runs on Companion energy, the other on Output — an equal-footing closeness with this actor's expressive charm layered on top. Easy to root for, and never boring to watch.",
+        },
+        wealth: {
+          subheading: 'Ease Meets Care',
+          text: "One of you runs on Companion energy, the other on Wealth — equal-footing closeness meeting this actor's grounded, thoughtful charm. Easy to root for, and easy to trust.",
+        },
+        officer: {
+          subheading: 'Ease Meets Seriousness',
+          text: "One of you runs on Companion energy, the other on Officer — equal-footing closeness meeting this actor's serious professionalism. Easy to root for, with real respect built in too.",
+        },
+        resource: {
+          subheading: 'Ease Meets Warmth',
+          text: "One of you runs on Companion energy, the other on Resource — equal-footing closeness meeting this actor's genuinely warm charm. Easy to root for, and comforting to watch.",
+        },
+      },
+      output: {
+        companion: {
+          subheading: 'Ease Meets Spark',
+          text: "One of you runs on Companion energy, the other on Output — an equal-footing closeness with this actor's expressive charm layered on top. Easy to root for, and never boring to watch.",
         },
         output: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Output energy, so your expressive charm overlaps directly. The fun you get from their performances and the way you enjoy things tend to line up unusually well.",
         },
         wealth: {
+          subheading: 'Spark Meets Practicality',
+          text: "One of you runs on Output energy, the other on Wealth — this actor's expressive performances meeting their thoughtful choice of roles. The performances stay fun while the trust quietly builds.",
+        },
+        officer: {
+          subheading: 'Spark Meets Discipline',
+          text: "One of you runs on Output energy, the other on Officer — this actor's free-flowing expressiveness meeting their responsible professionalism. Fun to watch, and easy to respect at the same time.",
+        },
+        resource: {
+          subheading: 'Spark Meets Warmth',
+          text: "One of you runs on Output energy, the other on Resource — this actor's expressive charm meeting their genuinely warm side. Fun turns into real comfort by the end of it.",
+        },
+      },
+      wealth: {
+        companion: {
+          subheading: 'Ease Meets Care',
+          text: "One of you runs on Companion energy, the other on Wealth — equal-footing closeness meeting this actor's grounded, thoughtful charm. Easy to root for, and easy to trust.",
+        },
+        output: {
+          subheading: 'Spark Meets Practicality',
+          text: "One of you runs on Output energy, the other on Wealth — this actor's expressive performances meeting their thoughtful choice of roles. The performances stay fun while the trust quietly builds.",
+        },
+        wealth: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Wealth energy, so your practical, grounded charm mirrors each other's. The care they clearly put into choosing roles probably earns your trust a little more than you'd expect.",
+        },
+        officer: {
+          subheading: 'Practicality Meets Discipline',
+          text: "One of you runs on Wealth energy, the other on Officer — this actor carries both a grounded and a responsible kind of charm. Careful and professional at once, easy to trust and root for.",
+        },
+        resource: {
+          subheading: 'Practicality Meets Warmth',
+          text: "One of you runs on Wealth energy, the other on Resource — this actor carries both a grounded and a genuinely warm kind of charm. Dependable and comforting at once — the kind of actor you stick with.",
+        },
+      },
+      officer: {
+        companion: {
+          subheading: 'Ease Meets Seriousness',
+          text: "One of you runs on Companion energy, the other on Officer — equal-footing closeness meeting this actor's serious professionalism. Easy to root for, with real respect built in too.",
+        },
+        output: {
+          subheading: 'Spark Meets Discipline',
+          text: "One of you runs on Output energy, the other on Officer — this actor's free-flowing expressiveness meeting their responsible professionalism. Fun to watch, and easy to respect at the same time.",
+        },
+        wealth: {
+          subheading: 'Practicality Meets Discipline',
+          text: "One of you runs on Wealth energy, the other on Officer — this actor carries both a grounded and a responsible kind of charm. Careful and professional at once, easy to trust and root for.",
         },
         officer: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Officer energy, so your responsible, serious charm mirrors each other's. Their professionalism on set probably draws out a similarly serious kind of support from you.",
         },
         resource: {
+          subheading: 'Discipline Meets Warmth',
+          text: "One of you runs on Officer energy, the other on Resource — this actor carries both a responsible and a genuinely warm kind of charm. Easy to respect and easy to root for at the same time.",
+        },
+      },
+      resource: {
+        companion: {
+          subheading: 'Ease Meets Warmth',
+          text: "One of you runs on Companion energy, the other on Resource — equal-footing closeness meeting this actor's genuinely warm charm. Easy to root for, and comforting to watch.",
+        },
+        output: {
+          subheading: 'Spark Meets Warmth',
+          text: "One of you runs on Output energy, the other on Resource — this actor's expressive charm meeting their genuinely warm side. Fun turns into real comfort by the end of it.",
+        },
+        wealth: {
+          subheading: 'Practicality Meets Warmth',
+          text: "One of you runs on Wealth energy, the other on Resource — this actor carries both a grounded and a genuinely warm kind of charm. Dependable and comforting at once — the kind of actor you stick with.",
+        },
+        officer: {
+          subheading: 'Discipline Meets Warmth',
+          text: "One of you runs on Officer energy, the other on Resource — this actor carries both a responsible and a genuinely warm kind of charm. Easy to respect and easy to root for at the same time.",
+        },
+        resource: {
           subheading: 'The Same Kind of Charm, Twice',
           text: "You both run heavy on Resource energy, so your warm, comforting charm mirrors each other's. The ease you feel watching them might not just be taste — it could be your energy actually matching.",
         },
-      },
-      different: {
-        subheading: 'Two Different Kinds of Charm Meeting',
-        text: "By Ten God profile, your standout traits run in different directions, which means there's real fun in discovering a charm in them that you don't naturally have yourself. That difference might be exactly what keeps you coming back to their filmography.",
       },
     },
     noblemanBonus: {
@@ -341,31 +427,115 @@ export const dramaMatchTemplates = {
       },
     },
     chemistryPoints: {
-      same: {
+      companion: {
         companion: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 비겁 기운이 강한 편이라, 이 배우랑 나 사이에 대등한 동료 같은 감각이 비슷하게 흘러요. 팬으로서 느끼는 편안함이, 이 배우가 가진 소탈한 매력과 잘 맞아떨어지는 조합이에요.',
+        },
+        output: {
+          subheading: '편안함과 텐션이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 식상 기운이 강한 조합이라, 이 배우랑 대등하게 통하는 느낌 위에 표현력 넘치는 매력까지 얹어지는 케미예요. 편하게 좋아하는데 볼 때마다 재밌는 조합이에요.',
+        },
+        wealth: {
+          subheading: '대등함과 챙김이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 재성 기운이 강한 조합이라, 대등하게 통하는 느낌과 이 배우의 신중하고 알찬 매력이 만나는 케미예요. 편하게 좋아하면서도 믿음은 확실히 가는 조합이에요.',
+        },
+        officer: {
+          subheading: '편안함과 진지함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 관성 기운이 강한 조합이라, 편하게 통하는 느낌과 이 배우의 진지한 프로페셔널함이 만나는 케미예요. 부담 없이 좋아하면서도 존경까지 함께 생기는 조합이에요.',
+        },
+        resource: {
+          subheading: '편안함과 다정함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 인성 기운이 강한 조합이라, 편하게 통하는 느낌과 이 배우의 다정한 매력이 만나는 케미예요. 부담 없이 좋아하는데 마음까지 편안해지는 조합이에요.',
+        },
+      },
+      output: {
+        companion: {
+          subheading: '편안함과 텐션이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 식상 기운이 강한 조합이라, 이 배우랑 대등하게 통하는 느낌 위에 표현력 넘치는 매력까지 얹어지는 케미예요. 편하게 좋아하는데 볼 때마다 재밌는 조합이에요.',
         },
         output: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 식상 기운이 강한 편이라, 표현력 넘치는 매력 포인트가 서로 겹쳐요. 이 배우의 연기에서 느끼는 재미와 내가 좋아하는 방식이 유난히 잘 맞아요.',
         },
         wealth: {
+          subheading: '텐션과 현실 감각이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 재성 기운이 강한 조합이라, 이 배우의 표현력 넘치는 연기와 신중하게 작품을 고르는 감각이 만나는 케미예요. 연기는 연기대로 재밌고, 신뢰는 신뢰대로 쌓이는 조합이에요.',
+        },
+        officer: {
+          subheading: '자유로움과 책임감이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 관성 기운이 강한 조합이라, 이 배우의 자유로운 표현력과 책임감 있는 프로페셔널함이 만나는 케미예요. 재밌게 보면서도 존경하게 되는 조합이에요.',
+        },
+        resource: {
+          subheading: '텐션과 다정함이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 인성 기운이 강한 조합이라, 이 배우의 표현력 넘치는 매력과 다정한 면모가 만나는 케미예요. 재밌게 보다가도 결국 마음까지 편안해지는 조합이에요.',
+        },
+      },
+      wealth: {
+        companion: {
+          subheading: '대등함과 챙김이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 재성 기운이 강한 조합이라, 대등하게 통하는 느낌과 이 배우의 신중하고 알찬 매력이 만나는 케미예요. 편하게 좋아하면서도 믿음은 확실히 가는 조합이에요.',
+        },
+        output: {
+          subheading: '텐션과 현실 감각이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 재성 기운이 강한 조합이라, 이 배우의 표현력 넘치는 연기와 신중하게 작품을 고르는 감각이 만나는 케미예요. 연기는 연기대로 재밌고, 신뢰는 신뢰대로 쌓이는 조합이에요.',
+        },
+        wealth: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 재성 기운이 강한 편이라, 현실적이고 알찬 매력 포인트가 서로 닮아 있어요. 이 배우가 작품을 고르는 신중함에, 나도 모르게 더 신뢰가 가는 조합이에요.',
+        },
+        officer: {
+          subheading: '현실 감각과 책임감이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 관성 기운이 강한 조합이라, 이 배우가 신중하면서도 책임감 있는 매력을 동시에 갖춘 편이에요. 꼼꼼함과 프로페셔널함이 같이 있어서, 믿고 응원하기 좋은 조합이에요.',
+        },
+        resource: {
+          subheading: '현실 감각과 다정함이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 인성 기운이 강한 조합이라, 이 배우의 신중한 매력과 다정한 매력이 같이 있는 조합이에요. 믿음직하면서도 마음이 편안해지는, 은근히 오래가는 팬심이에요.',
+        },
+      },
+      officer: {
+        companion: {
+          subheading: '편안함과 진지함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 관성 기운이 강한 조합이라, 편하게 통하는 느낌과 이 배우의 진지한 프로페셔널함이 만나는 케미예요. 부담 없이 좋아하면서도 존경까지 함께 생기는 조합이에요.',
+        },
+        output: {
+          subheading: '자유로움과 책임감이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 관성 기운이 강한 조합이라, 이 배우의 자유로운 표현력과 책임감 있는 프로페셔널함이 만나는 케미예요. 재밌게 보면서도 존경하게 되는 조합이에요.',
+        },
+        wealth: {
+          subheading: '현실 감각과 책임감이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 관성 기운이 강한 조합이라, 이 배우가 신중하면서도 책임감 있는 매력을 동시에 갖춘 편이에요. 꼼꼼함과 프로페셔널함이 같이 있어서, 믿고 응원하기 좋은 조합이에요.',
         },
         officer: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 관성 기운이 강한 편이라, 책임감 있고 진지한 매력 포인트가 서로 닮아 있어요. 이 배우의 프로페셔널한 태도에, 나도 비슷한 결로 응원하게 되는 조합이에요.',
         },
         resource: {
+          subheading: '책임감과 다정함이 만나는 조합',
+          text: '한쪽은 관성, 한쪽은 인성 기운이 강한 조합이라, 이 배우의 책임감 있는 프로페셔널함과 다정한 매력이 같이 있는 조합이에요. 존경하면서도 편안하게 좋아할 수 있는, 균형 잡힌 조합이에요.',
+        },
+      },
+      resource: {
+        companion: {
+          subheading: '편안함과 다정함이 만나는 조합',
+          text: '한쪽은 비겁, 한쪽은 인성 기운이 강한 조합이라, 편하게 통하는 느낌과 이 배우의 다정한 매력이 만나는 케미예요. 부담 없이 좋아하는데 마음까지 편안해지는 조합이에요.',
+        },
+        output: {
+          subheading: '텐션과 다정함이 만나는 조합',
+          text: '한쪽은 식상, 한쪽은 인성 기운이 강한 조합이라, 이 배우의 표현력 넘치는 매력과 다정한 면모가 만나는 케미예요. 재밌게 보다가도 결국 마음까지 편안해지는 조합이에요.',
+        },
+        wealth: {
+          subheading: '현실 감각과 다정함이 만나는 조합',
+          text: '한쪽은 재성, 한쪽은 인성 기운이 강한 조합이라, 이 배우의 신중한 매력과 다정한 매력이 같이 있는 조합이에요. 믿음직하면서도 마음이 편안해지는, 은근히 오래가는 팬심이에요.',
+        },
+        officer: {
+          subheading: '책임감과 다정함이 만나는 조합',
+          text: '한쪽은 관성, 한쪽은 인성 기운이 강한 조합이라, 이 배우의 책임감 있는 프로페셔널함과 다정한 매력이 같이 있는 조합이에요. 존경하면서도 편안하게 좋아할 수 있는, 균형 잡힌 조합이에요.',
+        },
+        resource: {
           subheading: '같은 결의 매력을 가진 둘',
           text: '둘 다 인성 기운이 강한 편이라, 다정하고 편안한 매력 포인트가 서로 닮아 있어요. 이 배우를 볼 때 느끼는 편안함이, 그냥 취향이 아니라 기운 자체가 닮아서 그런 걸 수도 있어요.',
         },
-      },
-      different: {
-        subheading: '서로 다른 매력이 만나는 조합',
-        text: '십성으로 보면 서로 강조되는 매력 포인트가 다른 편이라, 이 배우한테서 나한테 없는 매력을 발견하는 재미가 있는 조합이에요. 그 다름이 바로, 이 배우를 계속 찾아보게 만드는 이유 중 하나일 수 있어요.',
       },
     },
     noblemanBonus: {
@@ -414,7 +584,7 @@ export function getDramaMatchCopy(lang, relation, seedInput, pillarCompat = []) 
 
 export function getChemistryPoints(lang, myCategory, otherCategory) {
   const bank = (dramaMatchTemplates[lang] || dramaMatchTemplates.en).chemistryPoints;
-  return myCategory === otherCategory ? bank.same[myCategory] : bank.different;
+  return bank[myCategory][otherCategory];
 }
 
 export function getNoblemanBonus(lang) {

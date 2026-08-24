@@ -80,18 +80,9 @@ export default function Compatibility() {
     ? getCompatibilityCopy(
         i18n.language,
         compatibility.relation,
-        `${myBirth.year}-${myBirth.month}-${myBirth.day}-${theirBirth.year}-${theirBirth.month}-${theirBirth.day}`
+        `${myBirth.year}-${myBirth.month}-${myBirth.day}-${theirBirth.year}-${theirBirth.month}-${theirBirth.day}`,
+        mySaju.dayGanElement
       )
-    : null;
-
-  const explanation = compatibility
-    ? {
-        subheading: t(`matchCommon.explanation.${compatibility.relation}.subheading`),
-        text: t(`matchCommon.explanation.${compatibility.relation}.text`, {
-          my: t(`elements.${mySaju.dominantElement}`),
-          other: t(`elements.${compatibility.otherSaju.dominantElement}`),
-        }),
-      }
     : null;
 
   // sajuStrengthTemplates.js needs both people's dayGanStrength, which only
@@ -103,7 +94,7 @@ export default function Compatibility() {
 
   const insightSections = compatibility && copy
     ? [
-        { title: t('matchCommon.insightTitles.explanation'), subheading: explanation.subheading, text: explanation.text, locked: false },
+        { title: t('matchCommon.insightTitles.explanation'), subheading: copy.explanation.subheading, text: copy.explanation.text, locked: false },
         { title: t('matchCommon.insightTitles.goodFit'), subheading: copy.goodFit.subheading, text: copy.goodFit.text, locked: false },
         { title: t('matchCommon.insightTitles.watchFor'), subheading: copy.watchFor.subheading, text: copy.watchFor.text, locked: true },
         { title: t('matchCommon.insightTitles.strengthMatch'), text: strengthInsight, locked: true },
@@ -273,8 +264,8 @@ export default function Compatibility() {
           relationshipLabel={relationshipLabel}
           score={score}
           tier={copy.tier}
-          subheading={explanation.subheading}
-          text={explanation.text}
+          subheading={copy.explanation.subheading}
+          text={copy.explanation.text}
         />
       </div>
     </main>
