@@ -187,6 +187,10 @@
   - **공유카드(`CompatibilityShareCard.jsx`)는 수정 안 함**: `text.split('\n\n')[0]`로 첫 문단만 보여주는 기존 로직 그대로라, 일주 문단(2번째 문단으로 이어붙임)은 카드에는 안 나오고 페이지 내 인사이트 섹션에서만 보임 — 의도한 동작.
   - **검증**: Node로 `getCompatibilityCopy`를 관계 고정(`same`) + 오행만 바꿔(Wood vs Fire) 호출해서 explanation/goodFit/watchFor 세 텍스트 전부 실제로 달라지는지, dayGanElement 생략 시 원래 텍스트와 정확히 일치하는지(하위호환) 확인 — 통과. `compatibilityTemplates.js` 구조 25칸(관계5×오행5는 텍스트가 아니라 "베이스+덧붙임" 합성 구조라 실제 저장은 5+5개 블록) 정상. 빌드 통과, forbidden-keyword 스캔 클린. **브라우저 인터랙션 테스트는 이번 세션에 Playwright 등 브라우저 툴이 없어서 수행 못함** — dev 서버로 `/compatibility` 라우트가 200 응답하는 것만 확인, 실제 생년월일 입력→화면 렌더까지는 미검증이니 다음 세션에서 필요시 수동 확인 권장.
 
+## 3-14. `/saju` 카드 순서 재배치 — 무료 콘텐츠를 앞으로, 잠긴 콘텐츠를 뒤로
+
+`Saju.jsx`의 카드 JSX는 그대로 두고 순서만 재배치. 이전엔 대운&인생그래프(잠김)가 세 번째 카드로 일간 카드 바로 뒤에 있어서, 무료 콘텐츠(오행분포/성격프로필)보다 먼저 잠긴 카드를 마주치는 흐름이었음. 새 순서: 네 기둥(무료) → 일간+신강신약(무료) → 오행분포(무료) → 성격프로필(무료) → 도메인 챕터 4개(총운만 무료, 기존 그대로) → **대운&인생그래프(잠김, 여기로 이동)** → 십성/십이운성 챕터(대표 1개만 무료, 기존 그대로) → 신살·귀인·연운·삼재(잠김). 카드 내부 구조·`PremiumLock` 잠금 로직·각 카드의 인라인 스타일은 전혀 안 건드리고, JSX 블록 자체를 잘라 옮기기만 함. Playwright로 실제 렌더된 `h2` 텍스트 순서를 en/ko·light/dark 3가지 조합으로 확인 — 의도한 순서와 정확히 일치, 콘솔 에러 0건.
+
 ## 4. 라우트/페이지 구조
 
 | 라우트 | 파일 | 내용 |
@@ -319,6 +323,12 @@
 - **`src/data/idols.js`**: **31개 그룹, 197명** (남 16개 그룹/여 15개 그룹). 기존 10개(BTS, BLACKPINK, NewJeans, SEVENTEEN, Stray Kids, TWICE, EXO(활동 중인 6명만), TXT, aespa, ATEEZ)에 21개 그룹 추가: ENHYPEN, THE BOYZ, ZEROBASEONE, RIIZE, NCT DREAM, NCT 127, MONSTA X, GOT7, TREASURE, BOYNEXTDOOR(남), IVE, LE SSERAFIM, ITZY, (G)I-DLE, Red Velvet, MAMAMOO, Kep1er, STAYC, fromis_9, NMIXX, VIVIZ(여). 그룹마다 `gender: 'M'|'F'` 필드 추가(베스트매치 성별 필터링용)
 - 생일은 **웹 검색으로 개별 교차검증**해서 넣음 (신뢰도 HIGH만 채택). EXO는 첸백시 제외(SM 계약 분쟁), NewJeans는 다니엘 제외(ADOR 소송으로 지위 불확실), ENHYPEN은 희승 제외(2026-03 탈퇴), THE BOYZ는 뉴 제외(2026-08 탈퇴) — 코드 주석에 사유 명시. 한때 단일 소스라 재검증 필요로 표시해뒀던 RIIZE 소희/안톤, GOT7 제이비, Kep1er 히카루/다연, NMIXX 배/지우/규진 8명은 2차 검증 완료 — KProfiles + NamuWiki/Generasia/Kpopping/dbkpop/Kbizoom 중 1개 이상 교차확인, 전부 기존 값과 일치
 - **`src/data/kdramaActors.js`**: K-드라마 배우 100명(남 50/여 50), Wikipedia/Wikidata 기준 교차검증. `findBestMatch`에서 아이돌 풀과 동일한 방식으로 사용. **배우 한국어 이름(`nameKo`) 100명 전원 추가 + `getActorName(actor, lang)` 헬퍼** — `idols.js`의 `getMemberName`과 동일 패턴(ko 모드에서 `nameKo` 우선, 없으면 영문 `name` 폴백). 전부 널리 알려진 배우라 표기가 명확해서 별도 리서치 에이전트 없이 직접 채워 넣음(아이돌 작업 때는 해외 출신 멤버의 한글 표기가 실제로 애매한 경우가 있었던 것과 다름). `DramaMatch.jsx`가 언어와 상관없이 항상 영문 `best.candidate.name`을 쓰고 있던 버그(한국어 모드에서도 배우 이름이 영어로 나옴)를 같이 고쳐서 결과 카드/필러 헤딩/궁합 헤딩/공유카드 네 군데 전부 `getActorName`으로 교체함
+
+## 6-1. "찾는 그룹/배우가 없나요?" 요청 링크 + Guide.jsx DB 커버리지 투명 공개
+
+- **요청 링크**: `IdolMatch.jsx`(그룹모드 선택 화면, 그룹/멤버 select 바로 아래) + `DramaMatch.jsx`(초기 생일 입력 카드 아래, 이쪽은 그룹모드 자체가 없어서 가장 가까운 "선택 단계"인 입력 화면에 배치)에 각각 "찾는 그룹이 없나요?"/"찾는 배우가 없나요?" 텍스트 링크 추가 — `Link to="/contact"`, 클릭 시 `trackIdolRequestClick(context)`(신규, `analytics.js` — `idol_request_click` 이벤트, `context`는 `'idol-match-group'`/`'drama-match'`) 발생 후 `/contact`로 이동. `Contact.jsx`의 `topic` select는 원래부터 `defaultValue="general"`(일반 피드백)이라 별도 쿼리파라미터 없이 도착 즉시 그 상태로 랜딩됨.
+- **Guide.jsx 신규 섹션**: "아이돌/배우 데이터는 어떻게 관리되나요?" — `idols.js`/`kdramaActors.js`를 직접 import해서 그룹 수·멤버 합계·배우 수를 **하드코딩 없이 실시간 계산**(`idolGroups.length`/`reduce`/`kdramaActors.length`, 이 글 작성 시점 31개 그룹·197명·배우 100명, 데이터 추가되면 문구도 자동으로 맞음). 생일 검증 방법론은 `idols.js`/`kdramaActors.js` 상단 주석에 실제로 적힌 방식(KProfiles/나무위키/Generasia 등 복수 출처 교차검증, 신뢰도 낮은 단일소스는 미채택)을 그대로 서술. 최신화 주기 문구("새 그룹과 배우는 계속 정기적으로 추가하고 있어요")와 함께 요청 링크 안내도 포함.
+- **검증**: Playwright로 그룹모드 요청 링크 클릭 → `/contact` 정상 도착 + topic select 값이 `general`인지 확인, 콘솔에 `[analytics] capture: idol_request_click {context: idol-match-group}` 로그 실제 발생 확인(PostHog 키 미설정 상태라 실제 전송 대신 콘솔 로그로 대체 확인). Guide.jsx 렌더 텍스트에서 "31 K-pop groups (197 members) and 100 K-drama actors" 문장이 실제 데이터 개수와 일치하는지 확인. en/ko, 콘솔 에러 0건.
 
 ## 7. 디자인 시스템
 

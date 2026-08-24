@@ -32,3 +32,7 @@ export function trackShareDownload(context) {
 export function trackIdolMatchSubmit(mode) {
   track('idol_match_submit', { mode: mode || 'soulmate' });
 }
+
+export function trackIdolRequestClick(context) {
+  track('idol_request_click', { context });
+}

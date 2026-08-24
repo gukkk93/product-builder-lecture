@@ -221,24 +221,6 @@ export default function Saju() {
         </div>
 
         <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
-          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.daeunLifeHeading')}</h2>
-          {daeun && lifeScore ? (
-            <>
-              <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.daeunLifeExplain')}</p>
-              <PremiumLock product="saju">
-                <>
-                  <LifeScoreChart periods={lifeScore.periods} forward={lifeScore.forward} />
-                  <p style={{ margin: '14px 0 0', fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>{daeunLifeBestNote}</p>
-                  <p style={{ margin: '8px 0 0', fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>{daeunLifeCautionNote}</p>
-                </>
-              </PremiumLock>
-            </>
-          ) : (
-            <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{t('saju.daeunLifeNeedGender')}</p>
-          )}
-        </div>
-
-        <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
           <h2 style={{ marginTop: 0, marginBottom: 16, fontSize: 16 }}>{t('saju.distributionHeading')}</h2>
           <ElementDistribution counts={saju.elementCounts} />
         </div>
@@ -288,6 +270,24 @@ export default function Saju() {
             <InsightSection sections={chapter.sections} product="saju" />
           </div>
         ))}
+
+        <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
+          <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.daeunLifeHeading')}</h2>
+          {daeun && lifeScore ? (
+            <>
+              <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.daeunLifeExplain')}</p>
+              <PremiumLock product="saju">
+                <>
+                  <LifeScoreChart periods={lifeScore.periods} forward={lifeScore.forward} />
+                  <p style={{ margin: '14px 0 0', fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>{daeunLifeBestNote}</p>
+                  <p style={{ margin: '8px 0 0', fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>{daeunLifeCautionNote}</p>
+                </>
+              </PremiumLock>
+            </>
+          ) : (
+            <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{t('saju.daeunLifeNeedGender')}</p>
+          )}
+        </div>
 
         <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
           <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{tenGodChapter.title}</h2>

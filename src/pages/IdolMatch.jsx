@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju, getCompatibility, getCompatibilityScore, getTenGodProfile, getNobleman } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
@@ -21,7 +21,7 @@ import {
 import { idolGroups, getMemberName } from '../data/idols';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
-import { trackIdolMatchSubmit } from '../utils/analytics';
+import { trackIdolMatchSubmit, trackIdolRequestClick } from '../utils/analytics';
 import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
 import GenderSelect from '../components/GenderSelect';
@@ -323,6 +323,14 @@ export default function IdolMatch() {
               </select>
             </div>
           </div>
+
+          <Link
+            to="/contact"
+            onClick={() => trackIdolRequestClick('idol-match-group')}
+            style={{ display: 'inline-block', fontSize: 13, color: 'var(--accent)', marginBottom: 16 }}
+          >
+            {t('idolMatch.requestGroupLink')}
+          </Link>
 
           {!birth || !userSaju ? (
             <div className="card" style={{ textAlign: 'left' }}>

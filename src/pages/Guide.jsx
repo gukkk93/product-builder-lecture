@@ -2,11 +2,14 @@ import { useTranslation } from 'react-i18next';
 import { ELEMENTS } from '../utils/saju';
 import { PRODUCTS } from '../utils/premiumUnlock';
 import { usePremium } from '../context/PremiumContext';
+import { idolGroups } from '../data/idols';
+import { kdramaActors } from '../data/kdramaActors';
 import ElementBadge from '../components/ElementBadge';
 
 export default function Guide() {
   const { t } = useTranslation();
   const { unlockedProducts, lockProduct } = usePremium();
+  const totalMembers = idolGroups.reduce((sum, g) => sum + g.members.length, 0);
 
   return (
     <main className="page">
@@ -49,6 +52,15 @@ export default function Guide() {
         <div className="card" style={{ textAlign: 'left', marginBottom: 16 }}>
           <h2 style={{ marginTop: 0, fontSize: 18 }}>{t('guide.featuresHeading')}</h2>
           <p style={{ fontSize: 15, lineHeight: 1.7 }}>{t('guide.featuresBody')}</p>
+        </div>
+
+        <div className="card" style={{ textAlign: 'left', marginBottom: 16 }}>
+          <h2 style={{ marginTop: 0, fontSize: 18 }}>{t('guide.dataHeading')}</h2>
+          <p style={{ fontSize: 15, lineHeight: 1.7 }}>
+            {t('guide.dataBody1', { groups: idolGroups.length, members: totalMembers, actors: kdramaActors.length })}
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.7 }}>{t('guide.dataBody2')}</p>
+          <p style={{ fontSize: 15, lineHeight: 1.7 }}>{t('guide.dataBody3')}</p>
         </div>
 
         {/* Dev-only convenience — lets testing flip a single product's

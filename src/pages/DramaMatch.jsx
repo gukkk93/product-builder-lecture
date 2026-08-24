@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju, getTenGodProfile, getNobleman } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
@@ -21,7 +21,7 @@ import {
 import { kdramaActors, getActorName } from '../data/kdramaActors';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
-import { trackIdolMatchSubmit } from '../utils/analytics';
+import { trackIdolMatchSubmit, trackIdolRequestClick } from '../utils/analytics';
 import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
 import GenderSelect from '../components/GenderSelect';
@@ -163,6 +163,14 @@ export default function DramaMatch() {
               }}
             />
           </div>
+
+          <Link
+            to="/contact"
+            onClick={() => trackIdolRequestClick('drama-match')}
+            style={{ display: 'inline-block', fontSize: 13, color: 'var(--accent)', marginTop: 16 }}
+          >
+            {t('dramaMatch.requestActorLink')}
+          </Link>
         </div>
       </main>
     );
