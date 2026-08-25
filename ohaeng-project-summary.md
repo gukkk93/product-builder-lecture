@@ -191,6 +191,16 @@
 
 `Saju.jsx`의 카드 JSX는 그대로 두고 순서만 재배치. 이전엔 대운&인생그래프(잠김)가 세 번째 카드로 일간 카드 바로 뒤에 있어서, 무료 콘텐츠(오행분포/성격프로필)보다 먼저 잠긴 카드를 마주치는 흐름이었음. 새 순서: 네 기둥(무료) → 일간+신강신약(무료) → 오행분포(무료) → 성격프로필(무료) → 도메인 챕터 4개(총운만 무료, 기존 그대로) → **대운&인생그래프(잠김, 여기로 이동)** → 십성/십이운성 챕터(대표 1개만 무료, 기존 그대로) → 신살·귀인·연운·삼재(잠김). 카드 내부 구조·`PremiumLock` 잠금 로직·각 카드의 인라인 스타일은 전혀 안 건드리고, JSX 블록 자체를 잘라 옮기기만 함. Playwright로 실제 렌더된 `h2` 텍스트 순서를 en/ko·light/dark 3가지 조합으로 확인 — 의도한 순서와 정확히 일치, 콘솔 에러 0건.
 
+## 3-15. 아이돌매치/드라마매치에 원래 있던 "궁합" 모드 복구 — 3-11에서 실수로 빠졌던 것 확인
+
+3-11에서 friend/roommate/groupChemistry 3개 모드를 추가하면서, 원래 있던 기둥별(년/월/일) 궁합 + "만나면?" 시나리오 리딩(`idolMatchTemplates.js`/`dramaMatchTemplates.js`, `getIdolMatchCopy`/`getDramaMatchCopy`, `getPillarCompatibility`)이 `MODE_CONFIG`/`RELATIONSHIP_MODES`에서 완전히 빠진 채 방치돼 있었음 — 데이터 뱅크 자체는 안 지워졌지만(주석에 "unused, kept per user request"라고 남아있었음) 어느 페이지에서도 안 읽는 상태였음. 사용자가 "복구해달라"고 명시적으로 요청해서 4번째 탭(맨 앞, 기본 선택값)으로 되살림.
+
+- **`RELATIONSHIP_MODES`에 `'compatibility'`를 맨 앞에 추가**(`['compatibility', 'friend', 'roommate', 'groupChemistry']`), `relationshipMode` 초기 state도 `'compatibility'`로 변경 — IdolMatch.jsx/DramaMatch.jsx 둘 다.
+- **`buildInsightSections`(friend/roommate/groupChemistry 전용, chemistryPoints/noblemanBonus 축)와는 별개로 `buildCompatibilitySections` 신규 함수 추가** — `getIdolMatchCopy`/`getDramaMatchCopy`가 돌려주는 `{tier, line, goodFit, meetingScenario, watchFor, situational}` 모양이 다른 3개 모드와 달라서(별도의 `chemistryPoints`/모드별 섹션 대신 `goodFit`/`meetingScenario`/기둥별 리딩을 씀) 같은 `buildInsightSections`에 억지로 끼워 넣지 않고, git에 남아있던 3-11 이전 커밋(`57c55f6^`)의 원본 섹션 순서·잠금 비율을 그대로 복원: **[explanation(무료), goodFit(무료), meetingScenario(잠김), 년기둥(무료), 월기둥(잠김), 일기둥(잠김), watchFor(잠김)]** 7개 — 아이돌/배우 생일은 시간 정보가 공개돼 있지 않아 `getPillarCompatibility`가 항상 년/월/일 3기둥만 반환(시주 없음)하므로 "기둥별 3개"가 항상 고정.
+- **`explanation` 필드는 `getIdolMatchCopy`/`getDramaMatchCopy` 반환값에 없어서, 원본 코드와 동일하게 `matchCommon.explanation.{relation}`(공유 i18n, Romance.jsx도 씀)에 오행 이름을 보간해서 별도로 만든 뒤 `{...copy, explanation}`으로 합성** — 이렇게 하면 `MatchResultCard`/`IdolShareCard`가 이미 쓰고 있던 `memberCopy.explanation.subheading`/`compatCopy.tier`/`.line` 참조를 하나도 안 건드리고 그대로 재사용할 수 있어서, 공유카드 코드는 전혀 안 고침.
+- `idolMatchTemplates.js`/`dramaMatchTemplates.js` 상단의 "unused" NOTE 주석을 실제 상태에 맞게 갱신(이제 'compatibility' 탭이 읽음 — 단, 두 파일의 `chemistryPoints`/`noblemanBonus` 콘텐츠는 이 모드가 안 쓰는 축이라 여전히 미사용 상태임을 명시).
+- **검증**: Playwright로 실제 DOM 검사 — `/idol-match`(솔메이트 모드), `/idol-match?mode=group`(멤버 지정 모드), `/drama-match` 세 군데 전부 기본 탭이 "Compatibility"/"궁합"으로 선택돼 있고, 섹션 제목이 정확히 7개(["Why This Score", "What Works Well", "If You Met at a Fan Meet?"(드라마는 "If You Ran Into Them at a Premiere?"), "Why You Were Drawn In", "Why It Feels Easy", "Why You See Their Real Charm", "What To Watch For"]) 순서로 나오는지, 🔒 잠금 아이콘이 정확히 4개(meetingScenario+월+일+watchFor)인지 en/ko 둘 다 확인. Friend 탭으로 전환해도 기존 chemistryPoints/noblemanBonus 구조가 그대로 정상 작동하는지(회귀 없음)도 같은 방식으로 확인. 콘솔 에러 0건.
+
 ## 4. 라우트/페이지 구조
 
 | 라우트 | 파일 | 내용 |

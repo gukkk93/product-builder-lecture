@@ -367,6 +367,7 @@
       "noblemanBonus": "귀인 케미"
     },
     "relationshipMode": {
+      "compatibility": "궁합",
       "friend": "친구",
       "roommate": "룸메이트",
       "groupChemistry": "그룹케미"

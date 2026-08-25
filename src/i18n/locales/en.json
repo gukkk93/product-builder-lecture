@@ -367,6 +367,7 @@
       "noblemanBonus": "Nobleman Chemistry"
     },
     "relationshipMode": {
+      "compatibility": "Compatibility",
       "friend": "Friend",
       "roommate": "Roommate",
       "groupChemistry": "Group Chemistry"

@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getTenGodProfile, getNobleman } from '../utils/saju';
+import { calculateSaju, getPillarCompatibility, getTenGodProfile, getNobleman } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
+import { getDramaMatchCopy } from '../data/dramaMatchTemplates';
 import {
   getFriendshipCopy,
   getChemistryPoints as getFriendChemistryPoints,
@@ -51,7 +52,7 @@ const MODE_CONFIG = {
     sections: ['stagePresence', 'offstage'],
   },
 };
-const RELATIONSHIP_MODES = ['friend', 'roommate', 'groupChemistry'];
+const RELATIONSHIP_MODES = ['compatibility', 'friend', 'roommate', 'groupChemistry'];
 
 function buildInsightSections(t, lang, modeKey, modeCopy, { myTenGod, otherTenGod, hasNobleman }) {
   const config = MODE_CONFIG[modeKey];
@@ -76,14 +77,28 @@ function buildInsightSections(t, lang, modeKey, modeCopy, { myTenGod, otherTenGo
   return sections;
 }
 
+// See IdolMatch.jsx's buildCompatibilitySections for the full explanation —
+// same restored "bias match" reading, run against dramaMatchTemplates.js
+// instead of idolMatchTemplates.js.
+function buildCompatibilitySections(t, copy, pillarTitles) {
+  return [
+    { title: t('matchCommon.insightTitles.explanation'), subheading: copy.explanation.subheading, text: copy.explanation.text, locked: false },
+    { title: t('matchCommon.insightTitles.goodFit'), subheading: copy.goodFit.subheading, text: copy.goodFit.text, locked: false },
+    { title: t('dramaMatch.meetingScenarioTitle'), subheading: copy.meetingScenario.subheading, text: copy.meetingScenario.text, locked: true },
+    ...copy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
+    { title: t('matchCommon.insightTitles.watchFor'), subheading: copy.watchFor.subheading, text: copy.watchFor.text, locked: true },
+  ];
+}
+
 /** Same "best match" mechanic as IdolMatch, run against the K-drama actor pool instead of idols. */
 export default function DramaMatch() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const [gender, setGender] = useState(params.get('gender') === 'M' ? 'M' : 'F');
-  const [relationshipMode, setRelationshipMode] = useState('friend');
+  const [relationshipMode, setRelationshipMode] = useState('compatibility');
   const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
+  const pillarTitles = t('matchCommon.pillarTitles', { returnObjects: true });
 
   const relationshipModeTabs = (
     <div className="select-row" role="tablist" style={{ marginBottom: 16 }}>
@@ -128,14 +143,31 @@ export default function DramaMatch() {
     return findBestMatch(kdramaActors, userSaju, gender);
   }, [userSaju, gender]);
 
-  const compatCopy = best ? MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation) : null;
+  const bestPillarCompat = best ? getPillarCompatibility(userSaju, best.saju) : null;
+
+  const compatCopy = best
+    ? relationshipMode === 'compatibility'
+      ? {
+          ...getDramaMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`, bestPillarCompat),
+          explanation: {
+            subheading: t(`matchCommon.explanation.${best.relation}.subheading`),
+            text: t(`matchCommon.explanation.${best.relation}.text`, {
+              my: t(`elements.${userSaju.dominantElement}`),
+              other: t(`elements.${best.saju.dominantElement}`),
+            }),
+          },
+        }
+      : MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation)
+    : null;
 
   const insightSections = best && compatCopy
-    ? buildInsightSections(t, i18n.language, relationshipMode, compatCopy, {
-        myTenGod: getTenGodProfile(userSaju),
-        otherTenGod: getTenGodProfile(best.saju),
-        hasNobleman: getNobleman(userSaju, i18n.language).hasNobleman || getNobleman(best.saju, i18n.language).hasNobleman,
-      })
+    ? relationshipMode === 'compatibility'
+      ? buildCompatibilitySections(t, compatCopy, pillarTitles)
+      : buildInsightSections(t, i18n.language, relationshipMode, compatCopy, {
+          myTenGod: getTenGodProfile(userSaju),
+          otherTenGod: getTenGodProfile(best.saju),
+          hasNobleman: getNobleman(userSaju, i18n.language).hasNobleman || getNobleman(best.saju, i18n.language).hasNobleman,
+        })
     : null;
 
   const actorName = best ? getActorName(best.candidate, i18n.language) : '';

@@ -1,9 +1,8 @@
-// NOTE (kept, not deleted, per user request): as of the relationshipMode
-// rework, IdolMatch.jsx no longer imports this file — the on-screen
-// insight sections now come from friendshipTemplates.js/roommateTemplates.js/
-// groupChemistryTemplates.js instead (see MODE_CONFIG in IdolMatch.jsx).
-// This bank's `tier`/`line`/`goodFit`/`meetingScenario`/`watchFor` content
-// is unused by any page right now.
+// Powers IdolMatch.jsx's 'compatibility' relationshipMode tab (restored
+// after briefly being dropped when friend/roommate/groupChemistry were
+// added — see buildCompatibilitySections in IdolMatch.jsx). The other 3
+// tabs still come from friendshipTemplates.js/roommateTemplates.js/
+// groupChemistryTemplates.js.
 //
 // Compatibility copy bank, keyed by the same Five Element relationship
 // values getElementRelation() returns (see src/utils/saju.js), just applied
@@ -199,11 +198,12 @@ export const idolMatchTemplates = {
         text: "Watch that protective energy doesn't slide into gatekeeping — not every fan engages the way you do, and that's genuinely fine, not a problem to correct. Because you're comfortable taking charge in group chats and fan spaces, it's worth deliberately making room for other perspectives too, even when your read feels obviously right.\n\nBeing the 'responsible' fan all the time is its own kind of tiring, so it's okay to just enjoy this bias sometimes without moderating everyone else's experience. Your opinions carry real weight in this fandom, which means offhand takes can land harder than intended — worth being a little more deliberate, and worth checking occasionally whether you're advocating for the idol or just enjoying being right in fandom debates.",
       },
     },
-    // Currently unused — see the NOTE at the top of this file. Kept in
-    // sync with friendshipTemplates.js/roommateTemplates.js/
-    // groupChemistryTemplates.js/dramaMatchTemplates.js's chemistryPoints/
-    // noblemanBonus additions for consistency, even though no page reads
-    // them yet.
+    // Still unused — the restored 'compatibility' tab (see
+    // buildCompatibilitySections in IdolMatch.jsx) reads goodFit/
+    // meetingScenario/situational/watchFor above, not chemistryPoints/
+    // noblemanBonus below. Kept in sync with friendshipTemplates.js/
+    // roommateTemplates.js/groupChemistryTemplates.js/dramaMatchTemplates.js's
+    // chemistryPoints/noblemanBonus for consistency even so.
     // See friendshipTemplates.js for the full explanation of this 5x5
     // matrix design.
     chemistryPoints: {

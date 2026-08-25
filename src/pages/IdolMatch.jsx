@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { calculateSaju, getCompatibility, getCompatibilityScore, getTenGodProfile, getNobleman } from '../utils/saju';
+import { calculateSaju, getCompatibility, getCompatibilityScore, getPillarCompatibility, getTenGodProfile, getNobleman } from '../utils/saju';
 import { findBestMatch } from '../utils/bestMatch';
+import { getIdolMatchCopy } from '../data/idolMatchTemplates';
 import {
   getFriendshipCopy,
   getChemistryPoints as getFriendChemistryPoints,
@@ -54,7 +55,7 @@ const MODE_CONFIG = {
     sections: ['stagePresence', 'offstage'],
   },
 };
-const RELATIONSHIP_MODES = ['friend', 'roommate', 'groupChemistry'];
+const RELATIONSHIP_MODES = ['compatibility', 'friend', 'roommate', 'groupChemistry'];
 
 // Only the explanation section (the "why") stays free as a teaser; the
 // chemistry-points/nobleman-bonus/mode-specific sections and watchFor are
@@ -86,6 +87,23 @@ function buildInsightSections(t, lang, modeKey, modeCopy, { myTenGod, otherTenGo
   return sections;
 }
 
+// The original "bias match" reading, restored as the 'compatibility' tab —
+// distinct from the three MODE_CONFIG lenses above since its content bank
+// (idolMatchTemplates.js) has its own shape (goodFit/meetingScenario/
+// situational instead of chemistryPoints/mode-specific sections) and lock
+// ratio: explanation + goodFit stay free, meetingScenario/watchFor are
+// locked, and only the first (year) of the 3 always-present pillars
+// (idols' birth times aren't public, see getPillarCompatibility) is free.
+function buildCompatibilitySections(t, copy, pillarTitles) {
+  return [
+    { title: t('matchCommon.insightTitles.explanation'), subheading: copy.explanation.subheading, text: copy.explanation.text, locked: false },
+    { title: t('matchCommon.insightTitles.goodFit'), subheading: copy.goodFit.subheading, text: copy.goodFit.text, locked: false },
+    { title: t('idolMatch.meetingScenarioTitle'), subheading: copy.meetingScenario.subheading, text: copy.meetingScenario.text, locked: true },
+    ...copy.situational.map(({ pillar, text }, i) => ({ title: pillarTitles[pillar], text, locked: i !== 0 })),
+    { title: t('matchCommon.insightTitles.watchFor'), subheading: copy.watchFor.subheading, text: copy.watchFor.text, locked: true },
+  ];
+}
+
 export default function IdolMatch() {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
@@ -93,8 +111,9 @@ export default function IdolMatch() {
   const mode = params.get('mode'); // undefined | 'group'
   const [groupId, setGroupId] = useState(mode === 'group' ? params.get('group') || '' : '');
   const [gender, setGender] = useState(params.get('gender') === 'M' ? 'M' : 'F');
-  const [relationshipMode, setRelationshipMode] = useState('friend');
+  const [relationshipMode, setRelationshipMode] = useState('compatibility');
   const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
+  const pillarTitles = t('matchCommon.pillarTitles', { returnObjects: true });
 
   const relationshipModeTabs = (
     <div className="select-row" role="tablist" style={{ marginBottom: 16 }}>
@@ -174,14 +193,31 @@ export default function IdolMatch() {
       )
     : null;
 
-  const memberCopy = memberCompat ? MODE_CONFIG[relationshipMode].getCopy(i18n.language, memberCompat.relation) : null;
+  const memberPillarCompat = memberCompat ? getPillarCompatibility(userSaju, memberCompat.otherSaju) : null;
+
+  const memberCopy = memberCompat
+    ? relationshipMode === 'compatibility'
+      ? {
+          ...getIdolMatchCopy(i18n.language, memberCompat.relation, `${birth.year}-${birth.month}-${birth.day}-${selectedMember.id}`, memberPillarCompat),
+          explanation: {
+            subheading: t(`matchCommon.explanation.${memberCompat.relation}.subheading`),
+            text: t(`matchCommon.explanation.${memberCompat.relation}.text`, {
+              my: t(`elements.${userSaju.dominantElement}`),
+              other: t(`elements.${memberCompat.otherSaju.dominantElement}`),
+            }),
+          },
+        }
+      : MODE_CONFIG[relationshipMode].getCopy(i18n.language, memberCompat.relation)
+    : null;
 
   const memberInsightSections = memberCompat && memberCopy
-    ? buildInsightSections(t, i18n.language, relationshipMode, memberCopy, {
-        myTenGod: getTenGodProfile(userSaju),
-        otherTenGod: getTenGodProfile(memberCompat.otherSaju),
-        hasNobleman: getNobleman(userSaju, i18n.language).hasNobleman || getNobleman(memberCompat.otherSaju, i18n.language).hasNobleman,
-      })
+    ? relationshipMode === 'compatibility'
+      ? buildCompatibilitySections(t, memberCopy, pillarTitles)
+      : buildInsightSections(t, i18n.language, relationshipMode, memberCopy, {
+          myTenGod: getTenGodProfile(userSaju),
+          otherTenGod: getTenGodProfile(memberCompat.otherSaju),
+          hasNobleman: getNobleman(userSaju, i18n.language).hasNobleman || getNobleman(memberCompat.otherSaju, i18n.language).hasNobleman,
+        })
     : null;
 
   const best = useMemo(() => {
@@ -191,14 +227,31 @@ export default function IdolMatch() {
 
   const bestName = best ? getMemberName(best.candidate, i18n.language) : '';
 
-  const compatCopy = best ? MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation) : null;
+  const bestPillarCompat = best ? getPillarCompatibility(userSaju, best.saju) : null;
+
+  const compatCopy = best
+    ? relationshipMode === 'compatibility'
+      ? {
+          ...getIdolMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`, bestPillarCompat),
+          explanation: {
+            subheading: t(`matchCommon.explanation.${best.relation}.subheading`),
+            text: t(`matchCommon.explanation.${best.relation}.text`, {
+              my: t(`elements.${userSaju.dominantElement}`),
+              other: t(`elements.${best.saju.dominantElement}`),
+            }),
+          },
+        }
+      : MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation)
+    : null;
 
   const insightSections = best && compatCopy
-    ? buildInsightSections(t, i18n.language, relationshipMode, compatCopy, {
-        myTenGod: getTenGodProfile(userSaju),
-        otherTenGod: getTenGodProfile(best.saju),
-        hasNobleman: getNobleman(userSaju, i18n.language).hasNobleman || getNobleman(best.saju, i18n.language).hasNobleman,
-      })
+    ? relationshipMode === 'compatibility'
+      ? buildCompatibilitySections(t, compatCopy, pillarTitles)
+      : buildInsightSections(t, i18n.language, relationshipMode, compatCopy, {
+          myTenGod: getTenGodProfile(userSaju),
+          otherTenGod: getTenGodProfile(best.saju),
+          hasNobleman: getNobleman(userSaju, i18n.language).hasNobleman || getNobleman(best.saju, i18n.language).hasNobleman,
+        })
     : null;
 
   useEffect(() => {

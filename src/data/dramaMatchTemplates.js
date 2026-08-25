@@ -1,9 +1,8 @@
-// NOTE (kept, not deleted, per user request): as of the relationshipMode
-// rework, DramaMatch.jsx no longer imports this file — the on-screen
-// insight sections now come from friendshipTemplates.js/roommateTemplates.js/
-// groupChemistryTemplates.js instead (see MODE_CONFIG in DramaMatch.jsx).
-// This bank's `tier`/`line`/`goodFit`/`meetingScenario`/`watchFor` content
-// is unused by any page right now.
+// Powers DramaMatch.jsx's 'compatibility' relationshipMode tab (restored
+// after briefly being dropped when friend/roommate/groupChemistry were
+// added — see buildCompatibilitySections in DramaMatch.jsx). The other 3
+// tabs still come from friendshipTemplates.js/roommateTemplates.js/
+// groupChemistryTemplates.js.
 //
 // K-drama actor match copy — same Five Element relationship keys as
 // idolMatchTemplates.js, reworded around watching/following an actor's
