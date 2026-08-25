@@ -95,7 +95,7 @@ export const roommateTemplates = {
       },
       dailyMoment: {
         subheading: 'A Quiet Standoff Over What to Order',
-        text: "Even picking a late-night order can turn into a small standoff — one of you wants spicy, the other wants mild. But that back-and-forth usually ends in the fun compromise of just ordering both and splitting it. Compared to living with someone who orders the exact same thing every time, this makes for a much more varied set of memories.",
+        text: "Even picking a late-night order can turn into a small standoff — one of you wants spicy, the other wants mild. But that back-and-forth usually ends in the fun compromise of just ordering both and splitting it. Two roommates who order the same thing every single time build a pretty flat set of memories — this one's got way more range than that, split orders and all.",
       },
       watchFor: {
         subheading: 'Turn the Bickering Into a Game',

@@ -17,11 +17,11 @@ export const friendshipTemplates = {
       },
       travelStyle: {
         subheading: 'Equally Good at Planning and Winging It',
-        text: "Your travel styles probably line up too, which means there's not much room for friction when it's time to plan. If you're both planners, everything clicks into place; if you're both spontaneous, you end up genuinely enjoying the chaos instead of stressing about it. Getting lost together and both just laughing it off with an \"honestly, this is better\" — that scenario probably isn't hard to picture. Compare that to a friendship where one person plans and the other improvises — there'd usually be at least one quiet tension point on a trip like that, and this pairing mostly skips it.",
+        text: "Your travel styles probably line up too, which means there's not much room for friction when it's time to plan. If you're both planners, everything clicks into place; if you're both spontaneous, you end up genuinely enjoying the chaos instead of stressing about it. Getting lost together and both just laughing it off with an \"honestly, this is better\" — that scenario probably isn't hard to picture. Mismatched planner-and-improviser trips usually hit at least one quiet tension point somewhere along the way — this pairing tends to skip that step entirely.",
       },
       cafeChemistry: {
         subheading: 'Three Hours That Feel Like Thirty Minutes',
-        text: "Sit down at a cafe together and the conversation probably never really stalls — one of you picks up exactly where the other left off. You've probably looked at the clock and been shocked that three hours had somehow passed. Silence doesn't feel awkward either — you just drift off into your own thoughts and drift right back into talking, no effort required. Compare that to a friendship where you're constantly scrambling for the next topic, and the ease here becomes obvious.",
+        text: "Sit down at a cafe together and the conversation probably never really stalls — one of you picks up exactly where the other left off. You've probably looked at the clock and been shocked that three hours had somehow passed. Silence doesn't feel awkward either — you just drift off into your own thoughts and drift right back into talking, no effort required. No scrambling for the next topic, no performance required — just ease, plain and simple.",
       },
       howTheySeeYou: {
         subheading: 'The Friend Who Needs No Translation',
@@ -41,11 +41,11 @@ export const friendshipTemplates = {
       },
       travelStyle: {
         subheading: 'The One Who Quietly Handles the Itinerary',
-        text: "On a trip together, your bias is probably the one who ends up quietly holding the schedule together and keeping the mood light. On a moment you were too drained to decide anything, they've probably been the one to gently ask \"how about this?\" and it was exactly the relief you needed. Compare that to a travel companion where you're both stalling on every decision, and the difference in ease is obvious.",
+        text: "On a trip together, your bias is probably the one who ends up quietly holding the schedule together and keeping the mood light. On a moment you were too drained to decide anything, they've probably been the one to gently ask \"how about this?\" and it was exactly the relief you needed. What would that same moment have looked like with a companion just as stuck as you? A lot more standing around, probably — which is exactly the gap this friendship quietly closes.",
       },
       cafeChemistry: {
         subheading: 'Comfortable Even in Silence',
-        text: "At a cafe, you don't need a big conversation — just sitting there doing your own thing and occasionally catching each other's eye is enough to make it a good time. After a rough day, meeting them and feeling your shoulders drop without either of you saying much — you've probably had that exact moment. Compare that to a hangout where you have to keep the energy up the whole time, and you'll notice how rare this quiet ease actually is.",
+        text: "At a cafe, you don't need a big conversation — just sitting there doing your own thing and occasionally catching each other's eye is enough to make it a good time. After a rough day, meeting them and feeling your shoulders drop without either of you saying much — you've probably had that exact moment. A hangout that doesn't demand you keep the energy up the whole time is rarer than people think — and that's exactly what this one is.",
       },
       howTheySeeYou: {
         subheading: 'The Friend Who Puts Them At Ease',
@@ -65,11 +65,11 @@ export const friendshipTemplates = {
       },
       travelStyle: {
         subheading: 'The One Who Ends Up Playing Tour Guide',
-        text: "On a trip, you're probably the one who ends up planning the itinerary and scouting good spots without anyone asking you to. When they looked tired, you've probably been the one to suggest a break, or quietly rearrange the day to make it easier on them. Compare that to a trip where nobody steps up first and there's that faint awkwardness hanging over everything — this chemistry tends to make things easier for both of you instead.",
+        text: "On a trip, you're probably the one who ends up planning the itinerary and scouting good spots without anyone asking you to. When they looked tired, you've probably been the one to suggest a break, or quietly rearrange the day to make it easier on them. Every trip has an invisible glue holding the plans together — in this pairing, that glue is you, and it's the reason nothing here ever quite falls apart.",
       },
       cafeChemistry: {
         subheading: 'The One Who Ends Up Listening',
-        text: "At a cafe, you naturally end up the one asking the questions and doing more of the listening. When they opened up about something, you've probably been the first to say \"thanks for telling me that\" before they even needed to hear it. Compared to a friendship where you're always the one being listened to, this one-directional generosity of yours might stand out clearly by contrast.",
+        text: "At a cafe, you naturally end up the one asking the questions and doing more of the listening. When they opened up about something, you've probably been the first to say \"thanks for telling me that\" before they even needed to hear it. That instinct to listen first, give credit first — it's not something every friendship pulls out of you, which is exactly why it stands out here.",
       },
       howTheySeeYou: {
         subheading: "The Friend Who's Got Their Back",
@@ -89,11 +89,11 @@ export const friendshipTemplates = {
       },
       travelStyle: {
         subheading: 'A Trip That Keeps Going Off-Plan — In a Good Way',
-        text: "Even with a plan in place, your bias probably throws it off by suddenly wanting to do something else. It might catch you off guard at first, but going along with it has probably given you the most memorable moments of the trip more than once. Compare that to a trip that goes exactly as planned, and this unpredictable version is the one you end up replaying in your head longer.",
+        text: "Even with a plan in place, your bias probably throws it off by suddenly wanting to do something else. It might catch you off guard at first, but going along with it has probably given you the most memorable moments of the trip more than once. Try imagining the version of this trip that goes off without a hitch — forgettable, probably. This one, chaos and all, is the one you'll still be replaying in your head months later.",
       },
       cafeChemistry: {
         subheading: "You Never Know Where the Conversation's Headed",
-        text: "At a cafe, the conversation probably veers into completely unexpected territory more than once — jarring in the moment, but it usually ends up being the conversation you remember best. Compare that to an exchange of predictable questions and predictable answers, and this one has a way of staying with you long after it's over.",
+        text: "At a cafe, the conversation probably veers into completely unexpected territory more than once — jarring in the moment, but it usually ends up being the conversation you remember best. Predictable conversations fade fast; this one has a way of staying with you long after it's over — that unpredictability is doing more work than you'd think.",
       },
       howTheySeeYou: {
         subheading: 'Hard to Sum Up, Impossible to Stop Thinking About',
@@ -113,7 +113,7 @@ export const friendshipTemplates = {
       },
       travelStyle: {
         subheading: 'The One Who Steps Up When Things Go Sideways',
-        text: "When something unexpected happens on a trip — a booking issue, a wrong turn — you're probably the one who naturally steps in to fix it. You've probably had a moment where they were flustered and you stayed calm and sorted it out, and things resolved fast because of that. Compare that to a trip where nobody steps up and everyone just scrambles, and this pairing clearly comes out ahead.",
+        text: "When something unexpected happens on a trip — a booking issue, a wrong turn — you're probably the one who naturally steps in to fix it. You've probably had a moment where they were flustered and you stayed calm and sorted it out, and things resolved fast because of that. No scrambling, no wasted panic — just a fast, calm fix and the trip moving on like nothing happened. That's the whole difference this pairing makes.",
       },
       cafeChemistry: {
         subheading: 'The One Who Naturally Steers the Conversation',
