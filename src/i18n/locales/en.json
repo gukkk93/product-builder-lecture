@@ -310,7 +310,7 @@
     "theirElement": "Them",
     "meetingScenarioTitle": "If You Met at a Fan Meet?",
     "shareCaption": "Ohaeng just found my idol match — find yours:",
-    "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Member art is illustrative, not photos."
+    "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate."
   },
   "dramaMatch": {
     "navLabel": "Drama Match",
@@ -321,7 +321,7 @@
     "requestActorLink": "Don't see your actor? Let us know →",
     "meetingScenarioTitle": "If You Ran Into Them at a Premiere?",
     "shareCaption": "Ohaeng just found my K-drama match — find yours:",
-    "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate. Portraits are illustrative, not photos."
+    "disclaimer": "For entertainment purposes only. Birthdates are sourced from public information and may occasionally be inaccurate."
   },
   "matchCommon": {
     "genderLabel": "I am...",

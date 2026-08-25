@@ -350,6 +350,10 @@
 - **Guide.jsx 신규 섹션**: "아이돌/배우 데이터는 어떻게 관리되나요?" — `idols.js`/`kdramaActors.js`를 직접 import해서 그룹 수·멤버 합계·배우 수를 **하드코딩 없이 실시간 계산**(`idolGroups.length`/`reduce`/`kdramaActors.length`, 이 글 작성 시점 31개 그룹·197명·배우 100명, 데이터 추가되면 문구도 자동으로 맞음). 생일 검증 방법론은 `idols.js`/`kdramaActors.js` 상단 주석에 실제로 적힌 방식(KProfiles/나무위키/Generasia 등 복수 출처 교차검증, 신뢰도 낮은 단일소스는 미채택)을 그대로 서술. 최신화 주기 문구("새 그룹과 배우는 계속 정기적으로 추가하고 있어요")와 함께 요청 링크 안내도 포함.
 - **검증**: Playwright로 그룹모드 요청 링크 클릭 → `/contact` 정상 도착 + topic select 값이 `general`인지 확인, 콘솔에 `[analytics] capture: idol_request_click {context: idol-match-group}` 로그 실제 발생 확인(PostHog 키 미설정 상태라 실제 전송 대신 콘솔 로그로 대체 확인). Guide.jsx 렌더 텍스트에서 "31 K-pop groups (197 members) and 100 K-drama actors" 문장이 실제 데이터 개수와 일치하는지 확인. en/ko, 콘솔 에러 0건.
 
+## 6-2. `idolMatch`/`dramaMatch` disclaimer에서 "멤버 이미지는 일러스트" 문장 제거
+
+en.json/ko.json의 `idolMatch.disclaimer`/`dramaMatch.disclaimer`에서 "Member art is illustrative, not photos."/"멤버 이미지는 일러스트이며 실제 사진이 아니에요." (드라마 쪽은 "Portraits are illustrative..."/"이미지는 일러스트이며...") 문장만 제거 — "재미로 보는 콘텐츠" + "생일 정보 출처·부정확 가능성" 두 문장은 그대로 유지. 다른 카드(`saju`/`result`/`compatibility` 등)의 disclaimer는 원래 이 문장이 없어서 안 건드림. Playwright로 `/idol-match`/`/drama-match` 결과 화면의 `.disclaimer` 텍스트를 en/ko 둘 다 확인 — 의도한 두 문장만 남음, 콘솔 에러 0건.
+
 ## 7. 디자인 시스템
 
 - **`STYLE_GUIDE.md`** (레포 루트): 색상/타이포/스페이싱 토큰, 아이콘 규칙 문서화. **"클린 배경" 방향으로 리비전됨** (아래 참고)
