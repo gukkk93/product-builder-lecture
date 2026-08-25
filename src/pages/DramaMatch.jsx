@@ -147,16 +147,14 @@ export default function DramaMatch() {
 
   const compatCopy = best
     ? relationshipMode === 'compatibility'
-      ? {
-          ...getDramaMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`, bestPillarCompat),
-          explanation: {
-            subheading: t(`matchCommon.explanation.${best.relation}.subheading`),
-            text: t(`matchCommon.explanation.${best.relation}.text`, {
-              my: t(`elements.${userSaju.dominantElement}`),
-              other: t(`elements.${best.saju.dominantElement}`),
-            }),
-          },
-        }
+      ? getDramaMatchCopy(
+          i18n.language,
+          best.relation,
+          `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`,
+          bestPillarCompat,
+          userSaju.dominantElement,
+          best.saju.dominantElement
+        )
       : MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation)
     : null;
 

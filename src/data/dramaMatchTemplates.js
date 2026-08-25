@@ -1,3 +1,8 @@
+import en from '../i18n/locales/en.json';
+import ko from '../i18n/locales/ko.json';
+
+const LOCALE_JSON = { en, ko };
+
 // Powers DramaMatch.jsx's 'compatibility' relationshipMode tab (restored
 // after briefly being dropped when friend/roommate/groupChemistry were
 // added — see buildCompatibilitySections in DramaMatch.jsx). The other 3
@@ -552,18 +557,38 @@ function hashCode(str) {
   return hash;
 }
 
+function interpolate(text, vars) {
+  return text.replace(/\{\{(\w+)\}\}/g, (_, key) => vars[key] ?? '');
+}
+
+// See idolMatchTemplates.js's buildExplanation for the full explanation —
+// same mechanic, reused so getDramaMatchCopy's return shape always has an
+// `explanation` field like the other 3 relationshipMode getCopy functions do.
+function buildExplanation(lang, relation, myElement, otherElement) {
+  const locale = LOCALE_JSON[lang] || LOCALE_JSON.en;
+  const entry = locale.matchCommon.explanation[relation];
+  return {
+    subheading: entry.subheading,
+    text: interpolate(entry.text, { my: locale.elements[myElement], other: locale.elements[otherElement] }),
+  };
+}
+
 /**
  * Picks compatibility copy for a relation, stable per user+actor pair.
  * Returns the tier name, the seeded `line` (5 variants, picked as always),
- * `goodFit`/`watchFor` — each a fixed { subheading, text } per relation
- * rather than a seeded pick, since they're long enough now (multi-paragraph
- * reads) that one well-written entry per relation serves better than 5
- * near-duplicate variants — and `situational`, a pillar-by-pillar
- * compatibility read built from `pillarCompat` (see getPillarCompatibility
- * in utils/saju.js), one entry per pillar in the order it was given
- * (year/month/day[/time]).
+ * `explanation` (see buildExplanation above), `goodFit`/`watchFor` — each a
+ * fixed { subheading, text } per relation rather than a seeded pick, since
+ * they're long enough now (multi-paragraph reads) that one well-written
+ * entry per relation serves better than 5 near-duplicate variants — and
+ * `situational`, a pillar-by-pillar compatibility read built from
+ * `pillarCompat` (see getPillarCompatibility in utils/saju.js), one entry
+ * per pillar in the order it was given (year/month/day[/time]).
+ *
+ * `myElement`/`otherElement` (the two people's dominantElement, e.g. 'Wood')
+ * are only used to fill in `explanation`'s {{my}}/{{other}} — omit them and
+ * explanation's text just renders with the placeholders empty.
  */
-export function getDramaMatchCopy(lang, relation, seedInput, pillarCompat = []) {
+export function getDramaMatchCopy(lang, relation, seedInput, pillarCompat = [], myElement, otherElement) {
   const entry = (dramaMatchTemplates[lang] || dramaMatchTemplates.en)[relation];
   const pillarBank = pillarSituational[lang] || pillarSituational.en;
   const seed = hashCode(seedInput);
@@ -571,6 +596,7 @@ export function getDramaMatchCopy(lang, relation, seedInput, pillarCompat = []) 
   return {
     tier: entry.tier,
     line: entry.lines[idx],
+    explanation: buildExplanation(lang, relation, myElement, otherElement),
     goodFit: entry.goodFit,
     meetingScenario: entry.meetingScenario,
     watchFor: entry.watchFor,

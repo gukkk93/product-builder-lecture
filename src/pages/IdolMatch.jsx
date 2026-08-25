@@ -197,16 +197,14 @@ export default function IdolMatch() {
 
   const memberCopy = memberCompat
     ? relationshipMode === 'compatibility'
-      ? {
-          ...getIdolMatchCopy(i18n.language, memberCompat.relation, `${birth.year}-${birth.month}-${birth.day}-${selectedMember.id}`, memberPillarCompat),
-          explanation: {
-            subheading: t(`matchCommon.explanation.${memberCompat.relation}.subheading`),
-            text: t(`matchCommon.explanation.${memberCompat.relation}.text`, {
-              my: t(`elements.${userSaju.dominantElement}`),
-              other: t(`elements.${memberCompat.otherSaju.dominantElement}`),
-            }),
-          },
-        }
+      ? getIdolMatchCopy(
+          i18n.language,
+          memberCompat.relation,
+          `${birth.year}-${birth.month}-${birth.day}-${selectedMember.id}`,
+          memberPillarCompat,
+          userSaju.dominantElement,
+          memberCompat.otherSaju.dominantElement
+        )
       : MODE_CONFIG[relationshipMode].getCopy(i18n.language, memberCompat.relation)
     : null;
 
@@ -231,16 +229,14 @@ export default function IdolMatch() {
 
   const compatCopy = best
     ? relationshipMode === 'compatibility'
-      ? {
-          ...getIdolMatchCopy(i18n.language, best.relation, `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`, bestPillarCompat),
-          explanation: {
-            subheading: t(`matchCommon.explanation.${best.relation}.subheading`),
-            text: t(`matchCommon.explanation.${best.relation}.text`, {
-              my: t(`elements.${userSaju.dominantElement}`),
-              other: t(`elements.${best.saju.dominantElement}`),
-            }),
-          },
-        }
+      ? getIdolMatchCopy(
+          i18n.language,
+          best.relation,
+          `${birth.year}-${birth.month}-${birth.day}-${best.candidate.id}`,
+          bestPillarCompat,
+          userSaju.dominantElement,
+          best.saju.dominantElement
+        )
       : MODE_CONFIG[relationshipMode].getCopy(i18n.language, best.relation)
     : null;
 
