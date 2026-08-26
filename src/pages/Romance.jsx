@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { getRomanceCopy, getRomanceClosing } from '../data/romanceTemplates';
+import { romanceItemKey } from '../utils/credits';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl, birthParams } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
@@ -206,7 +207,7 @@ export default function Romance() {
           {closing && (
             <p style={{ fontSize: 15, lineHeight: 1.6, fontWeight: 700, color: 'var(--accent)' }}>{closing}</p>
           )}
-          {insightSections && <InsightSection sections={insightSections} product="romance" />}
+          {insightSections && <InsightSection sections={insightSections} unlockKey={romanceItemKey(situation, myBirth, theirBirth)} />}
 
           <div className="result-actions">
             <button

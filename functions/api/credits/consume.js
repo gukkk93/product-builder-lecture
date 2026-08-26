@@ -17,7 +17,12 @@
 // this app's scale (a single visitor, one tab, no login) rather than
 // solved with a Durable Object.
 const ANON_ID_RE = /^[0-9a-f-]{16,64}$/i;
-const ITEM_KEY_RE = /^(idol|actor):[a-z0-9-]+$/i;
+// idol:<memberId> / actor:<actorId> (see idolItemKey/actorItemKey) plus
+// saju:<birthKey> / compat:<birthKey>:<birthKey> / romance:<situation>:
+// <birthKey>:<birthKey> (see sajuItemKey/compatItemKey/romanceItemKey in
+// src/utils/credits.js) — the birth-date-keyed formats need colons as an
+// inner separator, unlike the flat idol/actor ids.
+const ITEM_KEY_RE = /^(idol|actor|saju|compat|romance):[a-z0-9:_-]{1,120}$/i;
 
 export async function onRequestPost({ request, env }) {
   let body;

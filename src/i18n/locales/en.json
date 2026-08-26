@@ -53,9 +53,9 @@
     ]
   },
   "home": {
-    "readingsLabel": "Saju Readings",
+    "readingsLabel": "My Ohaeng",
     "romanceLabel": "Romance",
-    "idolsLabel": "K-Pop & K-Drama",
+    "idolsLabel": "Fandom Match",
     "howItWorksHeading": "How it works",
     "step1": "Pick a reading",
     "step2": "Enter your birthday",
@@ -383,7 +383,7 @@
       "M": "Male"
     },
     "creditLock": {
-      "note": "Unlock this member's full reading with 1 credit",
+      "note": "Unlock this full reading with 1 credit",
       "unlockButton": "Unlock for 1 credit",
       "unlocking": "Unlocking…",
       "buyButton": "Buy credits",
@@ -423,7 +423,7 @@
     "dataBody2": "Birthdates are sourced from public fan wikis and reference sites (KProfiles, NamuWiki, Generasia, and similar), cross-checked across at least two independent sources before being added. If a birthdate only shows up on a single low-reliability source, we don't add it — better to leave someone out than get their chart wrong.",
     "dataBody3": "We're adding new groups and actors on an ongoing basis. Don't see who you're looking for? There's a request link right on the Idol Match and K-Drama Match pages, or you can reach out through Contact.",
     "premiumTestHeading": "Premium Unlock Testing",
-    "premiumTestIntro": "Relock a specific product to retest its unlock flow, without clearing your browser storage by hand.",
+    "premiumTestIntro": "Saju, Compatibility, and Romance now share the same per-birth-date credit system as Idol Match and Drama Match — see the Credits page to buy or check a balance. For local development, flip PREVIEW_MODE_UNLOCK_ALL in src/config.js to bypass every lock at once.",
     "premiumTestProducts": {
       "saju": "Saju",
       "compatibility": "Compatibility",

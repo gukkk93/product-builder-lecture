@@ -53,9 +53,9 @@
     ]
   },
   "home": {
-    "readingsLabel": "사주 리딩",
+    "readingsLabel": "내 오행 보기",
     "romanceLabel": "연애",
-    "idolsLabel": "K팝 & K-드라마",
+    "idolsLabel": "덕질 매치",
     "howItWorksHeading": "이용 방법",
     "step1": "리딩 선택하기",
     "step2": "생년월일 입력하기",
@@ -383,7 +383,7 @@
       "M": "남자"
     },
     "creditLock": {
-      "note": "크레딧 1개로 이 멤버의 전체 리딩을 잠금 해제하세요",
+      "note": "크레딧 1개로 이 리딩을 잠금 해제하세요",
       "unlockButton": "크레딧 1개로 보기",
       "unlocking": "잠금 해제 중…",
       "buyButton": "크레딧 구매하기",
@@ -423,7 +423,7 @@
     "dataBody2": "생일 정보는 KProfiles, 나무위키, Generasia 등 공개된 팬 위키·자료 사이트를 참고하고, 최소 두 곳 이상의 독립된 출처로 교차 검증한 뒤에만 등록해요. 신뢰도 낮은 단일 출처에만 나오는 생일 정보는 채택하지 않아요 — 잘못된 사주를 보여드리느니 아예 빼는 게 낫다고 생각해요.",
     "dataBody3": "새 그룹과 배우는 계속 정기적으로 추가하고 있어요. 찾는 대상이 없다면 아이돌 매치·K-드라마 매치 페이지에 있는 요청 링크를 눌러주시거나, 문의하기로 알려주세요.",
     "premiumTestHeading": "프리미엄 잠금 테스트",
-    "premiumTestIntro": "브라우저 저장소를 직접 지우지 않고도, 특정 상품만 다시 잠가서 잠금 해제 흐름을 반복 테스트할 수 있어요.",
+    "premiumTestIntro": "사주, 궁합, 로맨스도 이제 아이돌 매치·드라마 매치와 같은 생년월일 단위 크레딧 시스템을 함께 써요 — 크레딧 구매·잔액 확인은 크레딧 페이지를 참고하세요. 로컬 개발 중에는 src/config.js의 PREVIEW_MODE_UNLOCK_ALL을 켜면 모든 잠금을 한 번에 우회할 수 있어요.",
     "premiumTestProducts": {
       "saju": "사주",
       "compatibility": "궁합보기",

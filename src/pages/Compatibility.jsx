@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { calculateSaju, getCompatibility, getCompatibilityScore } from '../utils/saju';
 import { getCompatibilityCopy } from '../data/compatibilityTemplates';
 import { getSajuStrengthInsight } from '../data/sajuStrengthTemplates';
+import { compatItemKey } from '../utils/credits';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl, birthParams } from '../utils/shareUrl';
 import { trackPageView } from '../utils/analytics';
@@ -218,7 +219,7 @@ export default function Compatibility() {
 
           <strong style={{ color: 'var(--accent)', fontSize: 20 }}>{copy.tier}</strong>
           <p style={{ fontSize: 15, lineHeight: 1.6 }}>{copy.line}</p>
-          {insightSections && <InsightSection sections={insightSections} product="compatibility" />}
+          {insightSections && <InsightSection sections={insightSections} unlockKey={compatItemKey(myBirth, theirBirth)} />}
 
           <div className="result-actions">
             <button

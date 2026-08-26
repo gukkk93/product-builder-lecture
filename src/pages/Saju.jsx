@@ -16,7 +16,8 @@ import LoadingReveal from '../components/LoadingReveal';
 import ElementCharacter from '../components/ElementCharacter';
 import InsightSection from '../components/InsightSection';
 import LifeScoreChart from '../components/LifeScoreChart';
-import PremiumLock from '../components/PremiumLock';
+import CreditLock from '../components/CreditLock';
+import { sajuItemKey } from '../utils/credits';
 
 const DOMAINS = ['romanceStyle', 'wealthStyle', 'careerStyle', 'healthStyle'];
 
@@ -72,6 +73,12 @@ export default function Saju() {
       </main>
     );
   }
+
+  // One credit unlocks this birth's entire reading (every domain chapter,
+  // the Ten God chapter, and the extra shensha/nobleman/year-luck/samjae
+  // section) at once — see sajuItemKey for exactly what's excluded (name/
+  // gender don't change the reading, so they're not part of the key).
+  const sajuKey = sajuItemKey(birth);
 
   const profile = getSajuProfile(i18n.language, saju.dominantElement);
   const dayMasterLine = getDayMasterLine(i18n.language, saju.dayGanElement);
@@ -267,7 +274,7 @@ export default function Saju() {
         {domainChapters.map((chapter, i) => (
           <div className="card" key={DOMAINS[i]} style={{ marginBottom: 16, textAlign: 'left' }}>
             <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{chapter.title}</h2>
-            <InsightSection sections={chapter.sections} product="saju" />
+            <InsightSection sections={chapter.sections} unlockKey={sajuKey} />
           </div>
         ))}
 
@@ -276,13 +283,13 @@ export default function Saju() {
           {daeun && lifeScore ? (
             <>
               <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{t('saju.daeunLifeExplain')}</p>
-              <PremiumLock product="saju">
+              <CreditLock unlockKey={sajuKey}>
                 <>
                   <LifeScoreChart periods={lifeScore.periods} forward={lifeScore.forward} />
                   <p style={{ margin: '14px 0 0', fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>{daeunLifeBestNote}</p>
                   <p style={{ margin: '8px 0 0', fontSize: 13, lineHeight: 1.6, color: 'var(--text)' }}>{daeunLifeCautionNote}</p>
                 </>
-              </PremiumLock>
+              </CreditLock>
             </>
           ) : (
             <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{t('saju.daeunLifeNeedGender')}</p>
@@ -292,12 +299,12 @@ export default function Saju() {
         <div className="card" style={{ marginBottom: 16, textAlign: 'left' }}>
           <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{tenGodChapter.title}</h2>
           <p style={{ margin: '0 0 12px', fontSize: 12, color: 'var(--text-muted)' }}>{tenGodChapter.intro}</p>
-          <InsightSection sections={tenGodChapter.sections} product="saju" />
+          <InsightSection sections={tenGodChapter.sections} unlockKey={sajuKey} />
         </div>
 
         <div className="card" style={{ textAlign: 'left' }}>
           <h2 style={{ marginTop: 0, marginBottom: 4, fontSize: 16 }}>{t('saju.extraHeading')}</h2>
-          <InsightSection element={saju.dominantElement} intro={t('saju.extraIntro')} sections={extraSections} product="saju" />
+          <InsightSection element={saju.dominantElement} intro={t('saju.extraIntro')} sections={extraSections} unlockKey={sajuKey} />
         </div>
       </div>
 
