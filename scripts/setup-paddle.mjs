@@ -76,7 +76,10 @@ const product = await paddleFetch('/products', {
   method: 'POST',
   body: JSON.stringify({
     name: 'Ohaeng Credit Pack',
-    tax_category: 'digital-goods',
+    // 'digital-goods' isn't approved on every account by default and
+    // returns product_tax_category_not_approved until Paddle enables it —
+    // 'standard' works out of the box on a fresh sandbox account.
+    tax_category: 'standard',
     description: 'Credits for unlocking individual idol/actor readings on Ohaeng.',
   }),
 });

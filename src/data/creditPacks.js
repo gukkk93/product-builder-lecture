@@ -5,7 +5,7 @@
 // localized price at payment time) — amounts must match what
 // scripts/setup-paddle.mjs actually creates: $0.99 / $2.49 / $3.99.
 export const CREDIT_PACKS = [
-  { id: 'pri_REPLACE_WITH_1_CREDIT_PRICE_ID', credits: 1, priceLabel: '$0.99' },
-  { id: 'pri_REPLACE_WITH_3_CREDIT_PRICE_ID', credits: 3, priceLabel: '$2.49' },
-  { id: 'pri_REPLACE_WITH_5_CREDIT_PRICE_ID', credits: 5, priceLabel: '$3.99' },
+  { id: 'pri_01m0ywx9ewhq0ttraa42k4wvv0', credits: 1, priceLabel: '$0.99' },
+  { id: 'pri_01m0ywx9pgyc9wz2adbvcnr5pn', credits: 3, priceLabel: '$2.49' },
+  { id: 'pri_01m0ywx9ycvz8gaeqw52b21j9j', credits: 5, priceLabel: '$3.99' },
 ];
