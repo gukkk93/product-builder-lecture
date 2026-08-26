@@ -11,7 +11,10 @@
 // file itself needs no changes at that point.
 const STORAGE_KEY = 'premiumUnlockedProducts';
 
-export const PRODUCTS = ['saju', 'compatibility', 'idolMatch', 'dramaMatch', 'romance'];
+// idolMatch/dramaMatch used to be here too, but both switched to the
+// separate per-member/per-actor credit system (see src/utils/credits.js,
+// src/context/CreditsContext.jsx) — they no longer use PremiumLock at all.
+export const PRODUCTS = ['saju', 'compatibility', 'romance'];
 
 function readAll() {
   try {

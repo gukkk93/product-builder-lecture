@@ -23,6 +23,8 @@ import { kdramaActors, getActorName } from '../data/kdramaActors';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
 import { trackIdolMatchSubmit, trackIdolRequestClick } from '../utils/analytics';
+import { actorItemKey } from '../utils/credits';
+import { useCredits } from '../context/CreditsContext';
 import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
 import GenderSelect from '../components/GenderSelect';
@@ -99,6 +101,14 @@ export default function DramaMatch() {
   const [relationshipMode, setRelationshipMode] = useState('compatibility');
   const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
   const pillarTitles = t('matchCommon.pillarTitles', { returnObjects: true });
+  const { balance } = useCredits();
+
+  const creditsBalanceNote = (
+    <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
+      {t('matchCommon.creditLock.balance', { count: balance ?? 0 })}{' '}
+      <Link to="/credits" style={{ color: 'var(--accent)' }}>{t('matchCommon.creditLock.buyButton')}</Link>
+    </div>
+  );
 
   const relationshipModeTabs = (
     <div className="select-row" role="tablist" style={{ marginBottom: 16 }}>
@@ -214,6 +224,7 @@ export default function DramaMatch() {
       <div className="page-content">
         <h1>{t('dramaMatch.title')}</h1>
         <p className="subtitle">{t('dramaMatch.subtitle')}</p>
+        {creditsBalanceNote}
         {relationshipModeTabs}
 
         <MatchResultCard
@@ -228,7 +239,7 @@ export default function DramaMatch() {
           tier={compatCopy.tier}
           line={compatCopy.line}
           insightSections={insightSections}
-          insightProduct="dramaMatch"
+          insightUnlockKey={actorItemKey(best.candidate.id)}
           compatibilityHeading={t('idolMatch.compatibilityHeading', { member: actorName })}
           scoreLabel={t('matchCommon.scoreLabel')}
           onShare={() =>

@@ -381,7 +381,25 @@
     "genderShort": {
       "F": "Female",
       "M": "Male"
+    },
+    "creditLock": {
+      "note": "Unlock this member's full reading with 1 credit",
+      "unlockButton": "Unlock for 1 credit",
+      "unlocking": "Unlocking…",
+      "buyButton": "Buy credits",
+      "balance": "Credits: {{count}}"
     }
+  },
+  "credits": {
+    "title": "Buy Credits",
+    "subtitle": "1 credit unlocks one idol or actor's full reading — permanently, no expiry.",
+    "currentBalance": "Credits: {{count}}",
+    "unavailable": "Credit purchases aren't set up yet — check back soon.",
+    "processing": "Processing your purchase…",
+    "success": "You're all set — Credits: {{count}}.",
+    "packLabel": "{{count}} Credits",
+    "backToIdolMatch": "Back to Idol Match",
+    "backToDramaMatch": "Back to K-Drama Match"
   },
   "guide": {
     "navLabel": "Guide",

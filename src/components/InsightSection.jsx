@@ -1,5 +1,6 @@
 import ElementCharacter from './ElementCharacter';
 import PremiumLock from './PremiumLock';
+import CreditLock from './CreditLock';
 
 /**
  * Renders a numbered list of insight paragraphs (badge + title + body),
@@ -24,9 +25,15 @@ import PremiumLock from './PremiumLock';
  * (see PremiumLock.jsx) — callers specify it once here instead of on every
  * individual section.
  *
+ * `unlockKey` (optional): when set, locked sections render CreditLock
+ * (gates on a specific credit-ledger item, e.g. 'idol:bts-rm') instead of
+ * PremiumLock (gates on a whole product's unlock flag) — used only by
+ * IdolMatch/DramaMatch's per-member/per-actor reads. Leave unset for every
+ * other product; `product` is then required as before.
+ *
  * `sections`: Array<{ title: string, subheading?: string, text: string, locked?: boolean }>
  */
-export default function InsightSection({ element, intro, sections, product }) {
+export default function InsightSection({ element, intro, sections, product, unlockKey }) {
   if (!sections || sections.length === 0) return null;
 
   return (
@@ -100,7 +107,11 @@ export default function InsightSection({ element, intro, sections, product }) {
                 </span>
                 <strong style={{ fontSize: 14 }}>{section.title}</strong>
               </div>
-              {section.locked ? <PremiumLock product={product}>{body}</PremiumLock> : body}
+              {section.locked ? (
+                unlockKey ? <CreditLock unlockKey={unlockKey}>{body}</CreditLock> : <PremiumLock product={product}>{body}</PremiumLock>
+              ) : (
+                body
+              )}
             </div>
           );
         })}

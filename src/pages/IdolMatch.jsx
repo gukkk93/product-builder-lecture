@@ -23,6 +23,8 @@ import { idolGroups, getMemberName } from '../data/idols';
 import { useShareCardDownload } from '../hooks/useShareCardDownload';
 import { buildShareUrl } from '../utils/shareUrl';
 import { trackIdolMatchSubmit, trackIdolRequestClick } from '../utils/analytics';
+import { idolItemKey } from '../utils/credits';
+import { useCredits } from '../context/CreditsContext';
 import IdolShareCard from '../components/IdolShareCard';
 import BirthDateForm from '../components/BirthDateForm';
 import GenderSelect from '../components/GenderSelect';
@@ -114,6 +116,17 @@ export default function IdolMatch() {
   const [relationshipMode, setRelationshipMode] = useState('compatibility');
   const { cardRef: shareCardRef, download, downloading, saveImage, savingImage, canShareFiles } = useShareCardDownload();
   const pillarTitles = t('matchCommon.pillarTitles', { returnObjects: true });
+  const { balance } = useCredits();
+
+  // Shown once per result screen (both the group-member view and the
+  // best-match view render this) — idolMatch/dramaMatch are the only
+  // products gated by credits instead of PremiumLock, see CreditLock.jsx.
+  const creditsBalanceNote = (
+    <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
+      {t('matchCommon.creditLock.balance', { count: balance ?? 0 })}{' '}
+      <Link to="/credits" style={{ color: 'var(--accent)' }}>{t('matchCommon.creditLock.buyButton')}</Link>
+    </div>
+  );
 
   const relationshipModeTabs = (
     <div className="select-row" role="tablist" style={{ marginBottom: 16 }}>
@@ -294,6 +307,7 @@ export default function IdolMatch() {
             </button>
 
             <h1>{t('idolMatch.groupTitle')}</h1>
+            {creditsBalanceNote}
             {relationshipModeTabs}
 
             <MatchResultCard
@@ -308,7 +322,7 @@ export default function IdolMatch() {
               tier={memberCopy.tier}
               line={memberCopy.line}
               insightSections={memberInsightSections}
-              insightProduct="idolMatch"
+              insightUnlockKey={idolItemKey(selectedMember.id)}
               compatibilityHeading={t('idolMatch.compatibilityHeading', { member: memberName })}
               scoreLabel={t('matchCommon.scoreLabel')}
               onShare={() =>
@@ -436,6 +450,7 @@ export default function IdolMatch() {
       <div className="page-content">
         <h1>{t('idolMatch.title')}</h1>
         <p className="subtitle">{t('idolMatch.subtitle')}</p>
+        {creditsBalanceNote}
         {relationshipModeTabs}
 
         <MatchResultCard
@@ -450,7 +465,7 @@ export default function IdolMatch() {
           tier={compatCopy.tier}
           line={compatCopy.line}
           insightSections={insightSections}
-          insightProduct="idolMatch"
+          insightUnlockKey={idolItemKey(best.candidate.id)}
           compatibilityHeading={t('idolMatch.compatibilityHeading', { member: bestName })}
           scoreLabel={t('matchCommon.scoreLabel')}
           onShare={() =>

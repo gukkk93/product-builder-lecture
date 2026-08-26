@@ -22,6 +22,7 @@ export default function MatchResultCard({
   line,
   insightSections,
   insightProduct,
+  insightUnlockKey,
   compatibilityHeading,
   scoreLabel,
   onShare,
@@ -67,7 +68,7 @@ export default function MatchResultCard({
 
       <strong style={{ color: 'var(--accent)', fontSize: 18 }}>{tier}</strong>
       <p style={{ fontSize: 15, lineHeight: 1.6 }}>{line}</p>
-      {insightSections && <InsightSection sections={insightSections} product={insightProduct} />}
+      {insightSections && <InsightSection sections={insightSections} product={insightProduct} unlockKey={insightUnlockKey} />}
 
       <div className="result-actions">
         <button className="button" onClick={onShare} disabled={downloading}>

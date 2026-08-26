@@ -381,7 +381,25 @@
     "genderShort": {
       "F": "여자",
       "M": "남자"
+    },
+    "creditLock": {
+      "note": "크레딧 1개로 이 멤버의 전체 리딩을 잠금 해제하세요",
+      "unlockButton": "크레딧 1개로 보기",
+      "unlocking": "잠금 해제 중…",
+      "buyButton": "크레딧 구매하기",
+      "balance": "보유 크레딧: {{count}}개"
     }
+  },
+  "credits": {
+    "title": "크레딧 구매",
+    "subtitle": "크레딧 1개로 아이돌 멤버나 배우 한 명의 전체 리딩을 영구적으로 잠금 해제해요.",
+    "currentBalance": "보유 크레딧: {{count}}개",
+    "unavailable": "크레딧 구매는 아직 준비 중이에요 — 곧 만나보실 수 있어요.",
+    "processing": "결제를 처리하는 중이에요…",
+    "success": "준비됐어요 — 보유 크레딧: {{count}}개.",
+    "packLabel": "크레딧 {{count}}개",
+    "backToIdolMatch": "아이돌 매치로 돌아가기",
+    "backToDramaMatch": "K-드라마 매치로 돌아가기"
   },
   "guide": {
     "navLabel": "가이드",
