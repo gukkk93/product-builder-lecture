@@ -10,6 +10,7 @@ export default function Footer() {
       <div className="site-footer__links">
         <Link to="/privacy">{t('footer.privacy')}</Link>
         <Link to="/terms">{t('footer.terms')}</Link>
+        <Link to="/refund-policy">{t('footer.refundPolicy')}</Link>
       </div>
       <p className="site-footer__copyright">{t('footer.copyright', { year })}</p>
     </footer>

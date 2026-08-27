@@ -467,6 +467,16 @@ theme/language 토글과 동일한 localStorage 패턴(`ThemeToggle.jsx`/`Langua
 - **i18n**: `footer.*`(3개 키), `privacy.*`(12개 키), `terms.*`(8개 키) en/ko 완전 병렬 추가. "최종 수정일"은 작성 시점 날짜를 정적 텍스트로 박아둠(코드로 자동 계산 안 함) — 내용이 실제로 바뀔 때 수동으로 갱신하면 됨
 - **검증**: Playwright로 `/privacy`·`/terms` 라이트/다크·en/ko 렌더링, 푸터 링크 텍스트·저작권 문구가 언어별로 정확히 바뀌는지, 짧은 페이지(`/about`)에서 푸터가 뷰포트 하단에 붙는지, 긴 페이지(`/`)에서 레이아웃 깨짐 없는지까지 스크린샷으로 확인. 콘솔 에러 0건
 
+## 9-3. Refund Policy 페이지 추가 (`RefundPolicy.jsx`) — Paddle 계정 인증 필수 요건
+
+Paddle 실계정 인증에 "공개적으로 접근 가능한 환불정책 페이지"가 필수 조건으로 걸려있어서 급하게 추가됨(13-1 Paddle 연동 작업의 후속).
+
+- **라우트**: `/refund-policy` — `Privacy.jsx`/`Terms.jsx`와 동일한 카드 나열 패턴(제목+부제 → 카드 3개: 디지털 콘텐츠 특성/예외 조항/문의 방법). 마지막 카드에 `/contact` 버튼 포함, 나머지 두 페이지와 완전히 통일된 구조
+- **내용(디지털 콘텐츠 특성 반영, 사용자가 준 뼈대 그대로)**: (1) 크레딧/잠금해제는 결제 즉시 이용 가능해지는 디지털 콘텐츠라 원칙적으로 환불 어려움 — 크레딧이 잔액에 반영되거나 리딩 잠금 해제에 쓰인 이후 시점 기준으로 명시 (2) 예외: 중복결제·시스템 오류로 인한 미지급 등 **결제 오류**가 확인되면 환불 (3) 환불 요청 방법: `/contact`로 결제 시점·금액·이메일 포함해서 문의
+- **전역 푸터에 링크 추가**: `Footer.jsx`의 Privacy/Terms 링크 옆에 `/refund-policy` 링크 추가(`footer.refundPolicy` 신규 i18n 키) — 이제 모든 페이지 하단에서 3개 링크 다 노출
+- **i18n**: `refundPolicy.*`(8개 키) en/ko 신규 추가, `footer.refundPolicy` 1개 추가. "최종 수정일"은 9-2와 동일하게 정적 텍스트
+- **검증**: Playwright로 `/terms`에서 실제로 푸터의 "Refund Policy"/"환불 정책" 링크를 클릭해서 `/refund-policy`로 정상 이동하는지, en/ko 페이지 전체 텍스트가 의도한 3개 섹션 내용으로 정확히 렌더되는지 확인. 콘솔 에러 0건
+
 ## 10. 배포/설정
 
 - Cloudflare Pages 빌드: Framework preset None, Build command `npm run build`, Output directory `dist`

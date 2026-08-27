@@ -10,6 +10,7 @@
   "footer": {
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
+    "refundPolicy": "Refund Policy",
     "copyright": "© {{year}} Ohaeng. All rights reserved."
   },
   "loading": {
@@ -462,6 +463,17 @@
     "aboutBody": "Ohaeng is a saju (Korean four pillars) and Five Element fortune-telling web app, offered as-is for personal, non-commercial enjoyment. By using the site, you agree to use it for its intended entertainment purpose.",
     "contactHeading": "Questions?",
     "contactBody": "If you have any questions about these terms, reach out through our Contact page."
+  },
+  "refundPolicy": {
+    "navLabel": "Refund Policy",
+    "title": "Refund Policy",
+    "subtitle": "Last updated: August 26, 2026",
+    "digitalGoodsHeading": "Digital content, available immediately",
+    "digitalGoodsBody": "Credits and the readings they unlock are digital content that becomes available to you the instant your payment is processed. Because of this, purchases are generally non-refundable once credits have been added to your balance or used to unlock a reading.",
+    "exceptionHeading": "Exceptions — payment errors",
+    "exceptionBody": "If something went wrong with your payment — you were charged twice for the same purchase, your card was charged but the credits never arrived, or a similar system error occurred — we'll look into it and issue a refund once we've confirmed the error. This is the one case where we do refund purchases.",
+    "contactHeading": "Requesting a refund",
+    "contactBody": "If you believe you've been affected by a payment error, contact us with your purchase details (approximate date, amount, and the email used at checkout) and we'll investigate."
   },
   "comingSoon": {
     "title": "Coming soon",

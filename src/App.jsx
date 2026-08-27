@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import Guide from './pages/Guide';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
+import RefundPolicy from './pages/RefundPolicy';
 import ComingSoon from './pages/ComingSoon';
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
             <Route path="/guide" element={<Guide />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
             <Route path="/idol-match" element={<IdolMatch />} />
             <Route path="/drama-match" element={<DramaMatch />} />
             <Route path="/credits" element={<Credits />} />
